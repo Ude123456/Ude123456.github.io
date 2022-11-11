@@ -4,8 +4,9 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Hello World, 博客，思无邪">
-    <meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hex">
+    <meta name="keywords" content="最小生成树(Dijkstra算法), 博客，思无邪">
+    <meta name="description" content="
+Dijkstra算法刚接触时确实有点难以理解，尤其是代码的实现，但其背后的逻辑实际上是用贪心算法来支撑的。但是在算法学习中Dijkstra算法又是最基本的一种算法，对于求解单源最短路径有着极大的作用。在这里我简单讲一下自己的理解，我的代码">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -17,7 +18,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>Hello World | 思无邪</title>
+    <title>最小生成树(Dijkstra算法) | 思无邪</title>
     <link rel="icon" type="image/png" href="/favicon.png">
     
 
@@ -334,12 +335,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/12.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/10.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">Hello World</h1>
+                    <h1 class="description center-align post-title">最小生成树(Dijkstra算法)</h1>
                 </div>
             </div>
         </div>
@@ -361,12 +362,25 @@
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                          <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
-                          </div>
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E6%A0%91%E5%BD%A2%E7%BB%93%E6%9E%84/">
+                                <span class="chip bg-color">树形结构</span>
+                            </a>
+                        
+                    </div>
                     
                 </div>
                 <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/%E6%95%B0%E6%8D%AE%E9%9B%86%E7%BB%93%E6%9E%84/" class="post-category">
+                                数据集结构
+                            </a>
+                        
+                    </div>
                     
                 </div>
             </div>
@@ -375,7 +389,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2022-11-11
+                    2021-11-12
                 </div>
                 
 
@@ -384,7 +398,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    73
+                    1.5k
                 </div>
                 
 
@@ -404,20 +418,155 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ hexo new <span class="token string">"My New Post"</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ hexo server<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ hexo generate<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ hexo deploy<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-
+                <blockquote>
+<p>Dijkstra算法刚接触时确实有点难以理解，尤其是代码的实现，但其背后的逻辑实际上是用贪心算法来支撑的。但是在算法学习中Dijkstra算法又是最基本的一种算法，对于求解单源最短路径有着极大的作用。在这里我简单讲一下自己的理解，我的代码参考了《图解数据结构》，该代码适合稠密图，使用的是邻接矩阵来存储的图。 </p>
+</blockquote>
+<hr>
+<h2 id="1、Dijkstra算法主要步骤"><a href="#1、Dijkstra算法主要步骤" class="headerlink" title="1、Dijkstra算法主要步骤"></a>1、Dijkstra算法主要步骤</h2><p><img src="/2021/11/12/zui-xiao-sheng-cheng-shu-dijkstra-suan-fa/Dijkstra%E7%AE%97%E6%B3%95%E6%AD%A5%E9%AA%A4.png"></p>
+<p>对于贪心算法，简单描述一下：<br>贪心算法正如其名字一样，贪心算法只注重眼前利益，就像贪心的小人一样，因此得名贪心算法，该算法即从一个初始解，一步步选取当前最优解，最终得出近似的最优解（注意：不一定是该问题的最优解，而是近似于最优解）。<br>实现该算法的基本过程如下。<br>（1）从问题的某一初始解出发。<br>（2）while能向给定总目标前进一步。<br>（3）求出可行解的一个解元素。<br>（4）由所有解元素组合成问题的一个可行解。<br>（想更深入了解请参考链接<a target="_blank" rel="noopener" href="https://blog.csdn.net/effective_coder/article/details/8736718?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522164621206116781685343755%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&amp;request_id=164621206116781685343755&amp;biz_id=0&amp;utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-8736718.pc_search_result_control_group&amp;utm_term=%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95%E8%AF%A6%E8%A7%A3&amp;spm=1018.2226.3001.4187%EF%BC%89">https://blog.csdn.net/effective_coder/article/details/8736718?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522164621206116781685343755%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&amp;request_id=164621206116781685343755&amp;biz_id=0&amp;utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-8736718.pc_search_result_control_group&amp;utm_term=%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95%E8%AF%A6%E8%A7%A3&amp;spm=1018.2226.3001.4187）</a></p>
+<hr>
+<h2 id="2、Dijkstra算法小结"><a href="#2、Dijkstra算法小结" class="headerlink" title="2、Dijkstra算法小结"></a>2、Dijkstra算法小结</h2><p> 1、Dijkstra算法一般是用来解决单源最短路径问题（指定一个点（源点）到其余各个顶点的最短路径，也叫做“单源最短路径”。）<br> 2、其时间复杂度仅为O(n^2^)，并且非常高效，甚至可以优化成O(log2n)。<br> 3、Dijkstra算法中权值只能为正数，若权值为负数则不能使用该算法。（权值即图各个边所赋予的值）  </p>
+<hr>
+<h2 id="3、算法实现"><a href="#3、算法实现" class="headerlink" title="3、算法实现"></a>3、算法实现</h2><pre class="line-numbers language-C++" data-language="C++"><code class="language-C++">#include &lt;iostream&gt;
+#include &lt;iomanip&gt;
+ 
+using namespace std;
+ 
+#define SIZE 7
+#define NUMBER 6
+#define INFINITE 123456  &#x2F;&#x2F;宏定义无穷大
+ 
+&#x2F;&#x2F;首先定义图的数组
+int Graph_Matrix[SIZE][SIZE];
+int Distance[SIZE];  &#x2F;&#x2F;路径长度
+ 
+&#x2F;&#x2F;建立有向图
+void Create_Graph(int *Path_Cost)
+&#123;
+    int i,j;
+    for(i&#x3D;0;i&lt;SIZE;i++)
+    &#123;
+        for(j&#x3D;0;j&lt;SIZE;j++)
+        &#123;
+            &#x2F;&#x2F;若是在对角线上，设置元素值为0
+            if(i&#x3D;&#x3D;j)
+            &#123;
+                Graph_Matrix[i][j]&#x3D;0;
+            &#125;
+            &#x2F;&#x2F;其他位置元素的值为无穷大
+            else
+            &#123;
+                Graph_Matrix[i][j]&#x3D;INFINITE;
+            &#125;
+        &#125;
+    &#125;
+ 
+    int End_Point,Start_Point;  &#x2F;&#x2F;图的边起始位置和终止位置
+ 
+    &#x2F;&#x2F;存入图的各个数据：边，权重
+    i&#x3D;0;
+    while(i&lt;SIZE)
+    &#123;
+        Start_Point&#x3D;Path_Cost[i*3];  &#x2F;&#x2F;在邻接矩阵中的行
+        End_Point&#x3D;Path_Cost[i*3+1];  &#x2F;&#x2F;在邻接矩阵中的列
+        &#x2F;&#x2F;图各边权值转化为邻接矩阵中所在的位置
+        Graph_Matrix[Start_Point][End_Point]&#x3D;Path_Cost[i*3+2];
+        i++;
+    &#125;
+&#125;
+ 
+&#x2F;&#x2F;打印邻接矩阵
+void Print_Matrix()
+&#123;
+    int i&#x3D;0,j&#x3D;0;
+    for(i&#x3D;1;i&lt;SIZE;i++)
+    &#123;
+        cout &lt;&lt; &quot;vex&quot; &lt;&lt; i ;
+        for(j&#x3D;1;j&lt;SIZE;j++)
+        &#123;
+            &#x2F;&#x2F;为了美观和可读性，将值为无穷大的元素打印为x
+            if(Graph_Matrix[i][j]&#x3D;&#x3D;INFINITE)
+            &#123;
+                cout &lt;&lt; setw(5) &lt;&lt; &quot;x&quot;;
+            &#125;
+            else
+            &#123;
+                cout &lt;&lt; setw(5) &lt;&lt; Graph_Matrix[i][j];
+            &#125;
+        &#125;
+        cout &lt;&lt; endl;
+    &#125;
+&#125;
+ 
+&#x2F;&#x2F;开始求解单源最短路径
+void Shortest_Path(int vertex1,int vertex_total)
+&#123;
+    int Shortest_vertex&#x3D;1;  &#x2F;&#x2F;初始化
+    int Shortest_distance;  &#x2F;&#x2F;最短距离
+    int flag[SIZE];  &#x2F;&#x2F;标志数组，标志顶点是否已经遍历过
+    int i,j;
+ 
+    for(i&#x3D;1;i&lt;&#x3D;vertex_total;i++)
+    &#123;
+        flag[i]&#x3D;0;  &#x2F;&#x2F;初始化标志数组
+        Distance[i]&#x3D;Graph_Matrix[vertex1][i];  &#x2F;&#x2F;将图的权值存入Distance[]数组中
+    &#125;
+ 
+    flag[vertex1]&#x3D;1;  &#x2F;&#x2F;标志该顶点已经找过
+    Distance[vertex1]&#x3D;0;  &#x2F;&#x2F;顶点到该顶点自身的距离为0
+ 
+    for(i&#x3D;0;i&lt;&#x3D;vertex_total-1;i++)
+    &#123;
+        Shortest_distance&#x3D;INFINITE;
+        for(j&#x3D;0;j&lt;&#x3D;vertex_total;j++)
+        &#123;
+            &#x2F;&#x2F;找到最小权边的顶点
+            if(flag[j]&#x3D;&#x3D;0 &amp;&amp; Distance[j]&lt;&#x3D;Shortest_distance)
+            &#123;
+                Shortest_distance&#x3D;Distance[j];
+                Shortest_vertex&#x3D;j;
+            &#125;
+        &#125;
+ 
+        flag[Shortest_vertex]&#x3D;1;  &#x2F;&#x2F;找到下一个顶点后标记为已经经过
+ 
+        for(j&#x3D;0;j&lt;&#x3D;vertex_total;j++)
+        &#123;
+            &#x2F;&#x2F;以上一个顶点为父节点，若前一个顶点和下一个权边的和最小，则更新最短路径
+            if(flag[j]&#x3D;&#x3D;0 &amp;&amp;
+               Distance[Shortest_vertex]+Graph_Matrix[Shortest_vertex][j]
+               &lt;Distance[j])
+            &#123;
+                &#x2F;&#x2F;更新最短路径
+                Distance[j]&#x3D;Distance[Shortest_vertex]+Graph_Matrix[Shortest_vertex][j];
+            &#125;
+        &#125;
+    &#125;
+&#125;
+ 
+int main()
+&#123;
+    int Path_Cost[9][3]&#x3D;&#123;&#123;1,2,3&#125;,&#123;1,3,5&#125;,&#123;1,4,1&#125;,&#123;1,5,3&#125;,&#123;1,6,4&#125;,
+                         &#123;2,5,3&#125;,&#123;4,5,7&#125;,&#123;4,6,6&#125;,&#123;4,3,2&#125;&#125;;
+    cout &lt;&lt; &quot;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&quot;  &lt;&lt; endl;
+    cout &lt;&lt; &quot;此范例图的邻接矩阵如下：&quot; &lt;&lt; endl;
+    cout &lt;&lt; &quot;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&quot; &lt;&lt; endl;
+    cout &lt;&lt; &quot;顶点   vex1 vex2 vex3 vex4 vex5 vex6&quot; &lt;&lt; endl;
+    Create_Graph(&amp;Path_Cost[0][0]);
+    Print_Matrix();
+    cout &lt;&lt; &quot;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&quot;  &lt;&lt; endl;
+    cout &lt;&lt; &quot;顶点1到各顶点最短距离的最终结果&quot; &lt;&lt; endl;
+    cout &lt;&lt; &quot;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&quot;  &lt;&lt; endl;
+    &#x2F;&#x2F;查找最短路径
+    Shortest_Path(1,NUMBER);
+    for(int i&#x3D;1;i&lt;SIZE;i++)
+    &#123;
+        cout &lt;&lt; &quot;顶点1&quot; &lt;&lt; &quot;到顶点&quot; &lt;&lt; i &lt;&lt; &quot;的最短距离&#x3D;&quot; &lt;&lt; Distance[i] &lt;&lt; endl;
+    &#125;
+ 
+    system(&quot;pause&quot;);
+    return 0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
                 
             </div>
             <hr/>
@@ -443,7 +592,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://example.com/2022/11/11/hello-world/">http://example.com/2022/11/11/hello-world/</a>
+                    <a href="http://example.com/2021/11/12/zui-xiao-sheng-cheng-shu-dijkstra-suan-fa/">http://example.com/2021/11/12/zui-xiao-sheng-cheng-shu-dijkstra-suan-fa/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -480,7 +629,11 @@
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
+                            
+                                <a href="/tags/%E6%A0%91%E5%BD%A2%E7%BB%93%E6%9E%84/">
+                                    <span class="chip bg-color">树形结构</span>
+                                </a>
+                            
                         </div>
                     
                 </div>
@@ -562,13 +715,13 @@
                 <i class="far fa-dot-circle"></i>&nbsp;本篇
             </div>
             <div class="card">
-                <a href="/2022/11/11/hello-world/">
+                <a href="/2021/11/12/zui-xiao-sheng-cheng-shu-dijkstra-suan-fa/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="Hello World">
+                        <img src="/medias/featureimages/10.jpg" class="responsive-img" alt="最小生成树(Dijkstra算法)">
                         
-                        <span class="card-title">Hello World</span>
+                        <span class="card-title">最小生成树(Dijkstra算法)</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -579,17 +732,29 @@
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-11-11
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-11-12
                             </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-user fa-fw"></i>
-                            Jeremy Yang
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E6%95%B0%E6%8D%AE%E9%9B%86%E7%BB%93%E6%9E%84/" class="post-category">
+                                    数据集结构
+                                </a>
+                            
                             
                         </span>
                     </div>
                 </div>
 
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E6%A0%91%E5%BD%A2%E7%BB%93%E6%9E%84/">
+                        <span class="chip bg-color">树形结构</span>
+                    </a>
+                    
+                </div>
                 
             </div>
         </div>
@@ -600,13 +765,13 @@
                 本篇&nbsp;<i class="far fa-dot-circle"></i>
             </div>
             <div class="card">
-                <a href="/2022/11/11/hello-world/">
+                <a href="/2021/11/12/zui-xiao-sheng-cheng-shu-dijkstra-suan-fa/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="Hello World">
+                        <img src="/medias/featureimages/10.jpg" class="responsive-img" alt="最小生成树(Dijkstra算法)">
                         
-                        <span class="card-title">Hello World</span>
+                        <span class="card-title">最小生成树(Dijkstra算法)</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -617,17 +782,29 @@
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-11-11
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-11-12
                             </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-user fa-fw"></i>
-                            Jeremy Yang
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E6%95%B0%E6%8D%AE%E9%9B%86%E7%BB%93%E6%9E%84/" class="post-category">
+                                    数据集结构
+                                </a>
+                            
                             
                         </span>
                     </div>
                 </div>
 
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E6%A0%91%E5%BD%A2%E7%BB%93%E6%9E%84/">
+                        <span class="chip bg-color">树形结构</span>
+                    </a>
+                    
+                </div>
                 
             </div>
         </div>
@@ -804,7 +981,7 @@
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">73</span>
+                        class="white-color">1.5k</span>
             
             
             

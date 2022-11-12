@@ -4,7 +4,7 @@
   
     
     <entry>
-      <title>最小生成树(Dijkstra算法)</title>
+      <title>最短路径(Dijkstra算法)</title>
       <link href="/2021/11/12/zui-duan-lu-jing-dijkstra-suan-fa/"/>
       <url>/2021/11/12/zui-duan-lu-jing-dijkstra-suan-fa/</url>
       
@@ -20,7 +20,7 @@
       
         <tags>
             
-            <tag> 树形结构 </tag>
+            <tag> 图形结构 </tag>
             
         </tags>
       

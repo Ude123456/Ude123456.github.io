@@ -2311,3 +2311,10 @@ body.DarkMode .theme-btn:hover {
     width: 8px;
     height: 15px;
 }
+
+#一直显示访问人数
+#busuanzi_container_site_pv,
+#busuanzi_value_site_pv,
+#busuanzi_container_site_uv{
+   display: inline !important;
+}

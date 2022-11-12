@@ -27,6 +27,31 @@
     </entry>
     
     
+    
+    <entry>
+      <title>最小生成树(Kruskal算法)</title>
+      <link href="/2020/11/11/zui-xiao-sheng-cheng-shu-kruskal-suan-fa/"/>
+      <url>/2020/11/11/zui-xiao-sheng-cheng-shu-kruskal-suan-fa/</url>
+      
+        <content type="html"><![CDATA[<blockquote><p>一下子就接触算法原理和一堆七七八八的术语概念，无疑是让人头疼的，因为无端出现这么多的信息，都不知道它的来历，又不知道这些信息到底有什么用，所以我们就从最简单的内容开始，将这个算法完整地梳理一下吧。</p></blockquote><hr><h2 id="1、知识脉络梳理"><a href="#1、知识脉络梳理" class="headerlink" title="1、知识脉络梳理"></a>1、知识脉络梳理</h2><h3 id="1、树形结构"><a href="#1、树形结构" class="headerlink" title="1、树形结构"></a>1、树形结构</h3><p>首先，先来看看一个简单的数据结构——树。<br>树形结构，从字面上来理解，就是像我们生活中常见的树长的很类似。在数据结构中我们无非就是将生活中的树倒过来看而已，也就是树根在上，树叶在下。这么设计其实也没什么特别的道理，只是在遍历树的时候，我们从树根开始，从树根往叶子节点出发。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 数据结构 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 树形结构 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
   
   
 </search>

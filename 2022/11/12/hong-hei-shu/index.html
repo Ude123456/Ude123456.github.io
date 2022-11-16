@@ -5,7 +5,12 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="红黑树, 博客，思无邪">
-    <meta name="description" content="">
+    <meta name="description" content="
+
+学过了二叉查找树还有平衡二叉树以后，再看点更复杂的树形结构——红黑树，跟平衡二叉树一样，红黑树也是为了解决二叉搜索树不能自平衡的问题。红黑树是2-3树的变形，以2-3树的角度去理解红黑树会容易的多。
+
+
+先回忆一下AVL树：AVL树就是">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -361,12 +366,25 @@
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                          <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
-                          </div>
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E4%BA%8C%E5%8F%89%E6%A0%91%EF%BC%8C2-3%E6%A0%91%EF%BC%8C%E7%BA%A2%E9%BB%91%E6%A0%91/">
+                                <span class="chip bg-color">二叉树，2-3树，红黑树</span>
+                            </a>
+                        
+                    </div>
                     
                 </div>
                 <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" class="post-category">
+                                数据结构
+                            </a>
+                        
+                    </div>
                     
                 </div>
             </div>
@@ -384,7 +402,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    0
+                    1.7k
                 </div>
                 
 
@@ -404,7 +422,61 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                
+                <hr>
+<blockquote>
+<p>学过了二叉查找树还有平衡二叉树以后，再看点更复杂的树形结构——红黑树，跟平衡二叉树一样，红黑树也是为了解决二叉搜索树不能自平衡的问题。红黑树是2-3树的变形，以2-3树的角度去理解红黑树会容易的多。</p>
+</blockquote>
+<hr>
+<p>先回忆一下AVL树：<br><img src="/2022/11/12/hong-hei-shu/%E5%9B%BE1.png"><br>AVL树就是要保证插入节点后，任一节点对应的两棵子树的最大高度差为1，这样就可以保证整棵树的深度最小。</p>
+<p>AVL虽然高度平衡，但是我们发现它每次插入或者删除节点的时候，树的平衡都可能被打破，而且如果要一直保证也就是动态的来使得这个 AVL 树达到平衡是需要很多操作的，太多步的操作反而会影响这个树形结构的的性能。除非是在树结构变化特别少的情况，不然我们让AVL 树平衡的时候，搜索性能的提升可能还不够抵消平衡树所带来的性能消耗。所以就相继出现了2-3树和红黑树。</p>
+<hr>
+<h2 id="1、2-3树"><a href="#1、2-3树" class="headerlink" title="1、2-3树"></a>1、2-3树</h2><h3 id="1、什么是2-3树"><a href="#1、什么是2-3树" class="headerlink" title="1、什么是2-3树"></a>1、什么是2-3树</h3><p>2-3树的意思就是说，一个父节点可以有两个子节点，也可以有三个子节点，并且其也满足类似二叉搜索树的定义（父节点的值大于左子树，但小于右子树），所有叶子节点都在同一层。</p>
+<p>2-3树的某个节点会有两种可能，一是正常的2节点，二是3节点：</p>
+<ul>
+<li>2节点：父亲节点存储一个值，最多有左右两个子树。假设父节点为p，子节点为l(左节点)、r(有节点)，且满足：<br>$$l &lt; p &lt; r$$<br>如下图：<br><img src="/2022/11/12/hong-hei-shu/%E5%9B%BE2.png"></li>
+<li>3节点：父亲节点存储两个值，最多有左中右三个子树。假设父节点分别为p1,p2，子节点分别为l(左节点)、m(中间节点)、r(右节点)，且满足：<br>$<br>\begin{cases}<br>l &lt; p1\<br>p1 &lt; m &lt; p2\<br>r &gt; p2<br>\end{cases}<br>$<br>如下图：<br><img src="/2022/11/12/hong-hei-shu/%E5%9B%BE3.png"><br>一颗完整的2-3树就如下图所示：<br><img src="/2022/11/12/hong-hei-shu/%E5%9B%BE4.png"></li>
+</ul>
+<h3 id="2、2-3树的创建"><a href="#2、2-3树的创建" class="headerlink" title="2、2-3树的创建"></a>2、2-3树的创建</h3><p>假设有一组数据集合数组为**{ 30, 13, 7, 43, 23, 12, 9, 33, 42, 21, 18, 6, 3, 50 }。**</p>
+<p>创建2-3树的过程：</p>
+<p>1、将30作为根节点<br><img src="/2022/11/12/hong-hei-shu/%E5%9B%BE5.png"><br>2、插入13，13比30小，融合成一个值为（13  30）的3节点<br><img src="/2022/11/12/hong-hei-shu/%E5%9B%BE6.png"><br>3、插入7，7比13小，融合成一个值为（7  13  30）的4节点，然后分解<br><img src="/2022/11/12/hong-hei-shu/%E5%9B%BE7.png"><br>4、插入43，43大于13，43大于30，与30一起融合成3节点<br><img src="/2022/11/12/hong-hei-shu/%E5%9B%BE8.png"><br>5、插入23，23大于13，23小于30，与（30  43）融合成4节点，然后分解<br><img src="/2022/11/12/hong-hei-shu/%E5%9B%BE9.png"><br>6、插入12，12小于13，12大于7，与7融合成3节点<br><img src="/2022/11/12/hong-hei-shu/%E5%9B%BE10.png"><br>7、插入9，9小于13，9大于7，9小于12，与（7  12）融合成4节点，然后分解。分解后9升级到上一层，与（13  30）融合成4节点，再次分解<br><img src="/2022/11/12/hong-hei-shu/%E5%9B%BE11.png"><br>8、插入33，33大于13，33大于30，33小于43，与43融合成3节点<br><img src="/2022/11/12/hong-hei-shu/%E5%9B%BE12.png"><br>9、插入42，42大于13，42大于30，42大于33，42小于43，与（33  43）融合成4节点，然后分解<br><img src="/2022/11/12/hong-hei-shu/%E5%9B%BE13.png"><br>10、省略后面过程，最终生成结果为：<br><img src="/2022/11/12/hong-hei-shu/%E5%9B%BE14.png"><br>至此，我们创建了一颗2-3树，可以看出2-3树的平衡性还是很好的。</p>
+<h2 id="2、红黑树"><a href="#2、红黑树" class="headerlink" title="2、红黑树"></a>2、红黑树</h2><hr>
+<blockquote>
+<p>尽管有平衡二叉树和2-3树了，但是现在用的多的还是红黑树，主要是因为红黑树有这4点的优势：<br>1、AVL的左右子树高度差不能超过1，每次进行插入&#x2F;删除操作时，几乎都需要通过旋转操作保持平衡。<br>2、在频繁进行插入&#x2F;删除的场景中，频繁的旋转操作使得AVL的性能大打折扣。<br>3、红黑树通过牺牲严格的平衡，换取插入&#x2F;删除时少量的旋转操作，整体性能优于AVL。（红黑树插入时的不平衡，不超过两次旋转就可以解决；删除时的不平衡，不超过三次旋转就能解决。）<br>4、红黑树的红黑规则，保证最坏的情况下，也能在O(log2N)时间内完成查找操作。</p>
+</blockquote>
+<hr>
+<h3 id="1、将2-3树转换成红黑树"><a href="#1、将2-3树转换成红黑树" class="headerlink" title="1、将2-3树转换成红黑树"></a>1、将2-3树转换成红黑树</h3><p>创建了一棵2-3树以后，我们就可以进行一些结构上的变化<br>将所有的3节点进行变换，并且满足三个条件：</p>
+<ul>
+<li>红链接均为左链接。</li>
+<li>没有任何一个节点同时和两条红链接相连。</li>
+<li>任意空链接到根节点路径上的黑色连接数目相同。</li>
+</ul>
+<p>这三个条件均满足以后我们创建的就是一棵不那么标准的红黑树，如下图：<br><img src="/2022/11/12/hong-hei-shu/%E5%9B%BE15.png"></p>
+<h3 id="2、红黑树的性质"><a href="#2、红黑树的性质" class="headerlink" title="2、红黑树的性质"></a>2、红黑树的性质</h3><p>红黑树本身是一棵二叉查找树，在其基础上附加了两个要求：</p>
+<ul>
+<li>树中的每个结点增加了一个用于存储颜色的标志域；</li>
+<li>树中没有一条路径比其他任何路径长出两倍，整棵树要接近于“平衡”的状态。</li>
+</ul>
+<hr>
+<blockquote>
+<p>路径：指的是从任何一个结点开始，一直到其子孙的叶子结点的长度；<br>接近于平衡：红黑树并不是平衡二叉树，只是由于对各路径的长度之差有限制，所以近似于平衡的状态。</p>
+</blockquote>
+<hr>
+<p>下面图示的就是一棵典型的红黑树：<br><img src="/2022/11/12/hong-hei-shu/%E5%9B%BE16.png"></p>
+<hr>
+<blockquote>
+<p>观察上图，可以发现红黑树的一些规律：<br>1、这些节点<strong>不是红色的就是黑色的</strong>，但是<strong>根节点是黑色的</strong>。<br>2、再看叶子节点，叶子节点跟普通的树不太一样，<strong>红黑树的叶子节点都是null节点（空节点）并且都为黑色的</strong>。<br>3、假设从根节点出发，然后从最左边的路径走到叶子节点，都没有连续的红色节点。所以可以得出一个结论，<strong>同一路径，不存在连续的红色节点</strong>。<br>以上观察出来的这三条规律就是红黑规则的一部分。</p>
+</blockquote>
+<hr>
+<p>因此我们就可以得出红黑树的红黑规则了：</p>
+<ul>
+<li>性质1：每个节点要么是黑色，要么是红色。</li>
+<li>性质2：根节点是黑色。</li>
+<li>性质3：每个叶子节点（NIL）是黑色。</li>
+<li>性质4：每个红色结点的两个子结点一定都是黑色。</li>
+<li>性质5：任意一结点到每个叶子结点的路径都包含数量相同的黑结点。</li>
+<li>从性质5又可以推出：<br>    性质5.1：如果一个结点存在黑子结点，那么该结点肯定有两个子结点</li>
+</ul>
+<h3 id="3、红黑树的术语约定"><a href="#3、红黑树的术语约定" class="headerlink" title="3、红黑树的术语约定"></a>3、红黑树的术语约定</h3>
                 
             </div>
             <hr/>
@@ -467,7 +539,11 @@
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
+                            
+                                <a href="/tags/%E4%BA%8C%E5%8F%89%E6%A0%91%EF%BC%8C2-3%E6%A0%91%EF%BC%8C%E7%BA%A2%E9%BB%91%E6%A0%91/">
+                                    <span class="chip bg-color">二叉树，2-3树，红黑树</span>
+                                </a>
+                            
                         </div>
                     
                 </div>
@@ -631,8 +707,8 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E5%9B%BE%E5%BD%A2%E7%BB%93%E6%9E%84/">
-                        <span class="chip bg-color">图形结构</span>
+                    <a href="/tags/%E5%9B%BE%E8%AE%BA/">
+                        <span class="chip bg-color">图论</span>
                     </a>
                     
                 </div>
@@ -812,7 +888,7 @@
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">7.5k</span>
+                        class="white-color">9.2k</span>
             
             
             

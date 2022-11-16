@@ -4,8 +4,9 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="红黑树, 博客，思无邪">
-    <meta name="description" content="">
+    <meta name="keywords" content="散列表, 博客，思无邪">
+    <meta name="description" content="
+顺序存储的结构类型有顺序表、栈、队列等，但他们都需要一个一个地按顺序对元素进行访问，如果要访问的总量很大时候，并且当我们要访问的这一元素位于末尾时，则查找效率就会很低。散列表是一种空间换时间的存储结构，就是牺牲了存储空间来换取了查找数据的">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -17,7 +18,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>红黑树 | 思无邪</title>
+    <title>散列表 | 思无邪</title>
     <link rel="icon" type="image/png" href="/favicon.png">
     
 
@@ -334,12 +335,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/2.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/20.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">红黑树</h1>
+                    <h1 class="description center-align post-title">散列表</h1>
                 </div>
             </div>
         </div>
@@ -361,12 +362,25 @@
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                          <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
-                          </div>
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/">
+                                <span class="chip bg-color">哈希表</span>
+                            </a>
+                        
+                    </div>
                     
                 </div>
                 <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" class="post-category">
+                                数据结构
+                            </a>
+                        
+                    </div>
                     
                 </div>
             </div>
@@ -375,7 +389,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2022-11-12
+                    2022-11-14
                 </div>
                 
 
@@ -384,7 +398,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    0
+                    3.2k
                 </div>
                 
 
@@ -404,7 +418,60 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                
+                <blockquote>
+<p>顺序存储的结构类型有顺序表、栈、队列等，但他们都需要一个一个地按顺序对元素进行访问，如果要访问的总量很大时候，并且当我们要访问的这一元素位于末尾时，则查找效率就会很低。<br>散列表是一种<strong>空间换时间</strong>的存储结构，就是牺牲了存储空间来换取了查找数据的效率，但是如果需要的存储空间太大时，也会让我们感到头疼，所以我们往往需要在空间和时间两者当中进行权衡。</p>
+</blockquote>
+<hr>
+<h2 id="1、什么是散列表"><a href="#1、什么是散列表" class="headerlink" title="1、什么是散列表"></a>1、什么是散列表</h2><p>如果在图书馆里要找一本书，那我们应该不会从第 1 本书一直找下去，因为这样实在是太慢了。回想一下我们到图书馆找书是怎么找的呢？首先是不是应该先找到你要找的这本书属于什么类别，例如科幻类、古典文学、武侠类等等，然后再在这一个类别当中进行查找。</p>
+<p>还有我们平常学英语应该也要查字典，那么要查找一个单词的时候，我们肯定不会从头翻到尾，而是首先通过这个单词的首字母，找到对应的那一页；再找第 2 个字母、第 3 个字母……这样可以快速跳到那个单词所在的页。</p>
+<p>其实这些就是运用了散列表的思想：在记录的存储地址和它的关键码之间建立一个确定的对应关系。这样，不需要经过比较，一次读取就能够得到所查元素。</p>
+<p>散列表（Hash table，也叫哈希表），是<strong>根据键（Key）而直接访问在内存储存位置</strong>的数据结构。也就是说，它通过计算一个关于键值的函数，将所需查询的数据映射到表中一个位置来访问记录，这加快了查找速度。<strong>这个映射函数称做散列函数，存放记录的数组称做散列表，由散列函数所得的存储地址称做散列地址</strong>。<br><img src="/2022/11/14/san-lie-biao/%E5%9B%BE1.png"><br>从上图中，我们也可以看出散列表不仅仅只是一种查找技术，同时也是一种存储技术。另外，从散列表的定义，我们也可以发现，散列方法是不适用于范围查找的，换言之，在散列表中，我们不可能找到最大或最小关键码的记录，也不可能找到在某一范围内的记录。</p>
+<p>那么散列表的关键值都要不同，这时我们会发现出现一个严重的问题，如果对于两个不同的数据 ，我们计算到了同样的键值，那么就会出现冲突，此时该如何处理呢？</p>
+<p>所以构造一个好的散列表，最重要的是做好以下两个步骤：</p>
+<ol>
+<li>设计一个”好”的散列函数来计算Key值。(好的哈希函数应尽可能避免冲突的出现，而且计算时应尽可能简洁快速)</li>
+<li>出现了冲突时又该如何调整插入元素。</li>
+</ol>
+<hr>
+<h2 id="2、散列函数设计方法"><a href="#2、散列函数设计方法" class="headerlink" title="2、散列函数设计方法"></a>2、散列函数设计方法</h2><h3 id="1、直接寻址法"><a href="#1、直接寻址法" class="headerlink" title="1、直接寻址法"></a>1、直接寻址法</h3><p>散列函数是关键码的线性函数，即：<br>     $$H(key)&#x3D;a\times key + b$$    式中，a 和 b 是常数</p>
+<p>例如：关键码集合为{10,20,30,40,60,80,90}，选取一个散列函数为：$H(key)&#x3D;\frac{1}{10}key$ ,则散列表为：<br><img src="/2022/11/14/san-lie-biao/%E5%9B%BE2.png"><br>适用情况：事先知道关键码，关键码集合<strong>不是很大并且连续性较好</strong>。</p>
+<h3 id="2、除留余数法"><a href="#2、除留余数法" class="headerlink" title="2、除留余数法"></a>2、除留余数法</h3><p>假设散列表长度为 n，取一个不大于 n 但近似接近或等于 m 的质数 p，利用除留余数法的散列函数把关键字转换成散列地址。</p>
+<p>散列函数为：<br>     $$H(key)&#x3D;key\quad mod\quad p$$    </p>
+<p>例如，数据元素集合为a&#x3D;{78,7,99,13,25,53,59,30}，哈希表长度n取11时，并不会产生哈希冲突；当n取9时，就会产生哈希冲突。p的选取并不是固定的，需要自己进行判断，以此来选择最合适的p值。</p>
+<p>通常情况下，哈希表的长度n习惯选取<strong>质数</strong>。<strong>对p的选择也十分重要，一般取素数或m</strong>，这样可以有效减少哈希冲突的发生。</p>
+<p>在来看一个例子：现在有一组关键码，我们取p&#x3D;21，则会得到以下信息：<br><img src="/2022/11/14/san-lie-biao/%E5%9B%BE3.png"><br>适用情况：除留余数法是一种最简单、也是最常见的构造散列函数的方法，并且<strong>不需要事先知道关键码的分布</strong>。</p>
+<h3 id="3、数字分析法"><a href="#3、数字分析法" class="headerlink" title="3、数字分析法"></a>3、数字分析法</h3><p>如果关键字是位数较多的数字（比如手机号和学号），且这些数字部分存在相同规律，则可以采用抽取剩余不同规律部分作为散列地址。</p>
+<p>如下图所示，有80个记录，每一行为一个记录中的键，假设表长为100，则可取两位十进制数组成哈希地址。<br><img src="/2022/11/14/san-lie-biao/%E5%9B%BE4.png"><br>通过对上图进行观察可以得出，第1,2列对应的数字都是相同的，而第3列和第8列存在着大量重复的数字（分别是3和2,7），因此不能选择它们成为哈希地址。而中间4位可以看作是随机的，所以可以从中任选两位作为哈希地址。</p>
+<p>再来看一个更直白的应用，现在有一组学生的学号为：<br><img src="/2022/11/14/san-lie-biao/%E5%9B%BE5.png"><br>这组学号的前7位取值相对比较集中，剩下的后两位取值较均匀，可以直接使用学号的最后两位作为哈希地址，所以这十个关键字的哈希地址分别为：<br>10、21、71、85、13、37、22、33、3、14。</p>
+<p>适用情况：能预先估计出关键码的每一位上各种数字出现的频度，不同的关键码集合需要重新分析。</p>
+<h3 id="4、平方取中法"><a href="#4、平方取中法" class="headerlink" title="4、平方取中法"></a>4、平方取中法</h3><p>对关键码平方后，按散列表大小，取中间若干位作为散列地址（<strong>平方</strong>后<strong>截取</strong>）。</p>
+<p>它弥补了数字分析法的一些缺陷，因为我们有时并不能知道键的全部情况，取其中几位也不一定合适，而一个数平方后的中间几个数和原数的每一位都相关，由此我们就能得到随机性更强的哈希地址取的位数由表长决定。<br><img src="/2022/11/14/san-lie-biao/%E5%9B%BE6.png"><br>适用情况：事先不知道关键码的分布并且<strong>关键码的位数不是很大</strong>。</p>
+<h3 id="5、折叠法"><a href="#5、折叠法" class="headerlink" title="5、折叠法"></a>5、折叠法</h3><p>将关键字从左到右分割成位数相等的几部分（注意最后一部分位数不够时可以短些），然后将这几部分叠加求和，并按散列表表长，取后几位作为散列地址。</p>
+<p>例如：设关键码为<u>2 5 3</u> <u>4 6 3</u> <u>5 8 7</u> <u>0 5</u>，散列地址为三位。<br><img src="/2022/11/14/san-lie-biao/%E5%9B%BE7.png"><br>适用情况：<strong>关键码很多</strong>，事先不知道关键码的分布。</p>
+<hr>
+<h2 id="3、解决冲突的方法"><a href="#3、解决冲突的方法" class="headerlink" title="3、解决冲突的方法"></a>3、解决冲突的方法</h2><p>我们在前面已经说过了，我们在构建散列表时，一个经常会碰到的问题是：不同的关键值经过散列函数的映射后，得到了一个同样的散列地址，这种现象就叫做冲突。那我们该如何解决冲突呢，方法总共有两类：开放定址法和拉链法。</p>
+<p>用开放定址法处理冲突得到的散列表叫<strong>闭散列表</strong>；用拉链法处理冲突构造出的散列表叫<strong>开散列表</strong>。</p>
+<h3 id="1、开放定址法"><a href="#1、开放定址法" class="headerlink" title="1、开放定址法"></a>1、开放定址法</h3><p>当一个关键字和另一个关键字发生冲突时，使用某种探测技术在Hash表中形成一个探测序列，然后沿着这个探测序列依次查找下去，当碰到一个空的单元时，则插入其中。<br>基本公式为：**$H(key) &#x3D; (key+di)\quad mod\quad TableSize$<strong>。注意，这里是一个递归序列，</strong>其中di为增量序列，TableSize为散列表长**。<br>根据di的不同我们又可以分为线性探测，平方（二次）探测，随机探测。</p>
+<h4 id="1、线性探测法"><a href="#1、线性探测法" class="headerlink" title="1、线性探测法"></a>1、线性探测法</h4><p>以增量序列 1，2，……，（TableSize -1）进行循环试探下一个存储地址，即di &#x3D; i。</p>
+<p>例：关键码集合为{47,7,29,11,16,92,22,8,3}，散列表表长为11，散列函数为$H(key)&#x3D;key\quad mod\quad 11 $，用线性探测法处理冲突，则散列表为：<br><img src="/2022/11/14/san-lie-biao/%E5%9B%BE8.png"><br>通过上图，我们会发现计算散列地址时，较多的元素计算出散列地址为7，图中出现了<strong>堆积</strong>（在处理冲突的过程中会出现<strong>非同义词</strong>之间对同一个散列地址争夺的现象，这种现象就称为堆积现象。）的现象，明明还有空间，却都往一个地方挤。堆积地方的冲突会越来越多。</p>
+<h4 id="2、平方探测法"><a href="#2、平方探测法" class="headerlink" title="2、平方探测法"></a>2、平方探测法</h4><p>以增量序列1^2^，-1^2^，2^2^，-2^2^，……，q^2^，-q^2^ 且q ≤ $\frac{TableSize}{2}$进行循环试探下一个存储地址。</p>
+<p>同上一个例子相同，关键码集合、散列表和散列函数均不做改变，用平方探测法处理冲突，则散列表为：<br><img src="/2022/11/14/san-lie-biao/%E5%9B%BE9.png"><br>我们可以发现平方探测法是跳着寻找位置的，那么就会存在一个问题，假设散列表中还有空间，平方探测(二次探测)就一定能找得到？举个例子说明一下：<br><img src="/2022/11/14/san-lie-biao/%E5%9B%BE10.png"><br>散列函数为$H(key)&#x3D;key\quad mod\quad 5$，用平方探测来处理冲突。<br>我们假设下一个插入11，则H(11)&#x3D;1，探测序列：1+1&#x3D;2, 1-1&#x3D;0, (1+2^2^) mod 5&#x3D;0, (1-2^2^) mod 5&#x3D;2，(1+3^2^) mod 5&#x3D;0, (1-3^2^) mod 5&#x3D;2, (1+4^2^) mod 5&#x3D;2,$\cdots\cdots$我们可以看到，存放11元素的地址在地址0与地址2之间往复横跳，虽然地址3和地址4位置是有空位，但是却找不到这个空间。<strong>解决方法</strong>：有定理显示，如果散列表长度TableSize是某个$\color{red}{4k+3}$（k是正整数)形式的$\color{red}{素数}$时，平方探测法就可以探查到整个散列表空间。</p>
+<h4 id="3、随机探测法"><a href="#3、随机探测法" class="headerlink" title="3、随机探测法"></a>3、随机探测法</h4><p>以增量序列是伪随机数来进行循环试探下一个存储地址。</p>
+<p>计算机产生随机数的方法通常采用线性同余法，<br>$$ 函数名&#x3D;\begin{cases}<br>a_0&#x3D;d &amp;  \<br>a_n&#x3D;(ba_{n-1}+c);mod;m &amp; n&#x3D;1,2,\cdots \<br>\end{cases}$$<br>其中，d称为随机种子。当b、c和m的值确定后，给定一个随机种子，产生确定的随机数序列。</p>
+<h3 id="2、拉链法（链地址法）"><a href="#2、拉链法（链地址法）" class="headerlink" title="2、拉链法（链地址法）"></a>2、拉链法（链地址法）</h3><p>对于不同的关键字可能会通过散列函数映射到同一地址，为避免非同义词发生冲突，把所有散列地址相同的记录，即所有同义词记录存储在一个线性链表中（称为同义词子表），在散列表中存储的是所有同义词子表的头指针。最开始我们已经说过了，用拉链法处理冲突构造出的散列表叫做<strong>开散列表</strong>。开散列表是不会出现堆积现象的。设n个记录存储在长度为m的散列表中，则同义词子表的平均长度为$\frac{n}{m}$。</p>
+<p>关键字序列为 {15,16,29,37,48,12,25,56,67,47,22,34}，应用拉链法处理冲突的散列表如下图所示：<br><img src="/2022/11/14/san-lie-biao/%E5%9B%BE11.png"><br>当单链表无法满足查找需求时，或者说单链表过长导致查找效率过低时，我们可以将单链表改成平衡二叉树或者红黑树进行数据的存储和查找，如下图所示：<br><img src="/2022/11/14/san-lie-biao/%E5%9B%BE12.png"></p>
+<h2 id="4、散列查找的性能分析"><a href="#4、散列查找的性能分析" class="headerlink" title="4、散列查找的性能分析"></a>4、散列查找的性能分析</h2><ul>
+<li><p>由于冲突的存在，产生冲突后的查找仍然是给定值与关键码进行比较的过程。</p>
+</li>
+<li><p>在查找过程中，关键码的比较次数取决于产生冲突的概率。影响冲突产生的因素有：<br>（1）散列函数是否均匀<br>（2）处理冲突的方法<br>（3）散列表的装载因子<br>       $$\alpha&#x3D; \frac{表中填入的记录数}{散列表的长度}$$</p>
+</li>
+<li><p>几种处理冲突方法的<strong>平均查找长度（ASL）</strong><br><img src="/2022/11/14/san-lie-biao/%E5%9B%BE13.png"></p>
+<blockquote>
+<p>散列表的平均查找长度是$\color{red}{装填因子\alpha的函数}$，而不是查找集合中记录个数n的函数。在很多情况下，散列表的空间都比查找集合大，此时虽然浪费了一定的空间，但换来的是查找效率。</p>
+</blockquote>
+</li>
+</ul>
+
                 
             </div>
             <hr/>
@@ -430,7 +497,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://example.com/2022/11/12/hong-hei-shu/">http://example.com/2022/11/12/hong-hei-shu/</a>
+                    <a href="http://example.com/2022/11/14/san-lie-biao/">http://example.com/2022/11/14/san-lie-biao/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -467,7 +534,11 @@
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
+                            
+                                <a href="/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/">
+                                    <span class="chip bg-color">哈希表</span>
+                                </a>
+                            
                         </div>
                     
                 </div>
@@ -544,9 +615,10 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
                 <a href="/2022/11/14/san-lie-biao/">
                     <div class="card-image">
@@ -564,9 +636,9 @@
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2022-11-14
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-11-14
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -579,6 +651,7 @@
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -597,13 +670,13 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2021/11/12/zui-duan-lu-jing-dijkstra-suan-fa/">
+                <a href="/2022/11/12/hong-hei-shu/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="最短路径(Dijkstra算法)">
+                        <img src="/medias/featureimages/2.jpg" class="responsive-img" alt="红黑树">
                         
-                        <span class="card-title">最短路径(Dijkstra算法)</span>
+                        <span class="card-title">红黑树</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -614,27 +687,15 @@
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-11-12
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-11-12
                             </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" class="post-category">
-                                    数据结构
-                                </a>
-                            
+                            <i class="fas fa-user fa-fw"></i>
+                            Jeremy Yang
                             
                         </span>
                     </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/%E5%9B%BE%E5%BD%A2%E7%BB%93%E6%9E%84/">
-                        <span class="chip bg-color">图形结构</span>
-                    </a>
-                    
                 </div>
                 
             </div>

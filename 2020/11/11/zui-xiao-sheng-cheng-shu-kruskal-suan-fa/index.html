@@ -461,7 +461,7 @@
 <p>比如，看下面这张图，我们现在想要使生成的树上所有边的权重和最小。</p>
 <p><img src="/2020/11/11/zui-xiao-sheng-cheng-shu-kruskal-suan-fa/%E5%9B%BE6.jpg"></p>
 <p>根据贪心算法，我们<strong>显然希望用尽量短的边来连通树</strong>。所以Kruskal算法的原理非常简单，就是对这些边的权值进行排序，依次从短到长遍历这些边，然后通过并查集来查询正在遍历的这条边是否能够被添加，直到所有边都遍历结束。</p>
-<h2 id="2、代码实现"><a href="#2、代码实现" class="headerlink" title="2、代码实现"></a>2、代码实现</h2><h3 id="1、完美图解"><a href="#1、完美图解" class="headerlink" title="1、完美图解"></a>1、完美图解</h3><p>下面图解出自陈小玉老师所主编的书《趣学算法》中，朋友们可以借助理解算法。<br><img src="/2020/11/11/zui-xiao-sheng-cheng-shu-kruskal-suan-fa/%E5%9B%BE7.jpg"><br><img src="/2020/11/11/zui-xiao-sheng-cheng-shu-kruskal-suan-fa/%E5%9B%BE8.jpg"><br><img src="/2020/11/11/zui-xiao-sheng-cheng-shu-kruskal-suan-fa/%E5%9B%BE9.jpg"><br><img src="/2020/11/11/zui-xiao-sheng-cheng-shu-kruskal-suan-fa/%E5%9B%BE10.jpg"><br><img src="/2020/11/11/zui-xiao-sheng-cheng-shu-kruskal-suan-fa/%E5%9B%BE11.jpg"><br><img src="/2020/11/11/zui-xiao-sheng-cheng-shu-kruskal-suan-fa/%E5%9B%BE12.jpg"></p>
+<h2 id="2、代码实现"><a href="#2、代码实现" class="headerlink" title="2、代码实现"></a>2、代码实现</h2><h3 id="1、完美图解"><a href="#1、完美图解" class="headerlink" title="1、完美图解"></a>1、完美图解</h3><p>下面图解出自陈小玉老师所主编的书《趣学算法》中，朋友们可以借助理解算法。<br><img src="/2020/11/11/zui-xiao-sheng-cheng-shu-kruskal-suan-fa/%E5%9B%BE7.jpg"><br><img src="/2020/11/11/zui-xiao-sheng-cheng-shu-kruskal-suan-fa/%E5%9B%BE8.jpg"><br><img src="/2020/11/11/zui-xiao-sheng-cheng-shu-kruskal-suan-fa/%E5%9B%BE9.jpg"></p>
 <h3 id="2、代码实现-1"><a href="#2、代码实现-1" class="headerlink" title="2、代码实现"></a>2、代码实现</h3><pre class="line-numbers language-C++" data-language="C++"><code class="language-C++">#include &lt;iostream&gt;
 #include &lt;iomanip&gt;
 #define VERTS 6  &#x2F;&#x2F;图的顶点数

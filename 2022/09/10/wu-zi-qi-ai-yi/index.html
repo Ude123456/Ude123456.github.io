@@ -4,11 +4,11 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="神经网络, 博客，思无邪">
+    <meta name="keywords" content="五子棋AI（一）, 博客，思无邪">
     <meta name="description" content="
-人工智能主要是机器学习，机器学习主要是深度学习，深度学习实际上算是机器学习的子领域，而要进行深度学习必然要接触人工神经网络。
 
-神经网络是一种模拟人脑的神经网络以期能够实现类人工智能的机器学习技术。人脑中的神经网络是一个非常复杂的组织。成">
+一时心血来潮对棋类博弈产生了兴趣，就想着通过实现一个五子棋AI顺便了解一下相关算法和知识。
+五子棋在英文中又称Gobang。先简单介绍一下，由于五子棋已经被机器严格证明了是一种“不公平”的游戏，先手黑子是绝对占优的，并且先手有必胜的套路">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -20,7 +20,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>神经网络 | 思无邪</title>
+    <title>五子棋AI（一） | 思无邪</title>
     <link rel="icon" type="image/png" href="/favicon.png">
     
 
@@ -484,12 +484,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/4.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/22.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">神经网络</h1>
+                    <h1 class="description center-align post-title">五子棋AI（一）</h1>
                 </div>
             </div>
         </div>
@@ -513,8 +513,12 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/">
-                                <span class="chip bg-color">神经网络</span>
+                            <a href="/tags/%E4%BA%94%E5%AD%90%E6%A3%8BAI/">
+                                <span class="chip bg-color">五子棋AI</span>
+                            </a>
+                        
+                            <a href="/tags/%E5%8D%9A%E5%BC%88%E6%A0%91/">
+                                <span class="chip bg-color">博弈树</span>
                             </a>
                         
                     </div>
@@ -525,8 +529,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" class="post-category">
-                                深度学习
+                            <a href="/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/" class="post-category">
+                                人工智能
                             </a>
                         
                     </div>
@@ -538,7 +542,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2022-08-30
+                    2022-09-10
                 </div>
                 
 
@@ -547,7 +551,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    278
+                    2.2k
                 </div>
                 
 
@@ -567,11 +571,321 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <blockquote>
-<p>人工智能主要是机器学习，机器学习主要是深度学习，深度学习实际上算是机器学习的子领域，而要进行深度学习必然要接触人工神经网络。</p>
+                <hr>
+<blockquote>
+<p>一时心血来潮对棋类博弈产生了兴趣，就想着通过实现一个五子棋AI顺便了解一下相关算法和知识。</p>
+<p>五子棋在英文中又称Gobang。先简单介绍一下，由于五子棋已经被机器严格证明了是一种“不公平”的游戏，先手黑子是绝对占优的，并且先手有必胜的套路。由于先手必胜，必须对先手进行一定的规则限制，于是就出现了“禁手”一说，即某些位置[（比如能形成双活3、活3冲4）](<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E4%BA%94%E5%AD%90%E6%A3%8B/130266">五子棋（两人对弈的策略型棋类游戏）_百度百科 (baidu.com)</a>)黑子不能下，不然就算黑子输。在日本，五子棋的理论得到极大发展，有禁手规则的五子棋被称为“连珠”（renju），而一般无禁手规则的叫做gomoku。由于大部分普通人下五子棋只是图一个乐趣，并不需要深入研究其中的理论规则，所以反而是gomoku在学生之间非常流行（我高中时下课就经常和同学玩五子棋）。</p>
+<p>这里我实现的五子棋AI是无禁手规则的（因为有禁手的太复杂，另外本人比较懒。。。），标准棋盘大小为15$\times$15，我的目的是想实现一个能打败大部分普通人的AI，因此并没有进行更深入的专业性研究。所以，如果你能战胜我实现的AI，也不用太过惊讶。</p>
 </blockquote>
-<p>神经网络是一种模拟人脑的神经网络以期能够实现类人工智能的<a target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0&spm=1001.2101.3001.7020">机器学习</a>技术。人脑中的神经网络是一个非常复杂的组织。成人的大脑中估计有1000亿个神经元之多。</p>
-<p>人工神经网络（artificial neural network，ANN），简称神经网络（neural network，NN），是一种模仿生物神经网络的结构和功能的数学模型或计算模型。神经网络由大量的人工神经元联结进行计算。大多数情况下人工神经网络能在外界信息的基础上改变内部结构，是一种自适应系统。现代神经网络是一种非线性统计性数据建模工具，常用来对输入和输出间复杂的关系进行建模，或用来探索数据的模式。</p>
+<hr>
+<h2 id="一、界面设计"><a href="#一、界面设计" class="headerlink" title="一、界面设计"></a>一、界面设计</h2><h3 id="1、设计项目主体框架"><a href="#1、设计项目主体框架" class="headerlink" title="1、设计项目主体框架"></a>1、设计项目主体框架</h3><p>首先先进行整体框架的设计，不写过程，直接写需要几个类！<br><img src="/2022/09/10/wu-zi-qi-ai-yi/%E5%9B%BE1.png"><br>这里，我设计了4个类，分别表示棋手，AI, 棋盘，游戏控制。</p>
+<h3 id="2、给类添加主要接口"><a href="#2、给类添加主要接口" class="headerlink" title="2、给类添加主要接口"></a>2、给类添加主要接口</h3><h3 id="2-1-设计棋盘类Chess的主要接口"><a href="#2-1-设计棋盘类Chess的主要接口" class="headerlink" title="2.1　设计棋盘类Chess的主要接口"></a>2.1　设计棋盘类Chess的主要接口</h3><p>Chess.h</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#pragma once
+
+#define LEFT 5			&#x2F;&#x2F;棋盘左边界
+#define TOP 5			&#x2F;&#x2F;棋盘上边界
+#define RIGHT 19		&#x2F;&#x2F;棋盘右边界
+#define DOWN 19			&#x2F;&#x2F;棋盘下边界
+#define MAX_BORDER 25	&#x2F;&#x2F;棋盘存储大小
+#define CHESS_SIZE 15	&#x2F;&#x2F;棋盘最大网格数
+
+#define GRID_SIZE 30  &#x2F;&#x2F;网格尺寸
+#define WIDTH GRID_SIZE*(CHESS_SIZE+1)  &#x2F;&#x2F;网格宽度
+#define HEIGHT GRID_SIZE*(CHESS_SIZE+1)  &#x2F;&#x2F;网格高度
+#define MOUSE_P1 10
+#define MOUSE_P2 20
+
+#define MOUSE_COLOR LIGHTGRAY  &#x2F;&#x2F;鼠标颜色
+#define BACKGROUND_COLOR DARKGRAY  &#x2F;&#x2F;背景颜色
+
+&#x2F;&#x2F;十六进制表示颜色
+#define BLACK_CHESS_COLOR 0  &#x2F;&#x2F;黑棋颜色
+#define WHITE_CHESS_COLOR 0xFFFFFF  &#x2F;&#x2F;白棋颜色
+
+&#x2F;&#x2F;定义下棋对象
+typedef enum 
+&#123;
+    EMPTY &#x3D; 0,
+    Black_Chess &#x3D; 1,  &#x2F;&#x2F;黑棋
+    White_Chess &#x3D; 2   &#x2F;&#x2F;白棋
+&#125; Object;
+
+&#x2F;&#x2F;下棋步数定义
+class Chess_Position 
+&#123;
+public:
+	int row;
+	int col;
+	Chess_Position(int r &#x3D; 0, int c &#x3D; 0):row(r), col(c) &#123;&#125;;
+&#125;;
+
+extern int chess[MAX_BORDER][MAX_BORDER];
+
+class Chess
+&#123;
+public:
+	
+	&#x2F;&#x2F;画出棋盘网格
+	void Draw_ChessBoard();
+
+	&#x2F;&#x2F;显示双方各自执棋情况提示
+	void Show_Side_ChessColor(Object  humanSide);
+
+	&#x2F;&#x2F;初始化棋盘网络
+	void Init_Chess(Object  humanSide);
+
+	&#x2F;&#x2F;指定位置画出一颗棋子
+	void Show_A_Chess(int x, int y, int color);
+
+	&#x2F;&#x2F;显示会话
+	void Show_Dialog(char* dialog);
+
+	&#x2F;&#x2F;显示博弈结果
+	void Show_Result(bool humanWin);
+&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="2-2-设计AI类的主要接口"><a href="#2-2-设计AI类的主要接口" class="headerlink" title="2.2　设计AI类的主要接口"></a>2.2　设计AI类的主要接口</h3><p>AI.h</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#pragma once
+
+#include&lt;vector&gt;
+#include&quot;Chess.h&quot;
+
+using namespace std;
+
+class AI
+&#123;
+public:
+	&#x2F;&#x2F;AI初始化
+	void Init(Chess* chess);
+
+	&#x2F;&#x2F;AI下棋接口
+	void AISearch(Object aiSide, Chess_Position&amp; Position, Chess_Position&amp; nextPosition);
+    
+    &#x2F;&#x2F;判断某一方是否取胜
+	bool Is_Win(const Chess_Position Position, Object side);
+&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><font color="Blue">注意</font>：在最初开发时<font color="red">AISearch()</font>和<font color="red">Is_Win()</font>我并未输入参数，因为设计时并不知道要使用多少参数，这里为了方便我就直接复制进来了。</p>
+<h3 id="2-3-设计Man类的主要接口"><a href="#2-3-设计Man类的主要接口" class="headerlink" title="2.3　设计Man类的主要接口"></a>2.3　设计Man类的主要接口</h3><p>Man.h </p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#pragma once
+#include &quot;Chess.h&quot;
+
+class Man
+&#123;
+public:
+	&#x2F;&#x2F;初始化
+	void Init(Chess* chess);
+
+	&#x2F;&#x2F;显示鼠标位置
+	void Show_Mouse(int x, int y, int color);
+
+	&#x2F;&#x2F;移动鼠标时更新界面
+	void Move_Mouse(int x, int y, int nx, int ny);
+
+	&#x2F;&#x2F;棋手下棋接口
+	void human_go(Chess_Position&amp; Position, Object side);
+&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="2-4-设计ChessGame的主要接口"><a href="#2-4-设计ChessGame的主要接口" class="headerlink" title="2.4　设计ChessGame的主要接口"></a>2.4　设计ChessGame的主要接口</h3><p>ChessGame.h</p>
+<pre class="line-numbers language-C++" data-language="C++"><code class="language-C++">#pragma once
+
+#include&quot;Man.h&quot;
+#include&quot;AI.h&quot;
+#include&quot;Chess.h&quot;
+
+&#x2F;&#x2F;控制AI执黑棋还是执白棋的按钮
+&#x2F;&#x2F;可以调节
+#define compSide 0	&#x2F;&#x2F;0：AI为黑	1：AI为白
+
+class ChessGame
+&#123;
+public:
+	&#x2F;&#x2F;下棋接口
+	void play();  
+&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="2-5-添加各个接口的具体实现"><a href="#2-5-添加各个接口的具体实现" class="headerlink" title="2.5　添加各个接口的具体实现"></a>2.5　添加各个接口的具体实现</h3><p>可以使用如下方式自动生成各接口的具体实现。先不用考虑各个接口的真正实现，直接使用空函数体代替。 </p>
+<p><img src="/2022/09/10/wu-zi-qi-ai-yi/%E5%9B%BE2.png"></p>
+<h2 id="3、绘制界面"><a href="#3、绘制界面" class="headerlink" title="3、绘制界面"></a>3、绘制界面</h2><hr>
+<blockquote>
+<p>这里绘制界面用到的是C++的图形库<a target="_blank" rel="noopener" href="https://easyx.cn/">EasyX </a>，需要自行安装才能使用。</p>
+</blockquote>
+<hr>
+<h3 id="3-1-画出棋盘网络并进行初始化"><a href="#3-1-画出棋盘网络并进行初始化" class="headerlink" title="3.1　画出棋盘网络并进行初始化"></a>3.1　画出棋盘网络并进行初始化</h3><p>Chess.cpp</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F;画出棋盘网格
+void Chess::Draw_ChessBoard()
+&#123;
+	for (int i &#x3D; 1; i &lt;&#x3D; CHESS_SIZE; ++i)
+		line(GRID_SIZE, i * GRID_SIZE, CHESS_SIZE * GRID_SIZE, i * GRID_SIZE);
+	for (int i &#x3D; 1; i &lt;&#x3D; CHESS_SIZE; ++i)
+		line(i * GRID_SIZE, GRID_SIZE, i * GRID_SIZE, CHESS_SIZE * GRID_SIZE);
+&#125;
+
+&#x2F;&#x2F;初始化棋盘网络
+void Chess::Init_Chess(Object humanSide)
+&#123;
+	initgraph(WIDTH, HEIGHT);
+	setbkcolor(BACKGROUND_COLOR);
+	cleardevice();
+	FlushMouseMsgBuffer();
+	Draw_ChessBoard();
+	Show_Side_ChessColor(humanSide);
+	Show_Side_ChessColor(humanSide);
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>再补充一下头文件</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include &quot;Chess.h&quot;
+#include&lt;graphics.h&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<h3 id="3-2-显示用户提示会话以及胜负结果"><a href="#3-2-显示用户提示会话以及胜负结果" class="headerlink" title="3.2　显示用户提示会话以及胜负结果"></a>3.2　显示用户提示会话以及胜负结果</h3><pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F;显示双方各自执棋情况提示
+void Chess::Show_Side_ChessColor(Object humanSide) 
+&#123;
+	settextstyle(18, 0, _T(&quot;楷体&quot;));
+	outtextxy(WIDTH - GRID_SIZE * 6, 6, _T(humanSide &#x3D;&#x3D; Black_Chess ? &quot;AI：白    人：黑&quot; : &quot;AI：黑    人：白&quot;));
+&#125;
+
+&#x2F;&#x2F;显示会话
+void Chess::Show_Dialog(char* dialog)
+&#123;
+	settextstyle(20, 0, _T(&quot;Consolas&quot;));
+	outtextxy(30, 5, _T(dialog));
+&#125;
+
+&#x2F;&#x2F;显示博弈结果
+void Chess::Show_Result(bool humanWin)
+&#123;
+	settextstyle(30, 0, _T(&quot;楷体&quot;));
+	if (humanWin) &#123;
+		setcolor(RED);
+		outtextxy(WIDTH &#x2F; 2 - GRID_SIZE * 2, 0, _T(&quot;你赢了！&quot;));
+	&#125;
+	else &#123;
+		setcolor(GREEN);
+		outtextxy(WIDTH &#x2F; 2 - GRID_SIZE * 2, 0, _T(&quot;你输了！&quot;));
+	&#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="3-3-绘制棋子"><a href="#3-3-绘制棋子" class="headerlink" title="3.3　绘制棋子"></a>3.3　绘制棋子</h3><pre class="line-numbers language-C++" data-language="C++"><code class="language-C++">&#x2F;&#x2F;指定位置画出一颗棋子
+void Chess::Show_A_Chess(int x, int y, int color)
+&#123;
+	x -&#x3D; LEFT - 1, y -&#x3D; TOP - 1;
+	x *&#x3D; GRID_SIZE, y *&#x3D; GRID_SIZE;
+	setcolor(color);
+	setfillcolor(color);
+	setfillstyle(BS_SOLID);
+	fillcircle(x, y, GRID_SIZE &#x2F; 2);
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="4、-实现棋手走棋"><a href="#4、-实现棋手走棋" class="headerlink" title="4、 实现棋手走棋"></a>4、 实现棋手走棋</h2><h3 id="4-1-棋手的初始化"><a href="#4-1-棋手的初始化" class="headerlink" title="4.1　棋手的初始化"></a>4.1　棋手的初始化</h3><p>为棋手类，添加数据成员，表示棋盘</p>
+<p>Man.h</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">private:
+	Chess* ch;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>实现棋手对象的初始化</p>
+<p>Man.cpp</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F;初始化
+void Man::Init(Chess* chess)
+&#123;
+	this-&gt;ch &#x3D; chess;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>在cpp文件中补充上头文件</p>
+<p>Man.cpp</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include &quot;Man.h&quot;
+#include&lt;graphics.h&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>然后在ChessGame的构造函数中，实现棋手的初始化。</p>
+<p>ChessGame.cpp</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F;构造函数
+ChessGame::ChessGame(Man* man, AI* ai, Chess* chess)
+&#123;
+	this-&gt;man &#x3D; man;
+	this-&gt;ai &#x3D; ai;
+	this-&gt;ch &#x3D; chess;
+
+	man-&gt;Init(chess);
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="4-2-显示鼠标位置"><a href="#4-2-显示鼠标位置" class="headerlink" title="4.2　显示鼠标位置"></a>4.2　显示鼠标位置</h3><p>为了用户能知道此时光标的位置,我们可以用四条斜线对光标位置进行定位,使用户能清晰地看到此时鼠标的位置。</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F;显示鼠标位置
+void Man::Show_Mouse(int x, int y, int color)
+&#123;
+	static const int p1[4][2] &#x3D; &#123; &#123; MOUSE_P1 ,MOUSE_P1 &#125;,&#123; MOUSE_P1,-MOUSE_P1 &#125;,&#123; -MOUSE_P1,MOUSE_P1 &#125;,&#123; -MOUSE_P1,-MOUSE_P1 &#125; &#125;;
+	static const int p2[4][2] &#x3D; &#123; &#123; MOUSE_P2 ,MOUSE_P2 &#125;,&#123; MOUSE_P2,-MOUSE_P2 &#125;,&#123; -MOUSE_P2,MOUSE_P2 &#125;,&#123; -MOUSE_P2,-MOUSE_P2 &#125; &#125;;
+	setlinecolor(color);
+	x *&#x3D; GRID_SIZE, y *&#x3D; GRID_SIZE;
+	for (int i &#x3D; 0; i &lt; 4; ++i)
+		line(x + p1[i][0], y + p1[i][1], x + p2[i][0], y + p2[i][1]);
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>我们知道用户的鼠标应该要进行实时的更新,因此我们需要在添加一个函数在用户移动鼠标时更新界面。</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F;移动鼠标时更新界面
+void Man::Move_Mouse(int x, int y, int nx, int ny)
+&#123;
+	Show_Mouse(x, y, BACKGROUND_COLOR);
+	Show_Mouse(nx, ny, MOUSE_COLOR);
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="4-3-棋手走棋"><a href="#4-3-棋手走棋" class="headerlink" title="4.3　棋手走棋"></a>4.3　棋手走棋</h3><pre class="line-numbers language-C++" data-language="C++"><code class="language-C++">&#x2F;&#x2F;棋手下棋接口
+void Man::human_go(Chess_Position&amp; position, Object side)
+&#123;
+	MOUSEMSG m;
+	int nowx &#x3D; -1, nowy &#x3D; -1;
+	while (1) &#123;
+		m &#x3D; GetMouseMsg();
+		int windowx &#x3D; (m.x + (GRID_SIZE &gt;&gt; 1)) &#x2F; GRID_SIZE;
+		int windowy &#x3D; (m.y + (GRID_SIZE &gt;&gt; 1)) &#x2F; GRID_SIZE;
+		int chessx &#x3D; windowx + LEFT - 1;
+		int chessy &#x3D; windowy + TOP - 1;
+		if (chessx &gt;&#x3D; LEFT &amp;&amp; chessx &lt;&#x3D; RIGHT &amp;&amp; chessy &gt;&#x3D; TOP &amp;&amp; chessy &lt;&#x3D; DOWN) 
+		&#123;
+			switch (m.uMsg)
+			&#123;
+			case WM_MOUSEMOVE:     &#x2F;&#x2F;移动
+				if (nowx !&#x3D; windowx || nowy !&#x3D; windowy)
+					Move_Mouse(nowx, nowy, windowx, windowy);
+				break;
+			case WM_LBUTTONDOWN:  &#x2F;&#x2F;按下
+				if (chess[chessy][chessx] !&#x3D; EMPTY)
+					break;
+				ch-&gt;Show_A_Chess(chessx, chessy, side &#x3D;&#x3D; Black_Chess ? BLACK_CHESS_COLOR : WHITE_CHESS_COLOR);
+				position &#x3D; &#123; chessy ,chessx &#125;;
+				return;
+			&#125;
+			nowx &#x3D; windowx, nowy &#x3D; windowy;
+		&#125;
+	&#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="5、添加数据成员"><a href="#5、添加数据成员" class="headerlink" title="5、添加数据成员"></a>5、添加数据成员</h2><p>为了便于调用各个类的功能，在ChessGame中，添加3个数据成员，并在构造函数中初始化这三个数据成员。</p>
+<p>ChessGame.h</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#pragma once
+
+#include&quot;Man.h&quot;
+#include&quot;AI.h&quot;
+#include&quot;Chess.h&quot;
+
+&#x2F;&#x2F;可以调节
+#define compSide 0	&#x2F;&#x2F;0：AI为黑	1：AI为白
+
+class ChessGame
+&#123;
+public:
+	&#x2F;&#x2F;构造函数
+	ChessGame(Man*, AI*, Chess*);
+
+	&#x2F;&#x2F;下棋接口
+	void play();  
+
+private:
+	Man* man;
+	AI* ai;
+	Chess* ch;
+&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="6、细节修改"><a href="#6、细节修改" class="headerlink" title="6、细节修改"></a>6、细节修改</h2><p>修改项目的字符集为“多字节字符集”，因为我们要让编译器不增加宏定义——UNICODE。（是否增加了宏定义UNICODE，会影响了一些Windows API的使用。）<br><img src="/2022/09/10/wu-zi-qi-ai-yi/%E5%9B%BE3.png"></p>
+<p>至此，我们第一部分整体框架的设计已经结束了，简单实现了界面，但还没实现AI下棋部分，AI部分的算法包含了Min-Max算法和αβ剪枝算法的实现。</p>
+<p><font size="5">下一篇：<a href>五子棋AI（二）</a></font></p>
 
                 
             </div>
@@ -598,7 +912,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://example.com/2022/08/30/shen-du-xue-xi-yi/">http://example.com/2022/08/30/shen-du-xue-xi-yi/</a>
+                    <a href="http://example.com/2022/09/10/wu-zi-qi-ai-yi/">http://example.com/2022/09/10/wu-zi-qi-ai-yi/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -636,8 +950,12 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/">
-                                    <span class="chip bg-color">神经网络</span>
+                                <a href="/tags/%E4%BA%94%E5%AD%90%E6%A3%8BAI/">
+                                    <span class="chip bg-color">五子棋AI</span>
+                                </a>
+                            
+                                <a href="/tags/%E5%8D%9A%E5%BC%88%E6%A0%91/">
+                                    <span class="chip bg-color">博弈树</span>
                                 </a>
                             
                         </div>
@@ -720,13 +1038,13 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2022/11/12/hong-hei-shu/">
+                <a href="/2022/09/13/wu-zi-qi-ai-er/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/2.jpg" class="responsive-img" alt="红黑树">
+                        <img src="/medias/featureimages/2.jpg" class="responsive-img" alt="五子棋AI（二）">
                         
-                        <span class="card-title">红黑树</span>
+                        <span class="card-title">五子棋AI（二）</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -737,14 +1055,14 @@
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2022-11-12
+                            <i class="far fa-clock fa-fw icon-date"></i>2022-09-13
                         </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" class="post-category">
-                                    数据结构
+                            <a href="/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/" class="post-category">
+                                    人工智能
                                 </a>
                             
                             
@@ -754,16 +1072,20 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/">
-                        <span class="chip bg-color">二叉树</span>
+                    <a href="/tags/%E4%BA%94%E5%AD%90%E6%A3%8BAI/">
+                        <span class="chip bg-color">五子棋AI</span>
                     </a>
                     
-                    <a href="/tags/2-3%E6%A0%91/">
-                        <span class="chip bg-color">2-3树</span>
+                    <a href="/tags/%E5%8D%9A%E5%BC%88%E6%A0%91/">
+                        <span class="chip bg-color">博弈树</span>
                     </a>
                     
-                    <a href="/tags/%E7%BA%A2%E9%BB%91%E6%A0%91/">
-                        <span class="chip bg-color">红黑树</span>
+                    <a href="/tags/%E7%AE%97%E6%B3%95/">
+                        <span class="chip bg-color">算法</span>
+                    </a>
+                    
+                    <a href="/tags/Min-Max%E7%AE%97%E6%B3%95/">
+                        <span class="chip bg-color">Min-Max算法</span>
                     </a>
                     
                 </div>
@@ -777,13 +1099,13 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2022/05/01/ren-sheng-hai-hai-du-hou-gan/">
+                <a href="/2022/08/30/shen-jing-wang-luo/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="《人生海海》读后感">
+                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="神经网络">
                         
-                        <span class="card-title">《人生海海》读后感</span>
+                        <span class="card-title">神经网络</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -794,14 +1116,14 @@
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-05-01
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-08-30
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" class="post-category">
-                                    读书笔记
+                            <a href="/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/" class="post-category">
+                                    人工智能
                                 </a>
                             
                             
@@ -811,8 +1133,12 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E8%AF%BB%E5%90%8E%E6%84%9F/">
-                        <span class="chip bg-color">读后感</span>
+                    <a href="/tags/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/">
+                        <span class="chip bg-color">神经网络</span>
+                    </a>
+                    
+                    <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
+                        <span class="chip bg-color">深度学习</span>
                     </a>
                     
                 </div>
@@ -1046,7 +1372,7 @@
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">14.8k</span>
+                        class="white-color">17.2k</span>
             
             
             

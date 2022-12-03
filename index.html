@@ -894,6 +894,10 @@
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
+                                
+
+Min-Max算法（亦称 MiniMax or MM）又名极小化极大算法，是一种找出失败的最大可能性中的最小值的算法。Minimax算法常用于棋类等由两方较量的游戏和程序。该算法是[零和博弈](零和博弈（社会学概念）_百度百科 (bai
+                            
                         </div>
                         <div class="publish-info">
                             <span class="publish-date">
@@ -927,6 +931,10 @@
                             <span class="chip bg-color">算法</span>
                         </a>
                         
+                        <a href="/tags/Min-Max%E7%AE%97%E6%B3%95/">
+                            <span class="chip bg-color">Min-Max算法</span>
+                        </a>
+                        
                         <a href="/tags/%CE%B1%CE%B2%E5%89%AA%E6%9E%9D%E7%AE%97%E6%B3%95/">
                             <span class="chip bg-color">αβ剪枝算法</span>
                         </a>
@@ -953,8 +961,17 @@
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                
-Min-Max算法（亦称 MiniMax or MM）又名极小化极大算法，是一种找出失败的最大可能性中的最小值的算法。Minimax算法常用于棋类等由两方较量的游戏和程序。该算法是[零和博弈](零和博弈（社会学概念）_百度百科 (baid
+                                1、实现AI走棋1.1　设计AI的数据成员
+
+
+添加棋盘数据成员，以表示对哪个棋盘下棋。
+添加评分数组chess[MAX_BORDER][MAX_BORDER]， 用来存储AI对棋盘所有落点的价值评估。
+
+
+
+AI.h
+private:
+	
                             
                         </div>
                         <div class="publish-info">
@@ -983,14 +1000,6 @@ Min-Max算法（亦称 MiniMax or MM）又名极小化极大算法，是一种�
                         
                         <a href="/tags/%E5%8D%9A%E5%BC%88%E6%A0%91/">
                             <span class="chip bg-color">博弈树</span>
-                        </a>
-                        
-                        <a href="/tags/%E7%AE%97%E6%B3%95/">
-                            <span class="chip bg-color">算法</span>
-                        </a>
-                        
-                        <a href="/tags/Min-Max%E7%AE%97%E6%B3%95/">
-                            <span class="chip bg-color">Min-Max算法</span>
                         </a>
                         
                     </div>
@@ -1348,7 +1357,7 @@ Dijkstra算法刚接触时确实有点难以理解，尤其是代码的实现，
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">17.2k</span>
+                        class="white-color">21.3k</span>
             
             
             

@@ -551,7 +551,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    2.2k
+                    2.3k
                 </div>
                 
 
@@ -619,8 +619,6 @@ public:
 	Chess_Position(int r &#x3D; 0, int c &#x3D; 0):row(r), col(c) &#123;&#125;;
 &#125;;
 
-extern int chess[MAX_BORDER][MAX_BORDER];
-
 class Chess
 &#123;
 public:
@@ -642,7 +640,7 @@ public:
 
 	&#x2F;&#x2F;显示博弈结果
 	void Show_Result(bool humanWin);
-&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <h3 id="2-2-设计AI类的主要接口"><a href="#2-2-设计AI类的主要接口" class="headerlink" title="2.2　设计AI类的主要接口"></a>2.2　设计AI类的主要接口</h3><p>AI.h</p>
 <pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#pragma once
@@ -884,8 +882,8 @@ private:
 &#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <h2 id="6、细节修改"><a href="#6、细节修改" class="headerlink" title="6、细节修改"></a>6、细节修改</h2><p>修改项目的字符集为“多字节字符集”，因为我们要让编译器不增加宏定义——UNICODE。（是否增加了宏定义UNICODE，会影响了一些Windows API的使用。）<br><img src="/2022/09/10/wu-zi-qi-ai-yi/%E5%9B%BE3.png"></p>
-<p>至此，我们第一部分整体框架的设计已经结束了，简单实现了界面，但还没实现AI下棋部分，AI部分的算法包含了Min-Max算法和αβ剪枝算法的实现。</p>
-<p><font size="5">下一篇：<a href>五子棋AI（二）</a></font></p>
+<p>至此，我们第一部分整体框架的设计已经结束了，简单实现了界面，但还没实现AI下棋部分，AI部分的算法包含了Min-Max算法和αβ剪枝算法的实现。下一篇将优先实现AI算法中最重要的一环：评估函数的实现。</p>
+<p><font size="5">下一篇：[五子棋AI（二）](<a target="_blank" rel="noopener" href="http://ude123456.top/2022/09/13/wu-zi-qi-ai-er/">五子棋AI（二） | 思无邪 (ude123456.top)</a>)</font></p>
 
                 
             </div>
@@ -1078,14 +1076,6 @@ private:
                     
                     <a href="/tags/%E5%8D%9A%E5%BC%88%E6%A0%91/">
                         <span class="chip bg-color">博弈树</span>
-                    </a>
-                    
-                    <a href="/tags/%E7%AE%97%E6%B3%95/">
-                        <span class="chip bg-color">算法</span>
-                    </a>
-                    
-                    <a href="/tags/Min-Max%E7%AE%97%E6%B3%95/">
-                        <span class="chip bg-color">Min-Max算法</span>
                     </a>
                     
                 </div>
@@ -1372,7 +1362,7 @@ private:
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">17.2k</span>
+                        class="white-color">21.3k</span>
             
             
             

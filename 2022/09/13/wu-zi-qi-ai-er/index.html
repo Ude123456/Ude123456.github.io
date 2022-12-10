@@ -558,7 +558,7 @@ private:
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    4k
+                    4.1k
                 </div>
                 
 
@@ -620,7 +620,85 @@ void AI::Init(Chess* chess)
 <p>具体实现方式如下：<br>1、遍历棋盘上的每个点，如果是黑棋或白旗，则对这个点所在四个方向形成的四条线分别进行评估。四个方向即水平，竖直，两个斜线( \ , / ），四个方向依次按照从左到右， 从上到下，从左上到右下，从左下到右上来检测。</p>
 <p>2、对于具体的一条线，如下图，已选取点为中心，取该方向上前面两个点，后面两个点，组成一个长度为4的“数组”（实际上是转换成二进制）。<br><img src="/2022/09/13/wu-zi-qi-ai-er/图21.png" alt><br>然后找出和中心点相连的同色棋子有几个，比如下图，相连的白色棋子有3个，根据相连棋子的个数再分别进行判断，最后得出这行属于上面说的哪一种棋型。<br><img src="/2022/09/13/wu-zi-qi-ai-er/图22.png" alt><br>这里有个注意点，在评估白旗1的时候，白棋3和5已经被判断过，所以要标记下，下次遍历到这个方向的白棋3和5，需要跳过，避免重复统计棋型。</p>
 <p>3、根据棋盘上黑棋和白棋的棋型统计信息，按照一定规则进行评分。<br>假设形成该棋局的最后一步是黑棋下的，则最后的评分是（黑棋得分 - 白棋得分），在相同棋型相同个数的情况下，白棋会占优，因为下一步是白棋下。比如黑棋有个冲四，白棋有个冲四，显然白棋占优，因为下一步白棋就能成连五。</p>
-<p>这里的权重设计是有技巧的，因为很多大佬已经经过实验得出许多不同的权重参数，所以这里我就直接使用大佬们给出的数据了。（下标中的死棋其实有的可以看成是活棋或者冲棋，但是为了方便就直接看作死棋的一种）<br>|棋型代号|棋型说明|权重|<br>|:—-:|:—-:|:—-:|<br>|VALUE_WIN|长连|10000000|<br>|VALUE_Huo4|活四|150000|<br>|VALUE_Chong4|冲四|7500|<br>|VALUE_Si4|死四|20|<br>|VALUE_Huo3|活三|7500|<br>|VALUE_Chong3|冲三|2000|<br>|VALUE_Si3|死三|10|<br>|VALUE_Huo2|活二|1000|<br>|VALUE_Chong2|冲二|200|<br>|VALUE_Si2|死二|5|<br>|VALUE_Huo1|活一|100|<br>|VALUE_Chong1|冲一|50|<br>|VALUE_Si1|死一|0|</p>
+<p>这里的权重设计是有技巧的，因为很多大佬已经经过实验得出许多不同的权重参数，所以这里我就直接使用大佬们给出的数据了。（下标中的死棋其实有的可以看成是活棋或者冲棋，但是为了方便就直接看作死棋的一种）</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">棋型代号</th>
+<th style="text-align:center">棋型说明</th>
+<th style="text-align:center">权重</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">VALUE_WIN</td>
+<td style="text-align:center">长连</td>
+<td style="text-align:center">10000000</td>
+</tr>
+<tr>
+<td style="text-align:center">VALUE_Huo4</td>
+<td style="text-align:center">活四</td>
+<td style="text-align:center">150000</td>
+</tr>
+<tr>
+<td style="text-align:center">VALUE_Chong4</td>
+<td style="text-align:center">冲四</td>
+<td style="text-align:center">7500</td>
+</tr>
+<tr>
+<td style="text-align:center">VALUE_Si4</td>
+<td style="text-align:center">死四</td>
+<td style="text-align:center">20</td>
+</tr>
+<tr>
+<td style="text-align:center">VALUE_Huo3</td>
+<td style="text-align:center">活三</td>
+<td style="text-align:center">7500</td>
+</tr>
+<tr>
+<td style="text-align:center">VALUE_Chong3</td>
+<td style="text-align:center">冲三</td>
+<td style="text-align:center">2000</td>
+</tr>
+<tr>
+<td style="text-align:center">VALUE_Si3</td>
+<td style="text-align:center">死三</td>
+<td style="text-align:center">10</td>
+</tr>
+<tr>
+<td style="text-align:center">VALUE_Huo2</td>
+<td style="text-align:center">活二</td>
+<td style="text-align:center">1000</td>
+</tr>
+<tr>
+<td style="text-align:center">VALUE_Chong2</td>
+<td style="text-align:center">冲二</td>
+<td style="text-align:center">200</td>
+</tr>
+<tr>
+<td style="text-align:center">VALUE_Si2</td>
+<td style="text-align:center">死二</td>
+<td style="text-align:center">5</td>
+</tr>
+<tr>
+<td style="text-align:center">VALUE_Huo1</td>
+<td style="text-align:center">活一</td>
+<td style="text-align:center">100</td>
+</tr>
+<tr>
+<td style="text-align:center">VALUE_Chong1</td>
+<td style="text-align:center">冲一</td>
+<td style="text-align:center">50</td>
+</tr>
+<tr>
+<td style="text-align:center">VALUE_Si1</td>
+<td style="text-align:center">死一</td>
+<td style="text-align:center">0</td>
+</tr>
+</tbody>
+</table>
+</div>
 <p>另外这里我在下面给出一位大佬给出的权重设计规则（但跟我给出的权重设计不相同），有兴趣的可以自行了解。具体的可参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/livingsu/article/details/104539741">(250条消息) 五子棋ai：极大极小搜索和α-β剪枝算法的思想和实现(qt和c++)（二）贪心算法和评估函数_livingsu的博客-CSDN博客</a></p>
 <blockquote>
 <ul>
@@ -818,7 +896,7 @@ public:
 &#125;;
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>至此，我们第二部分的评估函数已经实现完了，接下来才是真正涉及到了AI部分的算法。下一篇就是五子棋AI当中两个主要算法：Min-Max算法和αβ剪枝算法的实现。</p>
-<p>下一篇：</p>
+<p>下一篇：<a target="_blank" rel="noopener" href="http://ude123456.top/2022/09/17/wu-zi-qi-ai-san/">五子棋AI（三）</a></p>
 
                 
             </div>

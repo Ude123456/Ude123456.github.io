@@ -12,8 +12,8 @@
 添加评分数组chess[MAX_BORDER][MAX_BORDER]， 用来存储AI对棋盘所有落点的价值评估。
 
 
-
 AI.h
+
 private:
 	">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -584,22 +584,19 @@ private:
 <li>添加棋盘数据成员，以表示对哪个棋盘下棋。</li>
 <li>添加评分数组chess[MAX_BORDER][MAX_BORDER]， 用来存储AI对棋盘所有落点的价值评估。</li>
 </ul>
-</blockquote>
 <hr>
 <p>AI.h</p>
+</blockquote>
 <pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">private:
 	Chess* ch;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-
 <p>再添加评分数组,为防止二次定义，我们使用extern关键词进行规避该风险。</p>
 <p>chess.h</p>
 <pre class="line-numbers language-C++" data-language="C++"><code class="language-C++">extern int chess[MAX_BORDER][MAX_BORDER];<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
 <h3 id="1-2-对AI进行初始化"><a href="#1-2-对AI进行初始化" class="headerlink" title="1.2　对AI进行初始化"></a>1.2　对AI进行初始化</h3><pre class="line-numbers language-C++" data-language="C++"><code class="language-C++">&#x2F;&#x2F;AI初始化
 void AI::Init(Chess* chess)
 &#123;
 	this-&gt;ch &#x3D; chess;
 &#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <h2 id="2、评估函数"><a href="#2、评估函数" class="headerlink" title="2、评估函数"></a>2、评估函数</h2><blockquote>
 <p>对于五子棋AI而言，最重要的就是它的评估函数。评估函数网上大概有两种，但是很多人会弄混淆。</p>
 <ul>
@@ -612,97 +609,23 @@ void AI::Init(Chess* chess)
 </blockquote>
 <p>对局势的判断要怎样做才会有个准确的估计呢？其实<strong>五子棋的局势无非就是对棋型个数和权重的统计。</strong></p>
 <h3 id="2-1-五子棋基本棋型介绍"><a href="#2-1-五子棋基本棋型介绍" class="headerlink" title="2.1　五子棋基本棋型介绍"></a>2.1　五子棋基本棋型介绍</h3><p>最常见的基本棋型有以下几种：连五，活四，冲四，活三，眠三，活二，眠二。<br>具体可参考：<a target="_blank" rel="noopener" href="http://game.onegreen.net/wzq/HTML/142336.html">http://game.onegreen.net/wzq/HTML/142336.html</a></p>
-<p>① <strong>连五</strong>：顾名思义，五颗同色棋子连在一起，不需要多讲。<br><img src="/2022/09/13/wu-zi-qi-ai-er/%E5%9B%BE1.jpg" alt="图1">　　　　　　　<br>②<strong>活四</strong>：有两个连五点（即有两个点可以形成五），图中白点即为连五点。<br>稍微思考一下就能发现活四出现的时候，如果对方单纯过来防守的话，是已经无法阻止自己连五了<br><img src="/2022/09/13/wu-zi-qi-ai-er/%E5%9B%BE2.jpg" alt="图1"><br>③<strong>冲四</strong>：有一个连五点，如下面三图，均为冲四棋型。图中白点为连五点。<br>相对比活四来说，冲四的威胁性就小了很多，因为这个时候，对方只要跟着防守在那个唯一的连五点上，冲四就没法形成连五。<br><img src="/2022/09/13/wu-zi-qi-ai-er/%E5%9B%BE3.jpg" alt="图3">　　<img src="/2022/09/13/wu-zi-qi-ai-er/%E5%9B%BE4.jpg" alt="图4">　　<img src="/2022/09/13/wu-zi-qi-ai-er/%E5%9B%BE5.jpg" alt="图5">　　　　　　　　<br>④<strong>活三</strong>：可以形成活四的三，如下图，代表两种最基本的活三棋型。图中白点为活四点。<br>活三棋型是我们进攻中最常见的一种，因为活三之后，如果对方不以理会，将可以下一手将活三变成活四，而我们知道活四是已经无法单纯防守住了。所以，当我们面对活三的时候，需要非常谨慎对待。在自己没有更好的进攻手段的情况下，需要对其进行防守，以防止其形成可怕的活四棋型。<br><img src="/2022/09/13/wu-zi-qi-ai-er/%E5%9B%BE6.jpg" alt="图6">　　<img src="/2022/09/13/wu-zi-qi-ai-er/%E5%9B%BE7.jpg" alt="图7"><br>其中图7中间跳着一格的活三，也可以叫做跳活三。</p>
-<p>⑤<strong>眠三</strong>：只能够形成冲四的三，如下各图，分别代表最基础的六种眠三形状。图中白点代表冲四点。眠三的棋型与活三的棋型相比，危险系数下降不少，因为眠三棋型即使不去防守，下一手它也只能形成冲四，而对于单纯的冲四棋型，我们知道，是可以防守住的。<br><img src="/2022/09/13/wu-zi-qi-ai-er/%E5%9B%BE8.jpg" alt="图8">　　<img src="/2022/09/13/wu-zi-qi-ai-er/%E5%9B%BE9.jpg" alt="图9">　　<img src="/2022/09/13/wu-zi-qi-ai-er/%E5%9B%BE10.jpg" alt="图10"></p>
-<p><img src="/2022/09/13/wu-zi-qi-ai-er/%E5%9B%BE11.jpg" alt="图11">　　<img src="/2022/09/13/wu-zi-qi-ai-er/%E5%9B%BE12.jpg" alt="图12">　　<img src="/2022/09/13/wu-zi-qi-ai-er/%E5%9B%BE13.jpg" alt="图13">　　　　<br>如上所示，眠三的形状是很丰富的。对于初学者，在下棋过程中，很容易忽略不常见的眠三形状，例如图2-13所示的眠三。<br>有新手学了活三眠三后，会提出疑问，说活三也可以形成冲四啊，那岂不是也可以叫眠三？<br>会提出这个问题，说明对眠三定义看得不够仔细：眠三的的定义是，只能够形成冲四的三。而活三可以形成眠三，但也能够形成活四。<br>此外，在五子棋中，活四棋型比冲四棋型具有更大的优势，所以，我们在既能够形成活四又能够形成冲四时，会选择形成活四。</p>
-<p>⑥<strong>活二</strong>：能够形成活三的二，如下图，是三种基本的活二棋型。图中白点为活三点。<br>活二棋型看起来似乎很无害，因为他下一手棋才能形成活三，等形成活三，我们再防守也不迟。但其实活二棋型是非常重要的，尤其是在开局阶段，我们形成较多的活二棋型的话，当我们将活二变成活三时，才能够令自己的活三绵绵不绝微风里，让对手防不胜防。<br><img src="/2022/09/13/wu-zi-qi-ai-er/%E5%9B%BE14.jpg" alt="图14">　　<img src="/2022/09/13/wu-zi-qi-ai-er/%E5%9B%BE15.jpg" alt="图15">　　<img src="/2022/09/13/wu-zi-qi-ai-er/%E5%9B%BE16.jpg" alt="图16">　　</p>
-<p>⑦<strong>眠二</strong>：能够形成眠三的二。图中四个为最基本的眠二棋型，细心且喜欢思考的同学会根据眠三介绍中的图2-13找到与下列四个基本眠二棋型都不一样的眠二。图中白点为眠三点。<br><img src="/2022/09/13/wu-zi-qi-ai-er/%E5%9B%BE17.jpg" alt="图17">　　<img src="/2022/09/13/wu-zi-qi-ai-er/%E5%9B%BE18.jpg" alt="图18"></p>
-<p><img src="/2022/09/13/wu-zi-qi-ai-er/%E5%9B%BE19.jpg" alt="图19">　　<img src="/2022/09/13/wu-zi-qi-ai-er/%E5%9B%BE20.jpg" alt="图20"></p>
+<p>① <strong>连五</strong>：顾名思义，五颗同色棋子连在一起，不需要多讲。<br><img src="/2022/09/13/wu-zi-qi-ai-er/图1.jpg" alt="图1">　　　　　　　<br>②<strong>活四</strong>：有两个连五点（即有两个点可以形成五），图中白点即为连五点。<br>稍微思考一下就能发现活四出现的时候，如果对方单纯过来防守的话，是已经无法阻止自己连五了<br><img src="/2022/09/13/wu-zi-qi-ai-er/图2.jpg" alt="图1"><br>③<strong>冲四</strong>：有一个连五点，如下面三图，均为冲四棋型。图中白点为连五点。<br>相对比活四来说，冲四的威胁性就小了很多，因为这个时候，对方只要跟着防守在那个唯一的连五点上，冲四就没法形成连五。<br><img src="/2022/09/13/wu-zi-qi-ai-er/图3.jpg" alt="图3">　　<img src="/2022/09/13/wu-zi-qi-ai-er/图4.jpg" alt="图4">　　<img src="/2022/09/13/wu-zi-qi-ai-er/图5.jpg" alt="图5">　　　　　　　　<br>④<strong>活三</strong>：可以形成活四的三，如下图，代表两种最基本的活三棋型。图中白点为活四点。<br>活三棋型是我们进攻中最常见的一种，因为活三之后，如果对方不以理会，将可以下一手将活三变成活四，而我们知道活四是已经无法单纯防守住了。所以，当我们面对活三的时候，需要非常谨慎对待。在自己没有更好的进攻手段的情况下，需要对其进行防守，以防止其形成可怕的活四棋型。<br><img src="/2022/09/13/wu-zi-qi-ai-er/图6.jpg" alt="图6">　　<img src="/2022/09/13/wu-zi-qi-ai-er/图7.jpg" alt="图7"><br>其中图7中间跳着一格的活三，也可以叫做跳活三。</p>
+<p>⑤<strong>眠三</strong>：只能够形成冲四的三，如下各图，分别代表最基础的六种眠三形状。图中白点代表冲四点。眠三的棋型与活三的棋型相比，危险系数下降不少，因为眠三棋型即使不去防守，下一手它也只能形成冲四，而对于单纯的冲四棋型，我们知道，是可以防守住的。<br><img src="/2022/09/13/wu-zi-qi-ai-er/图8.jpg" alt="图8">　　<img src="/2022/09/13/wu-zi-qi-ai-er/图9.jpg" alt="图9">　　<img src="/2022/09/13/wu-zi-qi-ai-er/图10.jpg" alt="图10"></p>
+<p><img src="/2022/09/13/wu-zi-qi-ai-er/图11.jpg" alt="图11">　　<img src="/2022/09/13/wu-zi-qi-ai-er/图12.jpg" alt="图12">　　<img src="/2022/09/13/wu-zi-qi-ai-er/图13.jpg" alt="图13">　　　　<br>如上所示，眠三的形状是很丰富的。对于初学者，在下棋过程中，很容易忽略不常见的眠三形状，例如图2-13所示的眠三。<br>有新手学了活三眠三后，会提出疑问，说活三也可以形成冲四啊，那岂不是也可以叫眠三？<br>会提出这个问题，说明对眠三定义看得不够仔细：眠三的的定义是，只能够形成冲四的三。而活三可以形成眠三，但也能够形成活四。<br>此外，在五子棋中，活四棋型比冲四棋型具有更大的优势，所以，我们在既能够形成活四又能够形成冲四时，会选择形成活四。</p>
+<p>⑥<strong>活二</strong>：能够形成活三的二，如下图，是三种基本的活二棋型。图中白点为活三点。<br>活二棋型看起来似乎很无害，因为他下一手棋才能形成活三，等形成活三，我们再防守也不迟。但其实活二棋型是非常重要的，尤其是在开局阶段，我们形成较多的活二棋型的话，当我们将活二变成活三时，才能够令自己的活三绵绵不绝微风里，让对手防不胜防。<br><img src="/2022/09/13/wu-zi-qi-ai-er/图14.jpg" alt="图14">　　<img src="/2022/09/13/wu-zi-qi-ai-er/图15.jpg" alt="图15">　　<img src="/2022/09/13/wu-zi-qi-ai-er/图16.jpg" alt="图16">　　</p>
+<p>⑦<strong>眠二</strong>：能够形成眠三的二。图中四个为最基本的眠二棋型，细心且喜欢思考的同学会根据眠三介绍中的图2-13找到与下列四个基本眠二棋型都不一样的眠二。图中白点为眠三点。<br><img src="/2022/09/13/wu-zi-qi-ai-er/图17.jpg" alt="图17">　　<img src="/2022/09/13/wu-zi-qi-ai-er/图18.jpg" alt="图18"></p>
+<p><img src="/2022/09/13/wu-zi-qi-ai-er/图19.jpg" alt="图19">　　<img src="/2022/09/13/wu-zi-qi-ai-er/图20.jpg" alt="图20"></p>
 <p>⑧<strong>活一</strong>：走一步可以形成活2。</p>
 <h3 id="2-2-评估方法"><a href="#2-2-评估方法" class="headerlink" title="2.2　评估方法"></a>2.2　评估方法</h3><p>对整个棋盘进行遍历，对于每一个白棋或黑棋，以它为中心，记录符合的棋型个数。</p>
-<p>具体实现方式如下：<br>1、遍历棋盘上的每个点，如果是黑棋或白旗，则对这个点所在四个方向形成的四条线分别进行评估。四个方向即水平，竖直，两个斜线( \ , &#x2F; ），四个方向依次按照从左到右， 从上到下，从左上到右下，从左下到右上来检测。</p>
-<p>2、对于具体的一条线，如下图，已选取点为中心，取该方向上前面两个点，后面两个点，组成一个长度为4的“数组”（实际上是转换成二进制）。<br><img src="/2022/09/13/wu-zi-qi-ai-er/%E5%9B%BE21.png"><br>然后找出和中心点相连的同色棋子有几个，比如下图，相连的白色棋子有3个，根据相连棋子的个数再分别进行判断，最后得出这行属于上面说的哪一种棋型。<br><img src="/2022/09/13/wu-zi-qi-ai-er/%E5%9B%BE22.png"><br>这里有个注意点，在评估白旗1的时候，白棋3和5已经被判断过，所以要标记下，下次遍历到这个方向的白棋3和5，需要跳过，避免重复统计棋型。</p>
+<p>具体实现方式如下：<br>1、遍历棋盘上的每个点，如果是黑棋或白旗，则对这个点所在四个方向形成的四条线分别进行评估。四个方向即水平，竖直，两个斜线( \ , / ），四个方向依次按照从左到右， 从上到下，从左上到右下，从左下到右上来检测。</p>
+<p>2、对于具体的一条线，如下图，已选取点为中心，取该方向上前面两个点，后面两个点，组成一个长度为4的“数组”（实际上是转换成二进制）。<br><img src="/2022/09/13/wu-zi-qi-ai-er/图21.png" alt><br>然后找出和中心点相连的同色棋子有几个，比如下图，相连的白色棋子有3个，根据相连棋子的个数再分别进行判断，最后得出这行属于上面说的哪一种棋型。<br><img src="/2022/09/13/wu-zi-qi-ai-er/图22.png" alt><br>这里有个注意点，在评估白旗1的时候，白棋3和5已经被判断过，所以要标记下，下次遍历到这个方向的白棋3和5，需要跳过，避免重复统计棋型。</p>
 <p>3、根据棋盘上黑棋和白棋的棋型统计信息，按照一定规则进行评分。<br>假设形成该棋局的最后一步是黑棋下的，则最后的评分是（黑棋得分 - 白棋得分），在相同棋型相同个数的情况下，白棋会占优，因为下一步是白棋下。比如黑棋有个冲四，白棋有个冲四，显然白棋占优，因为下一步白棋就能成连五。</p>
-<p>这里的权重设计是有技巧的，因为很多大佬已经经过实验得出许多不同的权重参数，所以这里我就直接使用大佬们给出的数据了。（下标中的死棋其实有的可以看成是活棋或者冲棋，但是为了方便就直接看作死棋的一种）</p>
-<table>
-<thead>
-<tr>
-<th align="center">棋型代号</th>
-<th align="center">棋型说明</th>
-<th align="center">权重</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">VALUE_WIN</td>
-<td align="center">长连</td>
-<td align="center">10000000</td>
-</tr>
-<tr>
-<td align="center">VALUE_Huo4</td>
-<td align="center">活四</td>
-<td align="center">150000</td>
-</tr>
-<tr>
-<td align="center">VALUE_Chong4</td>
-<td align="center">冲四</td>
-<td align="center">7500</td>
-</tr>
-<tr>
-<td align="center">VALUE_Si4</td>
-<td align="center">死四</td>
-<td align="center">20</td>
-</tr>
-<tr>
-<td align="center">VALUE_Huo3</td>
-<td align="center">活三</td>
-<td align="center">7500</td>
-</tr>
-<tr>
-<td align="center">VALUE_Chong3</td>
-<td align="center">冲三</td>
-<td align="center">2000</td>
-</tr>
-<tr>
-<td align="center">VALUE_Si3</td>
-<td align="center">死三</td>
-<td align="center">10</td>
-</tr>
-<tr>
-<td align="center">VALUE_Huo2</td>
-<td align="center">活二</td>
-<td align="center">1000</td>
-</tr>
-<tr>
-<td align="center">VALUE_Chong2</td>
-<td align="center">冲二</td>
-<td align="center">200</td>
-</tr>
-<tr>
-<td align="center">VALUE_Si2</td>
-<td align="center">死二</td>
-<td align="center">5</td>
-</tr>
-<tr>
-<td align="center">VALUE_Huo1</td>
-<td align="center">活一</td>
-<td align="center">100</td>
-</tr>
-<tr>
-<td align="center">VALUE_Chong1</td>
-<td align="center">冲一</td>
-<td align="center">50</td>
-</tr>
-<tr>
-<td align="center">VALUE_Si1</td>
-<td align="center">死一</td>
-<td align="center">0</td>
-</tr>
-</tbody></table>
+<p>这里的权重设计是有技巧的，因为很多大佬已经经过实验得出许多不同的权重参数，所以这里我就直接使用大佬们给出的数据了。（下标中的死棋其实有的可以看成是活棋或者冲棋，但是为了方便就直接看作死棋的一种）<br>|棋型代号|棋型说明|权重|<br>|:—-:|:—-:|:—-:|<br>|VALUE_WIN|长连|10000000|<br>|VALUE_Huo4|活四|150000|<br>|VALUE_Chong4|冲四|7500|<br>|VALUE_Si4|死四|20|<br>|VALUE_Huo3|活三|7500|<br>|VALUE_Chong3|冲三|2000|<br>|VALUE_Si3|死三|10|<br>|VALUE_Huo2|活二|1000|<br>|VALUE_Chong2|冲二|200|<br>|VALUE_Si2|死二|5|<br>|VALUE_Huo1|活一|100|<br>|VALUE_Chong1|冲一|50|<br>|VALUE_Si1|死一|0|</p>
 <p>另外这里我在下面给出一位大佬给出的权重设计规则（但跟我给出的权重设计不相同），有兴趣的可以自行了解。具体的可参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/livingsu/article/details/104539741">(250条消息) 五子棋ai：极大极小搜索和α-β剪枝算法的思想和实现(qt和c++)（二）贪心算法和评估函数_livingsu的博客-CSDN博客</a></p>
 <blockquote>
 <ul>
 <li>规则一：己方棋型权重为正，对方棋型权重为负，且相同棋型时，对方权重的绝对值要大于己方(可以设置为2倍或者3倍关系)。这是因为要考虑到进攻和防守，现在是己方(ai白子)下，例如：如果己方走了一步棋形成了活2，而对方已经有一个活2，那么显然是对方占优一些，因为下一步是对方走，对方是可以形成更高等级的活3的，所以己方活2就没有对方活2等级高。</li>
-<li>规则2：等级：连5&gt;活4&gt;冲4&#x3D;活3&gt;眠3&#x3D;活2&gt;眠2&#x3D;活1，相邻等级的权重设置为相差20倍（也可以30，40倍）。这是因为会重复计算等级比较低的棋型，为了不影响总体判断，比如一开始放一个子，活1的权重会计算16次，我设置为20倍，那么活2的权重刚好比16倍活1还要大一些。</li>
+<li>规则2：等级：连5&gt;活4&gt;冲4=活3&gt;眠3=活2&gt;眠2=活1，相邻等级的权重设置为相差20倍（也可以30，40倍）。这是因为会重复计算等级比较低的棋型，为了不影响总体判断，比如一开始放一个子，活1的权重会计算16次，我设置为20倍，那么活2的权重刚好比16倍活1还要大一些。</li>
 <li>规则3：对方连5、对方活4、对方冲4、对方活3的绝对值要设置大一点，这一点非常重要！！如果此时对方已经连五，说明己方已经输了。如果此时对方有活4和冲4，那么如果己方没有连5的话，己方必须要去阻止对方的活4和冲4。像这样可以分析出其他棋型权重。</li>
 </ul>
 </blockquote>
@@ -728,7 +651,6 @@ void AI::Init(Chess* chess)
 #define VALUE_Huo1  100 		&#x2F;&#x2F;活一
 #define VALUE_Chong1  50 		&#x2F;&#x2F;冲一
 #define VALUE_Si1  0			&#x2F;&#x2F;死一<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <h4 id="2-2-2-对下棋的四个方向进行估分"><a href="#2-2-2-对下棋的四个方向进行估分" class="headerlink" title="2.2.2　对下棋的四个方向进行估分"></a>2.2.2　对下棋的四个方向进行估分</h4><p>现在有8种有效的棋型（连五，活四，冲四，活三，眠三，活二，眠二，活一），大部份资料都是黑棋白棋用两个五元数组或者六元数组来存储，因为我只用结构体来区分，将黑棋和白棋分开算（<strong>side</strong>就是区分黑棋和白棋的结构体），并且在对下棋位置的四个位置估分时只关注当前AI的棋色，而不关注棋手下的棋和无棋的位置，所以，操作起来更加方便。</p>
 <p>相关变量命名如下：</p>
 <p>AI.cpp</p>
@@ -736,9 +658,9 @@ void AI::Init(Chess* chess)
 int cmid, cleft, cright, cnt, leftmid, midright;
 int left1, left2, right1, right2;
 int flag;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-
 <blockquote>
-<p><font color="blue">注意：上述变量是AI.cpp中的<strong>全局变量</strong></font></p>
+<font color="blue">注意：上述变量是AI.cpp中的**全局变量**</font>
+
 </blockquote>
 <p>主体函数：</p>
 <p>AI.cpp</p>
@@ -790,7 +712,6 @@ int AI::Get_Four_Side_Score(const Chess_Position&amp; position, Object side)&#x2
 	&#125;
 	return score;
 &#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>上面的代码块中有一个变成小技巧可以注意一下：</p>
 <blockquote>
 <p>++i 和 i++的结果是一样的， 都要等代码块执行完毕才能执行语句3 ，但是性能是不同的。在大量数据的时候++i的性能要比i++的性能好原因：. i++由于是在使用当前值之后再+1，所以需要一个临时的变量来转存。而++i则是在直接+1，省去了对内存的操作的环节，相对而言能够提高性能.</p>
@@ -799,13 +720,11 @@ int AI::Get_Four_Side_Score(const Chess_Position&amp; position, Object side)&#x2
 <p>我们先用一个数组来存储四个方向：</p>
 <p>AI.cpp</p>
 <pre class="line-numbers language-C++" data-language="C++"><code class="language-C++">const int dir[4][2] &#x3D; &#123; &#123;-1,0&#125;,&#123;0,-1&#125;,&#123;-1,-1&#125;,&#123;-1,1&#125; &#125;;		&#x2F;&#x2F;四个方向	|  -  \  &#x2F;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
 <p>然后再用三个数组分别存储活棋、冲棋和死棋的分数：</p>
 <p>AI.cpp</p>
 <pre class="line-numbers language-C++" data-language="C++"><code class="language-C++">const int live[6] &#x3D; &#123; 0,VALUE_Huo1,VALUE_Huo2,VALUE_Huo3,VALUE_Huo4,VALUE_WIN &#125;;	&#x2F;&#x2F;活棋分数
 const int go[6] &#x3D; &#123; 0,VALUE_Chong1,VALUE_Chong2,VALUE_Chong3,VALUE_Chong4,VALUE_Chong4 &#125;;		&#x2F;&#x2F;冲棋分数
 const int death[6] &#x3D; &#123; 0, VALUE_Si1,VALUE_Si2,VALUE_Si3,VALUE_Si4,VALUE_Si4 &#125;;	&#x2F;&#x2F;死棋分数<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-
 <p>然后进行估分：</p>
 <p>AI.cpp</p>
 <pre class="line-numbers language-C++" data-language="C++"><code class="language-C++">&#x2F;&#x2F;计算返回某个方向的估分
@@ -850,7 +769,6 @@ int AI::Return_A_Side_Score()
 	&#125;
 	return 0;
 &#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <blockquote>
 <p>“&lt;&lt;”是<font color="red">左移运算符</font>，“|”是二级制的<font color="red">异或运算符</font>，具体可参考：<a target="_blank" rel="noopener" href="https://www.runoob.com/cplusplus/cpp-operators.html">C++ 运算符 | 菜鸟教程 (runoob.com)</a></p>
 </blockquote>
@@ -868,7 +786,6 @@ int AI::Evaluate_WholeChess(Object side)
 			&#125;
 	return (int)(v1 - v2);
 &#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <h4 id="2-2-5-细节补充"><a href="#2-2-5-细节补充" class="headerlink" title="2.2.5　细节补充"></a>2.2.5　细节补充</h4><p>在AI.h中补充函数定义</p>
 <p>AI.h</p>
 <pre class="line-numbers language-C++" data-language="C++"><code class="language-C++">#pragma once
@@ -900,11 +817,8 @@ public:
 	bool Is_Win(const Chess_Position Position, Object side);
 &#125;;
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-
-
 <p>至此，我们第二部分的评估函数已经实现完了，接下来才是真正涉及到了AI部分的算法。下一篇就是五子棋AI当中两个主要算法：Min-Max算法和αβ剪枝算法的实现。</p>
-<p><font size="5">下一篇：[五子棋AI（三）](<a target="_blank" rel="noopener" href="http://ude123456.top/2022/09/17/wu-zi-qi-ai-san/">五子棋AI（三） | 思无邪 (ude123456.top)</a>)</font></p>
+<font size="5">下一篇：[五子棋AI（三）]([五子棋AI（三） | 思无邪 (ude123456.top)](http://ude123456.top/2022/09/17/wu-zi-qi-ai-san/))</font>
 
                 
             </div>
@@ -1383,11 +1297,11 @@ public:
     
 
     <div class="container row center-align"
-         style="margin-bottom: 0px !important;">
+         style="margin-bottom: 15px !important;">
         <div class="col s12 m8 l8 copy-right">
             Copyright&nbsp;&copy;
             
-                <span id="year">2019-2022</span>
+                <span id="year">2021-2022</span>
             
             <a href="/about" target="_blank">Jeremy Yang</a>
             |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
@@ -1395,7 +1309,7 @@ public:
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">21.3k</span>
+                        class="white-color">24.5k</span>
             
             
             
@@ -1416,6 +1330,60 @@ public:
             <br>
 
             <!-- 运行天数提醒. -->
+            
+                <span id="sitetime"> Loading ...</span>
+                <script>
+                    var calcSiteTime = function () {
+                        var seconds = 1000;
+                        var minutes = seconds * 60;
+                        var hours = minutes * 60;
+                        var days = hours * 24;
+                        var years = days * 365;
+                        var today = new Date();
+                        var startYear = "2021";
+                        var startMonth = "10";
+                        var startDate = "28";
+                        var startHour = "0";
+                        var startMinute = "0";
+                        var startSecond = "0";
+                        var todayYear = today.getFullYear();
+                        var todayMonth = today.getMonth() + 1;
+                        var todayDate = today.getDate();
+                        var todayHour = today.getHours();
+                        var todayMinute = today.getMinutes();
+                        var todaySecond = today.getSeconds();
+                        var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                        var diff = t2 - t1;
+                        var diffYears = Math.floor(diff / years);
+                        var diffDays = Math.floor((diff / days) - diffYears * 365);
+
+                        // 区分是否有年份.
+                        var language = 'zh-CN';
+                        if (startYear === String(todayYear)) {
+                            document.getElementById("year").innerHTML = todayYear;
+                            var daysTip = 'This site has been running for ' + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                daysTip = '本站已运行 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                daysTip = '本站已運行 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = daysTip;
+                        } else {
+                            document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                            var yearsAndDaysTip = 'This site has been running for ' + diffYears + ' years and '
+                                + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                yearsAndDaysTip = '本站已运行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                yearsAndDaysTip = '本站已運行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = yearsAndDaysTip;
+                        }
+                    }
+
+                    calcSiteTime();
+                </script>
             
             <br>
             

@@ -9,8 +9,7 @@
 
 一下子就接触算法原理和一堆七七八八的术语概念，无疑是让人头疼的，因为无端出现这么多的信息，都不知道它的来历，又不知道这些信息到底有什么用，所以我们就从最简单的内容开始，将这个算法完整地梳理一下吧。
 
-
-1、知识脉络梳理1、树形结构首先，">
+1、知识脉络梳理1、树形结构首先，先">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -576,24 +575,24 @@
                 <hr>
 <blockquote>
 <p>一下子就接触算法原理和一堆七七八八的术语概念，无疑是让人头疼的，因为无端出现这么多的信息，都不知道它的来历，又不知道这些信息到底有什么用，所以我们就从最简单的内容开始，将这个算法完整地梳理一下吧。</p>
-</blockquote>
 <hr>
 <h2 id="1、知识脉络梳理"><a href="#1、知识脉络梳理" class="headerlink" title="1、知识脉络梳理"></a>1、知识脉络梳理</h2><h3 id="1、树形结构"><a href="#1、树形结构" class="headerlink" title="1、树形结构"></a>1、树形结构</h3><p>首先，先来看看一个简单的数据结构——树。<br>树形结构，从字面上来理解，就是像我们生活中常见的树长的很类似。在数据结构中我们无非就是将生活中的树倒过来看而已，也就是树根在上，树叶在下。这么设计其实也没什么特别的道理，只是在遍历树的时候，我们从树根开始，从树根往叶子节点出发。但是除了倒着放，其实我们也可以将他伸展开来放，例如下面的这棵树，其实也是一棵树</p>
-<p><img src="/2020/11/11/zui-xiao-sheng-cheng-shu-kruskal-suan-fa/%E5%9B%BE1.png"></p>
+</blockquote>
+<p><img src="/2020/11/11/zui-xiao-sheng-cheng-shu-kruskal-suan-fa/图1.png" alt></p>
 <p>我们大致的想象一下，就像直接抓着树根将它拎起来，那么就自然变成了上图的样子了。</p>
 <p>于是我们就发现，不管拎起是哪个节点，都会得到一棵树。也就是说，如果树根的位置对我们不再重要的话，树其实就等价于上面这样的图。</p>
 <p>那么这样的图究竟是什么图呢？它有什么性质呢？所有的图都能看成是树吗？下面我们来看一下三种情况：</p>
-<p><img src="/2020/11/11/zui-xiao-sheng-cheng-shu-kruskal-suan-fa/%E5%9B%BE2.png"></p>
+<p><img src="/2020/11/11/zui-xiao-sheng-cheng-shu-kruskal-suan-fa/图2.png" alt></p>
 <p>显然这三种情况<strong>都不是树</strong>。第一种是因为图中的边有方向了，一旦有了方向，图中连通的情况就被破坏了。我们都知道，树应该是全部连通的，也就是说你从任意一个节点开始，都可以走到树上任何位置。那么根据定义，<strong>不能全连通，肯定就不是树</strong>。情况2也不对，因为<strong>有了环</strong>，树是不应该有环的，大家应该没见过那种从树根还能再到树根的树吧，那不是成了老树精了？在我们定义中的树也是<strong>不能有环</strong>的，不然我们遍历的时候不是永远也找不到终点了吗？第三种情况则是因为有个别的点孤立在外，因此<strong>不能连通</strong>，所以也不是树。</p>
 <p>所以总结一下，树就是可以全连通的（无向图），并且没有环的图。</p>
 <h3 id="2、从图到树"><a href="#2、从图到树" class="headerlink" title="2、从图到树"></a>2、从图到树</h3><p>从上面的部分，其实我们可以发现，<strong>树的本质就是图</strong>，无非就是一些具有特殊性质的图。因此我们也经常能看到许多有关于树的算法会被纳入图论当中。</p>
 <p>通过对树的观察，其实我们可以发现一条重要性质，对于一棵拥有n个节点的树而言，它会有n-1条边。因此如果超过n-1条边，证明当中一定存在环路，如果不理解的话，你可以简单画个图尝试一下。反之，如果小于n-1条边，那么一定存在不连通的部分。但我们需要注意，这个性质正向可以成立，反过来就不成立了，用数学中的概念来说就是，它是一个必要条件，但不是一个充分条件。也就是说并不是n个点和n-1条边就一定是树，这个画个图就很容易得出反例。</p>
 <p>接下来我们就用这个性质来尝试解决一下由图转化成树的问题。</p>
-<p>现在有一个稍微复杂的图，如下图：<br><img src="/2020/11/11/zui-xiao-sheng-cheng-shu-kruskal-suan-fa/%E5%9B%BE3.png"><br>那么我们现在就根据这一个图生成一棵能够连通所有节点的树。根据上述的性质，我们的方法很明确，无非就是两种办法：</p>
+<p>现在有一个稍微复杂的图，如下图：<br><img src="/2020/11/11/zui-xiao-sheng-cheng-shu-kruskal-suan-fa/图3.png" alt><br>那么我们现在就根据这一个图生成一棵能够连通所有节点的树。根据上述的性质，我们的方法很明确，无非就是两种办法：</p>
 <p>第一种办法是删边，既然是一个复杂图，说明边的数量肯定要超过n-1的，所以我们可以尝试去删减掉一些边，最后留下一棵树就可以了。</p>
 <p>第二种做法则是增边，也就是说我们从零开始，一开始先把所有的边全部撤掉，然后一条一条地往一个集合当中添加n-1条边，让它变成一棵树。</p>
 <p>那这两种方法哪种更好呢？我们可以想一下，我们每一次在删除边的时候是不是都需要考虑到<strong>是否会破坏树的连通关系</strong>，因此添加边的做法明显优于删减边的做法。</p>
-<p><img src="/2020/11/11/zui-xiao-sheng-cheng-shu-kruskal-suan-fa/%E5%9B%BE4.png"></p>
+<p><img src="/2020/11/11/zui-xiao-sheng-cheng-shu-kruskal-suan-fa/图4.png" alt></p>
 <p>可以看看上图，如果我们删除AB这条边，就会发现这个已经不是连通图了，那必然也不可能成为一棵树。要判断连通关系，最好的方法就是先删除这条边，然后试着从A点出发，看看能否到达B点，如果能到达，则认为这条边是可以删除的，但是如果这么做的话，一旦图很大时，<strong>每一次删除需要遍历整张图</strong>，那么效率就会很低。并且每一次删除后，由于图的结构会发生 变化，我们还需要对这些变化进行存储，但由于他是一直动态变化，存储这些结果十分困难。</p>
 <p>因此，删除边的方式可行，但是十分麻烦。</p>
 <p>至此，我们知道了其实所谓的最小生成树就是从一个图当中选取n-1条边将他变换为一棵树的算法</p>
@@ -601,14 +600,14 @@
 <p>那么现在我们知道要采用添加边的方式，那我们选择一条边时，应该怎么判断这条有没有必要添加到集合中去呢？</p>
 <p>树有一条性质是，树上任意的两个点，它们之间的路径有且只有一条，如果存在两点之间的路径有两条，那么必然可以形成一个环。那么我们就可以知道如果当前两个点之间已经存在通路的时候，就证明那么当前这两个点连成的边就不能再添加了，否则一定会出现环。因此我们需要设计的算法要<strong>维护树上点的连通性</strong>。</p>
 <p>但是这又会有一个新问题，我们知道，在树结构当中，<strong>连通性是可以传递的</strong>。如果两个点之间连了一条边，并不仅仅只是这两个点连通，还包括了所有与这两个点之间连通的点都连通了。下面来看一个例子：</p>
-<p><img src="/2020/11/11/zui-xiao-sheng-cheng-shu-kruskal-suan-fa/%E5%9B%BE5.png"></p>
+<p><img src="/2020/11/11/zui-xiao-sheng-cheng-shu-kruskal-suan-fa/图5.png" alt></p>
 <p>这张图当中A和B连了一条边，这不仅仅是A和B连通，而是<strong>左半边的集合和右半边集合的连通</strong>。所以，虽然A只是和B连通了，但是和C也连通了。AC这条边也一样不能被加入了。也就是说A和B连通，其实是<strong>A所在的集合和B所在的集合合并</strong>的过程。看到集合的合并我们就可以想到并查集，并查集算法就是用来解决集合合并和查询问题的。那么，显然可以用并查集来维护图中这些点集的连通性。关于并查集，如果不知道的朋友可以点击一下<a target="_blank" rel="noopener" href="https://blog.csdn.net/bjweimengshu/article/details/108332389">传送门</a>进行了解。</p>
 <p>所以，我们现在就得到了生成树。</p>
 <h3 id="4、从生成树到最小生成树"><a href="#4、从生成树到最小生成树" class="headerlink" title="4、从生成树到最小生成树"></a>4、从生成树到最小生成树</h3><p>现在我们就可以为图中的每条边都加上权重，我们的目标很明确，就是要使得最后生成的树的所有权重之和最小。</p>
 <p>比如，看下面这张图，我们现在想要使生成的树上所有边的权重和最小。</p>
-<p><img src="/2020/11/11/zui-xiao-sheng-cheng-shu-kruskal-suan-fa/%E5%9B%BE6.jpg"></p>
+<p><img src="/2020/11/11/zui-xiao-sheng-cheng-shu-kruskal-suan-fa/图6.jpg" alt></p>
 <p>根据贪心算法，我们<strong>显然希望用尽量短的边来连通树</strong>。所以Kruskal算法的原理非常简单，就是对这些边的权值进行排序，依次从短到长遍历这些边，然后通过并查集来查询正在遍历的这条边是否能够被添加，直到所有边都遍历结束。</p>
-<h2 id="2、代码实现"><a href="#2、代码实现" class="headerlink" title="2、代码实现"></a>2、代码实现</h2><h3 id="1、完美图解"><a href="#1、完美图解" class="headerlink" title="1、完美图解"></a>1、完美图解</h3><p>下面图解出自陈小玉老师所主编的书《趣学算法》中，朋友们可以借助理解算法。<br><img src="/2020/11/11/zui-xiao-sheng-cheng-shu-kruskal-suan-fa/%E5%9B%BE7.jpg"><br><img src="/2020/11/11/zui-xiao-sheng-cheng-shu-kruskal-suan-fa/%E5%9B%BE8.jpg"><br><img src="/2020/11/11/zui-xiao-sheng-cheng-shu-kruskal-suan-fa/%E5%9B%BE9.jpg"></p>
+<h2 id="2、代码实现"><a href="#2、代码实现" class="headerlink" title="2、代码实现"></a>2、代码实现</h2><h3 id="1、完美图解"><a href="#1、完美图解" class="headerlink" title="1、完美图解"></a>1、完美图解</h3><p>下面图解出自陈小玉老师所主编的书《趣学算法》中，朋友们可以借助理解算法。<br><img src="/2020/11/11/zui-xiao-sheng-cheng-shu-kruskal-suan-fa/图7.jpg" alt><br><img src="/2020/11/11/zui-xiao-sheng-cheng-shu-kruskal-suan-fa/图8.jpg" alt><br><img src="/2020/11/11/zui-xiao-sheng-cheng-shu-kruskal-suan-fa/图9.jpg" alt></p>
 <h3 id="2、代码实现-1"><a href="#2、代码实现-1" class="headerlink" title="2、代码实现"></a>2、代码实现</h3><pre class="line-numbers language-C++" data-language="C++"><code class="language-C++">#include &lt;iostream&gt;
 #include &lt;iomanip&gt;
 #define VERTS 6  &#x2F;&#x2F;图的顶点数
@@ -1213,11 +1212,11 @@ void mintree(Edge *head)
     
 
     <div class="container row center-align"
-         style="margin-bottom: 0px !important;">
+         style="margin-bottom: 15px !important;">
         <div class="col s12 m8 l8 copy-right">
             Copyright&nbsp;&copy;
             
-                <span id="year">2019-2022</span>
+                <span id="year">2021-2022</span>
             
             <a href="/about" target="_blank">Jeremy Yang</a>
             |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
@@ -1225,7 +1224,7 @@ void mintree(Edge *head)
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">21.3k</span>
+                        class="white-color">24.5k</span>
             
             
             
@@ -1246,6 +1245,60 @@ void mintree(Edge *head)
             <br>
 
             <!-- 运行天数提醒. -->
+            
+                <span id="sitetime"> Loading ...</span>
+                <script>
+                    var calcSiteTime = function () {
+                        var seconds = 1000;
+                        var minutes = seconds * 60;
+                        var hours = minutes * 60;
+                        var days = hours * 24;
+                        var years = days * 365;
+                        var today = new Date();
+                        var startYear = "2021";
+                        var startMonth = "10";
+                        var startDate = "28";
+                        var startHour = "0";
+                        var startMinute = "0";
+                        var startSecond = "0";
+                        var todayYear = today.getFullYear();
+                        var todayMonth = today.getMonth() + 1;
+                        var todayDate = today.getDate();
+                        var todayHour = today.getHours();
+                        var todayMinute = today.getMinutes();
+                        var todaySecond = today.getSeconds();
+                        var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                        var diff = t2 - t1;
+                        var diffYears = Math.floor(diff / years);
+                        var diffDays = Math.floor((diff / days) - diffYears * 365);
+
+                        // 区分是否有年份.
+                        var language = 'zh-CN';
+                        if (startYear === String(todayYear)) {
+                            document.getElementById("year").innerHTML = todayYear;
+                            var daysTip = 'This site has been running for ' + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                daysTip = '本站已运行 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                daysTip = '本站已運行 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = daysTip;
+                        } else {
+                            document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                            var yearsAndDaysTip = 'This site has been running for ' + diffYears + ' years and '
+                                + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                yearsAndDaysTip = '本站已运行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                yearsAndDaysTip = '本站已運行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = yearsAndDaysTip;
+                        }
+                    }
+
+                    calcSiteTime();
+                </script>
             
             <br>
             

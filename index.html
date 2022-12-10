@@ -836,8 +836,7 @@
 
 学过了二叉查找树还有平衡二叉树以后，再看点更复杂的树形结构——红黑树，跟平衡二叉树一样，红黑树也是为了解决二叉搜索树不能自平衡的问题。红黑树是2-3树的变形，以2-3树的角度去理解红黑树会容易的多。
 
-
-先回忆一下AVL树：AVL树就是
+先回忆一下AVL树：AVL树就是要
                             
                         </div>
                         <div class="publish-info">
@@ -896,7 +895,7 @@
                             
                                 
 
-Min-Max算法（亦称 MiniMax or MM）又名极小化极大算法，是一种找出失败的最大可能性中的最小值的算法。Minimax算法常用于棋类等由两方较量的游戏和程序。该算法是[零和博弈](零和博弈（社会学概念）_百度百科 (bai
+Min-Max算法（亦称 MiniMax or MM）又名极小化极大算法，是一种找出失败的最大可能性中的最小值的算法。Minimax算法常用于棋类等由两方较量的游戏和程序。该算法是零和博弈](https://baike.baidu.co
                             
                         </div>
                         <div class="publish-info">
@@ -968,8 +967,8 @@ Min-Max算法（亦称 MiniMax or MM）又名极小化极大算法，是一种�
 添加评分数组chess[MAX_BORDER][MAX_BORDER]， 用来存储AI对棋盘所有落点的价值评估。
 
 
-
 AI.h
+
 private:
 	
                             
@@ -1083,7 +1082,7 @@ private:
                                 
 人工智能主要是机器学习，机器学习主要是深度学习，深度学习实际上算是机器学习的子领域，而要进行深度学习必然要接触人工神经网络。
 
-神经网络是一种模拟人脑的神经网络以期能够实现类人工智能的机器学习技术。人脑中的神经网络是一个非常复杂的组织。成
+1. 什么是神经网络　　神经网络是一种模拟人脑的神经网络以期能够实现类人工智能的机器学习技术。人脑中的神经网络
                             
                         </div>
                         <div class="publish-info">
@@ -1136,8 +1135,10 @@ private:
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                　　　　“回首向来萧瑟处，也无风雨也无晴”　　　　　　　　　　　　　　　　　　　　　——《人生海海》读后感
-　　看完《人生海海》，不知道为什么有一种强烈的欲望想要写一篇读后感。人生海海来自于闽南方言，也许是看到人生海海这个书名而对写读后感有
+                                　　　　“回首向来萧瑟处，也无风雨也无晴”
+　　　　　　　　　　　　　　　　　　　　　——《人生海海》读后感
+
+　　看完《人生海海》，不知道为什么有一种强烈的欲望想要写一篇读后感。人生海海来自于闽南方言，也许是看到人生海海这个书名而对写读后
                             
                         </div>
                         <div class="publish-info">
@@ -1241,8 +1242,7 @@ Dijkstra算法刚接触时确实有点难以理解，尤其是代码的实现，
 
 一下子就接触算法原理和一堆七七八八的术语概念，无疑是让人头疼的，因为无端出现这么多的信息，都不知道它的来历，又不知道这些信息到底有什么用，所以我们就从最简单的内容开始，将这个算法完整地梳理一下吧。
 
-
-1、知识脉络梳理1、树形结构首先，
+1、知识脉络梳理1、树形结构首先，先
                             
                         </div>
                         <div class="publish-info">
@@ -1345,11 +1345,11 @@ Dijkstra算法刚接触时确实有点难以理解，尤其是代码的实现，
     
 
     <div class="container row center-align"
-         style="margin-bottom: 0px !important;">
+         style="margin-bottom: 15px !important;">
         <div class="col s12 m8 l8 copy-right">
             Copyright&nbsp;&copy;
             
-                <span id="year">2019-2022</span>
+                <span id="year">2021-2022</span>
             
             <a href="/about" target="_blank">Jeremy Yang</a>
             |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
@@ -1357,7 +1357,7 @@ Dijkstra算法刚接触时确实有点难以理解，尤其是代码的实现，
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">21.3k</span>
+                        class="white-color">24.5k</span>
             
             
             
@@ -1378,6 +1378,60 @@ Dijkstra算法刚接触时确实有点难以理解，尤其是代码的实现，
             <br>
 
             <!-- 运行天数提醒. -->
+            
+                <span id="sitetime"> Loading ...</span>
+                <script>
+                    var calcSiteTime = function () {
+                        var seconds = 1000;
+                        var minutes = seconds * 60;
+                        var hours = minutes * 60;
+                        var days = hours * 24;
+                        var years = days * 365;
+                        var today = new Date();
+                        var startYear = "2021";
+                        var startMonth = "10";
+                        var startDate = "28";
+                        var startHour = "0";
+                        var startMinute = "0";
+                        var startSecond = "0";
+                        var todayYear = today.getFullYear();
+                        var todayMonth = today.getMonth() + 1;
+                        var todayDate = today.getDate();
+                        var todayHour = today.getHours();
+                        var todayMinute = today.getMinutes();
+                        var todaySecond = today.getSeconds();
+                        var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                        var diff = t2 - t1;
+                        var diffYears = Math.floor(diff / years);
+                        var diffDays = Math.floor((diff / days) - diffYears * 365);
+
+                        // 区分是否有年份.
+                        var language = 'zh-CN';
+                        if (startYear === String(todayYear)) {
+                            document.getElementById("year").innerHTML = todayYear;
+                            var daysTip = 'This site has been running for ' + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                daysTip = '本站已运行 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                daysTip = '本站已運行 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = daysTip;
+                        } else {
+                            document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                            var yearsAndDaysTip = 'This site has been running for ' + diffYears + ' years and '
+                                + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                yearsAndDaysTip = '本站已运行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                yearsAndDaysTip = '本站已運行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = yearsAndDaysTip;
+                        }
+                    }
+
+                    calcSiteTime();
+                </script>
             
             <br>
             

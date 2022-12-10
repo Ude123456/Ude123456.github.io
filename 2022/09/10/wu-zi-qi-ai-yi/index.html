@@ -574,13 +574,12 @@
                 <hr>
 <blockquote>
 <p>一时心血来潮对棋类博弈产生了兴趣，就想着通过实现一个五子棋AI顺便了解一下相关算法和知识。</p>
-<p>五子棋在英文中又称Gobang。先简单介绍一下，由于五子棋已经被机器严格证明了是一种“不公平”的游戏，先手黑子是绝对占优的，并且先手有必胜的套路。由于先手必胜，必须对先手进行一定的规则限制，于是就出现了“禁手”一说，即某些位置[（比如能形成双活3、活3冲4）](<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E4%BA%94%E5%AD%90%E6%A3%8B/130266">五子棋（两人对弈的策略型棋类游戏）_百度百科 (baidu.com)</a>)黑子不能下，不然就算黑子输。在日本，五子棋的理论得到极大发展，有禁手规则的五子棋被称为“连珠”（renju），而一般无禁手规则的叫做gomoku。由于大部分普通人下五子棋只是图一个乐趣，并不需要深入研究其中的理论规则，所以反而是gomoku在学生之间非常流行（我高中时下课就经常和同学玩五子棋）。</p>
+<p>五子棋在英文中又称Gobang。先简单介绍一下，由于五子棋已经被机器严格证明了是一种“不公平”的游戏，先手黑子是绝对占优的，并且先手有必胜的套路。由于先手必胜，必须对先手进行一定的规则限制，于是就出现了“禁手”一说，即某些位置<a href="[五子棋（两人对弈的策略型棋类游戏）_百度百科 (baidu.com">（比如能形成双活3、活3冲4）</a>](<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/五子棋/130266))黑子不能下，不然就算黑子输。在日本，五子棋的理论得到极大发展，有禁手规则的五子棋被称为“连珠”（renju），而一般无禁手规则的叫做gomoku。由于大部分普通人下五子棋只是图一个乐趣，并不需要深入研究其中的理论规则，所以反而是gomoku在学生之间非常流行（我高中时下课就经常和同学玩五子棋）。">https://baike.baidu.com/item/五子棋/130266))黑子不能下，不然就算黑子输。在日本，五子棋的理论得到极大发展，有禁手规则的五子棋被称为“连珠”（renju），而一般无禁手规则的叫做gomoku。由于大部分普通人下五子棋只是图一个乐趣，并不需要深入研究其中的理论规则，所以反而是gomoku在学生之间非常流行（我高中时下课就经常和同学玩五子棋）。</a></p>
 <p>这里我实现的五子棋AI是无禁手规则的（因为有禁手的太复杂，另外本人比较懒。。。），标准棋盘大小为15$\times$15，我的目的是想实现一个能打败大部分普通人的AI，因此并没有进行更深入的专业性研究。所以，如果你能战胜我实现的AI，也不用太过惊讶。</p>
-</blockquote>
 <hr>
-<h2 id="一、界面设计"><a href="#一、界面设计" class="headerlink" title="一、界面设计"></a>一、界面设计</h2><h3 id="1、设计项目主体框架"><a href="#1、设计项目主体框架" class="headerlink" title="1、设计项目主体框架"></a>1、设计项目主体框架</h3><p>首先先进行整体框架的设计，不写过程，直接写需要几个类！<br><img src="/2022/09/10/wu-zi-qi-ai-yi/%E5%9B%BE1.png"><br>这里，我设计了4个类，分别表示棋手，AI, 棋盘，游戏控制。</p>
-<h3 id="2、给类添加主要接口"><a href="#2、给类添加主要接口" class="headerlink" title="2、给类添加主要接口"></a>2、给类添加主要接口</h3><h3 id="2-1-设计棋盘类Chess的主要接口"><a href="#2-1-设计棋盘类Chess的主要接口" class="headerlink" title="2.1　设计棋盘类Chess的主要接口"></a>2.1　设计棋盘类Chess的主要接口</h3><p>Chess.h</p>
-<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#pragma once
+<h2 id="一、界面设计"><a href="#一、界面设计" class="headerlink" title="一、界面设计"></a>一、界面设计</h2></blockquote>
+<h3 id="1、设计项目主体框架"><a href="#1、设计项目主体框架" class="headerlink" title="1、设计项目主体框架"></a>1、设计项目主体框架</h3><p>首先先进行整体框架的设计，不写过程，直接写需要几个类！<br><img src="/2022/09/10/wu-zi-qi-ai-yi/图1.png" alt><br>这里，我设计了4个类，分别表示棋手，AI, 棋盘，游戏控制。</p>
+<h3 id="2、给类添加主要接口"><a href="#2、给类添加主要接口" class="headerlink" title="2、给类添加主要接口"></a>2、给类添加主要接口</h3><h3 id="2-1-设计棋盘类Chess的主要接口"><a href="#2-1-设计棋盘类Chess的主要接口" class="headerlink" title="2.1　设计棋盘类Chess的主要接口"></a>2.1　设计棋盘类Chess的主要接口</h3><p>Chess.h<br><pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#pragma once
 
 #define LEFT 5			&#x2F;&#x2F;棋盘左边界
 #define TOP 5			&#x2F;&#x2F;棋盘上边界
@@ -640,10 +639,8 @@ public:
 
 	&#x2F;&#x2F;显示博弈结果
 	void Show_Result(bool humanWin);
-&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h3 id="2-2-设计AI类的主要接口"><a href="#2-2-设计AI类的主要接口" class="headerlink" title="2.2　设计AI类的主要接口"></a>2.2　设计AI类的主要接口</h3><p>AI.h</p>
-<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#pragma once
+&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></p>
+<h3 id="2-2-设计AI类的主要接口"><a href="#2-2-设计AI类的主要接口" class="headerlink" title="2.2　设计AI类的主要接口"></a>2.2　设计AI类的主要接口</h3><p>AI.h<br><pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#pragma once
 
 #include&lt;vector&gt;
 #include&quot;Chess.h&quot;
@@ -661,10 +658,12 @@ public:
     
     &#x2F;&#x2F;判断某一方是否取胜
 	bool Is_Win(const Chess_Position Position, Object side);
-&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></p>
+<font color="Blue">注意</font>：在最初开发时<font color="red">AISearch()</font>和<font color="red">Is_Win()</font>我并未输入参数，因为设计时并不知道要使用多少参数，这里为了方便我就直接复制进来了。
 
-<p><font color="Blue">注意</font>：在最初开发时<font color="red">AISearch()</font>和<font color="red">Is_Win()</font>我并未输入参数，因为设计时并不知道要使用多少参数，这里为了方便我就直接复制进来了。</p>
-<h3 id="2-3-设计Man类的主要接口"><a href="#2-3-设计Man类的主要接口" class="headerlink" title="2.3　设计Man类的主要接口"></a>2.3　设计Man类的主要接口</h3><p>Man.h </p>
+### 2.3　设计Man类的主要接口
+
+Man.h 
 <pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#pragma once
 #include &quot;Chess.h&quot;
 
@@ -684,7 +683,9 @@ public:
 	void human_go(Chess_Position&amp; Position, Object side);
 &#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<h3 id="2-4-设计ChessGame的主要接口"><a href="#2-4-设计ChessGame的主要接口" class="headerlink" title="2.4　设计ChessGame的主要接口"></a>2.4　设计ChessGame的主要接口</h3><p>ChessGame.h</p>
+### 2.4　设计ChessGame的主要接口
+
+ChessGame.h
 <pre class="line-numbers language-C++" data-language="C++"><code class="language-C++">#pragma once
 
 #include&quot;Man.h&quot;
@@ -702,14 +703,19 @@ public:
 	void play();  
 &#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<h3 id="2-5-添加各个接口的具体实现"><a href="#2-5-添加各个接口的具体实现" class="headerlink" title="2.5　添加各个接口的具体实现"></a>2.5　添加各个接口的具体实现</h3><p>可以使用如下方式自动生成各接口的具体实现。先不用考虑各个接口的真正实现，直接使用空函数体代替。 </p>
-<p><img src="/2022/09/10/wu-zi-qi-ai-yi/%E5%9B%BE2.png"></p>
-<h2 id="3、绘制界面"><a href="#3、绘制界面" class="headerlink" title="3、绘制界面"></a>3、绘制界面</h2><hr>
-<blockquote>
-<p>这里绘制界面用到的是C++的图形库<a target="_blank" rel="noopener" href="https://easyx.cn/">EasyX </a>，需要自行安装才能使用。</p>
-</blockquote>
-<hr>
-<h3 id="3-1-画出棋盘网络并进行初始化"><a href="#3-1-画出棋盘网络并进行初始化" class="headerlink" title="3.1　画出棋盘网络并进行初始化"></a>3.1　画出棋盘网络并进行初始化</h3><p>Chess.cpp</p>
+### 2.5　添加各个接口的具体实现
+
+可以使用如下方式自动生成各接口的具体实现。先不用考虑各个接口的真正实现，直接使用空函数体代替。 
+
+![](./五子棋AI（一）/图2.png)
+
+## 3、绘制界面
+***
+> 这里绘制界面用到的是C++的图形库[EasyX ](https://easyx.cn/)，需要自行安装才能使用。
+***
+### 3.1　画出棋盘网络并进行初始化
+
+Chess.cpp
 <pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F;画出棋盘网格
 void Chess::Draw_ChessBoard()
 &#123;
@@ -731,11 +737,13 @@ void Chess::Init_Chess(Object humanSide)
 	Show_Side_ChessColor(humanSide);
 &#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p>再补充一下头文件</p>
+再补充一下头文件
 <pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include &quot;Chess.h&quot;
 #include&lt;graphics.h&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
-<h3 id="3-2-显示用户提示会话以及胜负结果"><a href="#3-2-显示用户提示会话以及胜负结果" class="headerlink" title="3.2　显示用户提示会话以及胜负结果"></a>3.2　显示用户提示会话以及胜负结果</h3><pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F;显示双方各自执棋情况提示
+### 3.2　显示用户提示会话以及胜负结果
+
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F;显示双方各自执棋情况提示
 void Chess::Show_Side_ChessColor(Object humanSide) 
 &#123;
 	settextstyle(18, 0, _T(&quot;楷体&quot;));
@@ -763,7 +771,9 @@ void Chess::Show_Result(bool humanWin)
 	&#125;
 &#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<h3 id="3-3-绘制棋子"><a href="#3-3-绘制棋子" class="headerlink" title="3.3　绘制棋子"></a>3.3　绘制棋子</h3><pre class="line-numbers language-C++" data-language="C++"><code class="language-C++">&#x2F;&#x2F;指定位置画出一颗棋子
+### 3.3　绘制棋子
+
+<pre class="line-numbers language-C++" data-language="C++"><code class="language-C++">&#x2F;&#x2F;指定位置画出一颗棋子
 void Chess::Show_A_Chess(int x, int y, int color)
 &#123;
 	x -&#x3D; LEFT - 1, y -&#x3D; TOP - 1;
@@ -774,26 +784,34 @@ void Chess::Show_A_Chess(int x, int y, int color)
 	fillcircle(x, y, GRID_SIZE &#x2F; 2);
 &#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<h2 id="4、-实现棋手走棋"><a href="#4、-实现棋手走棋" class="headerlink" title="4、 实现棋手走棋"></a>4、 实现棋手走棋</h2><h3 id="4-1-棋手的初始化"><a href="#4-1-棋手的初始化" class="headerlink" title="4.1　棋手的初始化"></a>4.1　棋手的初始化</h3><p>为棋手类，添加数据成员，表示棋盘</p>
-<p>Man.h</p>
+## 4、 实现棋手走棋
+
+### 4.1　棋手的初始化
+
+为棋手类，添加数据成员，表示棋盘
+
+Man.h
 <pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">private:
 	Chess* ch;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
-<p>实现棋手对象的初始化</p>
-<p>Man.cpp</p>
+实现棋手对象的初始化
+
+Man.cpp
 <pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F;初始化
 void Man::Init(Chess* chess)
 &#123;
 	this-&gt;ch &#x3D; chess;
 &#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p>在cpp文件中补充上头文件</p>
-<p>Man.cpp</p>
+在cpp文件中补充上头文件
+
+Man.cpp
 <pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include &quot;Man.h&quot;
 #include&lt;graphics.h&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
-<p>然后在ChessGame的构造函数中，实现棋手的初始化。</p>
-<p>ChessGame.cpp</p>
+然后在ChessGame的构造函数中，实现棋手的初始化。
+
+ChessGame.cpp
 <pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F;构造函数
 ChessGame::ChessGame(Man* man, AI* ai, Chess* chess)
 &#123;
@@ -804,7 +822,10 @@ ChessGame::ChessGame(Man* man, AI* ai, Chess* chess)
 	man-&gt;Init(chess);
 &#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<h3 id="4-2-显示鼠标位置"><a href="#4-2-显示鼠标位置" class="headerlink" title="4.2　显示鼠标位置"></a>4.2　显示鼠标位置</h3><p>为了用户能知道此时光标的位置,我们可以用四条斜线对光标位置进行定位,使用户能清晰地看到此时鼠标的位置。</p>
+### 4.2　显示鼠标位置
+
+为了用户能知道此时光标的位置,我们可以用四条斜线对光标位置进行定位,使用户能清晰地看到此时鼠标的位置。
+
 <pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F;显示鼠标位置
 void Man::Show_Mouse(int x, int y, int color)
 &#123;
@@ -816,7 +837,8 @@ void Man::Show_Mouse(int x, int y, int color)
 		line(x + p1[i][0], y + p1[i][1], x + p2[i][0], y + p2[i][1]);
 &#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p>我们知道用户的鼠标应该要进行实时的更新,因此我们需要在添加一个函数在用户移动鼠标时更新界面。</p>
+我们知道用户的鼠标应该要进行实时的更新,因此我们需要在添加一个函数在用户移动鼠标时更新界面。
+
 <pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F;移动鼠标时更新界面
 void Man::Move_Mouse(int x, int y, int nx, int ny)
 &#123;
@@ -824,7 +846,9 @@ void Man::Move_Mouse(int x, int y, int nx, int ny)
 	Show_Mouse(nx, ny, MOUSE_COLOR);
 &#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<h3 id="4-3-棋手走棋"><a href="#4-3-棋手走棋" class="headerlink" title="4.3　棋手走棋"></a>4.3　棋手走棋</h3><pre class="line-numbers language-C++" data-language="C++"><code class="language-C++">&#x2F;&#x2F;棋手下棋接口
+### 4.3　棋手走棋
+
+<pre class="line-numbers language-C++" data-language="C++"><code class="language-C++">&#x2F;&#x2F;棋手下棋接口
 void Man::human_go(Chess_Position&amp; position, Object side)
 &#123;
 	MOUSEMSG m;
@@ -855,8 +879,11 @@ void Man::human_go(Chess_Position&amp; position, Object side)
 	&#125;
 &#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<h2 id="5、添加数据成员"><a href="#5、添加数据成员" class="headerlink" title="5、添加数据成员"></a>5、添加数据成员</h2><p>为了便于调用各个类的功能，在ChessGame中，添加3个数据成员，并在构造函数中初始化这三个数据成员。</p>
-<p>ChessGame.h</p>
+## 5、添加数据成员
+
+为了便于调用各个类的功能，在ChessGame中，添加3个数据成员，并在构造函数中初始化这三个数据成员。
+
+ChessGame.h
 <pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#pragma once
 
 #include&quot;Man.h&quot;
@@ -881,9 +908,17 @@ private:
 	Chess* ch;
 &#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<h2 id="6、细节修改"><a href="#6、细节修改" class="headerlink" title="6、细节修改"></a>6、细节修改</h2><p>修改项目的字符集为“多字节字符集”，因为我们要让编译器不增加宏定义——UNICODE。（是否增加了宏定义UNICODE，会影响了一些Windows API的使用。）<br><img src="/2022/09/10/wu-zi-qi-ai-yi/%E5%9B%BE3.png"></p>
-<p>至此，我们第一部分整体框架的设计已经结束了，简单实现了界面，但还没实现AI下棋部分，AI部分的算法包含了Min-Max算法和αβ剪枝算法的实现。下一篇将优先实现AI算法中最重要的一环：评估函数的实现。</p>
-<p><font size="5">下一篇：[五子棋AI（二）](<a target="_blank" rel="noopener" href="http://ude123456.top/2022/09/13/wu-zi-qi-ai-er/">五子棋AI（二） | 思无邪 (ude123456.top)</a>)</font></p>
+## 6、细节修改
+
+修改项目的字符集为“多字节字符集”，因为我们要让编译器不增加宏定义——UNICODE。（是否增加了宏定义UNICODE，会影响了一些Windows API的使用。）
+![](./五子棋AI（一）/图3.png)
+
+
+
+至此，我们第一部分整体框架的设计已经结束了，简单实现了界面，但还没实现AI下棋部分，AI部分的算法包含了Min-Max算法和αβ剪枝算法的实现。下一篇将优先实现AI算法中最重要的一环：评估函数的实现。
+
+<font size="5">下一篇：[五子棋AI（二）]([五子棋AI（二） | 思无邪 (ude123456.top)](http://ude123456.top/2022/09/13/wu-zi-qi-ai-er/))</font>
+
 
                 
             </div>
@@ -1350,11 +1385,11 @@ private:
     
 
     <div class="container row center-align"
-         style="margin-bottom: 0px !important;">
+         style="margin-bottom: 15px !important;">
         <div class="col s12 m8 l8 copy-right">
             Copyright&nbsp;&copy;
             
-                <span id="year">2019-2022</span>
+                <span id="year">2021-2022</span>
             
             <a href="/about" target="_blank">Jeremy Yang</a>
             |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
@@ -1362,7 +1397,7 @@ private:
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">21.3k</span>
+                        class="white-color">24.5k</span>
             
             
             
@@ -1383,6 +1418,60 @@ private:
             <br>
 
             <!-- 运行天数提醒. -->
+            
+                <span id="sitetime"> Loading ...</span>
+                <script>
+                    var calcSiteTime = function () {
+                        var seconds = 1000;
+                        var minutes = seconds * 60;
+                        var hours = minutes * 60;
+                        var days = hours * 24;
+                        var years = days * 365;
+                        var today = new Date();
+                        var startYear = "2021";
+                        var startMonth = "10";
+                        var startDate = "28";
+                        var startHour = "0";
+                        var startMinute = "0";
+                        var startSecond = "0";
+                        var todayYear = today.getFullYear();
+                        var todayMonth = today.getMonth() + 1;
+                        var todayDate = today.getDate();
+                        var todayHour = today.getHours();
+                        var todayMinute = today.getMinutes();
+                        var todaySecond = today.getSeconds();
+                        var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                        var diff = t2 - t1;
+                        var diffYears = Math.floor(diff / years);
+                        var diffDays = Math.floor((diff / days) - diffYears * 365);
+
+                        // 区分是否有年份.
+                        var language = 'zh-CN';
+                        if (startYear === String(todayYear)) {
+                            document.getElementById("year").innerHTML = todayYear;
+                            var daysTip = 'This site has been running for ' + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                daysTip = '本站已运行 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                daysTip = '本站已運行 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = daysTip;
+                        } else {
+                            document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                            var yearsAndDaysTip = 'This site has been running for ' + diffYears + ' years and '
+                                + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                yearsAndDaysTip = '本站已运行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                yearsAndDaysTip = '本站已運行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = yearsAndDaysTip;
+                        }
+                    }
+
+                    calcSiteTime();
+                </script>
             
             <br>
             

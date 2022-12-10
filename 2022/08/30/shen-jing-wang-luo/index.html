@@ -8,7 +8,7 @@
     <meta name="description" content="
 人工智能主要是机器学习，机器学习主要是深度学习，深度学习实际上算是机器学习的子领域，而要进行深度学习必然要接触人工神经网络。
 
-神经网络是一种模拟人脑的神经网络以期能够实现类人工智能的机器学习技术。人脑中的神经网络是一个非常复杂的组织。成">
+1. 什么是神经网络　　神经网络是一种模拟人脑的神经网络以期能够实现类人工智能的机器学习技术。人脑中的神经网络">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -551,7 +551,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    278
+                    3.5k
                 </div>
                 
 
@@ -574,7 +574,57 @@
                 <blockquote>
 <p>人工智能主要是机器学习，机器学习主要是深度学习，深度学习实际上算是机器学习的子领域，而要进行深度学习必然要接触人工神经网络。</p>
 </blockquote>
-<p>神经网络是一种模拟人脑的神经网络以期能够实现类人工智能的<a target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0&spm=1001.2101.3001.7020">机器学习</a>技术。人脑中的神经网络是一个非常复杂的组织。成人的大脑中估计有1000亿个神经元之多。<br><img src="/2022/08/30/shen-jing-wang-luo/%E5%9B%BE1.jpg"><br>人工神经网络（artificial neural network，ANN），简称神经网络（neural network，NN），是一种模仿生物神经网络的结构和功能的数学模型或计算模型。神经网络由大量的人工神经元联结进行计算。大多数情况下人工神经网络能在外界信息的基础上改变内部结构，是一种自适应系统。现代神经网络是一种非线性统计性数据建模工具，常用来对输入和输出间复杂的关系进行建模，或用来探索数据的模式。</p>
+<h2 id="1-什么是神经网络"><a href="#1-什么是神经网络" class="headerlink" title="1. 什么是神经网络"></a>1. 什么是神经网络</h2><p>　　神经网络是一种模拟人脑的神经网络以期能够实现类人工智能的<a target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=机器学习&amp;spm=1001.2101.3001.7020">机器学习</a>技术。人脑中的神经网络是一个非常复杂的组织。成人的大脑中估计有1000亿个神经元之多。<br><img src="/2022/08/30/shen-jing-wang-luo/图1.jpg" alt><br>　　人工神经网络（artificial neural network，ANN），简称神经网络（neural network，NN)，是一种模仿生物神经网络的结构和功能的数学模型或计算模型。神经网络由大量的人工神经元联结进行计算。大多数情况下人工神经网络能在外界信息的基础上改变内部结构，是一种自适应系统。现代神经网络是一种非线性统计性数据建模工具，常用来对输入和输出间复杂的关系进行建模，或用来探索数据的模式。</p>
+<p>  神经网络主要由：<strong>输入层</strong>，<strong>隐藏层</strong>，<strong>输出层</strong>构成。当隐藏层只有一层时，该网络为<strong>两层神经网络</strong>，由于输入层未做任何变换，可以不看做单独的一层。实际中，网络输入层的每个神经元代表了一个特征，输出层个数代表了<strong>分类标签</strong>的个数（在做二分类时，如果采用sigmoid分类器，输出层的神经元个数为1个；如果采用softmax分类器，输出层神经元个数为2个)，而隐藏层层数以及隐藏层神经元是由人工设定。一个基本的三层神经网络可见下图：<br><img src="/2022/08/30/shen-jing-wang-luo/图2.jpg" alt></p>
+<h3 id="1-1-从逻辑回归到神经元"><a href="#1-1-从逻辑回归到神经元" class="headerlink" title="1.1 从逻辑回归到神经元"></a>1.1 从逻辑回归到神经元</h3><p>  为了便于大家理解，我们先回顾一下<strong>逻辑回归</strong>。逻辑回归模型如下： <script type="math/tex">h_\theta(x) = \frac{1}{1+e{-\theta^T x}}</script><br>  其中 $z=\theta^Tx$=$\theta_0+\theta_1x_1+\theta_2x_2$ ， $h_\theta(x)=g(z)=\frac{1}{1+e^{−z}}$<br>  对此我们可以用以下结构进行理解：<br><img src="/2022/08/30/shen-jing-wang-luo/图3.jpg" alt><br>  根据上图，我们可以看出，逻辑回归可以分为<strong>线性变换</strong>部分与<strong>非线性变换</strong>部分。而<strong>只有输入层与输出层且输出层只有一个神经元</strong>的神经网络的结构便于逻辑回归一致。只不过在神经网络中，<strong>线性变换（求和）</strong>与<strong>非线性变换</strong>被集成在一个神经元（隐藏层或输出层)中。如下图所示：<br><img src="/2022/08/30/shen-jing-wang-luo/图4.jpg" alt><br>  于是，对于具有多层或多个输出神经元的神经网络就不难理解了。其<strong>每个</strong>隐藏层<strong>神经元</strong>/输出层<strong>神经元</strong>的值（<strong>激活值</strong>），都是由上一层神经元，经过<strong>加权求和</strong>与<strong>非线性变换</strong>而得到的。其中<strong>非线性变换函数（又被称为激活函数)</strong>可以是：$sigmoid、tanh、relu $等函数。</p>
+<h3 id="1-2-神经网络"><a href="#1-2-神经网络" class="headerlink" title="1.2 神经网络"></a>1.2 神经网络</h3><p>  根据1.1中所讲述，我们可以得到以下这样一个基本的<strong>三层</strong>神经网络：<br><img src="/2022/08/30/shen-jing-wang-luo/图5.jpg" alt><br>  其中 $x_i(i=1,2,3)$ 为输入层的值，$a^{(k)}_i(k=1,2,3…,K；i=1,2,3…,N_k)$，表示第 $k$ 层中，第$i$个神经元的激活值，$N_k$ 表示第 $k$ 层的神经元个数。当$k=1$时即为输入层，即$a^{(1)}_i=x_i$，而$x_0=1$与$a^{(2)}_0=1$ 为偏置项。   为了求最后的<strong>输出值 $h_θ(x)=a^{(3)}_1$</strong>，我们需要计算隐藏层中每个神经元的激活值 $a^{(k)}_{ji}(k=2,3)$。而隐藏层/输出层的每一个神经元，都是由上一层神经元经过<strong>类似逻辑回归</strong>计算而来。我们可以使用下图进行理解：<br><img src="/2022/08/30/shen-jing-wang-luo/图6.jpg" alt><br>  我们使用 $a^{(k)}_{ji}$来表示第 $k$ 层的参数（边权)，其中下标 $j$ 表示第 $k+1$ 层的第 $j$ 个神经元，$i$ 表示第 $k$ 层的第 $i$ 个神经元。于是我们可以计算出<strong>隐藏层</strong>的三个<strong>激活值</strong>：　　　</p>
+<p>　　　　　　　　　　<script type="math/tex">a^{(2)}_{1}=g(\theta^{(1)}_{10}x_0+\theta^{(1)}_{11}x_1+\theta^{(1)}_{12}x_2+\theta^{(1)}_{13}x_3)</script></p>
+<p>　　　　　　　　　　<script type="math/tex">a^{(2)}_{2}=g(\theta^{(1)}_{20}x_0+\theta^{(1)}_{21}x_1+\theta^{(1)}_{22}x_2+\theta^{(1)}_{23}x_3)</script></p>
+<p>　　　　　　　　　　<script type="math/tex">a^{(2)}_{3}=g(\theta^{(1)}_{30}x_0+\theta^{(1)}_{31}x_1+\theta^{(1)}_{32}x_2+\theta^{(1)}_{33}x_3)</script></p>
+<p>  再将隐藏层的三个激活值以及偏置项（ $a^{(2)}_{0}，a^{(2)}_{1}，a^{(2)}_{2}，a^{(2)}_{3}$ ）用来计算出输出层神经元的<strong>激活值</strong>即为该神经网络的输出：</p>
+<p>　　　　　　　　　　<script type="math/tex">a^{(3)}_{1}=g(\theta^{(2)}_{10}a^{(2)}_0+\theta^{(2)}_{11}a^{(2)}_1+\theta^{(2)}_{12}a^{(2)}_2+\theta^{(2)}_{13}a^{(2)}_3)</script></p>
+<p>  其中 $g(z)$ 为<strong>非线性变换函数（激活函数）</strong>。   </p>
+<p>　　到此，我们就大致了解了什么是神经网络了。</p>
+<h3 id="1-3-为什么要使用神经网络"><a href="#1-3-为什么要使用神经网络" class="headerlink" title="1.3 为什么要使用神经网络"></a>1.3 为什么要使用神经网络</h3><p>  首先，神经网络应用在分类问题中效果很好。 工业界中分类问题居多。LR或者linear SVM更适用<strong>线性分类</strong>。如果数据<strong>非线性可分</strong>（现实生活中多是非线性的），LR通常需要靠特征工程做特征映射，增加高斯项或者组合项；SVM需要选择核。 而增加高斯项、组合项会产生很多没有用的维度，增加计算量。GBDT可以使用弱的线性分类器组合成强分类器，但维度很高时效果可能并不好。而神经网络在三层及以上时，能够很好地进行<strong>非线性可分</strong>。现在我们使用下面的例子进行一下解释。<br>  有这样一组样本，如下图：<br><img src="/2022/08/30/shen-jing-wang-luo/图7.jpg" alt><img src="/2022/08/30/shen-jing-wang-luo/图8.jpg" alt><br>  若我们需要对上图中的样本进行分类，直观来看，<strong>很难找到一条线性分类边界对其进行分类</strong>，而观察上表中的输入输出值，我们可以看出分类结果与输入值是<strong>异或</strong>关系。<strong>而逻辑回归可以通过改变参数，来实现“与”、“或”、“非”简单操作</strong>。   （1）我们先来观察一下<strong>逻辑回归</strong>实现<strong>逻辑“与”操作</strong>，假设模型函数如下：</p>
+<p>　　　<script type="math/tex">h^{(1)}_{\theta}(x)=g(−30+20x_1+20x_2)=\frac{1}{1+e^{−(−30+20x_1+20x_2)}}</script></p>
+<p>    对应结构与结果为：<br><img src="/2022/08/30/shen-jing-wang-luo/图9.jpg" alt><img src="/2022/08/30/shen-jing-wang-luo/图10.jpg" alt><br>  （2）<strong>逻辑回归</strong>实现<strong>逻辑“或非”操作</strong>，假设模型函数如下：</p>
+<p>　　　<script type="math/tex">h^{(1)}_{\theta}(x)=g(−10-20x_1-20x_2)=\frac{1}{1+e^{−(−10-20x_1-20x_2)}}</script></p>
+<p>    对应结果为：<br><img src="/2022/08/30/shen-jing-wang-luo/图11.jpg" alt><img src="/2022/08/30/shen-jing-wang-luo/图12.jpg" alt><br>  （3）<strong>逻辑回归</strong>实现<strong>逻辑“或”操作</strong>，假设模型函数如下：</p>
+<p>　　　<script type="math/tex">h^{(1)}_{\theta}(x)=g(−10+20x_1+20x_2)=\frac{1}{1+e^{−(−10+20x_1+20x_2)}}</script></p>
+<p>    对应结果为：<br><img src="/2022/08/30/shen-jing-wang-luo/图13.jpg" alt><img src="/2022/08/30/shen-jing-wang-luo/图14.jpg" alt><br>  <strong>观察（1）（2）中的 $h^{(1)}_{\theta}(x)$ 与 $h^{(2)}_{\theta}(x)$ 的值，通过“或”操作，便能够得到“异或”操作的结果。</strong><br><img src="/2022/08/30/shen-jing-wang-luo/图15.jpg" alt><br>  也就是说，若将三个<strong>逻辑回归</strong>操作进行<strong>叠加</strong>，便能够对上述例子进行<strong>非线性分类</strong>。大致结构图可理解为下：<br><img src="/2022/08/30/shen-jing-wang-luo/图16.jpg" alt><img src="/2022/08/30/shen-jing-wang-luo/图17.jpg" alt><br>  而对<strong>线性分类器</strong>的逻辑与和逻辑或的<strong>组合</strong>可以完美的对平面样本进行分类。<br><img src="/2022/08/30/shen-jing-wang-luo/图18.jpg" alt><br>  隐层决定了最终的分类效果 ：<br><img src="/2022/08/30/shen-jing-wang-luo/图19.jpg" alt><br>  由上图可以看出，随着隐层层数的增多，凸域将可以形成任意的形状，因此可以解决任何复杂的分类问题。实际上，Kolmogorov理论指出：双隐层感知器就足以解决任何复杂的分类问题。   <font size="4">于是我们可以得出这样的结论：<strong>神经网络</strong>通过将线性分类器进行组合叠加，能够较好地进行<strong>非线性分类</strong>。</font></p>
+<hr>
+<h2 id="2-神经网络目标函数"><a href="#2-神经网络目标函数" class="headerlink" title="2.神经网络目标函数"></a>2.神经网络目标函数</h2><p>  同样的，对于神经网络我们也需要知道其目标函数，才能够对目标函数进行优化从而学习到参数。<br>  假设神经网络的输出层只有一个神经元，该网络有 $K$ 层，则其目标函数为（若不止一个神经元，每个输出神经元的目标函数类似，仅仅是参数矩阵的不同）：</p>
+<script type="math/tex; mode=display">J(θ)=−\frac{1}{m}[\sum\limits_{i=1}^my^{(i)}log(h_{\theta}(a^{(K−1)}))+(1−y^{(i)})log(1−h_{\theta}(a^{(K−1)}))]+\frac{\lambda}{2m}\sum\limits_{k=1}^{K-1}\sum\limits_{i=1}^{N_k}\sum\limits_{j=1}^{N_{k+1}}(\theta^{(k)}_{ji})^2</script><p>  其中 $a^{i}$ 倒数第2层的激活值，作为输出层的输入值。而其值为 $a^{(k)}=g(a^{(k−1)})$ ，$y^{(i)}$ 为实际分类结果 $0/1$，$m$ 为样本数，$N_k$ 为第 $k$ 层的神经元个数。</p>
+<hr>
+<h2 id="3-神经网络优化算法"><a href="#3-神经网络优化算法" class="headerlink" title="3.神经网络优化算法"></a>3.神经网络优化算法</h2><p>  神经网络与普通的分类器不同，其是一个巨大的网络，最后一层的输出与每一层的神经元都有关系。而神经网络的每一层，与下一层之间，都存在一个参数矩阵。我们需要通过优化算法求出每一层的参数矩阵，对于一个有 $K$ 层的神经网络，我们共需要求解出 $K−1$ 个参数矩阵。因此我们无法直接对目标函数进行梯度的计算来求解参数矩阵。<br>  对于神经网络的优化算法，主要需要两步：<strong>前向传播(Forward Propagation)</strong>与<strong>反向传播(Back Propagation)</strong></p>
+<h3 id="3-1-前向传播"><a href="#3-1-前向传播" class="headerlink" title="3.1 前向传播"></a>3.1 前向传播</h3><p>  <strong>前向传播</strong>就是<strong>从输入层到输出层，计算每一层每一个神经元的激活值</strong>。也就是<strong>先随机初始化每一层的参数矩阵，然后从输入层开始，依次计算下一层每个神经元的激活值，一直到最后计算输出层神经元的激活值</strong>。<br>  以下面这个例子来看：<br><img src="/2022/08/30/shen-jing-wang-luo/图20.jpg" alt><br>    （1）随机初始化参数矩阵 <script type="math/tex">\Theta^{(1)}</script> 与 <script type="math/tex">\Theta^{(2)}</script>  ：</p>
+<p>　　　　　　　　　<script type="math/tex">\Theta^{(1)}=\left[ \begin{matrix} \theta^{(1)}_{10} & \theta^{(1)}_{11} & \theta^{(1)}_{12} & \theta^{(1)}_{13}\\ \theta^{(1)}_{20} & \theta^{(1)}_{21} & \theta^{(1)}_{22} & \theta^{(1)}_{23} \end{matrix} \right] \Theta^{(1)}= \left[\begin{matrix}\theta^{(2)}_{10} & \theta^{(2)}_{11} & \theta^{(2)}_{12}\end{matrix}\right]</script><br>　　　　　　　　　<br>    （2）计算隐藏层的每个神经元激活值：</p>
+<p>　　　　　　　　　　<script type="math/tex">a^{(2)}_{1}=g(\theta^{(1)}_{10}x_0+\theta^{(1)}_{11}x_1+\theta^{(1)}_{12}x_2+\theta^{(1)}_{13}x_3)</script></p>
+<p>　　　　　　　　　　<script type="math/tex">a^{(2)}_{2}=g(\theta^{(1)}_{20}x_0+\theta^{(1)}_{21}x_1+\theta^{(1)}_{22}x_2+\theta^{(1)}_{23}x_3)</script></p>
+<p>      即：</p>
+<p>　　　　　　　　　　<script type="math/tex">a^{(2)}=g(\Theta^{(1)}x)</script>，其中$a^{(2)}=$$\left[\begin{matrix} a_1^{(2)} \\ a_2^{(2)} \end{matrix}\right],x=\left[\begin{matrix} x_0 \\ x_1\\x_2\\x_3 \end{matrix}\right]$，</p>
+<p>    （3）计算隐藏层的每个神经元激活值：</p>
+<p>　　　　　　　　　　<script type="math/tex">a^{(3)}_{1}=g(\theta^{(2)}_{10}a_0^{(2)}+\theta^{(2)}_{11}a_1^{(2)}+\theta^{(2)}_{12}a_2^{(2)})</script></p>
+<p>      即：</p>
+<p>　　　　　　　　　　<script type="math/tex">a^{(3)}=g(\Theta^{(2)}a^{(2)})</script>，其中$a^{(2)}=$$\left[\begin{matrix} a_0^{(2)} \\ a_1^{(2)} \\a_2^{(2)} \end{matrix}\right]$</p>
+<p>  以上便是<strong>前向传播</strong>计算<strong>激活值</strong>的过程。</p>
+<h3 id="3-2-反向传播"><a href="#3-2-反向传播" class="headerlink" title="3.2 反向传播"></a>3.2 反向传播</h3><p>  <strong>反向传播</strong>总的来说就是<strong>根据前向传播计算出来的激活值，来计算每一层参数的梯度，并从后往前进行参数的更新</strong>。<br>  在介绍反向传播的计算步骤之前，我们先引入一个概念—-除输入层外每个神经元节点的<strong>“损失”</strong> ，${\delta}_j^k$ 表示第 $k$ 层第 $j$ 个神经元的损失。<br>  于是我们可以计算求得（除输入层）每一层神经元的损失（以上一个例子来解释）：</p>
+<p>　　　　　　　　　　<script type="math/tex">{\delta}_1^{(3)}=a_1^{(3)}-y_1</script></p>
+<p>  其中 $y_1$ 为实际值。向量化表示如下：</p>
+<p>　　　　　　　　　　<script type="math/tex">{\delta}^{(3)}=a^{(3)}-y</script></p>
+<p>　　　　　　　　　　<script type="math/tex">{\delta}^{(2)}=((\Theta^{(2)})^T){\delta}^{(3)}{\times}g'(z^{(2)})</script></p>
+<p>  其中”$\times$”表示两个矩阵对应位置上元素相乘，$g’(z^{(2)})$ 是对函数求导。而</p>
+<p>　　　　<script type="math/tex">z^{(2)}=\left[\begin{matrix}\theta^{(1)}_{10}x_0+\theta^{(1)}_{11}x_1+\theta^{(1)}_{12}x_2 +\theta^{(1)}_{13}x_3 &\theta^{(1)}_{20}x_0+\theta^{(1)}_{21}x_1+\theta^{(1)}_{22}x_2+\theta^{(1)}_{23}x_3\end{matrix}\right]</script></p>
+<p>  由上可看出，第二层的损失 ${\delta}^{(2)}$ 是<strong>基于第三层的损失</strong> ${\delta}^{(3)}$ 计算而来。也就是说，我们可以先计算第三层的损失并对第二层的参数矩阵进行更新，再利用第三层的损失计算第二层的损失以及更新第一层的参数矩阵（<strong>至于为何可以这样进行，将在后面进行证明</strong>）。<br>  于是，基于反向传播算法的梯度更新步骤如下：<br>    （1）计算每一层的损失：${\delta}^{(k)}$（见上面所示）。<br>    （2）计算每一层的 $\Delta$ (初始化为0)：$ \Delta^{(k)} = \Delta^{(k)} + \delta^{(k+1)} (a{(k)})T $<br>    （3）计算每一个参数的<strong>梯度</strong>：</p>
+<p>　　　　　　　　　　<script type="math/tex">D^{(k)}_{ji}=\frac{1}{m}\Delta^{(k)}_{ji}+\lambda\Theta^{(k)}_{(ji)},如果i\neq0</script></p>
+<p>　　　　　　　　　　　　<script type="math/tex">D^{(k)}_{ji}=\frac{1}{m}\Delta^{(k)}_{ji},如果i=0</script></p>
+<p>  也就是说$\frac{\delta J(\Theta)}{\delta\Theta^{k}_{ji}}=D^{(k)}_{ji}$。于是就可以使用梯度下降来进行参数的求解了。</p>
+<h3 id="3-3-反向传播的推导"><a href="#3-3-反向传播的推导" class="headerlink" title="3.3 反向传播的推导"></a>3.3 反向传播的推导</h3><p>  大家可能都会有疑问，为什么求梯度时，要先对后一层进行计算，并利用其结果来求前一层的梯度？我们将针对如下例子进行推导证明：<br><img src="/2022/08/30/shen-jing-wang-luo/图20.jpg" alt><br>  第一层的参数为：</p>
+<p>　　　　　　　　　　<script type="math/tex">\Theta^{(1)}=\left[ \begin{matrix} \theta^{(1)}_{10} & \theta^{(1)}_{11} & \theta^{(1)}_{12} & \theta^{(1)}_{13}\\ \theta^{(1)}_{20} & \theta^{(1)}_{21} & \theta^{(1)}_{22} & \theta^{(1)}_{23} \end{matrix} \right] \tag{3}</script></p>
+<p>  第二层的参数为：</p>
+<p>　　　　　　　　　　<script type="math/tex">\Theta^{(2)}=\left[\begin{matrix}\theta^{(2)}_{10} & \theta^{(2)}_{11} & \theta^{(2)}_{12}\end{matrix}\right]</script></p>
+<p>  我们先来对第二层的参数求梯度 $\frac{\delta J(\Theta)}{\delta\theta^{(2)}}$：<br><img src="/2022/08/30/shen-jing-wang-luo/图21.jpg" alt><br>  其中 $y^i$ 为实际值， $g(θ^{(2)}a^{(2)})=a^{(3)}$。<br><img src="/2022/08/30/shen-jing-wang-luo/图22.jpg" alt><br>  这一步的推导过程与逻辑回归一样，详细可参考<a target="_blank" rel="noopener" href="https://blog.csdn.net/t46414704152abc/article/details/79574003">逻辑回归的理解</a>。   </p>
+<p>　　现在我们来对第一层的参数求梯度$\frac{\delta J(\Theta)}{\delta\theta^{(1)}}$ ：<br><img src="/2022/08/30/shen-jing-wang-luo/图23.jpg" alt><br>  先对中括号内的求导：<br><img src="/2022/08/30/shen-jing-wang-luo/图24.jpg" alt><img src="/2022/08/30/shen-jing-wang-luo/图25.jpg" alt><br>  故：<br><img src="/2022/08/30/shen-jing-wang-luo/图24.jpg" alt><img src="/2022/08/30/shen-jing-wang-luo/图26.jpg" alt><br>  对比着3.2中的公式，我们可以看出，第 $k$ 层的梯度可以根据第 $k+1$ 层的<strong>损失</strong>来计算（上式是用第 22 的损失来推导第 11 层的梯度)。   到此，反向传播的推导过程就完成了。如果对式子还有不理解的，可以自己动手多试试。</p>
 
                 
             </div>
@@ -1044,11 +1094,11 @@
     
 
     <div class="container row center-align"
-         style="margin-bottom: 0px !important;">
+         style="margin-bottom: 15px !important;">
         <div class="col s12 m8 l8 copy-right">
             Copyright&nbsp;&copy;
             
-                <span id="year">2019-2022</span>
+                <span id="year">2021-2022</span>
             
             <a href="/about" target="_blank">Jeremy Yang</a>
             |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
@@ -1056,7 +1106,7 @@
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">21.3k</span>
+                        class="white-color">24.5k</span>
             
             
             
@@ -1077,6 +1127,60 @@
             <br>
 
             <!-- 运行天数提醒. -->
+            
+                <span id="sitetime"> Loading ...</span>
+                <script>
+                    var calcSiteTime = function () {
+                        var seconds = 1000;
+                        var minutes = seconds * 60;
+                        var hours = minutes * 60;
+                        var days = hours * 24;
+                        var years = days * 365;
+                        var today = new Date();
+                        var startYear = "2021";
+                        var startMonth = "10";
+                        var startDate = "28";
+                        var startHour = "0";
+                        var startMinute = "0";
+                        var startSecond = "0";
+                        var todayYear = today.getFullYear();
+                        var todayMonth = today.getMonth() + 1;
+                        var todayDate = today.getDate();
+                        var todayHour = today.getHours();
+                        var todayMinute = today.getMinutes();
+                        var todaySecond = today.getSeconds();
+                        var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                        var diff = t2 - t1;
+                        var diffYears = Math.floor(diff / years);
+                        var diffDays = Math.floor((diff / days) - diffYears * 365);
+
+                        // 区分是否有年份.
+                        var language = 'zh-CN';
+                        if (startYear === String(todayYear)) {
+                            document.getElementById("year").innerHTML = todayYear;
+                            var daysTip = 'This site has been running for ' + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                daysTip = '本站已运行 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                daysTip = '本站已運行 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = daysTip;
+                        } else {
+                            document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                            var yearsAndDaysTip = 'This site has been running for ' + diffYears + ' years and '
+                                + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                yearsAndDaysTip = '本站已运行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                yearsAndDaysTip = '本站已運行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = yearsAndDaysTip;
+                        }
+                    }
+
+                    calcSiteTime();
+                </script>
             
             <br>
             

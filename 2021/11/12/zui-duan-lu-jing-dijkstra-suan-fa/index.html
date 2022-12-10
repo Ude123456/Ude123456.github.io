@@ -569,10 +569,10 @@ Dijkstra算法刚接触时确实有点难以理解，尤其是代码的实现，
                 <hr>
 <blockquote>
 <p>Dijkstra算法刚接触时确实有点难以理解，尤其是代码的实现，但其背后的逻辑实际上是用贪心算法来支撑的。但是在算法学习中Dijkstra算法又是最基本的一种算法，对于求解单源最短路径有着极大的作用。在这里我简单讲一下自己的理解，我的代码参考了《图解数据结构》，该代码适合稠密图，使用的是邻接矩阵来存储的图。 </p>
-</blockquote>
 <hr>
-<h2 id="1、Dijkstra算法主要步骤"><a href="#1、Dijkstra算法主要步骤" class="headerlink" title="1、Dijkstra算法主要步骤"></a>1、Dijkstra算法主要步骤</h2><p><img src="/2021/11/12/zui-duan-lu-jing-dijkstra-suan-fa/Dijkstra%E7%AE%97%E6%B3%95%E6%AD%A5%E9%AA%A4.png"></p>
-<p>对于贪心算法，简单描述一下：<br>贪心算法正如其名字一样，贪心算法只注重眼前利益，就像贪心的小人一样，因此得名贪心算法，该算法即从一个初始解，一步步选取当前最优解，最终得出近似的最优解（注意：不一定是该问题的最优解，而是近似于最优解）。<br>实现该算法的基本过程如下。<br>（1）从问题的某一初始解出发。<br>（2）while能向给定总目标前进一步。<br>（3）求出可行解的一个解元素。<br>（4）由所有解元素组合成问题的一个可行解。<br>（想更深入了解请参考链接<a target="_blank" rel="noopener" href="https://blog.csdn.net/effective_coder/article/details/8736718?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522164621206116781685343755%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&amp;request_id=164621206116781685343755&amp;biz_id=0&amp;utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-8736718.pc_search_result_control_group&amp;utm_term=%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95%E8%AF%A6%E8%A7%A3&amp;spm=1018.2226.3001.4187%EF%BC%89">https://blog.csdn.net/effective_coder/article/details/8736718?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522164621206116781685343755%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&amp;request_id=164621206116781685343755&amp;biz_id=0&amp;utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-8736718.pc_search_result_control_group&amp;utm_term=%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95%E8%AF%A6%E8%A7%A3&amp;spm=1018.2226.3001.4187）</a></p>
+<h2 id="1、Dijkstra算法主要步骤"><a href="#1、Dijkstra算法主要步骤" class="headerlink" title="1、Dijkstra算法主要步骤"></a>1、Dijkstra算法主要步骤</h2></blockquote>
+<p><img src="/2021/11/12/zui-duan-lu-jing-dijkstra-suan-fa/Dijkstra算法步骤.png" alt></p>
+<p>对于贪心算法，简单描述一下：<br>贪心算法正如其名字一样，贪心算法只注重眼前利益，就像贪心的小人一样，因此得名贪心算法，该算法即从一个初始解，一步步选取当前最优解，最终得出近似的最优解（注意：不一定是该问题的最优解，而是近似于最优解）。<br>实现该算法的基本过程如下。<br>（1）从问题的某一初始解出发。<br>（2）while能向给定总目标前进一步。<br>（3）求出可行解的一个解元素。<br>（4）由所有解元素组合成问题的一个可行解。<br>（想更深入了解请参考链接<a target="_blank" rel="noopener" href="https://blog.csdn.net/effective_coder/article/details/8736718?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522164621206116781685343755%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&amp;request_id=164621206116781685343755&amp;biz_id=0&amp;utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-8736718.pc_search_result_control_group&amp;utm_term=%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95%E8%AF%A6%E8%A7%A3&amp;spm=1018.2226.3001.4187）">https://blog.csdn.net/effective_coder/article/details/8736718?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522164621206116781685343755%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&amp;request_id=164621206116781685343755&amp;biz_id=0&amp;utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-8736718.pc_search_result_control_group&amp;utm_term=%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95%E8%AF%A6%E8%A7%A3&amp;spm=1018.2226.3001.4187）</a></p>
 <hr>
 <h2 id="2、Dijkstra算法小结"><a href="#2、Dijkstra算法小结" class="headerlink" title="2、Dijkstra算法小结"></a>2、Dijkstra算法小结</h2><p> 1、Dijkstra算法一般是用来解决单源最短路径问题（指定一个点（源点）到其余各个顶点的最短路径，也叫做“单源最短路径”。）<br> 2、其时间复杂度仅为O(n^2^)，并且非常高效，甚至可以优化成O(log2n)。<br> 3、Dijkstra算法中权值只能为正数，若权值为负数则不能使用该算法。（权值即图各个边所赋予的值）  </p>
 <hr>
@@ -1173,11 +1173,11 @@ int main()
     
 
     <div class="container row center-align"
-         style="margin-bottom: 0px !important;">
+         style="margin-bottom: 15px !important;">
         <div class="col s12 m8 l8 copy-right">
             Copyright&nbsp;&copy;
             
-                <span id="year">2019-2022</span>
+                <span id="year">2021-2022</span>
             
             <a href="/about" target="_blank">Jeremy Yang</a>
             |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
@@ -1185,7 +1185,7 @@ int main()
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">21.3k</span>
+                        class="white-color">24.5k</span>
             
             
             
@@ -1206,6 +1206,60 @@ int main()
             <br>
 
             <!-- 运行天数提醒. -->
+            
+                <span id="sitetime"> Loading ...</span>
+                <script>
+                    var calcSiteTime = function () {
+                        var seconds = 1000;
+                        var minutes = seconds * 60;
+                        var hours = minutes * 60;
+                        var days = hours * 24;
+                        var years = days * 365;
+                        var today = new Date();
+                        var startYear = "2021";
+                        var startMonth = "10";
+                        var startDate = "28";
+                        var startHour = "0";
+                        var startMinute = "0";
+                        var startSecond = "0";
+                        var todayYear = today.getFullYear();
+                        var todayMonth = today.getMonth() + 1;
+                        var todayDate = today.getDate();
+                        var todayHour = today.getHours();
+                        var todayMinute = today.getMinutes();
+                        var todaySecond = today.getSeconds();
+                        var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                        var diff = t2 - t1;
+                        var diffYears = Math.floor(diff / years);
+                        var diffDays = Math.floor((diff / days) - diffYears * 365);
+
+                        // 区分是否有年份.
+                        var language = 'zh-CN';
+                        if (startYear === String(todayYear)) {
+                            document.getElementById("year").innerHTML = todayYear;
+                            var daysTip = 'This site has been running for ' + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                daysTip = '本站已运行 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                daysTip = '本站已運行 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = daysTip;
+                        } else {
+                            document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                            var yearsAndDaysTip = 'This site has been running for ' + diffYears + ' years and '
+                                + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                yearsAndDaysTip = '本站已运行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                yearsAndDaysTip = '本站已運行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = yearsAndDaysTip;
+                        }
+                    }
+
+                    calcSiteTime();
+                </script>
             
             <br>
             

@@ -552,7 +552,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    2.8k
+                    2.4k
                 </div>
                 
 
@@ -609,147 +609,78 @@
 <p>根据贪心算法，我们<strong>显然希望用尽量短的边来连通树</strong>。所以Kruskal算法的原理非常简单，就是对这些边的权值进行排序，依次从短到长遍历这些边，然后通过并查集来查询正在遍历的这条边是否能够被添加，直到所有边都遍历结束。</p>
 <h2 id="2、代码实现"><a href="#2、代码实现" class="headerlink" title="2、代码实现"></a>2、代码实现</h2><h3 id="1、完美图解"><a href="#1、完美图解" class="headerlink" title="1、完美图解"></a>1、完美图解</h3><p>下面图解出自陈小玉老师所主编的书《趣学算法》中，朋友们可以借助理解算法。<br><img src="/2020/11/11/zui-xiao-sheng-cheng-shu-kruskal-suan-fa/图7.jpg" alt><br><img src="/2020/11/11/zui-xiao-sheng-cheng-shu-kruskal-suan-fa/图8.jpg" alt><br><img src="/2020/11/11/zui-xiao-sheng-cheng-shu-kruskal-suan-fa/图9.jpg" alt></p>
 <h3 id="2、代码实现-1"><a href="#2、代码实现-1" class="headerlink" title="2、代码实现"></a>2、代码实现</h3><pre class="line-numbers language-C++" data-language="C++"><code class="language-C++">#include &lt;iostream&gt;
-#include &lt;iomanip&gt;
-#define VERTS 6  &#x2F;&#x2F;图的顶点数
+#include &lt;cstdio&gt;
+#include &lt;algorithm&gt;
 
 using namespace std;
+const int N &#x3D; 100;
 
-&#x2F;&#x2F;顶点的类
-class Edge
+int nodeset[N];
+int n, m;
+
+struct Edge
+&#123;	
+	int u;
+	int v;
+	int w;
+&#125;e[N * N];
+
+bool comp(Edge x, Edge y)
 &#123;
-public:
-    int from,to;  &#x2F;&#x2F;边依附的两个顶点
-    int find,weight;  &#x2F;&#x2F;边的权重
-    Edge *next;
-&#125;;
+	return x.w &lt; y.w;
+&#125;
 
-int v[VERTS+1];
-
-Edge *findmincost(Edge *head);
-void mintree(Edge *head);
+void Init(int n)
+&#123;
+	for (int i&#x3D;1; i &lt; n; i++)
+		nodeset[i]&#x3D;i;
+&#125;
+int Merge(int a, int b)
+&#123;
+	int p &#x3D; nodeset[a];
+	int q &#x3D; nodeset[b];
+	if (p &#x3D;&#x3D; q)
+	&#123;
+		return 0;
+	&#125;
+	for (int i &#x3D; 1; i &lt;&#x3D; n; i++)&#x2F;&#x2F;检查所有结点，把集合号是q的改为p
+	&#123;
+		if (nodeset[i] &#x3D;&#x3D; q)
+			nodeset[i] &#x3D; p;&#x2F;&#x2F;a的集合号赋值给b集合号
+	&#125;
+	return 1;
+&#125;
+int Kruskal(int n)
+&#123;
+		int ans &#x3D; 0;
+		for (int i &#x3D; 0; i &lt; m; i++)
+		&#123;
+			if (Merge(e[i].u, e[i].v))
+			&#123;
+				ans +&#x3D; e[i].w;
+				n--;
+				if (n &#x3D;&#x3D; 1)
+				&#123;
+					return ans;
+				&#125;
+			&#125;
+		&#125;
+		return 0;
+&#125;
 
 int main()
 &#123;
-    &#x2F;&#x2F;各边状况
-    int data[10][3]&#x3D;&#123;&#123;1,2,6&#125;,&#123;1,6,12&#125;,&#123;1,5,10&#125;,
-                     &#123;2,3,3&#125;,&#123;2,4,5&#125;,&#123;2,6,8&#125;,
-                     &#123;3,4,7&#125;,&#123;4,6,11&#125;,&#123;4,5,9&#125;,&#123;5,6,16&#125;&#125;;
-
-    Edge *head,*newnode,*ptr;
-
-    &#x2F;&#x2F;建立图的链表
-    head&#x3D;NULL;
-    cout &lt;&lt; &quot;创建图的链表 ：&quot; &lt;&lt; endl;
-    for(int i&#x3D;1;i&lt;&#x3D;VERTS;i++)
-    &#123;
-        for(int j&#x3D;0;j&lt;10;j++)
-        &#123;
-            if(data[j][0]&#x3D;&#x3D;i)
-            &#123;
-                newnode&#x3D;new Edge;
-                newnode-&gt;from&#x3D;data[j][0];
-                newnode-&gt;to&#x3D;data[j][1];
-                newnode-&gt;weight&#x3D;data[j][2];
-                newnode-&gt;find&#x3D;0;
-                newnode-&gt;next&#x3D;NULL;
-
-                if(head&#x3D;&#x3D;NULL)  &#x2F;&#x2F;如果头结点为空，则创建新节点
-                &#123;
-                    head&#x3D;newnode;
-                    head-&gt;next&#x3D;NULL;
-                    ptr&#x3D;head;
-                &#125;
-                else
-                &#123;
-                    ptr-&gt;next&#x3D;newnode;
-                    ptr&#x3D;ptr-&gt;next;
-                &#125;
-            &#125;
-        &#125;
-
-    &#125;
-
-    &#x2F;&#x2F;打印图的链表
-    ptr&#x3D;head;
-    while(ptr!&#x3D;NULL)
-    &#123;
-        cout &lt;&lt; &quot;起始顶点 [&quot; &lt;&lt; ptr-&gt;from &lt;&lt; &quot;]&quot; &lt;&lt; setw(8)
-              &lt;&lt; &quot;终止顶点 [&quot; &lt;&lt; ptr-&gt;to &lt;&lt; &quot;]&quot;  &lt;&lt; setw(8)
-              &lt;&lt; &quot;路径长度 [&quot; &lt;&lt; ptr-&gt;weight &lt;&lt; &quot;]&quot; &lt;&lt; endl;
-        ptr&#x3D;ptr-&gt;next;  &#x2F;&#x2F;指针后移
-    &#125;
-
-    &#x2F;&#x2F;创建最小生成树
-    cout &lt;&lt; &quot;建立最小成本生成树：&quot; &lt;&lt; endl;
-    mintree(head);
-
-    delete newnode;
-
-    system(&quot;pause&quot;);
-    return 0;
-&#125;
-
-&#x2F;&#x2F;找到权值最小的边
-Edge *findmincost(Edge *head)
-&#123;
-    int minval&#x3D;100;  &#x2F;&#x2F;设置初始最小值
-
-    Edge *retptr,*ptr;
-
-    ptr&#x3D;head;
-    while(ptr!&#x3D;NULL)
-    &#123;
-        if(ptr-&gt;weight&lt;minval &amp;&amp; ptr-&gt;find&#x3D;&#x3D;0)
-        &#123;
-            &#x2F;&#x2F;假如ptr-&gt;val的值小于minval
-            minval&#x3D;ptr-&gt;weight;  &#x2F;&#x2F;将ptr-&gt;val设置最小值
-            retptr&#x3D;ptr;  &#x2F;&#x2F;并且记录ptr
-        &#125;
-        ptr&#x3D;ptr-&gt;next;
-    &#125;
-    retptr-&gt;find&#x3D;1;
-    return retptr;
-&#125;
-
-&#x2F;&#x2F;Kruscal算法实现最小生成树
-void mintree(Edge *head)
-&#123;
-    Edge *ptr,*mceptr;
-    int result&#x3D;0;  &#x2F;&#x2F;标识变量
-
-    &#x2F;&#x2F;初始化
-    for(int i&#x3D;0;i&lt;&#x3D;VERTS;i++)
-    &#123;
-        v[i]&#x3D;0;
-    &#125;
-
-    ptr&#x3D;head;
-    while(ptr!&#x3D;NULL)  &#x2F;&#x2F;画图比较形象
-    &#123;
-        mceptr&#x3D;findmincost(head);
-        v[mceptr-&gt;from]++;
-        v[mceptr-&gt;to]++;
-
-        if(v[mceptr-&gt;from]&gt;1 &amp;&amp; v[mceptr-&gt;to]&gt;1)
-        &#123;
-            v[mceptr-&gt;from]--;
-            v[mceptr-&gt;to]--;
-            result&#x3D;1;
-        &#125;
-        else
-        &#123;
-            result&#x3D;0;
-        &#125;
-
-        if(result&#x3D;&#x3D;0)
-        &#123;
-            cout &lt;&lt; &quot;起始顶点 [&quot; &lt;&lt; mceptr-&gt;from &lt;&lt; &quot;]&quot; &lt;&lt; setw(8)
-                  &lt;&lt; &quot;终止顶点 [&quot; &lt;&lt; mceptr-&gt;to &lt;&lt; &quot;]&quot;  &lt;&lt; setw(8)
-                  &lt;&lt; &quot;路径长度 [&quot; &lt;&lt; mceptr-&gt;weight &lt;&lt; &quot;]&quot; &lt;&lt; endl;
-        &#125;
-        ptr&#x3D;ptr-&gt;next;
-    &#125;
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+	cout &lt;&lt; &quot;输入结点数n和边数m:&quot;&lt;&lt;endl;
+		cin &gt;&gt; n &gt;&gt; m;
+	Init(n);
+	cout &lt;&lt; &quot;输入结点数u,v和边值w:&quot;&lt;&lt;endl;
+		for (int i &#x3D; 1; i &lt;&#x3D; m; i++)
+			cin &gt;&gt; e[i].u &gt;&gt; e[i].v &gt;&gt; e[i].w;
+	sort(e, e + m, comp);
+	int ans &#x3D; Kruskal(n);
+	cout &lt;&lt; &quot;最小的花费是：&quot; &lt;&lt;ans &lt;&lt; endl;
+		return 0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
                 
             </div>
             <hr/>
@@ -1216,7 +1147,7 @@ void mintree(Edge *head)
         <div class="col s12 m8 l8 copy-right">
             Copyright&nbsp;&copy;
             
-                <span id="year">2021-2022</span>
+                <span id="year">2021-2023</span>
             
             <a href="/about" target="_blank">Jeremy Yang</a>
             |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
@@ -1224,7 +1155,7 @@ void mintree(Edge *head)
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">24.4k</span>
+                        class="white-color">29.4k</span>
             
             
             

@@ -5,9 +5,9 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="五子棋AI（三）, 博客，思无邪">
-    <meta name="description" content="
+    <meta name="description" content="一、Min-Max算法
 
-Min-Max算法（亦称 MiniMax or MM）又名极小化极大算法，是一种找出失败的最大可能性中的最小值的算法。Minimax算法常用于棋类等由两方较量的游戏和程序。该算法是零和博弈](https://baike.baidu.co">
+Min-Max算法（亦称 MiniMax or MM）又名极小化极大算法，是一种找出失败的最大可能性中的最小值的算法。Minimax算法常用于棋类等由两方较量的游戏和程序。该算法是零和博弈](https://bai">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -562,7 +562,7 @@ Min-Max算法（亦称 MiniMax or MM）又名极小化极大算法，是一种�
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    184
+                    1.7k
                 </div>
                 
 
@@ -582,11 +582,35 @@ Min-Max算法（亦称 MiniMax or MM）又名极小化极大算法，是一种�
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <hr>
+                <h2 id="一、Min-Max算法"><a href="#一、Min-Max算法" class="headerlink" title="一、Min-Max算法"></a>一、Min-Max算法</h2><hr>
 <blockquote>
 <p><strong>Min-Max算法</strong>（亦称 <strong>MiniMax</strong> or <strong>MM</strong>）又名极小化极大算法，是一种找出失败的最大可能性中的最小值的算法。<br>Minimax算法常用于棋类等由两方较量的游戏和程序。该算法是<a href="[零和博弈（社会学概念）_百度百科 (baidu.com">零和博弈</a>](<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/零和博弈/3562463))，即两个玩家进行游戏，如果其中一方得到利益那么另一方就会失去利益，游戏利益的总和为0（某些情况下为常数）。简单来说，就是让最不利的情况所造成的影响最小化。很多棋类游戏都可以采用这一种算法。因为我实现的AI是五子棋，这里我以五子棋进行说明。">https://baike.baidu.com/item/零和博弈/3562463))，即两个玩家进行游戏，如果其中一方得到利益那么另一方就会失去利益，游戏利益的总和为0（某些情况下为常数）。简单来说，就是让最不利的情况所造成的影响最小化。很多棋类游戏都可以采用这一种算法。因为我实现的AI是五子棋，这里我以五子棋进行说明。</a></p>
 </blockquote>
 <hr>
+<p>首先要介绍一下博弈树的概念：五子棋看起来有各种各样的走法，但如果把每一步的走法展开，就是一颗巨大的博弈树。博弈树就是己方和敌方分别进行决策时形成的树状结构，每一个节点的分支表示当前节点可以走的各种可能的位置，每一个叶子节点表示一个局面。然后从根节点为0开始，再假设奇数层代表的是AI可能的走法，偶数层则表示玩家可能的走法。如果AI先手进行的话，那么第一层就是电脑的所有可能的走法，第二层就是玩家的所有可能走法，以此类推。假设从空棋盘开始（根节点），AI进行落子，那么就有15x15=255种落子选择，接着落子完之后，形成的是一颗有255个节点的博弈树，博弈树的叶子节点就是一个局面。此时玩家进行落子，玩家有254种选择，那么新形成的博弈树就会有<strong>255x254</strong>个叶子结点。</p>
+<p>我们再来看看博弈树每一层的节点个数有多少？如果平均分支为a（平均每一步有a种可能的走法），博弈树层数为d（也就是常说的树的深度），根节点为第0层，那么叶子节点的总数约为$a^d$，因此，我们发现<strong>博弈树是指数级别的</strong>。</p>
+<p>暂且不考虑这么多个节点需要多久能算出来。</p>
+<p>对博弈树的基本认识以后，我们再来实现实现AI。AI的实现很简单，只要有点搜索算法的基础，我们就可以知道应该先遍历博弈树的所有叶子结点，然后寻找到对AI最有利的局面，最后进行落子。那么如何才能知道哪一个分支的走法是最优的，所以就需要用到上一篇文章（<a target="_blank" rel="noopener" href="http://ude123456.top/2022/09/13/wu-zi-qi-ai-er/">五子棋AI（二） </a>）提到的评估函数，对当前整个局势作出一个基本的评估，然后对当前棋盘局势进行打分，返回一个分数。在博弈树中，当AI走棋时选择对自己最有利的位置节点走，而当玩家走棋时，是AI模拟玩家选择对玩家最有利的位置节点走。我们规定对AI越有利，分数越大，对玩家越有利，分数越小。 </p>
+<p>我们遍历这颗博弈树的时候就很明显知道该如何选择分支了：</p>
+<p>AI走棋的层我们称为 MAX层，这一层AI要保证自己利益最大化，那么就需要选取分数最高的节点。<br>玩家走棋的层我们称为MIN层，这一层玩家要保证自己的利益最大化，那么就会选取分数最低的节点。<br><img src="/2022/09/17/wu-zi-qi-ai-san/图1.png" alt><br>可以看到上图种分为了max层和min层，在max层总是取最大值，在min层总是取最小值。</p>
+<p>而每一个节点的分数，都是由子节点决定的，因此我们对博弈树只能进行深度优先搜索而无法进行广度优先搜索。所以Min-Max算法也是一种深度优先搜索算法。</p>
+<p>现在我们来分析一下Min-Max算法与最基本的深度优先搜索有什么区别：<br>为了方便讲解，我们先规定A即为AI下棋，B为玩家下棋。设先手为A，后手为B；那么A为max局面，B为min局面。上图中A一开始有 2 种走法（ $W2$ 和 $W3$），它走 $W2$ 还是 $W3$ 取决于 $W2$ 和 $W3$ 的估值函数值（假定其为$f(x)$），因为 A 是 max 局面，所以它会取 $f(W2)$ 和 $f(W3)$ 中大的那个， $f(W2)$ 和 $f(W3)$求呢？通常是以递归的方式对博弈树进行搜索，我们通常可以设定叶子结点局面的估价值。</p>
+<p>我们以$W1 \rightarrow W3$为例，上图的搜索过程为 $W1 \rightarrow W3 \rightarrow W6 \rightarrow W11 \rightarrow W18$ ，然后回溯到 $W1 \rightarrow W3\rightarrow W6 \rightarrow W11$ 得到 $f(W11) = 7$ ，接着 $W1 \rightarrow W3 \rightarrow W6 \rightarrow W11 \rightarrow W19$ 得到  $f’(W11) = 5$，$W11$ 在第四层，是 min 局面，所以它会选择得到的结果中比较小的那个，就是用 $f’(W11)$ 替代 $f(W11)$ ，即 $f(W11) = 5$，接着 $W1 \rightarrow W3 \rightarrow W6 \rightarrow W12 \rightarrow W20$ 得到 $f(W20) = - \infty$，然后再回溯到 $W1 \rightarrow W3 \rightarrow W6 \rightarrow W12$ 得到$f(W12)=-\infty$。再继续往前回溯到 $W1 \rightarrow W3 \rightarrow W6$，因为 $W6$ 在第三层，是max局面，所以它会选择得到的结果中最大的那个，$f(W11)&gt;f(W12)$，所以 $f(W6)=5$ 。以此不断类推，则最后得到 $f(W1)=-7$ 。</p>
+<hr>
+<blockquote>
+<p>Min-Max算法的思想非常简单，但是现在我们又发现一个问题：就是我们建立起来的博弈树十分庞大，是一颗非常庞大的二叉树，如果我们依靠暴力搜索来寻找最佳的解法，那无疑是十分耗费时间的，运行效率也十分低下。因此现在我们需要用到一些剪枝手段，常用的比较初级的有 $\alpha\beta$ 剪枝。</p>
+<hr>
+</blockquote>
+<h2 id="二、αβ剪枝算法"><a href="#二、αβ剪枝算法" class="headerlink" title="二、αβ剪枝算法"></a>二、αβ剪枝算法</h2><hr>
+<blockquote>
+<p>αβ剪枝是一种搜索算法，用以减少Min-Max算法搜索树的节点数，以提高运算速度。当算法评估出某策略的后续走法比之前策略的还差时，就会停止计算该策略的后续发展。它基本的原理是：</p>
+<ul>
+<li>当一个 Min 节点的 β值≤任何一个父节点的α值时 ，剪掉该节点的所有子节点</li>
+<li>当一个 Max 节点的 α值≥任何一个父节点的β值时 ，剪掉该节点的所有子节点</li>
+</ul>
+</blockquote>
+<hr>
+<p>我们具体来看一个例子</p>
 
                 
             </div>
@@ -1080,7 +1104,7 @@ Min-Max算法（亦称 MiniMax or MM）又名极小化极大算法，是一种�
         <div class="col s12 m8 l8 copy-right">
             Copyright&nbsp;&copy;
             
-                <span id="year">2021-2022</span>
+                <span id="year">2021-2023</span>
             
             <a href="/about" target="_blank">Jeremy Yang</a>
             |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
@@ -1088,7 +1112,7 @@ Min-Max算法（亦称 MiniMax or MM）又名极小化极大算法，是一种�
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">24.4k</span>
+                        class="white-color">29.4k</span>
             
             
             

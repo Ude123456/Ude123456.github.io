@@ -587,7 +587,7 @@
 <h2 id="1、2-3树"><a href="#1、2-3树" class="headerlink" title="1、2-3树"></a>1、2-3树</h2><h3 id="1、什么是2-3树"><a href="#1、什么是2-3树" class="headerlink" title="1、什么是2-3树"></a>1、什么是2-3树</h3><p>2-3树的意思就是说，一个父节点可以有两个子结点，也可以有三个子结点，并且其也满足类似二叉搜索树的定义（父结点的值大于左子树，但小于右子树），所有叶子节点都在同一层。</p>
 <p>2-3树的某个节点会有两种可能，一是正常的2节点，二是3节点：</p>
 <ul>
-<li>2节点：父亲节点存储一个值，最多有左右两个子树。假设父节点为p，子节点为l(左节点)、r(有节点)，且满足：<br>　　　<script type="math/tex">l < p < r</script><br>如下图：<br><img src="/2022/11/12/hong-hei-shu/图2.png" alt></li>
+<li>2节点：父亲节点存储一个值，最多有左右两个子树。假设父节点为p，子节点为l(左节点)、r(有节点)，且满足：<br>　　　　　　<script type="math/tex">l < p < r</script><br>如下图：<br><img src="/2022/11/12/hong-hei-shu/图2.png" alt></li>
 <li>3节点：父亲节点存储两个值，最多有左中右三个子树。假设父节点分别为p1,p2，子节点分别为l(左节点)、m(中间节点)、r(右节点)，且满足：<br>　　　　　<script type="math/tex">\begin{cases}
 l < p1  \\
 p1 < m < p2\\
@@ -1461,7 +1461,7 @@ void Delete_Fixup_RBT(RBT_Node* x)
         <div class="col s12 m8 l8 copy-right">
             Copyright&nbsp;&copy;
             
-                <span id="year">2021-2022</span>
+                <span id="year">2021-2023</span>
             
             <a href="/about" target="_blank">Jeremy Yang</a>
             |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
@@ -1469,7 +1469,7 @@ void Delete_Fixup_RBT(RBT_Node* x)
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">24.4k</span>
+                        class="white-color">29.4k</span>
             
             
             

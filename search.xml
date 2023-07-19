@@ -4,33 +4,6 @@
   
     
     <entry>
-      <title>深度学习3：循环神经网络</title>
-      <link href="/2023/07/19/shen-du-xue-xi-3-xun-huan-shen-jing-wang-luo/"/>
-      <url>/2023/07/19/shen-du-xue-xi-3-xun-huan-shen-jing-wang-luo/</url>
-      
-        <content type="html"><![CDATA[<blockquote><p>循环神经网络（RNN,recurrent neural network）是一类扩展的人工神经网络，它是为了对<br>序列数据进行建模而产生的。</p></blockquote><h2 id="1、前导知识"><a href="#1、前导知识" class="headerlink" title="1、前导知识"></a>1、前导知识</h2><font size="5">命名实体识别任务</font><p><img src="/2023/07/19/shen-du-xue-xi-3-xun-huan-shen-jing-wang-luo/图1.png" alt></p><font size="5">符号化表示</font><p><img src="/2023/07/19/shen-du-xue-xi-3-xun-huan-shen-jing-wang-luo/图2.png" alt></p><font size="5">计算机存储单词信息</font><p><img src="/2023/07/19/shen-du-xue-xi-3-xun-huan-shen-jing-wang-luo/图3.png" alt></p><font size="5">循环神经网络按照时刻序列接受数据</font><p><img src="/2023/07/19/shen-du-xue-xi-3-xun-huan-shen-jing-wang-luo/图4.png" alt></p><h2 id="2、循环神经网络的内部构造"><a href="#2、循环神经网络的内部构造" class="headerlink" title="2、循环神经网络的内部构造"></a>2、循环神经网络的内部构造</h2><h3 id="2-1-网络内部计算过程"><a href="#2-1-网络内部计算过程" class="headerlink" title="2.1　网络内部计算过程"></a>2.1　网络内部计算过程</h3><p><img src="/2023/07/19/shen-du-xue-xi-3-xun-huan-shen-jing-wang-luo/图5.png" alt></p><p><img src="/2023/07/19/shen-du-xue-xi-3-xun-huan-shen-jing-wang-luo/图6.png" alt></p><h3 id="2-2-循环神经网络遇到的问题"><a href="#2-2-循环神经网络遇到的问题" class="headerlink" title="2.2　循环神经网络遇到的问题"></a>2.2　循环神经网络遇到的问题</h3><ul><li><p>深层面临的问题</p><ul><li>当网络层次越来越深的时候（序列越来越长）就可能产生：<ul><li>梯度爆炸</li><li>梯度消失</li></ul></li></ul></li><li><p>循环神经网络深层面临的问题</p></li></ul><p>The cat , which aleardy ate apples banana …, <font color="red">was</font> full.<br>The cat<font color="red">s</font>, which aleardy ate apples banana …, <font color="red">were</font> full.</p><p>正确的预测可能依赖于很久之前的某些信息，然而，RNN的预测受到的主要影响是较为靠近的词的影响</p><p><img src="/2023/07/19/shen-du-xue-xi-3-xun-huan-shen-jing-wang-luo/图7.png" alt></p><h2 id="3、经典循环神经网络"><a href="#3、经典循环神经网络" class="headerlink" title="3、经典循环神经网络"></a>3、经典循环神经网络</h2><h3 id="3-1-LSTM"><a href="#3-1-LSTM" class="headerlink" title="3.1　LSTM"></a>3.1　LSTM</h3><p><img src="/2023/07/19/shen-du-xue-xi-3-xun-huan-shen-jing-wang-luo/图8.png" alt></p><font size="5">RNN的长依赖问题</font><p><img src="/2023/07/19/shen-du-xue-xi-3-xun-huan-shen-jing-wang-luo/图9.png" alt></p><p><img src="/2023/07/19/shen-du-xue-xi-3-xun-huan-shen-jing-wang-luo/图10.png" alt></p><p>1）LSTM第一步<br><img src="/2023/07/19/shen-du-xue-xi-3-xun-huan-shen-jing-wang-luo/图11.png" alt></p><p>2）LSTM第二步<br><img src="/2023/07/19/shen-du-xue-xi-3-xun-huan-shen-jing-wang-luo/图12.png" alt></p><p>3）LSTM第三步<br><img src="/2023/07/19/shen-du-xue-xi-3-xun-huan-shen-jing-wang-luo/图13.png" alt></p><p>4）LSTM第四步<br><img src="/2023/07/19/shen-du-xue-xi-3-xun-huan-shen-jing-wang-luo/图14.png" alt></p><font size="5">总结：</font><p><img src="/2023/07/19/shen-du-xue-xi-3-xun-huan-shen-jing-wang-luo/图15.png" alt></p><h3 id="3-2-GRU"><a href="#3-2-GRU" class="headerlink" title="3.2　GRU"></a>3.2　GRU</h3><p><img src="/2023/07/19/shen-du-xue-xi-3-xun-huan-shen-jing-wang-luo/图16.png" alt></p><p><img src="/2023/07/19/shen-du-xue-xi-3-xun-huan-shen-jing-wang-luo/图17.png" alt></p><h3 id="3-3-RNN、GRU、LSTM的对比"><a href="#3-3-RNN、GRU、LSTM的对比" class="headerlink" title="3.3　RNN、GRU、LSTM的对比"></a>3.3　RNN、GRU、LSTM的对比</h3><font size="5">RNN vs. GRU vs. LSTM</font><p><img src="/2023/07/19/shen-du-xue-xi-3-xun-huan-shen-jing-wang-luo/图18.png" alt></p><font size="5">GRU vs. LSTM</font><p><img src="/2023/07/19/shen-du-xue-xi-3-xun-huan-shen-jing-wang-luo/图19.png" alt></p><h2 id="4、循环神经网络的变体"><a href="#4、循环神经网络的变体" class="headerlink" title="4、循环神经网络的变体"></a>4、循环神经网络的变体</h2><h3 id="4-1-双向循环网络（Bi-directional-RNNs"><a href="#4-1-双向循环网络（Bi-directional-RNNs" class="headerlink" title="4.1　双向循环网络（Bi-directional RNNs)"></a>4.1　双向循环网络（Bi-directional RNNs)</h3><ul><li>RNN处理输入序列既可以从正向处理信息，也同时从反向处理信息</li></ul><p><img src="/2023/07/19/shen-du-xue-xi-3-xun-huan-shen-jing-wang-luo/图20.png" alt></p><h3 id="4-2-深层循环网络（Multi-layer-RNNs"><a href="#4-2-深层循环网络（Multi-layer-RNNs" class="headerlink" title="4.2　深层循环网络（Multi-layer RNNs)"></a>4.2　深层循环网络（Multi-layer RNNs)</h3><ul><li>在复杂应用场景下可以使用多层循环网络</li><li>也就是单层循环网络的堆叠</li></ul><p><img src="/2023/07/19/shen-du-xue-xi-3-xun-huan-shen-jing-wang-luo/图21.png" alt></p>]]></content>
-      
-      
-      <categories>
-          
-          <category> 人工智能 </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> 神经网络 </tag>
-            
-            <tag> 深度学习 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>散列表</title>
       <link href="/2022/11/14/san-lie-biao/"/>
       <url>/2022/11/14/san-lie-biao/</url>
@@ -164,6 +137,33 @@
             <tag> 五子棋AI </tag>
             
             <tag> 博弈树 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>深度学习3：循环神经网络</title>
+      <link href="/2022/07/19/shen-du-xue-xi-3-xun-huan-shen-jing-wang-luo/"/>
+      <url>/2022/07/19/shen-du-xue-xi-3-xun-huan-shen-jing-wang-luo/</url>
+      
+        <content type="html"><![CDATA[<blockquote><p>循环神经网络（RNN,recurrent neural network）是一类扩展的人工神经网络，它是为了对<br>序列数据进行建模而产生的。</p></blockquote><h2 id="1、前导知识"><a href="#1、前导知识" class="headerlink" title="1、前导知识"></a>1、前导知识</h2><font size="5">命名实体识别任务</font><p><img src="/2022/07/19/shen-du-xue-xi-3-xun-huan-shen-jing-wang-luo/图1.png" alt></p><font size="5">符号化表示</font><p><img src="/2022/07/19/shen-du-xue-xi-3-xun-huan-shen-jing-wang-luo/图2.png" alt></p><font size="5">计算机存储单词信息</font><p><img src="/2022/07/19/shen-du-xue-xi-3-xun-huan-shen-jing-wang-luo/图3.png" alt></p><font size="5">循环神经网络按照时刻序列接受数据</font><p><img src="/2022/07/19/shen-du-xue-xi-3-xun-huan-shen-jing-wang-luo/图4.png" alt></p><h2 id="2、循环神经网络的内部构造"><a href="#2、循环神经网络的内部构造" class="headerlink" title="2、循环神经网络的内部构造"></a>2、循环神经网络的内部构造</h2><h3 id="2-1-网络内部计算过程"><a href="#2-1-网络内部计算过程" class="headerlink" title="2.1　网络内部计算过程"></a>2.1　网络内部计算过程</h3><p><img src="/2022/07/19/shen-du-xue-xi-3-xun-huan-shen-jing-wang-luo/图5.png" alt></p><p><img src="/2022/07/19/shen-du-xue-xi-3-xun-huan-shen-jing-wang-luo/图6.png" alt></p><h3 id="2-2-循环神经网络遇到的问题"><a href="#2-2-循环神经网络遇到的问题" class="headerlink" title="2.2　循环神经网络遇到的问题"></a>2.2　循环神经网络遇到的问题</h3><ul><li><p>深层面临的问题</p><ul><li>当网络层次越来越深的时候（序列越来越长）就可能产生：<ul><li>梯度爆炸</li><li>梯度消失</li></ul></li></ul></li><li><p>循环神经网络深层面临的问题</p></li></ul><p>The cat , which aleardy ate apples banana …, <font color="red">was</font> full.<br>The cat<font color="red">s</font>, which aleardy ate apples banana …, <font color="red">were</font> full.</p><p>正确的预测可能依赖于很久之前的某些信息，然而，RNN的预测受到的主要影响是较为靠近的词的影响</p><p><img src="/2022/07/19/shen-du-xue-xi-3-xun-huan-shen-jing-wang-luo/图7.png" alt></p><h2 id="3、经典循环神经网络"><a href="#3、经典循环神经网络" class="headerlink" title="3、经典循环神经网络"></a>3、经典循环神经网络</h2><h3 id="3-1-LSTM"><a href="#3-1-LSTM" class="headerlink" title="3.1　LSTM"></a>3.1　LSTM</h3><p><img src="/2022/07/19/shen-du-xue-xi-3-xun-huan-shen-jing-wang-luo/图8.png" alt></p><font size="5">RNN的长依赖问题</font><p><img src="/2022/07/19/shen-du-xue-xi-3-xun-huan-shen-jing-wang-luo/图9.png" alt></p><p><img src="/2022/07/19/shen-du-xue-xi-3-xun-huan-shen-jing-wang-luo/图10.png" alt></p><p>1）LSTM第一步<br><img src="/2022/07/19/shen-du-xue-xi-3-xun-huan-shen-jing-wang-luo/图11.png" alt></p><p>2）LSTM第二步<br><img src="/2022/07/19/shen-du-xue-xi-3-xun-huan-shen-jing-wang-luo/图12.png" alt></p><p>3）LSTM第三步<br><img src="/2022/07/19/shen-du-xue-xi-3-xun-huan-shen-jing-wang-luo/图13.png" alt></p><p>4）LSTM第四步<br><img src="/2022/07/19/shen-du-xue-xi-3-xun-huan-shen-jing-wang-luo/图14.png" alt></p><font size="5">总结：</font><p><img src="/2022/07/19/shen-du-xue-xi-3-xun-huan-shen-jing-wang-luo/图15.png" alt></p><h3 id="3-2-GRU"><a href="#3-2-GRU" class="headerlink" title="3.2　GRU"></a>3.2　GRU</h3><p><img src="/2022/07/19/shen-du-xue-xi-3-xun-huan-shen-jing-wang-luo/图16.png" alt></p><p><img src="/2022/07/19/shen-du-xue-xi-3-xun-huan-shen-jing-wang-luo/图17.png" alt></p><h3 id="3-3-RNN、GRU、LSTM的对比"><a href="#3-3-RNN、GRU、LSTM的对比" class="headerlink" title="3.3　RNN、GRU、LSTM的对比"></a>3.3　RNN、GRU、LSTM的对比</h3><font size="5">RNN vs. GRU vs. LSTM</font><p><img src="/2022/07/19/shen-du-xue-xi-3-xun-huan-shen-jing-wang-luo/图18.png" alt></p><font size="5">GRU vs. LSTM</font><p><img src="/2022/07/19/shen-du-xue-xi-3-xun-huan-shen-jing-wang-luo/图19.png" alt></p><h2 id="4、循环神经网络的变体"><a href="#4、循环神经网络的变体" class="headerlink" title="4、循环神经网络的变体"></a>4、循环神经网络的变体</h2><h3 id="4-1-双向循环网络（Bi-directional-RNNs"><a href="#4-1-双向循环网络（Bi-directional-RNNs" class="headerlink" title="4.1　双向循环网络（Bi-directional RNNs)"></a>4.1　双向循环网络（Bi-directional RNNs)</h3><ul><li>RNN处理输入序列既可以从正向处理信息，也同时从反向处理信息</li></ul><p><img src="/2022/07/19/shen-du-xue-xi-3-xun-huan-shen-jing-wang-luo/图20.png" alt></p><h3 id="4-2-深层循环网络（Multi-layer-RNNs"><a href="#4-2-深层循环网络（Multi-layer-RNNs" class="headerlink" title="4.2　深层循环网络（Multi-layer RNNs)"></a>4.2　深层循环网络（Multi-layer RNNs)</h3><ul><li>在复杂应用场景下可以使用多层循环网络</li><li>也就是单层循环网络的堆叠</li></ul><p><img src="/2022/07/19/shen-du-xue-xi-3-xun-huan-shen-jing-wang-luo/图21.png" alt></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 人工智能 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 神经网络 </tag>
+            
+            <tag> 深度学习 </tag>
             
         </tags>
       

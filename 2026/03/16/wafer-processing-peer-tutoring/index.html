@@ -545,7 +545,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1.2k
+                    1.1k
                 </div>
                 
 
@@ -572,26 +572,26 @@
 <p>如上图所示，左边是正性光刻胶，被UV光照的地方溶解，而有掩膜(Mask)遮盖的地方，也就是没有光照的光刻胶不溶解；而右边则是负性光刻胶，其工作机理与正光刻胶相反，被光照的光刻胶不溶解，而被掩膜遮盖的位置则溶解。</p>
 <h3 id="1-3-Eight-Steps-of-Lithography"><a href="#1-3-Eight-Steps-of-Lithography" class="headerlink" title="1.3 Eight Steps of Lithography"></a>1.3 Eight Steps of Lithography</h3><p><img src="/2026/03/16/wafer-processing-peer-tutoring/图2.png" alt></p>
 <p><strong>step 1: Vapour Prime</strong></p>
-<p>$\textcircled{1}$V\Wafer dehydration bake；$\enclose{circle}{2}$ HMDS adhesion clean and dry</p>
+<p><font size="4">①</font> Wafer dehydration bake；<font size="4">②</font> HMDS adhesion clean and dry</p>
 <p><strong>step 2: Spin Coat</strong></p>
-<p>$\enclose{circle}{1}$ Make PR to expected Thickness</p>
+<p><font size="4">①</font> Make PR to expected Thickness</p>
 <p>另外，Resist layer thickness depends on the  viscosity of resist and is inversely proportional to the square root of the spin speed, $t{\frac{\alpha}{\omega_2}}$.</p>
 <p>Thinner Resist: ${I_R}\simeq{[\frac{viscosity\times{solid\,content}}{\sqrt{spin\,speed}}]}$，Spin speed越快越好，如果转速越慢，表面的光刻胶就会越厚。</p>
 <p><strong>step 3: Soft Bake</strong></p>
-<p>$\enclose{circle}{1}$ Partial evaporation of resist solvents;  $\enclose{circle}{2}$ Improves resist-to-wafer adhesion;  $\enclose{circle}{3}$ Improves etch resistance </p>
+<p><font size="4">①</font> Partial evaporation of resist solvents; <font size="4">②</font> Improves resist-to-wafer adhesion;  <font size="4">③</font> Improves etch resistance </p>
 <p>短时间的Pre-bake可以防止由于残留在PR中的的solvent过多而导致的UV light reaching the PAC；</p>
 <p>Over-bake则会增加sensitivity to UV light，甚至可能破坏PAC和减少solubility of the PR。</p>
 <p><strong>step 4: Alignment and Exposure</strong></p>
-<p>$\enclose{circle}{1}$ Transfer pattern to wafer;  $\enclose{circle}{2}$ Active PAC</p>
+<p><font size="4">①</font> Transfer pattern to wafer; <font size="4">②</font> Active PAC</p>
 <p><strong>step 5: Post-Exposure Bake</strong></p>
-<p>$\enclose{circle}{1}$ Evaporate all solvnent  </p>
+<p><font size="4">①</font> Evaporate all solvnent  </p>
 <p>还能减少驻波(standing wave)效应的影响</p>
 <p><strong>step 6: Developing</strong></p>
-<p>$\enclose{circle}{1}$​ Remove the soluble portion with a solvent; $\enclose{circle}{2}$ Patterning</p>
+<p><font size="4">①</font> Remove the soluble portion with a solvent; <font size="4">②</font> Patterning</p>
 <p><strong>step 7: Hard Bake</strong></p>
-<p>$\enclose{circle}{1}$ Evaporate solvnent from step6 adhesion;  $\enclose{circle}{2}$ Etch resistance</p>
+<p><font size="4">①</font> Evaporate solvnent from step6 adhesion;  <font size="4">②</font> Etch resistance</p>
 <p><strong>step 8: Develop Inspect</strong></p>
-<p>$\enclose{circle}{1}$ Check the quality of process to ensure the pattern is transfered.</p>
+<p><font size="4">①</font> Check the quality of process to ensure the pattern is transfered.</p>
 <h3 id="1-4-Printing"><a href="#1-4-Printing" class="headerlink" title="1.4 Printing"></a>1.4 Printing</h3><p><img src="/2026/03/16/wafer-processing-peer-tutoring/图3.png" alt></p>
 <p>注意：在Contact Printing和Proximity Printing中，掩膜被称作mask，但是在Projection Printing中，则被成为reticle，但实际上两者是一样的。</p>
 <p>另外，在Contact Printing中，mask和photoresist是直接接触的；而在Proximity Printing中，mask和wafer并没有直接接触，这一改动可以prevent dust particles。</p>
@@ -630,7 +630,10 @@
 <h3 id="2-2-Critical-Modulation-transfer-function-CMTF"><a href="#2-2-Critical-Modulation-transfer-function-CMTF" class="headerlink" title="2.2 Critical Modulation transfer function (CMTF)"></a>2.2 Critical Modulation transfer function (CMTF)</h3><p>从上面的 $\gamma$ 可以推导出CMTF：</p>
 <p>$CMTF=\frac{D_f-D_0}{D_f+D_0}=\frac{10^{\frac{1}{\gamma}}-1}{10^{\frac{1}{\gamma}}+1}$</p>
 <p>$MFT$ 的数值是越高越好，但是 $CMTF$ 却是越低越好。而且一般来说 $MTF\geqslant{CMTF}$ is required for the resist to resolve the aerial image.</p>
-<h3 id="2-3-Components-of-Resist"><a href="#2-3-Components-of-Resist" class="headerlink" title="2.3 Components of Resist"></a>2.3 Components of Resist</h3><p>$\enclose{circle}{1}$ Resin（树脂）<br>Give resist mechanical and chemical properties.<br>$\enclose{circle}{2}$ Sensitiser（光敏）<br>Photo active compound (PAC/ PAG) .<br>$\enclose{circle}{3}$ Solvent（溶剂）<br>Keeps resist in liquid state；<br>Allows spin coating of the resist.<br>$\enclose{circle}{4}$ Additives（添加剂）<br>Improve Etch resistivity and implant blocking capability.</p>
+<h3 id="2-3-Components-of-Resist"><a href="#2-3-Components-of-Resist" class="headerlink" title="2.3 Components of Resist"></a>2.3 Components of Resist</h3><p><font size="4">①</font> Resin（树脂）<br>Give resist mechanical and chemical properties.</p>
+<p><font size="4">②</font> Sensitiser（光敏）<br>Photo active compound (PAC/ PAG) .</p>
+<p><font size="4">③</font> Solvent（溶剂）<br>Keeps resist in liquid state；<br>Allows spin coating of the resist.</p>
+<p><font size="4">④</font> Additives（添加剂）<br>Improve Etch resistivity and implant blocking capability.</p>
 <h3 id="2-4-Advantages-and-Disadvantages-of-Resists"><a href="#2-4-Advantages-and-Disadvantages-of-Resists" class="headerlink" title="2.4 Advantages and Disadvantages of Resists"></a>2.4 Advantages and Disadvantages of Resists</h3><p><img src="/2026/03/16/wafer-processing-peer-tutoring/图11.png" alt></p>
 <p>注意：正光刻胶是在光照中被溶解，而负光刻胶是在光照中被固化。</p>
 <p>现在工业中更喜欢使用正光刻胶，因为有更好的Resolution。</p>
@@ -638,9 +641,9 @@
 <p>DUV makes PAG Photo Acid Generator to generate acid, PEB diffusion acid</p>
 <h3 id="2-6-Standing-wave-effect"><a href="#2-6-Standing-wave-effect" class="headerlink" title="2.6 Standing wave effect"></a>2.6 Standing wave effect</h3><p>解释：Input light reflected and diffusion with reflected light, standing wave formed Zigzag or swing curve</p>
 <p><strong>如何减少驻波效应:</strong></p>
-<p><strong>$\enclose{circle}{1}$ Dye PR more absorption</strong></p>
-<p><strong>$\enclose{circle}{2}$ PEB flat the zigzag（PEB also helps by smoothing out the zigzag due to resist thermal reflow）</strong> </p>
-<p><strong>$\enclose{circle}{3}$ ARC anti-reflective</strong></p>
+<p><strong><font size="4">①</font> Dye PR more absorption</strong></p>
+<p><strong><font size="4">②</font> PEB flat the zigzag（PEB also helps by smoothing out the zigzag due to resist thermal reflow）</strong> </p>
+<p><strong><font size="4">③</font> ARC anti-reflective</strong></p>
 
                 
             </div>
@@ -1104,7 +1107,7 @@
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">29.7k</span>
+                        class="white-color">29.6k</span>
             
             
             

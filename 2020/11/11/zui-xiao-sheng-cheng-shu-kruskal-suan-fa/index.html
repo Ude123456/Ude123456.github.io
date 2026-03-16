@@ -56,7 +56,7 @@
 
     <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
 
-<meta name="generator" content="Hexo 6.3.0"></head>
+<meta name="generator" content="Hexo 8.1.1"></head>
 
 
  
@@ -608,79 +608,7 @@
 <p><img src="/2020/11/11/zui-xiao-sheng-cheng-shu-kruskal-suan-fa/图6.jpg" alt></p>
 <p>根据贪心算法，我们<strong>显然希望用尽量短的边来连通树</strong>。所以Kruskal算法的原理非常简单，就是对这些边的权值进行排序，依次从短到长遍历这些边，然后通过并查集来查询正在遍历的这条边是否能够被添加，直到所有边都遍历结束。</p>
 <h2 id="2、代码实现"><a href="#2、代码实现" class="headerlink" title="2、代码实现"></a>2、代码实现</h2><h3 id="1、完美图解"><a href="#1、完美图解" class="headerlink" title="1、完美图解"></a>1、完美图解</h3><p>下面图解出自陈小玉老师所主编的书《趣学算法》中，朋友们可以借助理解算法。<br><img src="/2020/11/11/zui-xiao-sheng-cheng-shu-kruskal-suan-fa/图7.jpg" alt><br><img src="/2020/11/11/zui-xiao-sheng-cheng-shu-kruskal-suan-fa/图8.jpg" alt><br><img src="/2020/11/11/zui-xiao-sheng-cheng-shu-kruskal-suan-fa/图9.jpg" alt></p>
-<h3 id="2、代码实现-1"><a href="#2、代码实现-1" class="headerlink" title="2、代码实现"></a>2、代码实现</h3><pre class="line-numbers language-C++" data-language="C++"><code class="language-C++">#include &lt;iostream&gt;
-#include &lt;cstdio&gt;
-#include &lt;algorithm&gt;
-
-using namespace std;
-const int N &#x3D; 100;
-
-int nodeset[N];
-int n, m;
-
-struct Edge
-&#123;	
-	int u;
-	int v;
-	int w;
-&#125;e[N * N];
-
-bool comp(Edge x, Edge y)
-&#123;
-	return x.w &lt; y.w;
-&#125;
-
-void Init(int n)
-&#123;
-	for (int i&#x3D;1; i &lt; n; i++)
-		nodeset[i]&#x3D;i;
-&#125;
-int Merge(int a, int b)
-&#123;
-	int p &#x3D; nodeset[a];
-	int q &#x3D; nodeset[b];
-	if (p &#x3D;&#x3D; q)
-	&#123;
-		return 0;
-	&#125;
-	for (int i &#x3D; 1; i &lt;&#x3D; n; i++)&#x2F;&#x2F;检查所有结点，把集合号是q的改为p
-	&#123;
-		if (nodeset[i] &#x3D;&#x3D; q)
-			nodeset[i] &#x3D; p;&#x2F;&#x2F;a的集合号赋值给b集合号
-	&#125;
-	return 1;
-&#125;
-int Kruskal(int n)
-&#123;
-		int ans &#x3D; 0;
-		for (int i &#x3D; 0; i &lt; m; i++)
-		&#123;
-			if (Merge(e[i].u, e[i].v))
-			&#123;
-				ans +&#x3D; e[i].w;
-				n--;
-				if (n &#x3D;&#x3D; 1)
-				&#123;
-					return ans;
-				&#125;
-			&#125;
-		&#125;
-		return 0;
-&#125;
-
-int main()
-&#123;
-	cout &lt;&lt; &quot;输入结点数n和边数m:&quot;&lt;&lt;endl;
-		cin &gt;&gt; n &gt;&gt; m;
-	Init(n);
-	cout &lt;&lt; &quot;输入结点数u,v和边值w:&quot;&lt;&lt;endl;
-		for (int i &#x3D; 1; i &lt;&#x3D; m; i++)
-			cin &gt;&gt; e[i].u &gt;&gt; e[i].v &gt;&gt; e[i].w;
-	sort(e, e + m, comp);
-	int ans &#x3D; Kruskal(n);
-	cout &lt;&lt; &quot;最小的花费是：&quot; &lt;&lt;ans &lt;&lt; endl;
-		return 0;
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="2、代码实现-1"><a href="#2、代码实现-1" class="headerlink" title="2、代码实现"></a>2、代码实现</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;algorithm&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span> N = <span class="number">100</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> nodeset[N];</span><br><span class="line"><span class="type">int</span> n, m;</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">Edge</span></span><br><span class="line">&#123;	</span><br><span class="line">	<span class="type">int</span> u;</span><br><span class="line">	<span class="type">int</span> v;</span><br><span class="line">	<span class="type">int</span> w;</span><br><span class="line">&#125;e[N * N];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">bool</span> <span class="title">comp</span><span class="params">(Edge x, Edge y)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> x.w &lt; y.w;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">Init</span><span class="params">(<span class="type">int</span> n)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">for</span> (<span class="type">int</span> i=<span class="number">1</span>; i &lt; n; i++)</span><br><span class="line">		nodeset[i]=i;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">Merge</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="type">int</span> p = nodeset[a];</span><br><span class="line">	<span class="type">int</span> q = nodeset[b];</span><br><span class="line">	<span class="keyword">if</span> (p == q)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; i++)<span class="comment">//检查所有结点，把集合号是q的改为p</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span> (nodeset[i] == q)</span><br><span class="line">			nodeset[i] = p;<span class="comment">//a的集合号赋值给b集合号</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">Kruskal</span><span class="params">(<span class="type">int</span> n)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">		<span class="type">int</span> ans = <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; m; i++)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">if</span> (<span class="built_in">Merge</span>(e[i].u, e[i].v))</span><br><span class="line">			&#123;</span><br><span class="line">				ans += e[i].w;</span><br><span class="line">				n--;</span><br><span class="line">				<span class="keyword">if</span> (n == <span class="number">1</span>)</span><br><span class="line">				&#123;</span><br><span class="line">					<span class="keyword">return</span> ans;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	cout &lt;&lt; <span class="string">&quot;输入结点数n和边数m:&quot;</span>&lt;&lt;endl;</span><br><span class="line">		cin &gt;&gt; n &gt;&gt; m;</span><br><span class="line">	<span class="built_in">Init</span>(n);</span><br><span class="line">	cout &lt;&lt; <span class="string">&quot;输入结点数u,v和边值w:&quot;</span>&lt;&lt;endl;</span><br><span class="line">		<span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= m; i++)</span><br><span class="line">			cin &gt;&gt; e[i].u &gt;&gt; e[i].v &gt;&gt; e[i].w;</span><br><span class="line">	<span class="built_in">sort</span>(e, e + m, comp);</span><br><span class="line">	<span class="type">int</span> ans = <span class="built_in">Kruskal</span>(n);</span><br><span class="line">	cout &lt;&lt; <span class="string">&quot;最小的花费是：&quot;</span> &lt;&lt;ans &lt;&lt; endl;</span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
                 
             </div>
             <hr/>
@@ -1147,7 +1075,7 @@ int main()
         <div class="col s12 m8 l8 copy-right">
             Copyright&nbsp;&copy;
             
-                <span id="year">2021-2023</span>
+                <span id="year">2021-2026</span>
             
             <a href="/about" target="_blank">Jeremy Yang</a>
             |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
@@ -1155,7 +1083,7 @@ int main()
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">28.7k</span>
+                        class="white-color">29.7k</span>
             
             
             

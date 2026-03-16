@@ -14,8 +14,7 @@
 
 AI.h
 
-private:
-	">
+12private:">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -62,7 +61,7 @@ private:
 
     <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
 
-<meta name="generator" content="Hexo 6.3.0"></head>
+<meta name="generator" content="Hexo 8.1.1"></head>
 
 
  
@@ -558,7 +557,7 @@ private:
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    4.1k
+                    3.9k
                 </div>
                 
 
@@ -587,16 +586,11 @@ private:
 <hr>
 <p>AI.h</p>
 </blockquote>
-<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">private:
-	Chess* ch;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span>:</span><br><span class="line">	Chess* ch;</span><br></pre></td></tr></table></figure>
 <p>再添加评分数组,为防止二次定义，我们使用extern关键词进行规避该风险。</p>
 <p>chess.h</p>
-<pre class="line-numbers language-C++" data-language="C++"><code class="language-C++">extern int chess[MAX_BORDER][MAX_BORDER];<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<h3 id="1-2-对AI进行初始化"><a href="#1-2-对AI进行初始化" class="headerlink" title="1.2　对AI进行初始化"></a>1.2　对AI进行初始化</h3><pre class="line-numbers language-C++" data-language="C++"><code class="language-C++">&#x2F;&#x2F;AI初始化
-void AI::Init(Chess* chess)
-&#123;
-	this-&gt;ch &#x3D; chess;
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">extern</span> <span class="type">int</span> chess[MAX_BORDER][MAX_BORDER];</span><br></pre></td></tr></table></figure>
+<h3 id="1-2-对AI进行初始化"><a href="#1-2-对AI进行初始化" class="headerlink" title="1.2　对AI进行初始化"></a>1.2　对AI进行初始化</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//AI初始化</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">AI::Init</span><span class="params">(Chess* chess)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">this</span>-&gt;ch = chess;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="2、评估函数"><a href="#2、评估函数" class="headerlink" title="2、评估函数"></a>2、评估函数</h2><blockquote>
 <p>对于五子棋AI而言，最重要的就是它的评估函数。评估函数网上大概有两种，但是很多人会弄混淆。</p>
 <ul>
@@ -709,87 +703,18 @@ void AI::Init(Chess* chess)
 </blockquote>
 <p>根据上述的步骤就可以设计评估函数了。</p>
 <h4 id="2-2-1-对棋形分数进行记录"><a href="#2-2-1-对棋形分数进行记录" class="headerlink" title="2.2.1　对棋形分数进行记录"></a>2.2.1　对棋形分数进行记录</h4><p>AI.h</p>
-<pre class="line-numbers language-C++" data-language="C++"><code class="language-C++">&#x2F;&#x2F;棋形分数
-#define INF 0x3f3f3f3f    &#x2F;&#x2F;定义无穷大
-
-#define VALUE_WIN	10000000	&#x2F;&#x2F;长连&#x2F;成五 获胜
-
-#define VALUE_Huo4	150000		&#x2F;&#x2F;活四
-#define VALUE_Chong4	7500	&#x2F;&#x2F;冲四
-#define VALUE_Si4    20			&#x2F;&#x2F;死四
-
-#define VALUE_Huo3  7500		&#x2F;&#x2F;活三
-#define VALUE_Chong3  2000		&#x2F;&#x2F;冲三
-#define VALUE_Si3  10			&#x2F;&#x2F;死三
-
-#define VALUE_Huo2  1000 		&#x2F;&#x2F;活二
-#define VALUE_Chong2  200 		&#x2F;&#x2F;冲二
-#define VALUE_Si2  5			&#x2F;&#x2F;死二
-
-#define VALUE_Huo1  100 		&#x2F;&#x2F;活一
-#define VALUE_Chong1  50 		&#x2F;&#x2F;冲一
-#define VALUE_Si1  0			&#x2F;&#x2F;死一<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//棋形分数</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> INF 0x3f3f3f3f    <span class="comment">//定义无穷大</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> VALUE_WIN	10000000	<span class="comment">//长连/成五 获胜</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> VALUE_Huo4	150000		<span class="comment">//活四</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> VALUE_Chong4	7500	<span class="comment">//冲四</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> VALUE_Si4    20			<span class="comment">//死四</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> VALUE_Huo3  7500		<span class="comment">//活三</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> VALUE_Chong3  2000		<span class="comment">//冲三</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> VALUE_Si3  10			<span class="comment">//死三</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> VALUE_Huo2  1000 		<span class="comment">//活二</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> VALUE_Chong2  200 		<span class="comment">//冲二</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> VALUE_Si2  5			<span class="comment">//死二</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> VALUE_Huo1  100 		<span class="comment">//活一</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> VALUE_Chong1  50 		<span class="comment">//冲一</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> VALUE_Si1  0			<span class="comment">//死一</span></span></span><br></pre></td></tr></table></figure>
 <h4 id="2-2-2-对下棋的四个方向进行估分"><a href="#2-2-2-对下棋的四个方向进行估分" class="headerlink" title="2.2.2　对下棋的四个方向进行估分"></a>2.2.2　对下棋的四个方向进行估分</h4><p>现在有8种有效的棋型（连五，活四，冲四，活三，眠三，活二，眠二，活一），大部份资料都是黑棋白棋用两个五元数组或者六元数组来存储，因为我只用结构体来区分，将黑棋和白棋分开算（<strong>side</strong>就是区分黑棋和白棋的结构体），并且在对下棋位置的四个位置估分时只关注当前AI的棋色，而不关注棋手下的棋和无棋的位置，所以，操作起来更加方便。</p>
 <p>相关变量命名如下：</p>
 <p>AI.cpp</p>
-<pre class="line-numbers language-C++" data-language="C++"><code class="language-C++">int score;
-int cmid, cleft, cright, cnt, leftmid, midright;
-int left1, left2, right1, right2;
-int flag;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> score;</span><br><span class="line"><span class="type">int</span> cmid, cleft, cright, cnt, leftmid, midright;</span><br><span class="line"><span class="type">int</span> left1, left2, right1, right2;</span><br><span class="line"><span class="type">int</span> flag;</span><br></pre></td></tr></table></figure>
 <blockquote>
 <font color="blue">注意：上述变量是AI.cpp中的**全局变量**</font>
 
 </blockquote>
 <p>主体函数：</p>
 <p>AI.cpp</p>
-<pre class="line-numbers language-C++" data-language="C++"><code class="language-C++">&#x2F;&#x2F;对下棋位置的四个方向（|  -  \  &#x2F;）估分（准确来说应该是一个棋子的八个方向）
-int AI::Get_Four_Side_Score(const Chess_Position&amp; position, Object side)&#x2F;&#x2F;side指明当前位置是黑棋还是白棋
-&#123;
-	score &#x3D; 0;
-	int row, col, i;
- 
-	for (i &#x3D; 0; i &lt; 4; ++i) 
-	&#123;
-		cmid &#x3D; cleft &#x3D; cright &#x3D; 0;
-		left1 &#x3D; left2 &#x3D; right1 &#x3D; right2 &#x3D; 0;
-
-		&#x2F;&#x2F;四个方向	|  -  \  &#x2F;
-		for (row &#x3D; position.row + dir[i][0], col &#x3D; position.col + dir[i][1]; chess[row][col] &#x3D;&#x3D; side; ++cmid) 
-		&#123;
-			row +&#x3D; dir[i][0];
-			col +&#x3D; dir[i][1];
-		&#125;
-		left1 &#x3D; chess[row][col] !&#x3D; EMPTY;  &#x2F;&#x2F;找到与side相同的棋子，则赋值为1
-		&#x2F;&#x2F;若在该方向上有同side一样的棋色，则继续搜索
-		if (left1) 
-		&#123;
-			for (row +&#x3D; dir[i][0], col +&#x3D; dir[i][1]; chess[row][col] &#x3D;&#x3D; side; ++cleft) 
-			&#123;
-				row +&#x3D; dir[i][0];
-				col +&#x3D; dir[i][1];
-			&#125;
-			left2 &#x3D; chess[row][col] !&#x3D; EMPTY; &#x2F;&#x2F;不等于0证明有棋子，则赋值给left2&#x3D;1记录该位置已有棋子
-		&#125;
-
-		for (row &#x3D; position.row - dir[i][0], col &#x3D; position.col - dir[i][1]; chess[row][col] &#x3D;&#x3D; side; ++cmid) 
-		&#123;
-			row -&#x3D; dir[i][0];
-			col -&#x3D; dir[i][1];
-		&#125;
-		right1 &#x3D; chess[row][col] !&#x3D; EMPTY;
-		if (right1) 
-		&#123;
-			for (row -&#x3D; dir[i][0], col -&#x3D; dir[i][1]; chess[row][col] &#x3D;&#x3D; side; ++cright) 
-			&#123;
-				row -&#x3D; dir[i][0];
-				col -&#x3D; dir[i][1];
-			&#125;
-			right2 &#x3D; chess[row][col] !&#x3D; EMPTY;
-		&#125;
-		score +&#x3D; Return_A_Side_Score();  &#x2F;&#x2F;计算某个方向的分数分数
-	&#125;
-	return score;
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//对下棋位置的四个方向（|  -  \  /）估分（准确来说应该是一个棋子的八个方向）</span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">AI::Get_Four_Side_Score</span><span class="params">(<span class="type">const</span> Chess_Position&amp; position, Object side)</span><span class="comment">//side指明当前位置是黑棋还是白棋</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	score = <span class="number">0</span>;</span><br><span class="line">	<span class="type">int</span> row, col, i;</span><br><span class="line"> </span><br><span class="line">	<span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; <span class="number">4</span>; ++i) </span><br><span class="line">	&#123;</span><br><span class="line">		cmid = cleft = cright = <span class="number">0</span>;</span><br><span class="line">		left1 = left2 = right1 = right2 = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">		<span class="comment">//四个方向	|  -  \  /</span></span><br><span class="line">		<span class="keyword">for</span> (row = position.row + dir[i][<span class="number">0</span>], col = position.col + dir[i][<span class="number">1</span>]; chess[row][col] == side; ++cmid) </span><br><span class="line">		&#123;</span><br><span class="line">			row += dir[i][<span class="number">0</span>];</span><br><span class="line">			col += dir[i][<span class="number">1</span>];</span><br><span class="line">		&#125;</span><br><span class="line">		left1 = chess[row][col] != EMPTY;  <span class="comment">//找到与side相同的棋子，则赋值为1</span></span><br><span class="line">		<span class="comment">//若在该方向上有同side一样的棋色，则继续搜索</span></span><br><span class="line">		<span class="keyword">if</span> (left1) </span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">for</span> (row += dir[i][<span class="number">0</span>], col += dir[i][<span class="number">1</span>]; chess[row][col] == side; ++cleft) </span><br><span class="line">			&#123;</span><br><span class="line">				row += dir[i][<span class="number">0</span>];</span><br><span class="line">				col += dir[i][<span class="number">1</span>];</span><br><span class="line">			&#125;</span><br><span class="line">			left2 = chess[row][col] != EMPTY; <span class="comment">//不等于0证明有棋子，则赋值给left2=1记录该位置已有棋子</span></span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">for</span> (row = position.row - dir[i][<span class="number">0</span>], col = position.col - dir[i][<span class="number">1</span>]; chess[row][col] == side; ++cmid) </span><br><span class="line">		&#123;</span><br><span class="line">			row -= dir[i][<span class="number">0</span>];</span><br><span class="line">			col -= dir[i][<span class="number">1</span>];</span><br><span class="line">		&#125;</span><br><span class="line">		right1 = chess[row][col] != EMPTY;</span><br><span class="line">		<span class="keyword">if</span> (right1) </span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">for</span> (row -= dir[i][<span class="number">0</span>], col -= dir[i][<span class="number">1</span>]; chess[row][col] == side; ++cright) </span><br><span class="line">			&#123;</span><br><span class="line">				row -= dir[i][<span class="number">0</span>];</span><br><span class="line">				col -= dir[i][<span class="number">1</span>];</span><br><span class="line">			&#125;</span><br><span class="line">			right2 = chess[row][col] != EMPTY;</span><br><span class="line">		&#125;</span><br><span class="line">		score += <span class="built_in">Return_A_Side_Score</span>();  <span class="comment">//计算某个方向的分数分数</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> score;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>上面的代码块中有一个变成小技巧可以注意一下：</p>
 <blockquote>
 <p>++i 和 i++的结果是一样的， 都要等代码块执行完毕才能执行语句3 ，但是性能是不同的。在大量数据的时候++i的性能要比i++的性能好原因：. i++由于是在使用当前值之后再+1，所以需要一个临时的变量来转存。而++i则是在直接+1，省去了对内存的操作的环节，相对而言能够提高性能.</p>
@@ -797,104 +722,20 @@ int AI::Get_Four_Side_Score(const Chess_Position&amp; position, Object side)&#x2
 <h4 id="2-2-3-计算返回某个方向的估分"><a href="#2-2-3-计算返回某个方向的估分" class="headerlink" title="2.2.3　计算返回某个方向的估分"></a>2.2.3　计算返回某个方向的估分</h4><p>我们将当前棋子的四个方向遍历以后就需要对某一个方向上的棋型进行统计分数了。</p>
 <p>我们先用一个数组来存储四个方向：</p>
 <p>AI.cpp</p>
-<pre class="line-numbers language-C++" data-language="C++"><code class="language-C++">const int dir[4][2] &#x3D; &#123; &#123;-1,0&#125;,&#123;0,-1&#125;,&#123;-1,-1&#125;,&#123;-1,1&#125; &#125;;		&#x2F;&#x2F;四个方向	|  -  \  &#x2F;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">const</span> <span class="type">int</span> dir[<span class="number">4</span>][<span class="number">2</span>] = &#123; &#123;<span class="number">-1</span>,<span class="number">0</span>&#125;,&#123;<span class="number">0</span>,<span class="number">-1</span>&#125;,&#123;<span class="number">-1</span>,<span class="number">-1</span>&#125;,&#123;<span class="number">-1</span>,<span class="number">1</span>&#125; &#125;;		<span class="comment">//四个方向	|  -  \  /</span></span><br></pre></td></tr></table></figure>
 <p>然后再用三个数组分别存储活棋、冲棋和死棋的分数：</p>
 <p>AI.cpp</p>
-<pre class="line-numbers language-C++" data-language="C++"><code class="language-C++">const int live[6] &#x3D; &#123; 0,VALUE_Huo1,VALUE_Huo2,VALUE_Huo3,VALUE_Huo4,VALUE_WIN &#125;;	&#x2F;&#x2F;活棋分数
-const int go[6] &#x3D; &#123; 0,VALUE_Chong1,VALUE_Chong2,VALUE_Chong3,VALUE_Chong4,VALUE_Chong4 &#125;;		&#x2F;&#x2F;冲棋分数
-const int death[6] &#x3D; &#123; 0, VALUE_Si1,VALUE_Si2,VALUE_Si3,VALUE_Si4,VALUE_Si4 &#125;;	&#x2F;&#x2F;死棋分数<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">const</span> <span class="type">int</span> live[<span class="number">6</span>] = &#123; <span class="number">0</span>,VALUE_Huo1,VALUE_Huo2,VALUE_Huo3,VALUE_Huo4,VALUE_WIN &#125;;	<span class="comment">//活棋分数</span></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> go[<span class="number">6</span>] = &#123; <span class="number">0</span>,VALUE_Chong1,VALUE_Chong2,VALUE_Chong3,VALUE_Chong4,VALUE_Chong4 &#125;;		<span class="comment">//冲棋分数</span></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> death[<span class="number">6</span>] = &#123; <span class="number">0</span>, VALUE_Si1,VALUE_Si2,VALUE_Si3,VALUE_Si4,VALUE_Si4 &#125;;	<span class="comment">//死棋分数</span></span><br></pre></td></tr></table></figure>
 <p>然后进行估分：</p>
 <p>AI.cpp</p>
-<pre class="line-numbers language-C++" data-language="C++"><code class="language-C++">&#x2F;&#x2F;计算返回某个方向的估分
-int AI::Return_A_Side_Score()
-&#123;
-	cmid &#x3D; min(cmid + 1, 5);
-	if (cmid &#x3D;&#x3D; 5)
-		return VALUE_WIN;  &#x2F;&#x2F;一个方向上已经有五个子则直接输出
-	cnt &#x3D; min(cmid + cleft + cright, 5);
-	leftmid &#x3D; min(cleft + cmid, 5);
-	midright &#x3D; min(cmid + cright, 5);
-	&#x2F;&#x2F;将四个位置的1分开，就类似将棋型数据储存进一个四元数组
-	&#x2F;&#x2F;所以将记录的值进行二进制转换并进行一定程度的位置偏移(&quot;&lt;&lt;&quot;是左移运算符)
-	flag &#x3D; left2 &lt;&lt; 3 | left1 &lt;&lt; 2 | right1 &lt;&lt; 1 | right2;  
-
-	&#x2F;&#x2F;用二进制的0和1来代表黑棋白棋
-	switch (flag) &#123;
-	case 0b0000:
-		return live[cnt];
-	case 0b0001:
-	case 0b1000:
-		return max(live[leftmid], go[cnt]);
-	case 0b0010:
-	case 0b0011:
-		return go[leftmid];
-	case 0b0100:
-	case 0b1100:
-		return go[midright];
-	case 0b0101:
-	case 0b1101:
-		return midright &gt;&#x3D; 4 ? go[midright] : death[midright];
-	case 0b1010:
-	case 0b1011:
-		return leftmid &gt;&#x3D; 4 ? go[leftmid] : death[leftmid];
-	case 0b0110:
-	case 0b0111:
-	case 0b1110:
-	case 0b1111:
-		return death[cmid];
-	case 0b1001:
-		return cnt &gt;&#x3D; 4 ? max(live[cmid], go[cnt]) : death[cnt];
-	&#125;
-	return 0;
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//计算返回某个方向的估分</span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">AI::Return_A_Side_Score</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	cmid = <span class="built_in">min</span>(cmid + <span class="number">1</span>, <span class="number">5</span>);</span><br><span class="line">	<span class="keyword">if</span> (cmid == <span class="number">5</span>)</span><br><span class="line">		<span class="keyword">return</span> VALUE_WIN;  <span class="comment">//一个方向上已经有五个子则直接输出</span></span><br><span class="line">	cnt = <span class="built_in">min</span>(cmid + cleft + cright, <span class="number">5</span>);</span><br><span class="line">	leftmid = <span class="built_in">min</span>(cleft + cmid, <span class="number">5</span>);</span><br><span class="line">	midright = <span class="built_in">min</span>(cmid + cright, <span class="number">5</span>);</span><br><span class="line">	<span class="comment">//将四个位置的1分开，就类似将棋型数据储存进一个四元数组</span></span><br><span class="line">	<span class="comment">//所以将记录的值进行二进制转换并进行一定程度的位置偏移(&quot;&lt;&lt;&quot;是左移运算符)</span></span><br><span class="line">	flag = left2 &lt;&lt; <span class="number">3</span> | left1 &lt;&lt; <span class="number">2</span> | right1 &lt;&lt; <span class="number">1</span> | right2;  </span><br><span class="line"></span><br><span class="line">	<span class="comment">//用二进制的0和1来代表黑棋白棋</span></span><br><span class="line">	<span class="keyword">switch</span> (flag) &#123;</span><br><span class="line">	<span class="keyword">case</span> <span class="number">0b0000</span>:</span><br><span class="line">		<span class="keyword">return</span> live[cnt];</span><br><span class="line">	<span class="keyword">case</span> <span class="number">0b0001</span>:</span><br><span class="line">	<span class="keyword">case</span> <span class="number">0b1000</span>:</span><br><span class="line">		<span class="keyword">return</span> <span class="built_in">max</span>(live[leftmid], go[cnt]);</span><br><span class="line">	<span class="keyword">case</span> <span class="number">0b0010</span>:</span><br><span class="line">	<span class="keyword">case</span> <span class="number">0b0011</span>:</span><br><span class="line">		<span class="keyword">return</span> go[leftmid];</span><br><span class="line">	<span class="keyword">case</span> <span class="number">0b0100</span>:</span><br><span class="line">	<span class="keyword">case</span> <span class="number">0b1100</span>:</span><br><span class="line">		<span class="keyword">return</span> go[midright];</span><br><span class="line">	<span class="keyword">case</span> <span class="number">0b0101</span>:</span><br><span class="line">	<span class="keyword">case</span> <span class="number">0b1101</span>:</span><br><span class="line">		<span class="keyword">return</span> midright &gt;= <span class="number">4</span> ? go[midright] : death[midright];</span><br><span class="line">	<span class="keyword">case</span> <span class="number">0b1010</span>:</span><br><span class="line">	<span class="keyword">case</span> <span class="number">0b1011</span>:</span><br><span class="line">		<span class="keyword">return</span> leftmid &gt;= <span class="number">4</span> ? go[leftmid] : death[leftmid];</span><br><span class="line">	<span class="keyword">case</span> <span class="number">0b0110</span>:</span><br><span class="line">	<span class="keyword">case</span> <span class="number">0b0111</span>:</span><br><span class="line">	<span class="keyword">case</span> <span class="number">0b1110</span>:</span><br><span class="line">	<span class="keyword">case</span> <span class="number">0b1111</span>:</span><br><span class="line">		<span class="keyword">return</span> death[cmid];</span><br><span class="line">	<span class="keyword">case</span> <span class="number">0b1001</span>:</span><br><span class="line">		<span class="keyword">return</span> cnt &gt;= <span class="number">4</span> ? <span class="built_in">max</span>(live[cmid], go[cnt]) : death[cnt];</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>“&lt;&lt;”是<font color="red">左移运算符</font>，“|”是二级制的<font color="red">异或运算符</font>，具体可参考：<a target="_blank" rel="noopener" href="https://www.runoob.com/cplusplus/cpp-operators.html">C++ 运算符 | 菜鸟教程 (runoob.com)</a></p>
 </blockquote>
-<h4 id="2-2-4-对当前整个棋盘进行评估"><a href="#2-2-4-对当前整个棋盘进行评估" class="headerlink" title="2.2.4　对当前整个棋盘进行评估"></a>2.2.4　对当前整个棋盘进行评估</h4><pre class="line-numbers language-C++" data-language="C++"><code class="language-C++">&#x2F;&#x2F;对当前状态整个棋盘估分
-int AI::Evaluate_WholeChess(Object side)
-&#123;
-	int returnValue &#x3D; 0;
-	int v1 &#x3D; 0, v2 &#x3D; 0;
-	for (int i &#x3D; TOP; i &lt;&#x3D; DOWN; ++i)
-		for (int j &#x3D; LEFT; j &lt;&#x3D; RIGHT; ++j)
-			if (chess[i][j] &#x3D;&#x3D; side)
-				v1 +&#x3D; Get_Four_Side_Score(Chess_Position(i, j), side);
-			else if (chess[i][j] !&#x3D; EMPTY) &#123;
-				v2 +&#x3D; Get_Four_Side_Score(Chess_Position(i, j), (Object)chess[i][j]);
-			&#125;
-	return (int)(v1 - v2);
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="2-2-4-对当前整个棋盘进行评估"><a href="#2-2-4-对当前整个棋盘进行评估" class="headerlink" title="2.2.4　对当前整个棋盘进行评估"></a>2.2.4　对当前整个棋盘进行评估</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//对当前状态整个棋盘估分</span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">AI::Evaluate_WholeChess</span><span class="params">(Object side)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="type">int</span> returnValue = <span class="number">0</span>;</span><br><span class="line">	<span class="type">int</span> v1 = <span class="number">0</span>, v2 = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="type">int</span> i = TOP; i &lt;= DOWN; ++i)</span><br><span class="line">		<span class="keyword">for</span> (<span class="type">int</span> j = LEFT; j &lt;= RIGHT; ++j)</span><br><span class="line">			<span class="keyword">if</span> (chess[i][j] == side)</span><br><span class="line">				v1 += <span class="built_in">Get_Four_Side_Score</span>(<span class="built_in">Chess_Position</span>(i, j), side);</span><br><span class="line">			<span class="keyword">else</span> <span class="keyword">if</span> (chess[i][j] != EMPTY) &#123;</span><br><span class="line">				v2 += <span class="built_in">Get_Four_Side_Score</span>(<span class="built_in">Chess_Position</span>(i, j), (Object)chess[i][j]);</span><br><span class="line">			&#125;</span><br><span class="line">	<span class="keyword">return</span> (<span class="type">int</span>)(v1 - v2);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h4 id="2-2-5-细节补充"><a href="#2-2-5-细节补充" class="headerlink" title="2.2.5　细节补充"></a>2.2.5　细节补充</h4><p>在AI.h中补充函数定义</p>
 <p>AI.h</p>
-<pre class="line-numbers language-C++" data-language="C++"><code class="language-C++">#pragma once
-
-#include&lt;vector&gt;
-#include&quot;Chess.h&quot;
-
-using namespace std;
-
-class AI
-&#123;
-public:
-	&#x2F;&#x2F;AI初始化
-	void Init(Chess* chess);
-
-	&#x2F;&#x2F;AI下棋接口
-	void AISearch(Object aiSide, Chess_Position&amp; Position, Chess_Position&amp; nextPosition);
-    
-    &#x2F;&#x2F;对下棋位置的四个方向估分
-	int Get_Four_Side_Score(const Chess_Position&amp; Position, Object side);
-
-	&#x2F;&#x2F;计算返回某个方向的估分
-	int Return_A_Side_Score();
-
-	&#x2F;&#x2F;对当前状态整个棋盘估分
-	int Evaluate_WholeChess(Object side);
-    
-    &#x2F;&#x2F;判断某一方是否取胜
-	bool Is_Win(const Chess_Position Position, Object side);
-&#125;;
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">pragma</span> once</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&quot;Chess.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">AI</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="comment">//AI初始化</span></span><br><span class="line">	<span class="function"><span class="type">void</span> <span class="title">Init</span><span class="params">(Chess* chess)</span></span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//AI下棋接口</span></span><br><span class="line">	<span class="function"><span class="type">void</span> <span class="title">AISearch</span><span class="params">(Object aiSide, Chess_Position&amp; Position, Chess_Position&amp; nextPosition)</span></span>;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//对下棋位置的四个方向估分</span></span><br><span class="line">	<span class="function"><span class="type">int</span> <span class="title">Get_Four_Side_Score</span><span class="params">(<span class="type">const</span> Chess_Position&amp; Position, Object side)</span></span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//计算返回某个方向的估分</span></span><br><span class="line">	<span class="function"><span class="type">int</span> <span class="title">Return_A_Side_Score</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//对当前状态整个棋盘估分</span></span><br><span class="line">	<span class="function"><span class="type">int</span> <span class="title">Evaluate_WholeChess</span><span class="params">(Object side)</span></span>;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//判断某一方是否取胜</span></span><br><span class="line">	<span class="function"><span class="type">bool</span> <span class="title">Is_Win</span><span class="params">(<span class="type">const</span> Chess_Position Position, Object side)</span></span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 <p>至此，我们第二部分的评估函数已经实现完了，接下来才是真正涉及到了AI部分的算法。下一篇就是五子棋AI当中两个主要算法：Min-Max算法和αβ剪枝算法的实现。</p>
 <p>下一篇：<a target="_blank" rel="noopener" href="http://ude123456.top/2022/09/17/wu-zi-qi-ai-san/">五子棋AI（三）</a></p>
 
@@ -1379,7 +1220,7 @@ public:
         <div class="col s12 m8 l8 copy-right">
             Copyright&nbsp;&copy;
             
-                <span id="year">2021-2023</span>
+                <span id="year">2021-2026</span>
             
             <a href="/about" target="_blank">Jeremy Yang</a>
             |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
@@ -1387,7 +1228,7 @@ public:
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">28.7k</span>
+                        class="white-color">29.7k</span>
             
             
             

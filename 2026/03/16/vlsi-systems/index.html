@@ -566,13 +566,13 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="1-晶体管缩小时各参数变化"><a href="#1-晶体管缩小时各参数变化" class="headerlink" title="1 晶体管缩小时各参数变化"></a>1 晶体管缩小时各参数变化</h1><h2 id="1-1-在恒定电场下"><a href="#1-1-在恒定电场下" class="headerlink" title="1.1 在恒定电场下"></a>1.1 在恒定电场下</h2><p>为了减弱短沟道效应带来的影响，各参数变化如下：</p>
+                <h2 id="1-晶体管缩小时各参数变化"><a href="#1-晶体管缩小时各参数变化" class="headerlink" title="1 晶体管缩小时各参数变化"></a>1 晶体管缩小时各参数变化</h2><h3 id="1-1-在恒定电场下"><a href="#1-1-在恒定电场下" class="headerlink" title="1.1 在恒定电场下"></a>1.1 在恒定电场下</h3><p>为了减弱短沟道效应带来的影响，各参数变化如下：</p>
 <p><img src="/2026/03/16/vlsi-systems/图1.png" alt></p>
 <p>可以发现，当晶体管的宽长比等尺寸缩小$\frac{1}{k}$倍时，在电场强度不变的情况下，电压也要下降$\frac{1}{k}$倍（因为$E=$$\frac{V}{L}$），其余各项参数计算如图所示，这里不再赘述。</p>
-<h2 id="1-2-在恒定电压下"><a href="#1-2-在恒定电压下" class="headerlink" title="1.2 在恒定电压下"></a>1.2 在恒定电压下</h2><p>为了达到更高的时钟频率，缩小尺寸后各参数变化如下：</p>
+<h3 id="1-2-在恒定电压下"><a href="#1-2-在恒定电压下" class="headerlink" title="1.2 在恒定电压下"></a>1.2 在恒定电压下</h3><p>为了达到更高的时钟频率，缩小尺寸后各参数变化如下：</p>
 <p><img src="/2026/03/16/vlsi-systems/图2.png" alt></p>
-<h1 id="2-数据编码（Data-Coding）"><a href="#2-数据编码（Data-Coding）" class="headerlink" title="2 数据编码（Data Coding）"></a>2 数据编码（Data Coding）</h1><p>在本门课中，数据编码重点讲述了错误检测编码、错误纠正编码；错误检测编码主要包括奇偶校验码(Parity Checking)、循环冗余校验码(CRC)和定重码(m-out-of-n code)；错误纠正编码主要是汉明码(Hamming Codes)。</p>
-<h2 id="2-1-奇偶校验码（Parity-Checking）"><a href="#2-1-奇偶校验码（Parity-Checking）" class="headerlink" title="2.1 奇偶校验码（Parity Checking）"></a>2.1 奇偶校验码（Parity Checking）</h2><p>奇偶校验码一般是用来检测单比特错误，其原理是在数据中增添一个奇偶校验位，以此来确保二进制数据中的1的个数（包含奇偶校验位）为奇数或者偶数。</p>
+<h2 id="2-数据编码（Data-Coding）"><a href="#2-数据编码（Data-Coding）" class="headerlink" title="2 数据编码（Data Coding）"></a>2 数据编码（Data Coding）</h2><p>在本门课中，数据编码重点讲述了错误检测编码、错误纠正编码；错误检测编码主要包括奇偶校验码(Parity Checking)、循环冗余校验码(CRC)和定重码(m-out-of-n code)；错误纠正编码主要是汉明码(Hamming Codes)。</p>
+<h3 id="2-1-奇偶校验码（Parity-Checking）"><a href="#2-1-奇偶校验码（Parity-Checking）" class="headerlink" title="2.1 奇偶校验码（Parity Checking）"></a>2.1 奇偶校验码（Parity Checking）</h3><p>奇偶校验码一般是用来检测单比特错误，其原理是在数据中增添一个奇偶校验位，以此来确保二进制数据中的1的个数（包含奇偶校验位）为奇数或者偶数。</p>
 <div class="table-container">
 <table>
 <thead>
@@ -594,7 +594,7 @@
 <p><img src="/2026/03/16/vlsi-systems/图3.png" alt></p>
 <p>思考：若换成奇校验，电路该如何变化？</p>
 <p><strong>注意：奇偶校验虽然可以检测单比特错误，但也仅限于此。该方法并不能检测偶数位错误，如果是多比特错误，它也只有50%的概率可以检测出。</strong></p>
-<h2 id="2-2-2D奇偶校验"><a href="#2-2-2D奇偶校验" class="headerlink" title="2.2 2D奇偶校验"></a>2.2 2D奇偶校验</h2><p>2D奇偶校验是在奇偶校验的基础上，将一维平面搬到了二维平面上，也就是新增加了列奇偶校验，这样便能够识别并且纠正单个比特的错误，并且可以检测到多比特错误，但是没法确定位置。</p>
+<h3 id="2-2-2D奇偶校验"><a href="#2-2-2D奇偶校验" class="headerlink" title="2.2 2D奇偶校验"></a>2.2 2D奇偶校验</h3><p>2D奇偶校验是在奇偶校验的基础上，将一维平面搬到了二维平面上，也就是新增加了列奇偶校验，这样便能够识别并且纠正单个比特的错误，并且可以检测到多比特错误，但是没法确定位置。</p>
 <p>首先介绍在信号发送端中的2D奇偶校验原理：</p>
 <p><img src="/2026/03/16/vlsi-systems/图4.png" style="zoom:80%;"></p>
 <p>其方法是将一串数据流以行列的形式进行排列，如上图，以奇校验为例，将0110 1100 1110 0000按照四行四列进行排列，然后对每行每列中1的个数进行统计，可以发现行奇校验位从上到下分别是0010，列奇校验位从左到右分别为0100，由此校验位全部确认完毕。</p>
@@ -602,7 +602,7 @@
 <p><img src="/2026/03/16/vlsi-systems/图5.png" style="zoom:80%;"></p>
 <p>如上图，在接收端接收到发送来的数据后，也就是黄色框图的部分，其中出现一位错误，我们根据奇偶校验位是否合理即可推断出是哪一个位置的数据在传输中发生了错误。</p>
 <p>注意：该方法可以检测并且纠正单比特错误，但多比特错误只能检测而无法知道错误位置所在，因此无法进行纠正。</p>
-<h2 id="2-3-汉明码（Hamming-Code）"><a href="#2-3-汉明码（Hamming-Code）" class="headerlink" title="2.3 汉明码（Hamming Code）"></a>2.3 汉明码（Hamming Code）</h2><p>这里首先要知道汉明距离和最小汉明距离：</p>
+<h3 id="2-3-汉明码（Hamming-Code）"><a href="#2-3-汉明码（Hamming-Code）" class="headerlink" title="2.3 汉明码（Hamming Code）"></a>2.3 汉明码（Hamming Code）</h3><p>这里首先要知道汉明距离和最小汉明距离：</p>
 <ul>
 <li>汉明距离：两个码字之间不同元素的数量</li>
 <li>最小汉明距离：一组码字之间最小的汉明距离<ul>
@@ -880,10 +880,10 @@
 <li><strong>编码效率 $=\frac{m}{m+k}$</strong></li>
 <li><strong>编码冗余 $=\frac{k}{m+k}$</strong></li>
 </ul>
-<h2 id="2-4-循环冗余编码（Cyclic-Redundancy-Check）"><a href="#2-4-循环冗余编码（Cyclic-Redundancy-Check）" class="headerlink" title="2.4 循环冗余编码（Cyclic Redundancy Check）"></a>2.4 循环冗余编码（Cyclic Redundancy Check）</h2><h3 id="2-4-1-位置多项式"><a href="#2-4-1-位置多项式" class="headerlink" title="2.4.1 位置多项式"></a>2.4.1 位置多项式</h3><p>给定一个二进制比特串：$B=b<em>{n-1}b</em>{n-2}…b_1b_0$</p>
+<h3 id="2-4-循环冗余编码（Cyclic-Redundancy-Check）"><a href="#2-4-循环冗余编码（Cyclic-Redundancy-Check）" class="headerlink" title="2.4 循环冗余编码（Cyclic Redundancy Check）"></a>2.4 循环冗余编码（Cyclic Redundancy Check）</h3><h4 id="2-4-1-位置多项式"><a href="#2-4-1-位置多项式" class="headerlink" title="2.4.1 位置多项式"></a>2.4.1 位置多项式</h4><p>给定一个二进制比特串：$B=b<em>{n-1}b</em>{n-2}…b_1b_0$</p>
 <p>则其位置多项式可以表示为：$B(x)=b<em>{n-1}x^{n-1}+b</em>{n-2}x^{n-2}+…b_1{x}+b_0$</p>
 <p><strong>例如：数据串 “110 0101”就可以被表示为 $B(110 0101)=x^6+x^5+x^2+x^1$</strong></p>
-<h3 id="2-4-2-CRC原理"><a href="#2-4-2-CRC原理" class="headerlink" title="2.4.2 CRC原理"></a>2.4.2 CRC原理</h3><p>首先我们需要先了解模2运算，其运算机制是：</p>
+<h4 id="2-4-2-CRC原理"><a href="#2-4-2-CRC原理" class="headerlink" title="2.4.2 CRC原理"></a>2.4.2 CRC原理</h4><p>首先我们需要先了解模2运算，其运算机制是：</p>
 <ul>
 <li>每一位单独计算，没有进位也没有借位；</li>
 <li>减法和加法是等价的（都是用异或运算实现）。</li>
@@ -908,7 +908,7 @@
 \frac{x^{10}+x^9+x^7+x^5+x^4}{x_4+x_3+1}=(x^6+x^3+x)+\frac{x^3+x}{x^4+x^3+1};</script><p><strong>所以 $R’(x)=x^3+x$，因此余式的二进制形式为 $R=1010$。</strong></p>
 <p><strong>最后只需要在原数据串 $B$ 后添加上 $R$ 即可，也就是最终CRC code为 $110 1011 1010$。</strong></p>
 <p>注意：关于 $G(x)$，这是一个规定值，可以自定义，所以考试中一般都会给。</p>
-<h3 id="2-4-3-多项式除法电路设计"><a href="#2-4-3-多项式除法电路设计" class="headerlink" title="2.4.3 多项式除法电路设计"></a>2.4.3 多项式除法电路设计</h3><p>首先我们需要先对循环移位寄存器进行了解：</p>
+<h4 id="2-4-3-多项式除法电路设计"><a href="#2-4-3-多项式除法电路设计" class="headerlink" title="2.4.3 多项式除法电路设计"></a>2.4.3 多项式除法电路设计</h4><p>首先我们需要先对循环移位寄存器进行了解：</p>
 <p><img src="/2026/03/16/vlsi-systems/图8.png" style="zoom:80%;"></p>
 <p>循环移位寄存器的输入是从左到右的，输入的数字在其中不断循环。在其反馈路径中添加一个异或门，即可使得循环的位模式发生变化。</p>
 <p>由此我们可以得到在实现CRC编码过程中得到的余数如何用电路实现：</p>
@@ -918,12 +918,12 @@
 <p><strong>就如上图，$x^0、x^2、x^3$ 这三项系数为1，则在其左右寄存器中放置一个异或门。</strong></p>
 <p><strong>考试例题如下：</strong></p>
 <p><img src="/2026/03/16/vlsi-systems/图10.png" style="zoom: 67%;"></p>
-<h2 id="2-5-M-out-of-N-Code"><a href="#2-5-M-out-of-N-Code" class="headerlink" title="2.5 M-out-of-N Code"></a>2.5 M-out-of-N Code</h2><p>了解即可，感觉不会考，但以防万一还是讲解一下。</p>
+<h3 id="2-5-M-out-of-N-Code"><a href="#2-5-M-out-of-N-Code" class="headerlink" title="2.5 M-out-of-N Code"></a>2.5 M-out-of-N Code</h3><p>了解即可，感觉不会考，但以防万一还是讲解一下。</p>
 <p>关于M-out-of-N Code，最简单的实现方式是在原始数据后附加一串 1，直到数据中包含 $m$ 个 1 为止，然后再附加 0，以生成长度为 $n$ 的代码。</p>
 <p>下面以3-out-of-6 Code来举例：</p>
 <p><img src="/2026/03/16/vlsi-systems/图11.png" style="zoom:67%;"></p>
 <p>如上图所示，要保证1的数量一直为3个，而总数量是6个。</p>
-<h3 id="2-5-1-M-out-of-N校验器"><a href="#2-5-1-M-out-of-N校验器" class="headerlink" title="2.5.1 M-out-of-N校验器"></a>2.5.1 M-out-of-N校验器</h3><p>对于一般的M-out-of-N检测器，可以将给定的码字转换为1-out-of-$C_m^{n}$ 码来实现，然后再通过完全自检的转换器转化为k-out-of-2k码。</p>
+<h4 id="2-5-1-M-out-of-N校验器"><a href="#2-5-1-M-out-of-N校验器" class="headerlink" title="2.5.1 M-out-of-N校验器"></a>2.5.1 M-out-of-N校验器</h4><p>对于一般的M-out-of-N检测器，可以将给定的码字转换为1-out-of-$C_m^{n}$ 码来实现，然后再通过完全自检的转换器转化为k-out-of-2k码。</p>
 <p>而 $k$ 值需要满足：</p>
 <script type="math/tex; mode=display">
 2^k\leq{C_m^n}\leq{C^{2k}_k}</script><p>其中，组合数计算公式为$C_m^{n}=\frac{n!}{m!(n-m)!}$。</p>

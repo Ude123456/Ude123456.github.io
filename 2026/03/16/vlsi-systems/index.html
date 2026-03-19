@@ -546,7 +546,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    3.6k
+                    5.3k
                 </div>
                 
 
@@ -999,12 +999,113 @@ V_t=2\frac{Z_t}{Z_t+Z_0}V_f</script><p>注意：$-1\leq\rho\leq1$。</p>
 </li>
 </ol>
 <p>因此，$V_r$ 的值域范围为：$-V_f\leq{V_r}\leq{V_f}$</p>
-<h4 id="3-2-2-晶格图"><a href="#3-2-2-晶格图" class="headerlink" title="3.2.2 晶格图"></a>3.2.2 晶格图</h4><p>关于晶格图，B站有个视频讲的很清楚，这里直接放上视频：</p>
-<div style="position: relative; width: 100%; height: 0; padding-bottom: 75%;">
+<h4 id="3-2-2-晶格图"><a href="#3-2-2-晶格图" class="headerlink" title="3.2.2 晶格图"></a>3.2.2 晶格图</h4><ul>
+<li>晶格图是一种简化反射和波形计算的工具。</li>
+<li>图显示了边界和反射系数。</li>
+<li>时间轴垂直显示，计算每个连续反射波的电压幅度。</li>
+<li>任何点的总电压是所有已通过的波的总和。</li>
+</ul>
+<p>首先我们需要先明确晶格图的计算步骤：</p>
+<ol>
+<li>先分析静态电路，也就是传输线两端的 $V<em>{TX}$ 以及 $V</em>{RX}$ 的初始值；</li>
+<li>然后 计算传输线两端的反射系数 $\rho<em>{source}$ 和 $\rho</em>{load}$;</li>
+<li>最后在计算施加在传输线上的初始发射电压$V_{launch}$</li>
+</ol>
+<p><strong>Example:</strong></p>
+<p><img src="/2026/03/16/vlsi-systems/图20.png" style="zoom:50%;"></p>
+<p><strong>假设电源电压从 $V_1$ 变化到 $V_2$，电源阻抗为 $R_s$，传输线阻抗为 $Z_0$，负载阻抗为 $R_l$</strong></p>
+<p><strong>进行静态分析。由于此时电压波稳定，传输线不分压，因此：</strong></p>
+<script type="math/tex; mode=display">
+V_ { TX_ { initial } } = V_ { RX_ { initial }  }=\frac { R_s } { R_s+R_l } V_1</script><p>然后进行动态分析，传输线此时分压，初始电压波传输到了传输线，所以初始的发射电压为：</p>
+<script type="math/tex; mode=display">
+V_ { { launch }_{ { initial } } }=\frac { Z_0 } { R_s+Z_0 }|(V_2-V_1)|</script><p>然后在算出Source端和Load端的反射系数即可依顺序画出反射图。</p>
+<p>关于晶格图，B站有个视频讲的很清楚，这里直接放上视频：</p>
 <iframe src="//player.bilibili.com/player.html?isOutside=true&aid=113809704358852&bvid=BV1pdcweTEeH&cid=27815512016&p=1&high_quality=1&danmaku=0" allowfullscreen="allowfullscreen" width="100%" height="500" scrolling="no" frameborder="0" sandbox="allow-top-navigation allow-same-origin allow-forms allow-scripts"></iframe>
-</div>
 
-
+<p>考试一般就考两种形式：一种是信号源从 $0V$ 跳变到正向电压 $V_f$ ，第二种是信号源从正向电压 $V_f$ 跳变到 $0V$ 。</p>
+<p>下面分别给出第一道例题，信号源从 $0V$ 跳变到正向电压 $2V$ ：</p>
+<p><img src="/2026/03/16/vlsi-systems/图19.png" style="zoom:80%;"></p>
+<p>然后第二道例题是差不多的，但是由于信号源是从正向电压跳变到 $0V$，因此初始电压 $V<em>{TX}$ 和 $V</em>{RX}$ 需要注意：</p>
+<p><img src="/2026/03/16/vlsi-systems/图21.png" style="zoom:80%;"></p>
+<p>当波遇到特性阻抗不同的传输线之间的界面时，会同时产生反射波和透射波。透射信号是正向信号和反射信号的总和。这时的晶格图就变得较为复杂了，考试一般不考，但以防万一还是复习一下。其晶格图绘制如下：</p>
+<p><img src="/2026/03/16/vlsi-systems/图22.png" style="zoom:80%;"></p>
+<h4 id="3-2-3-减少反射的技术"><a href="#3-2-3-减少反射的技术" class="headerlink" title="3.2.3 减少反射的技术"></a>3.2.3 减少反射的技术</h4><p>如果下列阻抗都相同的话，就不会产生反射：</p>
+<ul>
+<li>驱动门的输出阻抗</li>
+<li>传输线的特性阻抗</li>
+<li>接收门的输入阻抗</li>
+</ul>
+<p><strong>但是反射是不可能被完全消除的。</strong></p>
+<h5 id="3-2-3-1-串行匹配-Series-Matching"><a href="#3-2-3-1-串行匹配-Series-Matching" class="headerlink" title="3.2.3.1 串行匹配(Series Matching)"></a>3.2.3.1 串行匹配(Series Matching)</h5><p>第一种方法是采用<strong>串行匹配(Series Matching)</strong>来减少反射，那么串行匹配是如何减少反射，主要是以下几条：</p>
+<ul>
+<li>人工增加输出阻抗以此来匹配传输线的特性阻抗</li>
+<li>抑制负向过冲（“1” $\rightarrow$ “0” 跳变时）</li>
+<li>使用外部串联电阻，典型值约为 $47\Omega$</li>
+</ul>
+<p><img src="/2026/03/16/vlsi-systems/图23.png" style="zoom:67%;"></p>
+<p>另外，还需要知道功率消耗：</p>
+<p>一个源端终端器一次往返的能量耗散为：</p>
+<script type="math/tex; mode=display">
+E=\frac { 2T(\frac { \Delta { V } } { 2 } )^2 } { R }</script><p>其中 $\Delta{V}$ 为High Input和Low Output逻辑电平之间的差值；$T$ 为传输线的传播延迟；$R$ 为源端终端电阻。</p>
+<p>当脉冲间隔大于往返延迟时，源端终端器的功耗为：</p>
+<script type="math/tex; mode=display">
+P\simeq(PulseFreq)\times { T } \frac { \Delta { V } ^2 } { 2R }</script><p><strong>Example:</strong> </p>
+<p><img src="/2026/03/16/vlsi-systems/图24.png" style="zoom: 67%;"></p>
+<p><strong>Answer:</strong></p>
+<p><img src="/2026/03/16/vlsi-systems/图25.png" style="zoom: 50%;"></p>
+<h5 id="3-2-3-2-传输线终端处理-Line-Termination"><a href="#3-2-3-2-传输线终端处理-Line-Termination" class="headerlink" title="3.2.3.2 传输线终端处理(Line Termination)"></a>3.2.3.2 传输线终端处理(Line Termination)</h5><p>第二种方法是采用<strong>传输线终端处理(Line Termination)</strong>，主要手段是：</p>
+<ul>
+<li>在总线系统中传输线的接收端进行匹配。</li>
+<li>对于未端接和开放式的总线线路，可能会发生全值反射。</li>
+<li>通过在总线末端放置电阻器来实现端接。</li>
+</ul>
+<p>端接传输线的功耗：</p>
+<script type="math/tex; mode=display">
+P=\frac { [ (V_ { HI } -V_ { CC } )^2+(V_ { LO } -V_ { SS } )^2] } { 2R_D }+\frac { [(V_ { CC }-V_ { HI } ^2+(V_ { CC } -V_ { LO } )^2] } { 2R_U }</script><p><img src="/2026/03/16/vlsi-systems/图26.png" style="zoom:50%;"></p>
+<h4 id="3-2-4-串扰-Cross-talk"><a href="#3-2-4-串扰-Cross-talk" class="headerlink" title="3.2.4 串扰(Cross talk)"></a>3.2.4 串扰(Cross talk)</h4><p>一条信号线上的信号转换耦合到了相邻的线路上。这是由于两条相邻线路之间存在电容和互感，引发了磁场的相互作用，从而在受影响的线路上产生了反向电流，而这种现象就叫做串扰。</p>
+<p><img src="/2026/03/16/vlsi-systems/图27.png" style="zoom:50%;"></p>
+<p>芯片上的导线与相邻导线（包括同层及相邻层）之间存在电容。</p>
+<p>从上图，我们需要先知道 $a$ 线叫做是受害线，而 $b$ 线和 $c$ 线是攻击线</p>
+<p>当相邻信号发生变化时，悬浮线上的电压会受到干扰，则它串扰用耦合系数衡量就是：</p>
+<script type="math/tex; mode=display">
+k_ { 2C } =\frac { 2C_c } { 2C_c+C_o }</script><p>$C<em>o$ 是对地电容，而 $k</em>{2C}$ 是衡量来自两侧攻击线的串扰权重因子。</p>
+<p><img src="/2026/03/16/vlsi-systems/图28.png" style="zoom:50%;"></p>
+<p>如上图，如果受害线 $a$ 被驱动，也就是接在源极上，它会受到干扰，但会以时间常数 $\tau$ 恢复，$\tau$的计算公式如下：</p>
+<script type="math/tex; mode=display">
+\tau=R\cdot(C_c+C_o)</script><p>如果攻击线 $b$ 的上升沿时间相较于 $\tau$ 较慢，那么干扰的幅度就会减小。</p>
+<p>也就是说，攻击线上的上升时间大于受害线的时间常数，则串扰就会减少。</p>
+<h5 id="3-2-4-1-串扰分析"><a href="#3-2-4-1-串扰分析" class="headerlink" title="3.2.4.1 串扰分析"></a>3.2.4.1 串扰分析</h5><p>使用单集总阻抗法(Single Lumped Impedance Approach)对串扰进行分析：</p>
+<p><img src="/2026/03/16/vlsi-systems/图29.png" style="zoom:67%;"></p>
+<p>考虑两条线，中间有一个互阻抗 $Z_m$（实际上这个阻抗不存在，是一个集中代表了分布在两条线上的电容和电感的器件）。</p>
+<p>假设 $Z<em>0$为每条线的特征阻抗；$Z</em>{out}$ 是门 $A$ 的输出阻抗；$V_{out}$ 是源电压；我们将下面这条线称为攻击线，而上面因为耦合而产生的电压波的叫做受害线。</p>
+<p>单独分析攻击线，简单的分压得到传输线上的电压 $V_1$：</p>
+<p><img src="/2026/03/16/vlsi-systems/图30.png" style="zoom: 67%;"></p>
+<p>所以门 $A$ 在传输线输入端产生的实际电压 $V_1$ 由下式给出：</p>
+<script type="math/tex; mode=display">
+V_1=(\frac { Z_0 } { Z_0+Z_ { out } } )V_ { out }</script><p>注意：无论终端阻抗如何，门 $A$ 均呈现出阻抗 $Z_0$。</p>
+<p>随后分析受害线：</p>
+<p><img src="/2026/03/16/vlsi-systems/图31.png" style="zoom: 67%;"></p>
+<p>将互阻抗 $Z_m$ 视为连接两边阻抗线的“中点”，将 $Z_m$ 的上端点设为 $X$，$Z_m$ 的上端点设为$Y$，则$V_Y=V_2$由基尔霍夫定律可得：</p>
+<script type="math/tex; mode=display">
+y= \begin{cases} \frac { V_1-V_X } { Z_0 }=\frac { V_X-V_Y } { Z_m },\quad 下端点X的节点电流公式\\ \frac { V_X-V_Y } { Z_m } =\frac { V_Y } { Z_0 }+\frac { V_Y } { Z_0 }, \quad 上端点Y的节点电流公式 \end{cases}</script><p>整理后得：</p>
+<script type="math/tex; mode=display">
+V_2=\frac { Z_m } { 3Z_0+2Z_m }V_1</script><p>代入 $V_1$ 后可得：</p>
+<script type="math/tex; mode=display">
+V_2=\frac { Z_m } { 3Z_0+2Z_m } (\frac { Z_0 } { Z_0+Z_ { out } } )V_ { out }</script><p>电压 $V_2$ 位于线路 $C-D$ 的中间点。信号先向门 $C$ 传播，然后被反射并向门 $D$ 传播。门 $C$ 处的反射信号由传输线反射系数乘以正向信号得出。假设 $Z_t$ 是门 $C$ 的输出阻抗，则门 $D$ 处的最终电压为：</p>
+<script type="math/tex; mode=display">
+V_2'=\frac { Z_m } { 3Z_0+2Z_m } (\frac { Z_0 } { Z_0+Z_ { out } } )V_ { out } (\frac { Z_t-Z_0 } { Z_t+Z_0 })</script><p><strong>Example:</strong></p>
+<p><strong>Consider gates $A$, $B$, $C$, $D$ as TTL LS gates with a voltage swing of $2V$. Assume the following conditions:</strong></p>
+<ul>
+<li><strong>A falling 1‑to‑0 transition occurs at the output of gate $A$.</strong></li>
+<li><strong>Gate $A$ has an output impedance of $10\Omega$.</strong></li>
+<li><strong>Gate $C$ has a static ‘0’ output with an output impedance of $50\Omega$.</strong></li>
+<li><strong>The characteristic impedance of lines $A-B$ and $C‑D$ is $100\Omega$.</strong></li>
+<li><strong>The mutual impedance $Z_m=200\Omega$.</strong></li>
+</ul>
+<p><strong>Determine the level of crosstalk.</strong></p>
+<p><strong>Answer:</strong></p>
+<p><img src="/2026/03/16/vlsi-systems/图32.png" style="zoom: 67%;"></p>
+<p><img src="/2026/03/16/vlsi-systems/图.png" alt></p>
 
                 
             </div>
@@ -1149,60 +1250,9 @@ V_t=2\frac{Z_t}{Z_t+Z_0}V_f</script><p>注意：$-1\leq\rho\leq1$。</p>
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
-            <div class="article-badge left-badge text-color">
-                <i class="far fa-dot-circle"></i>&nbsp;本篇
-            </div>
-            <div class="card">
-                <a href="/2026/03/16/vlsi-systems/">
-                    <div class="card-image">
-                        
-                        
-                        <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="VLSI Systems(EE6309复习)">
-                        
-                        <span class="card-title">VLSI Systems(EE6309复习)</span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary block-with-text">
-                        
-                            
-                        
-                    </div>
-                    <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2026-03-16
-                            </span>
-                        <span class="publish-author">
-                            
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/%E5%8D%8A%E5%AF%BC%E4%BD%93/" class="post-category">
-                                    半导体
-                                </a>
-                            
-                            
-                        </span>
-                    </div>
-                </div>
-
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/%E8%8A%AF%E7%89%87%E6%A3%80%E9%AA%8C%E4%B8%8E%E6%B5%8B%E8%AF%95/">
-                        <span class="chip bg-color">芯片检验与测试</span>
-                    </a>
-                    
-                </div>
-                
-            </div>
-        </div>
-        
-        
         <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">
-                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
-            </div>
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
                 <a href="/2026/03/16/wafer-processing-peer-tutoring/">
                     <div class="card-image">
@@ -1220,9 +1270,9 @@ V_t=2\frac{Z_t}{Z_t+Z_0}V_f</script><p>注意：$-1\leq\rho\leq1$。</p>
                         
                     </div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2026-03-16
-                            </span>
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2026-03-16
+                        </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -1242,6 +1292,43 @@ V_t=2\frac{Z_t}{Z_t+Z_0}V_f</script><p>注意：$-1\leq\rho\leq1$。</p>
                         <span class="chip bg-color">芯片制造，半导体工艺</span>
                     </a>
                     
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2023/10/23/fang-jie-yu-ce-kaggle-xi-lie/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="房价预测（kaggle系列）">
+                        
+                        <span class="card-title">房价预测（kaggle系列）</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-10-23
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            Jeremy Yang
+                            
+                        </span>
+                    </div>
                 </div>
                 
             </div>
@@ -1480,7 +1567,7 @@ V_t=2\frac{Z_t}{Z_t+Z_0}V_f</script><p>注意：$-1\leq\rho\leq1$。</p>
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">33.3k</span>
+                        class="white-color">35k</span>
             
             
             

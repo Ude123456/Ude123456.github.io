@@ -999,7 +999,7 @@ V_t=2\frac{Z_t}{Z_t+Z_0}V_f</script><p>注意：$-1\leq\rho\leq1$。</p>
 </li>
 </ol>
 <p>因此，$V_r$ 的值域范围为：$-V_f\leq{V_r}\leq{V_f}$</p>
-<h4 id="3-2-2-晶格图"><a href="#3-2-2-晶格图" class="headerlink" title="3.2.2 晶格图"></a>3.2.2 晶格图</h4><ul>
+<h4 id="3-2-2-晶格图-Lattice-Diagram"><a href="#3-2-2-晶格图-Lattice-Diagram" class="headerlink" title="3.2.2 晶格图(Lattice Diagram)"></a>3.2.2 晶格图(Lattice Diagram)</h4><ul>
 <li>晶格图是一种简化反射和波形计算的工具。</li>
 <li>图显示了边界和反射系数。</li>
 <li>时间轴垂直显示，计算每个连续反射波的电压幅度。</li>
@@ -1007,13 +1007,13 @@ V_t=2\frac{Z_t}{Z_t+Z_0}V_f</script><p>注意：$-1\leq\rho\leq1$。</p>
 </ul>
 <p>首先我们需要先明确晶格图的计算步骤：</p>
 <ol>
-<li>先分析静态电路，也就是传输线两端的 $V<em>{TX}$ 以及 $V</em>{RX}$ 的初始值；</li>
-<li>然后 计算传输线两端的反射系数 $\rho<em>{source}$ 和 $\rho</em>{load}$;</li>
-<li>最后在计算施加在传输线上的初始发射电压$V_{launch}$</li>
+<li>先分析静态电路，也就是传输线两端的 $ V<em>{TX} $ 以及 $ V</em>{RX} $ 的初始值；</li>
+<li>然后 计算传输线两端的反射系数 $ \rho<em>{source} $ 和 $ \rho</em>{load} $;</li>
+<li>最后在计算施加在传输线上的初始发射电压 $ V_{launch} $</li>
 </ol>
 <p><strong>Example:</strong></p>
 <p><img src="/2026/03/16/vlsi-systems/图20.png" style="zoom:50%;"></p>
-<p><strong>假设电源电压从 $V_1$ 变化到 $V_2$，电源阻抗为 $R_s$，传输线阻抗为 $Z_0$，负载阻抗为 $R_l$</strong></p>
+<p><strong>假设电源电压从 $V_1$ 变化到 $V_2$，电源阻抗为 $R_s$，传输线阻抗为 $Z_0$，负载阻抗为 $R_l$ 。</strong></p>
 <p><strong>进行静态分析。由于此时电压波稳定，传输线不分压，因此：</strong></p>
 <script type="math/tex; mode=display">
 V_ { TX_ { initial } } = V_ { RX_ { initial }  }=\frac { R_s } { R_s+R_l } V_1</script><p>然后进行动态分析，传输线此时分压，初始电压波传输到了传输线，所以初始的发射电压为：</p>
@@ -1581,7 +1581,7 @@ V_2'=\frac { Z_m } { 3Z_0+2Z_m } (\frac { Z_0 } { Z_0+Z_ { out } } )V_ { out } (
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">35k</span>
+                        class="white-color">40k</span>
             
             
             

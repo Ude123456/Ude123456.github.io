@@ -592,17 +592,17 @@ Over-bake则会增加sensitivity to UV light，甚至可能破坏PAC和减少sol
 
 **step 4: Alignment and Exposure**
 
-<font size="4">①</font> Transfer pattern to wafer; <font size="4">②</font> Active PAC
+<font size="4"> ① </font> Transfer pattern to wafer; <font size="4"> ② </font> Active PAC
 
 **step 5: Post-Exposure Bake**
 
-<font size="4">①</font> Evaporate all solvnent  
+<font size="4"> ① </font> Evaporate all solvnent  
 
 还能减少驻波(standing wave)效应的影响
 
 **step 6: Developing**
 
-<font size="4">①</font> Remove the soluble portion with a solvent; <font size="4">②</font> Patterning
+<font size="4"> ① </font> Remove the soluble portion with a solvent; <font size="4"> ② </font> Patterning
 
 **step 7: Hard Bake**
 
@@ -610,7 +610,7 @@ Over-bake则会增加sensitivity to UV light，甚至可能破坏PAC和减少sol
 
 **step 8: Develop Inspect**
 
-<font size="4">①</font> Check the quality of process to ensure the pattern is transfered.
+<font size="4"> ① </font> Check the quality of process to ensure the pattern is transfered
 
 ### 1.4 Printing
 
@@ -624,7 +624,7 @@ Over-bake则会增加sensitivity to UV light，甚至可能破坏PAC和减少sol
 
 Resolution for the proximity printer: 
 
-$W_{min}\simeq{\sqrt{k_1\lambda{g}}}$ ，     $\lambda=\frac{c}{f}$，     $E=h\frac{c}{f}$
+$W_ { min } \simeq { \sqrt { k_1\lambda { g } } } $ ，     $\lambda=\frac { c } { f } $，     $E=h\frac { c } { f } $
 
 $k_1$ is a constant
 
@@ -656,9 +656,9 @@ $NA=sin\theta\,{\simeq}{\frac{\frac{d}{2}}{f}}={\frac{d}{2f}}$
 
 Depth of focus:
 
-$\sigma=\pm{\frac{\frac{W_{min}}{2}}{tan\theta}}\simeq\pm{\frac{\frac{k\lambda}{2NA}}{sin\theta}}$
+$\sigma=\pm { \frac { \frac { W_ { min } } { 2 } } { tan\theta } } \simeq\pm { \frac { \frac { k\lambda } { 2NA } } { sin\theta } } $
 
-$\sigma=\pm{\frac{\frac{k\lambda}{2NA}}{\frac{NA}{n}}\simeq\pm{\frac{nk_2{\lambda}}{(NA)^2}}}$
+$\sigma=\pm { \frac { \frac { k\lambda } { 2NA } } { \frac { NA } { n } } \simeq \pm  { \frac { nk_2 { \lambda } } { (NA)^2 } } } $
 
 **$\sigma$越大越好，因为DOF就是光刻系统能清晰成像的垂直晶圆方向的高度范围**。$\lambda$越小或者$NA$越大，则$\sigma$越小。
 
@@ -676,7 +676,7 @@ $\sigma=\pm{\frac{\frac{k\lambda}{2NA}}{\frac{NA}{n}}\simeq\pm{\frac{nk_2{\lambd
 
 We hope projection printer shows no diffraction, like contact printer light and dark edge is very sharp.
 
-**$MTF=\frac{I_{max}-I_{min}}{I_{max}+I_{min}}$**，MTF is for optical system(Lens) and bigger the better.
+** $MTF=\frac { I_ { max } - I_ { min } } { I_ { max } + I_ { min } } $ **，MTF is for optical system(Lens) and bigger the better.
 
 ## 2 光刻胶技术(resist technology)
 
@@ -692,30 +692,30 @@ You shine 49 dose, nothing happened.
 
 **一个重要的参数：**
 
-Sensitivity: $D_{100}(D_f)$
+Sensitivity: $D_ { 100 } (D_f)$
 
 Chemical contrast $\gamma$ $\rightarrow$ slope of curve defined as:
 
-**$\gamma=\frac{1}{log_{10}\frac{(D_{100})}{D_{0}}}$**
+**$\gamma= \frac { 1 } {log_ { 10 } \frac { (D_{ 100 } ) } { D_ { 0 } } }$**
 
 ### 2.2 Critical Modulation transfer function (CMTF)
 
 从上面的 $\gamma$ 可以推导出CMTF：
 
-$CMTF=\frac{D_f-D_0}{D_f+D_0}=\frac{10^{\frac{1}{\gamma}}-1}{10^{\frac{1}{\gamma}}+1}$
+$CMTF=\frac { D_f-D_0 } { D_f+D_0 }=\frac { 10^ { \frac { 1 } { \gamma } }-1 } { 10^ { \frac { 1 } { \gamma } } +1 }$
 
-$MFT$ 的数值是越高越好，但是 $CMTF$ 却是越低越好。而且一般来说 $MTF\geqslant{CMTF}$ is required for the resist to resolve the aerial image.
+$MFT$ 的数值是越高越好，但是 $CMTF$ 却是越低越好。而且一般来说 $MTF\geqslant { CMTF } $ is required for the resist to resolve the aerial image.
 
 ### 2.3 Components of Resist
 
-<font size="4">①</font> Resin（树脂）
+<font size="4"> ① </font> Resin（树脂）
 Give resist mechanical and chemical properties.
-<font size="4">②</font> Sensitiser（光敏）
+<font size="4"> ② </font> Sensitiser（光敏）
 Photo active compound (PAC/ PAG) .
-<font size="4">③</font> Solvent（溶剂）
+<font size="4"> ③ </font> Solvent（溶剂）
 Keeps resist in liquid state；
 Allows spin coating of the resist.
-<font size="4">④</font> Additives（添加剂）
+<font size="4"> ④ </font> Additives（添加剂）
 Improve Etch resistivity and implant blocking capability.
 
 ### 2.4 Advantages and Disadvantages of Resists
@@ -738,11 +738,11 @@ DUV makes PAG Photo Acid Generator to generate acid, PEB diffusion acid
 
 **如何减少驻波效应:**
 
-**<font size="4">①</font> Dye PR more absorption**
+**<font size="4"> ① </font> Dye PR more absorption**
 
-**<font size="4">②</font> PEB flat the zigzag（PEB also helps by smoothing out the zigzag due to resist thermal reflow）** 
+**<font size="4"> ② </font> PEB flat the zigzag（PEB also helps by smoothing out the zigzag due to resist thermal reflow）** 
 
-**<font size="4">③</font> ARC anti-reflective**
+**<font size="4"> ③ </font> ARC anti-reflective**
 
 ## 3 先进光刻(Advanced Lithography)
 
@@ -771,17 +771,11 @@ With PSM, the reticle is modified with an additional transparent layer so that a
 #### 3.1.2 光学邻近校正(Optical Proximity Correction)
 
 The approach involves adding extra features to the mask, usually at corners where features are sharp, to compensate for the high-frequency information lost due to diffraction effects.
-
-
-
-
 ![](./Wafer-processing-Peer-Tutoring/图14.png)
 
 #### 3.1.3 离轴照明(Off-Axis Illumination)
 
 If the incident light source is illuminated at an angle with respect to the lens system(off-axis), higher order diffracted rays can be collected using the lens of the same size.
-
-
 ![](./Wafer-processing-Peer-Tutoring/图15.png)
 
 ### 3.2 浸润式光刻(Immersion Lithography)
@@ -827,7 +821,6 @@ If the incident light source is illuminated at an angle with respect to the lens
 ### 3.4 EUV Lithography
 
 给出下面这张图能认出来是EUV光刻即可，当然最好还是记一下名称啥的：
-
 ![](./Wafer-processing-Peer-Tutoring/图17.png)
 
 ### 3.5 E-beam lithography
@@ -879,7 +872,6 @@ b. If the phase shift masks are used in the exposure, k is smaller, larger g (ma
 ### 4.2 等离子体(Plasma)的产生与过程
 
 这节最重要的就是下图：
-
 <img src="/2026/03/16/wafer-processing-peer-tutoring/图20.png" style="zoom:50%;">
 
 这张图只要记住等离子体是如何产生的即可，方程式可以不用记住，大概就是下面这四个过程：
@@ -915,7 +907,7 @@ b. If the phase shift masks are used in the exposure, k is smaller, larger g (ma
 <p><strong>RIE系统的工作步骤（必考）：RF power energizes electrons, which accumulate negative charge on the RF-driven bottom electrode, creating a steady negative self-bias. A plasma sheath (dark space) with high electric field forms around the cathode, accelerating ions vertically to bombard the substrate for RIE etching.</strong><br>中文对照版：射频源为电子供电，电子在射频驱动的底部电极上积累负电荷，产生稳定的负自偏压。阴极周围形成具有高电场的等离子体鞘层（暗区），垂直加速离子轰击基板进行RIE蚀刻。</p>
 <p>同时，这一小节还需要记住一个公式：</p>
 <script type="math/tex; mode=display">
-|V_c|=V_a(\frac{A_a}{A_c})^4</script><p>其中 $V_c$ 是阴极(cathode)与等离子体的电势差，$V_a$ 是阳极(anode)与等离子体的电势差，$A_c$ 是阴极板的面积，$A_a$ 是阳极板的面积。</p>
+|V_c|=V_a(\frac { A_a } { A_c } )^4</script><p>其中 $V_c$ 是阴极(cathode)与等离子体的电势差，$V_a$ 是阳极(anode)与等离子体的电势差，$A_c$ 是阴极板的面积，$A_a$ 是阳极板的面积。</p>
 <p>该公式表明了，当 $A_a&gt;A_c$，也就是<strong>阳极面积远大于阴极</strong>时，$|V_c|$ 的值会被大幅放大，而 $|V_c|$越大，离子从等离子体加速到阴极，也就是到晶圆片上的能量就会越高，而高能量离子轰击晶圆，就会<strong>显著提高刻蚀速率(Etch Rate)</strong>。</p>
 <p><img src="/2026/03/16/wafer-processing-peer-tutoring/图23.png" alt></p>
 <p>然后上面这张图最好也要会画，它很好地表现出了为什么晶圆放在阴极上能获得高刻蚀能量。</p>
@@ -934,15 +926,15 @@ b. If the phase shift masks are used in the exposure, k is smaller, larger g (ma
 <p><strong>另外，我们还需要考虑一个问题：</strong><font color="red"><strong>How does the $O_2$ content affect the etch rate?</strong></font></p>
 <p><strong>原子 $F$ 是 $Si$ 和 $SiO₂$ 的活性刻蚀剂，通过生成挥发性的 $SiF_4$ 实现刻蚀：</strong></p>
 <ul>
-<li><p>硅刻蚀：$Si+4F\rightarrow{SiF4}\uparrow$ ($SiF₄$为气态，可被真空抽走)</p>
+<li><p>硅刻蚀：$Si+4F\rightarrow { SiF4 } \uparrow$ ($SiF₄$为气态，可被真空抽走)</p>
 </li>
-<li><p>氧化硅刻蚀：$SiO_2+4F\rightarrow{SiF_4}\uparrow+O_2$</p>
+<li><p>氧化硅刻蚀：$SiO_2+4F\rightarrow { SiF_4 } \uparrow+O_2$</p>
 </li>
 </ul>
 <p><strong>由此很显然，要想提高刻蚀速率，就需要加快活性 $F$ 原子的活性，那么 $O_2$ 的核心作用就在于此，其核心机理如下：</strong></p>
 <p><strong>$O_2$ 会与 $CF_X$ ($CF_2$、$CF_3$)发生反应，释放 F 原子：</strong></p>
 <script type="math/tex; mode=display">
-CF_2+O\rightarrow{COF}+F</script><p><strong>该反应会消耗 $CF_2$，抑制 $F$ 原子与 $CF_2$ 重新结合生成稳定 $CF_4$ 的副反应($CF_2+2F\rightarrow{CF_4}$)，从而大幅提高等离子体中活性 $F$ 原子的浓度，由此加快刻蚀速率。</strong></p>
+CF_2+O\rightarrow { COF } +F</script><p><strong>该反应会消耗 $CF_2$，抑制 $F$ 原子与 $CF_2$ 重新结合生成稳定 $CF_4$ 的副反应($CF_2+2F\rightarrow{CF_4}$)，从而大幅提高等离子体中活性 $F$ 原子的浓度，由此加快刻蚀速率。</strong></p>
 <p><img src="/2026/03/16/wafer-processing-peer-tutoring/图24.png" style="zoom:50%;"></p>
 <p>观察上图，可以发现 $Si$ 对 $F$ 原子浓度更敏感：低 $O_2$ 含量下 $F$ 原子快速提升，$Si$ 刻蚀速率迅速达到峰值；$O_2$过量后，$F$ 原子稀释效应更显著，$Si$ 刻蚀速率快速下降。而 $SiO₂$ 刻蚀除 $F$ 原子外，还受 $O_2$ 的辅助作用影响，因此峰值出现在更高 $O_2$ 比例，且下降更平缓。</p>
 <h3 id="4-4-控制等离子体蚀刻速率的因素"><a href="#4-4-控制等离子体蚀刻速率的因素" class="headerlink" title="4.4 控制等离子体蚀刻速率的因素"></a>4.4 控制等离子体蚀刻速率的因素</h3><ul>

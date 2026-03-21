@@ -545,7 +545,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    6.1k
+                    6k
                 </div>
                 
 
@@ -572,334 +572,165 @@
 <p>如上图所示，左边是正性光刻胶，被UV光照的地方溶解，而有掩膜(Mask)遮盖的地方，也就是没有光照的光刻胶不溶解；而右边则是负性光刻胶，其工作机理与正光刻胶相反，被光照的光刻胶不溶解，而被掩膜遮盖的位置则溶解。</p>
 <h3 id="1-3-Eight-Steps-of-Lithography"><a href="#1-3-Eight-Steps-of-Lithography" class="headerlink" title="1.3 Eight Steps of Lithography"></a>1.3 Eight Steps of Lithography</h3><p><img src="/2026/03/16/wafer-processing-peer-tutoring/图2.png" alt></p>
 <p><strong>step 1: Vapour Prime</strong></p>
-<font size="4">①</font> Wafer dehydration bake；<font size="4">②</font> HMDS adhesion clean and dry
-
-**step 2: Spin Coat**
-
-<font size="4">①</font> Make PR to expected Thickness
-
-另外，Resist layer thickness depends on the  viscosity of resist and is inversely proportional to the square root of the spin speed, $t{\frac{\alpha}{\omega_2}}$.
-
-Thinner Resist: ${I_R}\simeq{[\frac{viscosity\times{solid\,content}}{\sqrt{spin\,speed}}]}$，Spin speed越快越好，如果转速越慢，表面的光刻胶就会越厚。
-
-**step 3: Soft Bake**
-
-<font size="4">①</font> Partial evaporation of resist solvents; <font size="4">②</font> Improves resist-to-wafer adhesion;  <font size="4">③</font> Improves etch resistance 
-
-短时间的Pre-bake可以防止由于残留在PR中的的solvent过多而导致的UV light reaching the PAC；
-
-Over-bake则会增加sensitivity to UV light，甚至可能破坏PAC和减少solubility of the PR。
-
-**step 4: Alignment and Exposure**
-
-<font size="4"> ① </font> Transfer pattern to wafer; <font size="4"> ② </font> Active PAC
-
-**step 5: Post-Exposure Bake**
-
-<font size="4"> ① </font> Evaporate all solvnent  
-
-还能减少驻波(standing wave)效应的影响
-
-**step 6: Developing**
-
-<font size="4"> ① </font> Remove the soluble portion with a solvent; <font size="4"> ② </font> Patterning
-
-**step 7: Hard Bake**
-
-<font size="4">①</font> Evaporate solvnent from step6 adhesion;  <font size="4">②</font> Etch resistance
-
-**step 8: Develop Inspect**
-
-<font size="4"> ① </font> Check the quality of process to ensure the pattern is transfered
-
-### 1.4 Printing
-
-![](./Wafer-processing-Peer-Tutoring/图3.png)
-
-注意：在Contact Printing和Proximity Printing中，掩膜被称作mask，但是在Projection Printing中，则被成为reticle，但实际上两者是一样的。
-
-另外，在Contact Printing中，mask和photoresist是直接接触的；而在Proximity Printing中，mask和wafer并没有直接接触，这一改动可以prevent dust particles。
-
-### 1.5 Minimum Linewidth / Resolution
-
-Resolution for the proximity printer: 
-
-$W_ { min } \simeq { \sqrt { k_1\lambda { g } } } $ ，     $\lambda=\frac { c } { f } $，     $E=h\frac { c } { f } $
-
-$k_1$ is a constant
-
-$\lambda$ is Wavelength of the exposure source
-
-$g$ is Gap between the mask and the wafer surface
-
-and more larger resolution is better.
-
-<img src="/2026/03/16/wafer-processing-peer-tutoring/图4.png" style="zoom: 67%;">
-
-### 1.6 Numerical Aperture
-
-NA is a measure of the ability to collect light
-
-$NA=nsin\theta$
-
-Where $n=$refraction index (the medium in which the system is immersed, in this $n=1$ for air)
-
-So n is for air or water not for LENS.
-
-$NA=sin\theta\,{\simeq}{\frac{\frac{d}{2}}{f}}={\frac{d}{2f}}$
-
-<img src="/2026/03/16/wafer-processing-peer-tutoring/图5.png" style="zoom: 80%;">
-
-### 1.7 Depth of Focus
-
-<img src="/2026/03/16/wafer-processing-peer-tutoring/图6.png" style="zoom: 67%;">
-
-Depth of focus:
-
-$\sigma=\pm { \frac { \frac { W_ { min } } { 2 } } { tan\theta } } \simeq\pm { \frac { \frac { k\lambda } { 2NA } } { sin\theta } } $
-
-$\sigma=\pm { \frac { \frac { k\lambda } { 2NA } } { \frac { NA } { n } } \simeq \pm  { \frac { nk_2 { \lambda } } { (NA)^2 } } } $
-
-**$\sigma$越大越好，因为DOF就是光刻系统能清晰成像的垂直晶圆方向的高度范围**。$\lambda$越小或者$NA$越大，则$\sigma$越小。
-
-### 1.8 光强度图
-
-<img src="/2026/03/16/wafer-processing-peer-tutoring/图7.png" style="zoom: 67%;">   <img src="/2026/03/16/wafer-processing-peer-tutoring/图8.png" style="zoom: 80%;">
-
-左边是Contact Printeing，右边是Proximity Printing。
-
-![](./Wafer-processing-Peer-Tutoring/图9.png)
-
-上面的光强度图要求要会画，三种光刻模式都要会。
-
-### 1.9 Modulation transfer function (MTF)
-
-We hope projection printer shows no diffraction, like contact printer light and dark edge is very sharp.
-
-** $MTF=\frac { I_ { max } - I_ { min } } { I_ { max } + I_ { min } } $ **，MTF is for optical system(Lens) and bigger the better.
-
-## 2 光刻胶技术(resist technology)
-
-### 2.1 Contrast curve
-
-![](./Wafer-processing-Peer-Tutoring/图10.png)
-
-A good resist, Dose critical is 50,
-
-You shine 51 dose, all resist is soluble;
-
-You shine 49 dose, nothing happened.
-
-**一个重要的参数：**
-
-Sensitivity: $D_ { 100 } (D_f)$
-
-Chemical contrast $\gamma$ $\rightarrow$ slope of curve defined as:
-
-**$\gamma= \frac { 1 } {log_ { 10 } \frac { (D_{ 100 } ) } { D_ { 0 } } }$**
-
-### 2.2 Critical Modulation transfer function (CMTF)
-
-从上面的 $\gamma$ 可以推导出CMTF：
-
-$CMTF=\frac { D_f-D_0 } { D_f+D_0 }=\frac { 10^ { \frac { 1 } { \gamma } }-1 } { 10^ { \frac { 1 } { \gamma } } +1 }$
-
-$MFT$ 的数值是越高越好，但是 $CMTF$ 却是越低越好。而且一般来说 $MTF\geqslant { CMTF } $ is required for the resist to resolve the aerial image.
-
-### 2.3 Components of Resist
-
-<font size="4"> ① </font> Resin（树脂）
-Give resist mechanical and chemical properties.
-<font size="4"> ② </font> Sensitiser（光敏）
-Photo active compound (PAC/ PAG) .
-<font size="4"> ③ </font> Solvent（溶剂）
-Keeps resist in liquid state；
-Allows spin coating of the resist.
-<font size="4"> ④ </font> Additives（添加剂）
-Improve Etch resistivity and implant blocking capability.
-
-### 2.4 Advantages and Disadvantages of Resists
-
-![](./Wafer-processing-Peer-Tutoring/图11.png)
-
-注意：正光刻胶是在光照中被溶解，而负光刻胶是在光照中被固化。
-
-现在工业中更喜欢使用正光刻胶，因为有更好的Resolution。
-
-### 2.5 Chemically Amplified DUV Resist（化学放大深紫外光刻胶）
-
-关键是CA Chemical Amplify:
-
-DUV makes PAG Photo Acid Generator to generate acid, PEB diffusion acid
-
-### 2.6 Standing wave effect
-
-解释：Input light reflected and diffusion with reflected light, standing wave formed Zigzag or swing curve
-
-**如何减少驻波效应:**
-
-**<font size="4"> ① </font> Dye PR more absorption**
-
-**<font size="4"> ② </font> PEB flat the zigzag（PEB also helps by smoothing out the zigzag due to resist thermal reflow）** 
-
-**<font size="4"> ③ </font> ARC anti-reflective**
-
-## 3 先进光刻(Advanced Lithography)
-
-有以下几种：
-
-- **Optical enhancement techniques**
-- **Immersion lithography**
-- X-ray lithography
-- EUV Lithography
-- E-beam and SCALPEL lithography
-
-而要提高分辨率，我们先来看看有几种方式：
-
-<img src="/2026/03/16/wafer-processing-peer-tutoring/图12.png" style="zoom:80%;">
-
-### 3.1 光学增效技术(Optical enhancement techniques)
-
-**以下所有的内容的考试要求：会画图加上面那段话背下来会解释即可。**
-
-#### 3.1.1 相移掩膜(Phase Shift Mask)
-
-With PSM, the reticle is modified with an additional transparent layer so that alternating clear regions cause the light to be phase-shifted 180°. 
-
-<img src="/2026/03/16/wafer-processing-peer-tutoring/图13.png" style="zoom: 80%;">
-
-#### 3.1.2 光学邻近校正(Optical Proximity Correction)
-
-The approach involves adding extra features to the mask, usually at corners where features are sharp, to compensate for the high-frequency information lost due to diffraction effects.
-![](./Wafer-processing-Peer-Tutoring/图14.png)
-
-#### 3.1.3 离轴照明(Off-Axis Illumination)
-
-If the incident light source is illuminated at an angle with respect to the lens system(off-axis), higher order diffracted rays can be collected using the lens of the same size.
-![](./Wafer-processing-Peer-Tutoring/图15.png)
-
-### 3.2 浸润式光刻(Immersion Lithography)
-
-有两种方法：
-
-- Approach 1:
-    - Same lens column design
-    - Maintain resolution
-    - Improve Depth of Focus (DOF)
-- Approach 2:
-    - Modified lens column: Hyper-NA ($>1.0$)
-    - Improve resolution
-    - Lower DOF(牺牲 了DOF)
-
-
-这里着重讲一下**方法一，**这一方法是通过保持 $\sin\theta$ 不变，利用高 $n$ 提升 $NA$ 的同时，可优化焦深。
-![](./Wafer-processing-Peer-Tutoring/图16.png)
-
-注意： $n$ 不是一直都等于1的，在不同介质是会变化的。
-
-### 3.3 X-ray lithography
-
-这块内容只需要知道优缺点即可。
-
-**优点：**
-
-- High resolution
-- Reduced diffraction effect
-
-**缺点：**
-
-- Expensive X-ray source
-
-- Absorption problem (mask)
-
-- Shadowing errors
-
-- Non-monochromatic X-ray source
-
-- Low throughput
-
-### 3.4 EUV Lithography
-
-给出下面这张图能认出来是EUV光刻即可，当然最好还是记一下名称啥的：
-![](./Wafer-processing-Peer-Tutoring/图17.png)
-
-### 3.5 E-beam lithography
-
-最好会画图，并且知道各部分器件名称：
-
-![](./Wafer-processing-Peer-Tutoring/图18.png)
-
-因为光学光刻的分辨率受**衍射极限**（瑞利判据）的限制，而电子的德布罗意波长远小于光学波长（193nm/EUV 13.5nm），因此理论上完全不受衍射限制，这也是电子束光刻超高分辨率的根本原因。电子的德布罗意波长公式如下：
-$$
-\lambda=\frac{h}{\sqrt{2me}}
-$$
-在上面式子中，$m$ 为电子质量，$e$ 为元电荷，$h$ 为普朗克常数。
-
-**Example:**
-
-Discuss the implication to the maximum allowable proximity gap of the exposure systemmentioned in previous question (A lithography exposure system deploys an Hg arc lamp with three available wavelengths – 436nm (g-line), 405nm (h-line) and 365nm (i-line) respectively. ), if: 
-a. The optical source is changed to X-ray as opposed to Hg arc lamp used in the earliercase.
-b. Phase shift masks are used in the exposure.
-
-**Answer:**
-
-a. If the optical source is changed to X-ray as opposed to Hg arc lamp used in the earlier case,
-λ is smaller, larger g (max allowable proximity)
-b. If the phase shift masks are used in the exposure, k is smaller, larger g (max allowable proximity)
-
-## 4 干法刻蚀(Dry Etching)
-
-最重要的一句话：**Dry etch uses gas phase etchants in plasma.**
-
-为什么要选择干法刻蚀，有下面三个原因：
-
-- Achieve desirable profile (slope or vertical)
-
-- Minimal undercut
-
-- Uniformity and reproducibility
-
-### 4.1 干法刻蚀中的各向异性(Anisotropy) 
-
-<img src="/2026/03/16/wafer-processing-peer-tutoring/图19.png" style="zoom: 80%;">
-
-上图是刻蚀工艺中各向同性**(Isotropic)**和各向异性**(Anisotropic)**刻蚀的对比。
-
-左边表现出的是各向同性：其是由于化学粒子(Chemical)做**无规则、各方向的随机运动**，因此没有定向性，会从上下左右各个方向攻击薄膜，形成的沟槽宽度就会大于掩膜开口。
-
-右图则是各向异性，它的形成是由于离子(Ionic Species)在**外加偏压(Applied Bias)**的电场作用下，做**垂直向下的定向(directional)运动**，只攻击沟槽底部的薄膜，几乎不攻击侧壁，因此其沟槽宽度和掩膜开口几乎一致。
-
-### 4.2 等离子体(Plasma)的产生与过程
-
-这节最重要的就是下图：
-<img src="/2026/03/16/wafer-processing-peer-tutoring/图20.png" style="zoom:50%;">
-
-这张图只要记住等离子体是如何产生的即可，方程式可以不用记住，大概就是下面这四个过程：
-
-- **Dissociation **
-- **Ionisation **
-- **Excitation **
-- **Recombination**
-
-### 4.3 等离子体与基底的相互作用
-
-主要有两种形式：
-
-一种是纯物理刻蚀，其作用机制是表面被高能离子轰击，离子在表面的动能损失主导整个相互作用过程。
-
-另一种就是物理-化学复合刻蚀，它的作用机制相比起纯物理刻蚀，其轰击离子引发的化学腐蚀作用也参与刻蚀过程，是物理轰击与化学反应的协同作用。
-
-#### 4.3.1 溅射刻蚀(Sputtering Etching)
-
-用直流 / 射频(DC/RF)电源激发氩气($Ar$)等惰性(noble)气体，产生高能氩离子($Ar^+$)；离子在电场作用下垂直轰击(vertical bombarment)靶材(target)表面，靠离子动能(particle energy)把靶材原子“撞下来” (remove)实现刻蚀，全程**无化学反应，纯物理轰击(purely physical)**。这样做的优点是**各向异性好**(good anisotropy)，但缺点也显而易见，其**选择性差**(Poor selectivity)。
-
-<img src="/2026/03/16/wafer-processing-peer-tutoring/图21.png" style="zoom:50%;">
-
-图不要求掌握，但上面的过程要能自己用英文表述出来，关键词已经给出。
-
-#### <font color="red">4.3.2 反应离子刻蚀(Reactive Ion Etching)</font>
-
-<p>RIE复合了物理刻蚀和化学刻蚀，用 $CF_4$ 等反应性气体替代惰性氩气作为刻蚀源，这样可以同时发挥两种机制的优势。</p>
+<p>① Wafer dehydration bake; ② HMDS adhesion clean and dry.</p>
+<p><strong>step 2: Spin Coat</strong></p>
+<p>① Make PR to expected Thickness;</p>
+<p>另外，Resist layer thickness depends on the  viscosity of resist and is inversely proportional to the square root of the spin speed, $t{\frac{\alpha}{\omega_2}}$.</p>
+<p>Thinner Resist: ${I_R}\simeq{[\frac{viscosity\times{solid\,content}}{\sqrt{spin\,speed}}]}$，Spin speed越快越好，如果转速越慢，表面的光刻胶就会越厚。</p>
+<p><strong>step 3: Soft Bake</strong></p>
+<p>① Partial evaporation of resist solvents; ② Improves resist-to-wafer adhesion;  ③ Improves etch resistance </p>
+<p>短时间的Pre-bake可以防止由于残留在PR中的的solvent过多而导致的UV light reaching the PAC；</p>
+<p>Over-bake则会增加sensitivity to UV light，甚至可能破坏PAC和减少solubility of the PR。</p>
+<p><strong>step 4: Alignment and Exposure</strong></p>
+<p>① Transfer pattern to wafer; ② Active PAC</p>
+<p><strong>step 5: Post-Exposure Bake</strong></p>
+<p>① Evaporate all solvnent  </p>
+<p>还能减少驻波(standing wave)效应的影响</p>
+<p><strong>step 6: Developing</strong></p>
+<p>① Remove the soluble portion with a solvent; ② Patterning</p>
+<p><strong>step 7: Hard Bake</strong></p>
+<p>① Evaporate solvnent from step6 adhesion;  ② Etch resistance</p>
+<p><strong>step 8: Develop Inspect</strong></p>
+<p>① Check the quality of process to ensure the pattern is transfered</p>
+<h3 id="1-4-Printing"><a href="#1-4-Printing" class="headerlink" title="1.4 Printing"></a>1.4 Printing</h3><p><img src="/2026/03/16/wafer-processing-peer-tutoring/图3.png" alt></p>
+<p>注意：在Contact Printing和Proximity Printing中，掩膜被称作mask，但是在Projection Printing中，则被成为reticle，但实际上两者是一样的。</p>
+<p>另外，在Contact Printing中，mask和photoresist是直接接触的；而在Proximity Printing中，mask和wafer并没有直接接触，这一改动可以prevent dust particles。</p>
+<h3 id="1-5-Minimum-Linewidth-Resolution"><a href="#1-5-Minimum-Linewidth-Resolution" class="headerlink" title="1.5 Minimum Linewidth / Resolution"></a>1.5 Minimum Linewidth / Resolution</h3><p>Resolution for the proximity printer: </p>
+<p>$W_ { min } \simeq { \sqrt { k_1\lambda { g } } } $ ，     $\lambda=\frac { c } { f } $，     $E=h\frac { c } { f } $</p>
+<p>$k_1$ is a constant</p>
+<p>$\lambda$ is Wavelength of the exposure source</p>
+<p>$g$ is Gap between the mask and the wafer surface</p>
+<p>and more larger resolution is better.</p>
+<p><img src="/2026/03/16/wafer-processing-peer-tutoring/图4.png" style="zoom: 67%;"></p>
+<h3 id="1-6-Numerical-Aperture"><a href="#1-6-Numerical-Aperture" class="headerlink" title="1.6 Numerical Aperture"></a>1.6 Numerical Aperture</h3><p>NA is a measure of the ability to collect light</p>
+<p>$NA=nsin\theta$</p>
+<p>Where $n=$refraction index (the medium in which the system is immersed, in this $n=1$ for air)</p>
+<p>So n is for air or water not for LENS.</p>
+<p>$NA=sin\theta\,{\simeq}{\frac{\frac{d}{2}}{f}}={\frac{d}{2f}}$</p>
+<p><img src="/2026/03/16/wafer-processing-peer-tutoring/图5.png" style="zoom: 80%;"></p>
+<h3 id="1-7-Depth-of-Focus"><a href="#1-7-Depth-of-Focus" class="headerlink" title="1.7 Depth of Focus"></a>1.7 Depth of Focus</h3><p><img src="/2026/03/16/wafer-processing-peer-tutoring/图6.png" style="zoom: 67%;"></p>
+<p>Depth of focus:</p>
+<p>$\sigma=\pm { \frac { \frac { W_ { min } } { 2 } } { tan\theta } } \simeq\pm { \frac { \frac { k\lambda } { 2NA } } { sin\theta } } $</p>
+<p>$\sigma=\pm { \frac { \frac { k\lambda } { 2NA } } { \frac { NA } { n } } \simeq \pm  { \frac { nk_2 { \lambda } } { (NA)^2 } } } $</p>
+<p><strong>$\sigma$越大越好，因为DOF就是光刻系统能清晰成像的垂直晶圆方向的高度范围</strong>。$\lambda$越小或者$NA$越大，则$\sigma$越小。</p>
+<h3 id="1-8-光强度图"><a href="#1-8-光强度图" class="headerlink" title="1.8 光强度图"></a>1.8 光强度图</h3><p><img src="/2026/03/16/wafer-processing-peer-tutoring/图7.png" style="zoom: 67%;">   <img src="/2026/03/16/wafer-processing-peer-tutoring/图8.png" style="zoom: 80%;"></p>
+<p>左边是Contact Printeing，右边是Proximity Printing。</p>
+<p><img src="/2026/03/16/wafer-processing-peer-tutoring/图9.png" alt></p>
+<p>上面的光强度图要求要会画，三种光刻模式都要会。</p>
+<h3 id="1-9-Modulation-transfer-function-MTF"><a href="#1-9-Modulation-transfer-function-MTF" class="headerlink" title="1.9 Modulation transfer function (MTF)"></a>1.9 Modulation transfer function (MTF)</h3><p>We hope projection printer shows no diffraction, like contact printer light and dark edge is very sharp.</p>
+<p><strong> $MTF=\frac { I<em> { max } - I</em> { min } } { I<em> { max } + I</em> { min } } $ </strong>，MTF is for optical system(Lens) and bigger the better.</p>
+<h2 id="2-光刻胶技术-resist-technology"><a href="#2-光刻胶技术-resist-technology" class="headerlink" title="2 光刻胶技术(resist technology)"></a>2 光刻胶技术(resist technology)</h2><h3 id="2-1-Contrast-curve"><a href="#2-1-Contrast-curve" class="headerlink" title="2.1 Contrast curve"></a>2.1 Contrast curve</h3><p><img src="/2026/03/16/wafer-processing-peer-tutoring/图10.png" alt></p>
+<p>A good resist, Dose critical is 50,</p>
+<p>You shine 51 dose, all resist is soluble;</p>
+<p>You shine 49 dose, nothing happened.</p>
+<p><strong>一个重要的参数：</strong></p>
+<p>Sensitivity: $D_ { 100 } (D_f)$</p>
+<p>Chemical contrast $\gamma$ $\rightarrow$ slope of curve defined as:</p>
+<p><strong>$\gamma= \frac { 1 } {log<em> { 10 } \frac { (D</em>{ 100 } ) } { D_ { 0 } } }$</strong></p>
+<h3 id="2-2-Critical-Modulation-transfer-function-CMTF"><a href="#2-2-Critical-Modulation-transfer-function-CMTF" class="headerlink" title="2.2 Critical Modulation transfer function (CMTF)"></a>2.2 Critical Modulation transfer function (CMTF)</h3><p>从上面的 $\gamma$ 可以推导出CMTF：</p>
+<p>$CMTF=\frac { D_f-D_0 } { D_f+D_0 }=\frac { 10^ { \frac { 1 } { \gamma } }-1 } { 10^ { \frac { 1 } { \gamma } } +1 }$</p>
+<p>$MFT$ 的数值是越高越好，但是 $CMTF$ 却是越低越好。而且一般来说 $MTF\geqslant { CMTF } $ is required for the resist to resolve the aerial image.</p>
+<h3 id="2-3-Components-of-Resist"><a href="#2-3-Components-of-Resist" class="headerlink" title="2.3 Components of Resist"></a>2.3 Components of Resist</h3><p>① Resin（树脂）<br>Give resist mechanical and chemical properties.<br>② Sensitiser（光敏）<br>Photo active compound (PAC/ PAG) .<br>③ Solvent（溶剂）<br>Keeps resist in liquid state；<br>Allows spin coating of the resist.<br>④ Additives（添加剂）<br>Improve Etch resistivity and implant blocking capability.</p>
+<h3 id="2-4-Advantages-and-Disadvantages-of-Resists"><a href="#2-4-Advantages-and-Disadvantages-of-Resists" class="headerlink" title="2.4 Advantages and Disadvantages of Resists"></a>2.4 Advantages and Disadvantages of Resists</h3><p><img src="/2026/03/16/wafer-processing-peer-tutoring/图11.png" alt></p>
+<p>注意：正光刻胶是在光照中被溶解，而负光刻胶是在光照中被固化。</p>
+<p>现在工业中更喜欢使用正光刻胶，因为有更好的Resolution。</p>
+<h3 id="2-5-Chemically-Amplified-DUV-Resist（化学放大深紫外光刻胶）"><a href="#2-5-Chemically-Amplified-DUV-Resist（化学放大深紫外光刻胶）" class="headerlink" title="2.5 Chemically Amplified DUV Resist（化学放大深紫外光刻胶）"></a>2.5 Chemically Amplified DUV Resist（化学放大深紫外光刻胶）</h3><p>关键是CA Chemical Amplify:</p>
+<p>DUV makes PAG Photo Acid Generator to generate acid, PEB diffusion acid</p>
+<h3 id="2-6-Standing-wave-effect"><a href="#2-6-Standing-wave-effect" class="headerlink" title="2.6 Standing wave effect"></a>2.6 Standing wave effect</h3><p>解释：Input light reflected and diffusion with reflected light, standing wave formed Zigzag or swing curve</p>
+<p><strong>如何减少驻波效应:</strong></p>
+<p><strong>① Dye PR more absorption</strong></p>
+<p><strong>② PEB flat the zigzag（PEB also helps by smoothing out the zigzag due to resist thermal reflow）</strong> </p>
+<p><strong>③ ARC anti-reflective</strong></p>
+<h2 id="3-先进光刻-Advanced-Lithography"><a href="#3-先进光刻-Advanced-Lithography" class="headerlink" title="3 先进光刻(Advanced Lithography)"></a>3 先进光刻(Advanced Lithography)</h2><p>有以下几种：</p>
+<ul>
+<li><strong>Optical enhancement techniques</strong></li>
+<li><strong>Immersion lithography</strong></li>
+<li>X-ray lithography</li>
+<li>EUV Lithography</li>
+<li>E-beam and SCALPEL lithography</li>
+</ul>
+<p>而要提高分辨率，我们先来看看有几种方式：</p>
+<p><img src="/2026/03/16/wafer-processing-peer-tutoring/图12.png" style="zoom:80%;"></p>
+<h3 id="3-1-光学增效技术-Optical-enhancement-techniques"><a href="#3-1-光学增效技术-Optical-enhancement-techniques" class="headerlink" title="3.1 光学增效技术(Optical enhancement techniques)"></a>3.1 光学增效技术(Optical enhancement techniques)</h3><p><strong>以下所有的内容的考试要求：会画图加上面那段话背下来会解释即可。</strong></p>
+<h4 id="3-1-1-相移掩膜-Phase-Shift-Mask"><a href="#3-1-1-相移掩膜-Phase-Shift-Mask" class="headerlink" title="3.1.1 相移掩膜(Phase Shift Mask)"></a>3.1.1 相移掩膜(Phase Shift Mask)</h4><p>With PSM, the reticle is modified with an additional transparent layer so that alternating clear regions cause the light to be phase-shifted 180°. </p>
+<p><img src="/2026/03/16/wafer-processing-peer-tutoring/图13.png" style="zoom: 80%;"></p>
+<h4 id="3-1-2-光学邻近校正-Optical-Proximity-Correction"><a href="#3-1-2-光学邻近校正-Optical-Proximity-Correction" class="headerlink" title="3.1.2 光学邻近校正(Optical Proximity Correction)"></a>3.1.2 光学邻近校正(Optical Proximity Correction)</h4><p>The approach involves adding extra features to the mask, usually at corners where features are sharp, to compensate for the high-frequency information lost due to diffraction effects.<br><img src="/2026/03/16/wafer-processing-peer-tutoring/图14.png" alt></p>
+<h4 id="3-1-3-离轴照明-Off-Axis-Illumination"><a href="#3-1-3-离轴照明-Off-Axis-Illumination" class="headerlink" title="3.1.3 离轴照明(Off-Axis Illumination)"></a>3.1.3 离轴照明(Off-Axis Illumination)</h4><p>If the incident light source is illuminated at an angle with respect to the lens system(off-axis), higher order diffracted rays can be collected using the lens of the same size.<br><img src="/2026/03/16/wafer-processing-peer-tutoring/图15.png" alt></p>
+<h3 id="3-2-浸润式光刻-Immersion-Lithography"><a href="#3-2-浸润式光刻-Immersion-Lithography" class="headerlink" title="3.2 浸润式光刻(Immersion Lithography)"></a>3.2 浸润式光刻(Immersion Lithography)</h3><p>有两种方法：</p>
+<ul>
+<li>Approach 1:<ul>
+<li>Same lens column design</li>
+<li>Maintain resolution</li>
+<li>Improve Depth of Focus (DOF)</li>
+</ul>
+</li>
+<li>Approach 2:<ul>
+<li>Modified lens column: Hyper-NA ($&gt;1.0$)</li>
+<li>Improve resolution</li>
+<li>Lower DOF(牺牲 了DOF)</li>
+</ul>
+</li>
+</ul>
+<p>这里着重讲一下<strong>方法一，</strong>这一方法是通过保持 $\sin\theta$ 不变，利用高 $n$ 提升 $NA$ 的同时，可优化焦深。<br><img src="/2026/03/16/wafer-processing-peer-tutoring/图16.png" alt></p>
+<p>注意： $n$ 不是一直都等于1的，在不同介质是会变化的。</p>
+<h3 id="3-3-X-ray-lithography"><a href="#3-3-X-ray-lithography" class="headerlink" title="3.3 X-ray lithography"></a>3.3 X-ray lithography</h3><p>这块内容只需要知道优缺点即可。</p>
+<p><strong>优点：</strong></p>
+<ul>
+<li>High resolution</li>
+<li>Reduced diffraction effect</li>
+</ul>
+<p><strong>缺点：</strong></p>
+<ul>
+<li><p>Expensive X-ray source</p>
+</li>
+<li><p>Absorption problem (mask)</p>
+</li>
+<li><p>Shadowing errors</p>
+</li>
+<li><p>Non-monochromatic X-ray source</p>
+</li>
+<li><p>Low throughput</p>
+</li>
+</ul>
+<h3 id="3-4-EUV-Lithography"><a href="#3-4-EUV-Lithography" class="headerlink" title="3.4 EUV Lithography"></a>3.4 EUV Lithography</h3><p>给出下面这张图能认出来是EUV光刻即可，当然最好还是记一下名称啥的：<br><img src="/2026/03/16/wafer-processing-peer-tutoring/图17.png" alt></p>
+<h3 id="3-5-E-beam-lithography"><a href="#3-5-E-beam-lithography" class="headerlink" title="3.5 E-beam lithography"></a>3.5 E-beam lithography</h3><p>最好会画图，并且知道各部分器件名称：</p>
+<p><img src="/2026/03/16/wafer-processing-peer-tutoring/图18.png" alt></p>
+<p>因为光学光刻的分辨率受<strong>衍射极限</strong>（瑞利判据）的限制，而电子的德布罗意波长远小于光学波长（193nm/EUV 13.5nm），因此理论上完全不受衍射限制，这也是电子束光刻超高分辨率的根本原因。电子的德布罗意波长公式如下：</p>
+<script type="math/tex; mode=display">
+\lambda=\frac{h}{\sqrt{2me}}</script><p>在上面式子中，$m$ 为电子质量，$e$ 为元电荷，$h$ 为普朗克常数。</p>
+<p><strong>Example:</strong></p>
+<p>Discuss the implication to the maximum allowable proximity gap of the exposure systemmentioned in previous question (A lithography exposure system deploys an Hg arc lamp with three available wavelengths – 436nm (g-line), 405nm (h-line) and 365nm (i-line) respectively. ), if:<br>a. The optical source is changed to X-ray as opposed to Hg arc lamp used in the earliercase.<br>b. Phase shift masks are used in the exposure.</p>
+<p><strong>Answer:</strong></p>
+<p>a. If the optical source is changed to X-ray as opposed to Hg arc lamp used in the earlier case,<br>λ is smaller, larger g (max allowable proximity)<br>b. If the phase shift masks are used in the exposure, k is smaller, larger g (max allowable proximity)</p>
+<h2 id="4-干法刻蚀-Dry-Etching"><a href="#4-干法刻蚀-Dry-Etching" class="headerlink" title="4 干法刻蚀(Dry Etching)"></a>4 干法刻蚀(Dry Etching)</h2><p>最重要的一句话：<strong>Dry etch uses gas phase etchants in plasma.</strong></p>
+<p>为什么要选择干法刻蚀，有下面三个原因：</p>
+<ul>
+<li><p>Achieve desirable profile (slope or vertical)</p>
+</li>
+<li><p>Minimal undercut</p>
+</li>
+<li><p>Uniformity and reproducibility</p>
+</li>
+</ul>
+<h3 id="4-1-干法刻蚀中的各向异性-Anisotropy"><a href="#4-1-干法刻蚀中的各向异性-Anisotropy" class="headerlink" title="4.1 干法刻蚀中的各向异性(Anisotropy)"></a>4.1 干法刻蚀中的各向异性(Anisotropy)</h3><p><img src="/2026/03/16/wafer-processing-peer-tutoring/图19.png" style="zoom: 80%;"></p>
+<p>上图是刻蚀工艺中各向同性<strong>(Isotropic)</strong>和各向异性<strong>(Anisotropic)</strong>刻蚀的对比。</p>
+<p>左边表现出的是各向同性：其是由于化学粒子(Chemical)做<strong>无规则、各方向的随机运动</strong>，因此没有定向性，会从上下左右各个方向攻击薄膜，形成的沟槽宽度就会大于掩膜开口。</p>
+<p>右图则是各向异性，它的形成是由于离子(Ionic Species)在<strong>外加偏压(Applied Bias)</strong>的电场作用下，做<strong>垂直向下的定向(directional)运动</strong>，只攻击沟槽底部的薄膜，几乎不攻击侧壁，因此其沟槽宽度和掩膜开口几乎一致。</p>
+<h3 id="4-2-等离子体-Plasma-的产生与过程"><a href="#4-2-等离子体-Plasma-的产生与过程" class="headerlink" title="4.2 等离子体(Plasma)的产生与过程"></a>4.2 等离子体(Plasma)的产生与过程</h3><p>这节最重要的就是下图：<br><img src="/2026/03/16/wafer-processing-peer-tutoring/图20.png" style="zoom:50%;"></p>
+<p>这张图只要记住等离子体是如何产生的即可，方程式可以不用记住，大概就是下面这四个过程：</p>
+<ul>
+<li><strong>Dissociation </strong></li>
+<li><strong>Ionisation </strong></li>
+<li><strong>Excitation </strong></li>
+<li><strong>Recombination</strong></li>
+</ul>
+<h3 id="4-3-等离子体与基底的相互作用"><a href="#4-3-等离子体与基底的相互作用" class="headerlink" title="4.3 等离子体与基底的相互作用"></a>4.3 等离子体与基底的相互作用</h3><p>主要有两种形式：</p>
+<p>一种是纯物理刻蚀，其作用机制是表面被高能离子轰击，离子在表面的动能损失主导整个相互作用过程。</p>
+<p>另一种就是物理-化学复合刻蚀，它的作用机制相比起纯物理刻蚀，其轰击离子引发的化学腐蚀作用也参与刻蚀过程，是物理轰击与化学反应的协同作用。</p>
+<h4 id="4-3-1-溅射刻蚀-Sputtering-Etching"><a href="#4-3-1-溅射刻蚀-Sputtering-Etching" class="headerlink" title="4.3.1 溅射刻蚀(Sputtering Etching)"></a>4.3.1 溅射刻蚀(Sputtering Etching)</h4><p>用直流 / 射频(DC/RF)电源激发氩气($Ar$)等惰性(noble)气体，产生高能氩离子($Ar^+$)；离子在电场作用下垂直轰击(vertical bombarment)靶材(target)表面，靠离子动能(particle energy)把靶材原子“撞下来” (remove)实现刻蚀，全程<strong>无化学反应，纯物理轰击(purely physical)</strong>。这样做的优点是<strong>各向异性好</strong>(good anisotropy)，但缺点也显而易见，其<strong>选择性差</strong>(Poor selectivity)。</p>
+<p><img src="/2026/03/16/wafer-processing-peer-tutoring/图21.png" style="zoom:50%;"></p>
+<p>图不要求掌握，但上面的过程要能自己用英文表述出来，关键词已经给出。</p>
+<h4 id="4-3-2-反应离子刻蚀-Reactive-Ion-Etching"><a href="#4-3-2-反应离子刻蚀-Reactive-Ion-Etching" class="headerlink" title="4.3.2 反应离子刻蚀(Reactive Ion Etching)"></a><font color="red">4.3.2 反应离子刻蚀(Reactive Ion Etching)</font></h4><p>RIE复合了物理刻蚀和化学刻蚀，用 $CF_4$ 等反应性气体替代惰性氩气作为刻蚀源，这样可以同时发挥两种机制的优势。</p>
 <p>其中物理刻蚀同样也是离子轰击，这里不再作赘述。主要来阐述化学刻蚀部分，其是反应性刻蚀剂与目标材料反应，生成挥发性产物。</p>
 <p>这种复合机制的好处是不仅保留了高各向异性，还同时提高了选择性，也大幅提升刻蚀速率。</p>
 <p><strong>这一节最重要的，也是必考的考点就是下面的组成图和它的工作机理，一定要会画图，并且对其工作机理要能用一段话描述出来：</strong></p>
@@ -1566,7 +1397,7 @@ R=\frac { R_o } { (1+kA) }</script><p>Substituting the data gives：</p>
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">40k</span>
+                        class="white-color">39.9k</span>
             
             
             

@@ -44,42 +44,42 @@ body {
 }
 
 h1 {
-    margin: 32px 0 22px -5px;
+    margin: 32px 0 23px -5px;
     font-size: 2.2rem;
     font-weight: bold;
     line-height: 2.2rem;
 }
 
 h2 {
-    margin: 26px 0 18px -5px;
+    margin: 26px 0 19px -5px;
     font-size: 2.0rem;
     font-weight: bold;
     line-height: 2.0rem;
 }
 
 h3 {
-    margin: 22px 0 15px -4px;
+    margin: 22px 0 16px -4px;
     font-size: 1.8rem;
     font-weight: bold;
     line-height: 1.9rem;
 }
 
 h4 {
-    margin: 16px 0 12px -4px;
+    margin: 16px 0 13px -4px;
     font-size: 1.65rem;
     font-weight: bold;
     line-height: 1.65rem;
 }
 
 h5 {
-    margin: 12px 0 8px -4px;
+    margin: 12px 0 9px -4px;
     font-size: 1.4rem;
     font-weight: bold;
     line-height: 1.4rem;
 }
 
 h6 {
-    margin: 8px 0 4px -4px;
+    margin: 8px 0 5px -4px;
     font-size: 1.3rem;
     line-height: 1.3rem;
 }
@@ -90,7 +90,7 @@ p {
 }
 
 hr {
-    margin: 18px 0;
+    margin: 20px 0;
     border: 0;
     border-top: 1px solid #ccc;
 }

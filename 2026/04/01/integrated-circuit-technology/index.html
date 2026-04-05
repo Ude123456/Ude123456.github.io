@@ -4,8 +4,8 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Integrated Circuit Technology, 博客，沫墨">
-    <meta name="description" content="">
+    <meta name="keywords" content="Integrated Circuit Technology(EE7602), 博客，沫墨">
+    <meta name="description" content="1 闩锁效应(Latch-up)CMOS 电路的一个主要问题是器件闩锁效应，这是一种内部反馈机制，会导致电路功能暂时或永久丧失。闩锁效应是基于体硅晶圆制造的 CMOS 电路所固有的问题。闩锁效应与电路密度密切相关，尤其是 nMOS 与 pM">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -17,7 +17,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>Integrated Circuit Technology | 沫墨</title>
+    <title>Integrated Circuit Technology(EE7602) | 沫墨</title>
     <link rel="icon" type="image/png" href="/favicon.png">
     
 
@@ -481,12 +481,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/0.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/16.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">Integrated Circuit Technology</h1>
+                    <h1 class="description center-align post-title">Integrated Circuit Technology(EE7602)</h1>
                 </div>
             </div>
         </div>
@@ -508,12 +508,25 @@
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                          <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
-                          </div>
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E9%9B%86%E6%88%90%E7%94%B5%E8%B7%AF%EF%BC%8CLatch-up/">
+                                <span class="chip bg-color">集成电路，Latch-up</span>
+                            </a>
+                        
+                    </div>
                     
                 </div>
                 <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/%E5%8D%8A%E5%AF%BC%E4%BD%93%E5%88%B6%E9%80%A0%E4%B8%8E%E9%9B%86%E6%88%90%E7%94%B5%E8%B7%AF%E6%8A%80%E6%9C%AF/" class="post-category">
+                                半导体制造与集成电路技术
+                            </a>
+                        
+                    </div>
                     
                 </div>
             </div>
@@ -531,7 +544,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    0
+                    763
                 </div>
                 
 
@@ -551,7 +564,52 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                
+                <h1 id="1-闩锁效应-Latch-up"><a href="#1-闩锁效应-Latch-up" class="headerlink" title="1 闩锁效应(Latch-up)"></a>1 闩锁效应(Latch-up)</h1><p>CMOS 电路的一个主要问题是器件闩锁效应，这是一种内部反馈机制，会导致电路功能暂时或永久丧失。闩锁效应是基于体硅晶圆制造的 CMOS 电路所固有的问题。闩锁效应与电路密度密切相关，尤其是 nMOS 与 pMOS 的间距。随着 CMOS 特征尺寸持续缩小，横向与纵向尺寸按比例缩减，使得寄生双极型晶体管性能增强。因此，在超大规模集成电路（ULSI）中，闩锁效应已成为日益受关注的问题。如今在制造商的认证流程以及客户应用中，闩锁效应仍然是潜在且严重的失效来源。</p>
+<p>闩锁效应是指在 CMOS 电路的电源引脚（VDD）与地（或 VSS）之间形成低阻抗通路的一种状态。该状态由触发因素（电流注入或过电压）引起。一旦被触发，即使触发因素消失，低阻抗通路仍可能持续存在。这种低阻抗通路会因电流过大导致系统工作异常或造成灾难性损坏。</p>
+<p>Latch-up: </p>
+<ol>
+<li>闩锁触发，图要会画，原理会讲出来就可以，以及它的等效电路图</li>
+<li><p>会引起闩锁效应的几个原因，总共四个，一定要背下来</p>
+</li>
+<li><p>要会描述雪崩击穿、p+过压、n+过压。</p>
+</li>
+<li>要知道如何测量维持电压和维持电流<ul>
+<li>先强制开机，再慢慢降压关机</li>
+</ul>
+</li>
+<li>要知道两种保持特性，分别是采用恒压源激励并测量电压；以及采用恒流源激励并测量电压。而且还要会画图</li>
+<li>如何减弱闩锁效应的影响：<ul>
+<li>增大nmos和pmos的距离</li>
+<li>降低I_RW和I_RS</li>
+</ul>
+</li>
+</ol>
+<p>ESD: </p>
+<ol>
+<li><p>要能描述三个经典模型的放电路径，并且会画电路图，并且电流波形图也要熟悉</p>
+</li>
+<li><p>两种片上ESD保护的方式要记住，一种是本地钳位，另一种是电源轨钳位</p>
+</li>
+<li><p>ESD所有电路保护的要求目标都要会背</p>
+<p><img src="/2026/04/01/integrated-circuit-technology/Users\把航写进诗尾\AppData\Roaming\Typora\typora-user-images\image-20260402150205079.png" alt="image-20260402150205079"></p>
+</li>
+<li><p>要知道ESD保护的三种方式，然后还要会画电路图，还要会画I-V特性曲线</p>
+<p>这部分碰到的电路图和剖面图全部要求都会画。</p>
+</li>
+<li><p>RC检测电路和SRC钳位合作排静电的原理要会描述，还要会画图，电路图一定要会</p>
+</li>
+<li><p>电源轨要会</p>
+</li>
+<li><p>TLP测试要知道是什么，而且要知道是怎么测的，也就是过程是啥样的</p>
+<ul>
+<li>先给器件打一个低电压的 TLP 脉冲，测对应的电流，得到一个「电压 V，电流 I」的数据点；</li>
+<li>慢慢提高脉冲的电压，每次测一个（V,I）点；</li>
+<li>每次打完脉冲，给器件留 1~2 秒的散热时间，不会把器件烧坏；</li>
+<li>把所有的点连起来，就是器件的<strong>瞬态 I-V 曲线</strong>，完美还原器件在 ESD 冲击下的完整行为。</li>
+</ul>
+</li>
+</ol>
+
                 
             </div>
             <hr/>
@@ -614,7 +672,11 @@
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
+                            
+                                <a href="/tags/%E9%9B%86%E6%88%90%E7%94%B5%E8%B7%AF%EF%BC%8CLatch-up/">
+                                    <span class="chip bg-color">集成电路，Latch-up</span>
+                                </a>
+                            
                         </div>
                     
                 </div>
@@ -700,9 +762,9 @@
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="Integrated Circuit Technology">
+                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="Integrated Circuit Technology(EE7602)">
                         
-                        <span class="card-title">Integrated Circuit Technology</span>
+                        <span class="card-title">Integrated Circuit Technology(EE7602)</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -717,13 +779,25 @@
                             </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-user fa-fw"></i>
-                            Jeremy Yang
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E5%8D%8A%E5%AF%BC%E4%BD%93%E5%88%B6%E9%80%A0%E4%B8%8E%E9%9B%86%E6%88%90%E7%94%B5%E8%B7%AF%E6%8A%80%E6%9C%AF/" class="post-category">
+                                    半导体制造与集成电路技术
+                                </a>
+                            
                             
                         </span>
                     </div>
                 </div>
 
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E9%9B%86%E6%88%90%E7%94%B5%E8%B7%AF%EF%BC%8CLatch-up/">
+                        <span class="chip bg-color">集成电路，Latch-up</span>
+                    </a>
+                    
+                </div>
                 
             </div>
         </div>
@@ -931,6 +1005,13 @@
 </main>
 
 
+<script src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+    MathJax.Hub.Config({
+        tex2jax: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+    });
+</script>
+
 
 
     <footer class="page-footer bg-color">
@@ -1003,7 +1084,7 @@
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">84k</span>
+                        class="white-color">84.9k</span>
             
             
             

@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="Integrated Circuit Technology(EE7602), 博客，沫墨">
-    <meta name="description" content="1 闩锁效应(Latch-up)CMOS 电路的一个主要问题是器件闩锁效应，这是一种内部反馈机制，会导致电路功能暂时或永久丧失。闩锁效应是基于体硅晶圆制造的 CMOS 电路所固有的问题。闩锁效应与电路密度密切相关，尤其是 nMOS 与 pM">
+    <meta name="description" content="1 闩锁效应(Latch-up)CMOS 电路的一个主要问题是器件闩锁效应，这是一种内部反馈机制，是在 CMOS 电路的电源引脚（VDD）与地（或 VSS）之间形成低阻抗通路的一种状态。该状态由触发因素（电流注入或过电压）引起。一旦被触发，">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -544,7 +544,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    763
+                    6.6k
                 </div>
                 
 
@@ -564,20 +564,298 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="1-闩锁效应-Latch-up"><a href="#1-闩锁效应-Latch-up" class="headerlink" title="1 闩锁效应(Latch-up)"></a>1 闩锁效应(Latch-up)</h1><p>CMOS 电路的一个主要问题是器件闩锁效应，这是一种内部反馈机制，会导致电路功能暂时或永久丧失。闩锁效应是基于体硅晶圆制造的 CMOS 电路所固有的问题。闩锁效应与电路密度密切相关，尤其是 nMOS 与 pMOS 的间距。随着 CMOS 特征尺寸持续缩小，横向与纵向尺寸按比例缩减，使得寄生双极型晶体管性能增强。因此，在超大规模集成电路（ULSI）中，闩锁效应已成为日益受关注的问题。如今在制造商的认证流程以及客户应用中，闩锁效应仍然是潜在且严重的失效来源。</p>
-<p>闩锁效应是指在 CMOS 电路的电源引脚（VDD）与地（或 VSS）之间形成低阻抗通路的一种状态。该状态由触发因素（电流注入或过电压）引起。一旦被触发，即使触发因素消失，低阻抗通路仍可能持续存在。这种低阻抗通路会因电流过大导致系统工作异常或造成灾难性损坏。</p>
-<p>Latch-up: </p>
+                <h1 id="1-闩锁效应-Latch-up"><a href="#1-闩锁效应-Latch-up" class="headerlink" title="1 闩锁效应(Latch-up)"></a>1 闩锁效应(Latch-up)</h1><p>CMOS 电路的一个主要问题是器件闩锁效应，这是一种内部反馈机制，是在 CMOS 电路的电源引脚（VDD）与地（或 VSS）之间形成低阻抗通路的一种状态。该状态由触发因素（电流注入或过电压）引起。一旦被触发，即使触发因素消失，低阻抗通路仍可能持续存在，这种低阻抗通路会导致电路功能暂时或永久丧失。闩锁效应是基于体硅晶圆制造的 CMOS 电路所固有的问题。闩锁效应与电路密度密切相关，尤其是 NMOS 与 PMOS 的间距。随着 CMOS 特征尺寸持续缩小，横向与纵向尺寸按比例缩减，使得寄生双极型晶体管性能增强。</p>
+<p>这里可以举个例子进行解释：把芯片想象成供水系统，那么芯片的电源就是家里的自来水总闸，芯片的地线就是地漏。在正常情况下，总闸的水只会顺着家里的水管流到各个水龙头，不会乱流。现在由于水管和地漏的安装结构，墙里藏了两个互相联动的泄洪阀(阀 A 和阀 B)：如果正常用水，两个阀门都关死，不影响家庭用水，但如果出现意外的水压波动，比如楼下开水泵或有人猛开猛关水龙头，哪怕只是把阀A冲开一条小细缝，漏一点点水，这一点点水刚好冲开阀B。等到阀B一打开，漏出来的水就会反过来把A冲的更开，水流就会更猛，然后阀B就越大，这样循环就会陷入越开越猛，根本停不下来情况。在某个瞬间，两个阀门完全敞开，总闸的自来水就会通过两个阀门，一股脑涌进地漏里，形成一条几乎没有任何阻挡的大水沟。这样的结果就是：超大的水流撑爆水管，使得整个供水系统瘫痪，而且除非是把总闸关断，不然水流就永远不会停。</p>
+<h2 id="1-1-闩锁效应的开关工作原理"><a href="#1-1-闩锁效应的开关工作原理" class="headerlink" title="1.1 闩锁效应的开关工作原理"></a>1.1 闩锁效应的开关工作原理</h2><p>以 N阱-CMOS结构为例：在垂直方向上p+区、N阱和p型衬底构成了寄生纵向的PNP双极型晶体管；在水平方向上，n+区、p型衬底区和 N阱形成了寄生横向NPN器件，如下图所示：</p>
+<p><img src="/2026/04/01/integrated-circuit-technology/图1.png" style="zoom:80%;"></p>
+<p>寄生NPN管的发射极是接 $V<em> { SS }$ 的 n+ 扩散区，基极是 p 衬底，集电极是 n 阱。 $0.7V$ 的压降来自于电流流过 p 衬底的电阻 $R_s$ 时，会在衬底上产生压降 $I</em> { R<em>s } \times R_s$。而NPN管的导通条件就是 p 衬底的局部电位会被拉高，而发射极电位是 $V</em> { SS }$ (0V)，当衬底电位比发射极高 $0.7V$ 时，NPN管的发射结正偏，所以晶体管导通。同样的道理，寄生PNP管的导通条件也是由于n 阱的局部电位会被拉低，而发射极电位是 $V<em> { D D }$，当发射极电位比 n 阱电位高 $0.7V$ 时($V</em> { BE } \simeq 0.7V$)，PNP管的发射结正偏，PNP管也导通。</p>
+<p>此时两个晶体管都导通后，由于PNP管的基极与NPN管的集电极连接，所以NPN集电极电流 $\beta<em> { NPN } \times I_b$ 会流入 n 阱，变成PNP管的基极电流。而PNP管的集电极电流 $\beta</em> { PNP } \times I<em>{ PNP } \times I</em>{ C<em> { PNP } }$ 会流入 p 衬底，进一步增大 $I</em>{R<em>S}$，使得 $R_s$上的压降更大。两个晶体管互相放大，形成正反馈，最终都会进入饱和，$V</em>{ DD }$和 $V_{SS}$ 之间形成低阻通路，电流急剧增大，这就是闩锁效应的形成。</p>
+<p>而要完整分析闩锁效应，我们还需要考虑如何考虑阱区与衬底电阻的影响。 $0.7V$ 压降的产生，正是因为阱和衬底不是理想导体，存在<strong>有限电阻</strong>。而电流流过这些电阻时，会产生$I \times R$ 的欧姆压降，这个压降就是让寄生 BJT 的 $V_ { BE } $ 达到 $0.7V$ 的关键。</p>
+<p><span style="color:red"><strong>接下来根据剖面图和电路图进行分析，考试以及面试必考，图一定要会画，并且会描述。</strong></span></p>
+<p><img src="/2026/04/01/integrated-circuit-technology/图2.png" style="zoom:80%;"></p>
+<p>NPN集电极的电流 $I<em>b \beta</em>{NPN}$ 不会完全流入 PNP管的 基极，因为它的一部分通过阱电阻分流到 n+ 阱触点。该电流表示为 $I<em>{R_w}$，剩余电流才成为PNP管的基极电流。因此，PNP管集电极电流为 $(I_b \beta</em> { NPN } -I<em> { R_w } ) \beta</em>{PNP}$。同样的，一部分PNP管的集电极电流通过衬底电阻 $R_s$ 分流到衬底触点。因此流入NPN管基极的反馈电流为：</p>
+<script type="math/tex; mode=display">
+(I_b \beta_ { NPN } -I_ { R_w } ) \beta_{PNP}-I_{R_s}</script><p>触发闩锁效应就需要让两个管子形成正反馈，进入NPN基极的电流必须大于原本NPN的基极电流，因此：</p>
+<script type="math/tex; mode=display">
+(I_b \beta_ { NPN } -I_ { R_w } ) \beta_{PNP}-I_{R_s} > I_b \tag{1}</script><p>当加入衬底电阻和 n-well电阻建立模型时，对于NPN管，三个极的电流满足：</p>
+<script type="math/tex; mode=display">
+I_e=I_c+I_b</script><p>集电极电流为 $I<em>c=\beta</em> { NPN } \times I_b$，代入得：</p>
+<script type="math/tex; mode=display">
+I_e=\beta_ { NPN } \cdot I_b+I_b=(\beta_{ NPN } + 1 )I_b</script><p>此时 NPN管的发射极直接接 $V<em>{ SS }$，所以 $I_e$ 就是从 NPN 流到地的电流。除了 NPN管的发射极电流，还有一部分电流会从 p 衬底通过衬底电阻 $R_s$ 流到地，这就是衬底漏电流，也就是 $I</em>{R_s}$。</p>
+<p>所以最终流到地的电流就是NPN发射极电流和衬底漏电流的总和：</p>
+<script type="math/tex; mode=display">
+I_{dd}=I_{R_s}+I_c=I_{R_s}+(\beta_{ NPN } + 1 )I_b \tag{2}</script><p>将等式(2) 代入不等式(1) 中可得：</p>
+<script type="math/tex; mode=display">
+\beta_ { NPN } \beta_{ PNP } >1+ frac { (\beta_ { NPN } +1)( I_ { R_s }+I_{R_w} \beta_{ PNP } ) } {I_{ dd }-I_{ R_s } } \tag{3}</script><p> 最终这个不等式就是触发闩锁效应的必要充分条件。其中，$I<em>{R_s} \simeq \frac{V</em> { ben } } { R<em>s }$，$V</em>{ben}$ 是NPN的基极-发射极电压；$I<em>{R_w} \simeq \frac{V</em> { bep } } { R<em>w }$，$V</em>{bep}$ 是PNP的基极-发射极电压。</p>
+<p>所以根据上面的不等式(3)，我们可以发现，如果要避免闩锁，可以有两种方式：</p>
+<ul>
+<li>降低NPN管和PNP管的共基极增益；</li>
+<li>增加打开NPN管和PNP管所需的 $I<em>{R_s}$ 和 $I</em>{R_w}$，根据欧姆定律就可以得到其实我们降低n-well和p衬底的电阻即可。</li>
+</ul>
+<h2 id="1-2-闩锁效应产生的原因"><a href="#1-2-闩锁效应产生的原因" class="headerlink" title="1.2 闩锁效应产生的原因"></a>1.2 闩锁效应产生的原因</h2><p><span style="color:red"><strong>一样是面试必问：</strong></span></p>
 <ol>
-<li>闩锁触发，图要会画，原理会讲出来就可以，以及它的等效电路图</li>
-<li><p>会引起闩锁效应的几个原因，总共四个，一定要背下来</p>
+<li>I/O端口的信号变换超过 $V_{DD}$(Overvoltage) 和 Ground(Undervoltage) 之间的范围时，就会有大量的电流在芯片中产生，就会导致SCR的触发；</li>
+<li>ESD静电加压，从保护电路中引入带点载流子进入n-well或衬底中，也会导致SCR的触发；</li>
+<li>许多驱动器一同工作，负载过大使得 $V_{DD}$ 或 ${GND}$ 突然变化，也可能会打开SCR的BJT。</li>
+</ol>
+<blockquote>
+<p>另外，闩锁效应主要分为两类：</p>
+<ul>
+<li>内部闩锁(ILU)：由内部电路引起，如电源弹跳、片上传输线反射或载流子生成，触发体硅 CMOS 中的寄生 SCR。</li>
+<li>外部闩锁(ELU)：由 I/O 电路接收的片外信号触发，这些信号产生大幅电压波动或载流子注入。若载流子未限制在 I/O 单元内，可能触发 I/O 电路或邻近内部电路中的闩锁。</li>
+</ul>
+</blockquote>
+<h2 id="1-3-闩锁特性"><a href="#1-3-闩锁特性" class="headerlink" title="1.3 闩锁特性"></a>1.3 闩锁特性</h2><h3 id="1-3-1-雪崩击穿触发闩锁"><a href="#1-3-1-雪崩击穿触发闩锁" class="headerlink" title="1.3.1 雪崩击穿触发闩锁"></a>1.3.1 雪崩击穿触发闩锁</h3><p>CMOS 的 N 阱(接 $V_{CC}$)和 p 衬底(接地)之间是天然反偏的 PN 结。如果电源电压远超过芯片手册额定值，达到这个 PN 结的<strong>雪崩击穿电压</strong>，就会发生雪崩击穿，瞬间产生大量的电子和空穴对，形成超大的阱电流以及衬底电流。</p>
+<p>这个大电流流过 $R_s$ 和 $R_w$，产生 $ \geq 0.7V$ 的压降，把寄生NPN管和PNP管同时打开，触发正反馈，闩锁发生。</p>
+<p><span style="color:red"><strong>这里最重要的就是它的$I-V$特性曲线，如图所示：</strong></span></p>
+<p><img src="/2026/04/01/integrated-circuit-technology/图3.png" style="zoom:80%;"></p>
+<p>曲线分为 3 个区域：</p>
+<ul>
+<li>截止区(OFF region)：电压低于触发电压，电流几乎为 0；</li>
+<li>触发点($V_S$)：电压达到触发电压 $V_S$，电流骤增；</li>
+<li>导通区(ON region)：器件闩锁导通，大电流低阻抗。</li>
+</ul>
+<p><strong>核心参数：</strong></p>
+<ul>
+<li><strong>保持电流$I_H$</strong>：维持闩锁导通的最小电流；</li>
+<li><strong>保持电压$V_H$</strong>：维持闩锁导通的最小电压。</li>
+</ul>
+<h3 id="1-3-2-p-过压触发闩锁"><a href="#1-3-2-p-过压触发闩锁" class="headerlink" title="1.3.2 p+过压触发闩锁"></a>1.3.2 p+过压触发闩锁</h3><p>p+过压就是PMOS管的p+源漏极电压被抬得<strong>比电源 $V_{DD}$还要高</strong>。这个过高的电压会向N阱注入电流，电流流过衬底电阻 $R_s$ 产生压降，把寄生NPN管打开，进而触发 SCR 正反馈，闩锁发生。<span style="color:red"><strong>图一定要记得，不能跟前面的记混了：</strong></span></p>
+<p><img src="/2026/04/01/integrated-circuit-technology/图4.png" style="zoom:80%;"></p>
+<p><span style="color:red"><strong>下面给出 $I-V$特性曲线，只要大概记得图，能画个大概就可以了：</strong></span></p>
+<p><img src="/2026/04/01/integrated-circuit-technology/图5.png" style="zoom:80%;"></p>
+<p>接下来是几个必考的核心参数以及公式：</p>
+<p>随着p+区的电压($V_p$)升高，流向p+区的电流($I_p$)和电源电流($I_s$)均会增大，电流急剧上升，直至电流达到足以诱发闩锁的临界值。其中，几个关键参数的含义如下：</p>
+<ol>
+<li><strong>触发电流$I_{TRIG}$</strong>：闩锁即将触发前，注入到p+端的电流；</li>
+<li><strong>临界电流$I_{CRIT}$</strong>：闩锁即将触发前，对应的电源电流；</li>
+<li><strong>触发电压$V_{TRIG}$</strong>：闩锁刚开始触发时，p+端的电压。</li>
+</ol>
+<p><span style="color:red"><strong>为了运算以及记忆方便，我们将触发电流和临界电流分别写为 $I_p$ 和 $I_s$，由此我们可以得到如下公式，公式是必须会的：</strong></span></p>
+<script type="math/tex; mode=display">
+I_p=I_ { TRIG } \simeq \frac { V_ { ben } } { \alpha_ { PNP } R_s } \\
+I_s=I_ { CRIT } \simeq \frac { V_ { ben } } { R_s}</script><p>上式中的 $\alpha$ 是共基极电流增益，定义为：$\alpha =\frac{I_c} {I_e} (\alpha &lt;1)$，$\beta$ 与 $\alpha$ 的关系为：$\beta= \frac { \alpha } { 1- \alpha }$。</p>
+<p>给出上述公式推导：</p>
+<p>衬底电阻 Rs 上的压降为：$V<em>{ben}=I</em>{R<em>s} \cdot R_s$，又因为$\alpha =\frac{I_c} {I_e} $，因为这时候是刚要触发，但还没触发的状态，因为这时候电流还没流过NPN管的基极，因此 $I_c$这部分电流全部流过衬底电阻为 $I</em>{R_s}$。整理一下即可得到上式。</p>
+<h3 id="1-3-3-n-过压触发闩锁"><a href="#1-3-3-n-过压触发闩锁" class="headerlink" title="1.3.3 n+过压触发闩锁"></a>1.3.3 n+过压触发闩锁</h3><p>和p+过压完全对称：n+过压就是NMOS管的n+源漏极电压，被拉得<strong>比地$V_{SS}$还要低</strong>。这个过低的电压会向 p 衬底注入电流，电流流过阱电阻$R_w$产生压降，把寄生PNP管打开，触发 SCR 正反馈，闩锁发生。<span style="color:red"><strong>同样的，图还是要会：</strong></span></p>
+<p><img src="/2026/04/01/integrated-circuit-technology/图6.png" style="zoom:80%;">必考核心公式</p>
+<p><span style="color:red"><strong>接下来还是几个核心参数和公式必须记忆的：</strong></span></p>
+<p>在闩锁即将被触发前注入n+节点的电流($I_n$)称为触发电流，对应的电源电流($I_d$)定义为临界电流。两个电流的关系可表示为：</p>
+<script type="math/tex; mode=display">
+I_n=I_ { TRIG } \simeq \frac { V_ { bep } } { \alpha_ { NPN } R_s } \\
+I_s=I_ { CRIT } \simeq \frac { V_ { bep } } { R_w}</script><p>其中，$V_{bep}$ 就是PNP管发射结正向导通压降。</p>
+<h3 id="1-3-4-稳态闩锁保持特性"><a href="#1-3-4-稳态闩锁保持特性" class="headerlink" title="1.3.4 稳态闩锁保持特性"></a>1.3.4 稳态闩锁保持特性</h3><p>闩锁一旦被触发，就算撤掉触发信号，也不会自己关断，会一直保持导通状态，这就是<strong>闩锁的保持特性</strong>。只有把电源电压或电流降到足够低，才会回到关断状态。</p>
+<ul>
+<li><p><strong>保持电流$I_H$</strong>：维持闩锁持续导通的最小电源电流；</p>
 </li>
-<li><p>要会描述雪崩击穿、p+过压、n+过压。</p>
+<li><p><strong>保持电压$V_H$</strong>：维持闩锁持续导通的最小电源电压；</p>
 </li>
-<li>要知道如何测量维持电压和维持电流<ul>
-<li>先强制开机，再慢慢降压关机</li>
+</ul>
+<p><img src="/2026/04/01/integrated-circuit-technology/图7.png" alt></p>
+<ol>
+<li><span style="color:red"><strong>测量方法：</strong></span><ul>
+<li><span style="color:red"><strong>先通过过压把器件触发到闩锁态</strong></span></li>
+<li><span style="color:red"><strong>撤掉触发信号，缓慢降低电源电压</strong></span></li>
+<li><span style="color:red"><strong>当电源电流突然暴跌(器件回到高阻态)，此时的电压就是VH，对应电流就是IH。</strong></span></li>
 </ul>
 </li>
-<li>要知道两种保持特性，分别是采用恒压源激励并测量电压；以及采用恒流源激励并测量电压。而且还要会画图</li>
+</ol>
+<h3 id="1-3-5-回滞测量-Snapback-与保持特性"><a href="#1-3-5-回滞测量-Snapback-与保持特性" class="headerlink" title="1.3.5 回滞测量(Snapback)与保持特性"></a>1.3.5 回滞测量(Snapback)与保持特性</h3><p>这是<strong>恒流测电压(force $I$ and measure $V$)</strong>的测量方法：给器件强行注入电流，测量对应的端电压。</p>
+<p>当电压升高到<strong>触发电压 $V_t$ 时，器件触发闩锁，电压会突然 “跳回” 降到保持电压 $V_H$ </strong>；之后电流继续增大，电压才缓慢上升，进入导通态。这个电压骤降的现象叫<strong>回滞(Snapback)</strong></p>
+<p><span style="color:red"><strong>这里需要记住$I-V$特性曲线图：</strong></span></p>
+<p><img src="/2026/04/01/integrated-circuit-technology/图8.png" style="zoom:80%;"></p>
+<p><span style="color:red"><strong>当我们用恒压测电流(force $V$ and measure $I$)时的$I-V$特性曲线图如下：</strong></span></p>
+<p><img src="/2026/04/01/integrated-circuit-technology/图9.png" style="zoom: 67%;"></p>
+<h2 id="1-4-闩锁预防措施"><a href="#1-4-闩锁预防措施" class="headerlink" title="1.4 闩锁预防措施"></a>1.4 闩锁预防措施</h2><h3 id="1-4-1-基于闩锁的充分必要条件"><a href="#1-4-1-基于闩锁的充分必要条件" class="headerlink" title="1.4.1 基于闩锁的充分必要条件"></a>1.4.1 基于闩锁的充分必要条件</h3><p>根据我们前面推导出的不等式(3)，我们预防闩锁效应的思路就是<strong>让闩锁发生的充要条件永远无法满足</strong>，主要采取以下两种实现路径：</p>
+<ol>
+<li><strong>降低环路增益</strong>：减小寄生双极晶体管电流增益；</li>
+<li><strong>提高触发电流阈值</strong>：通过降低阱电阻和衬底电阻来增加所需触发电流( $I<em>{R_s}$ 和 $I</em>{R_w}$ )。</li>
+</ol>
+<h4 id="1-4-1-1-降低环路增益"><a href="#1-4-1-1-降低环路增益" class="headerlink" title="1.4.1.1 降低环路增益"></a>1.4.1.1 降低环路增益</h4><p>要降低环路增益 $\beta$ ，只需要通过增加版图中NMOS管和PMOS管的间距(即 n+有源区到 p+有源区的间距)。因为</p>
+<blockquote>
+<p>基区越宽 $\rightarrow$ 电流穿过基区时被复合掉的越多 $\rightarrow$ 电流增益 $\beta$ 越小。</p>
+</blockquote>
+<p>CMOS 里有两个寄生 BJT：</p>
+<ul>
+<li><strong>横向 NPN 管</strong>：发射极是 NMOS 的 n+，集电极是 n 阱，基区是中间的 p 衬底，基区宽度就是<strong>n+ 和 p+(PMOS 的N阱里的 p+)之间的水平距离</strong>，也就是NMOS管和PMOS管的间距。</li>
+<li><strong>垂直 PNP 管</strong>：发射极是PMOS管的 p+，集电极是 p 衬底，基区是N阱，基区宽度是<strong>N阱的垂直厚度</strong>，几乎不受水平间距影响。</li>
+</ul>
+<p>所以把NMOS管和PMOS管的间距拉大，n+ 和 p+ 的距离就变远了，横向NPN管的基区宽度就变宽了，$\beta_ { NPN }$ 自然就变小了，正反馈被削弱，闩锁更难发生。</p>
+<p><img src="/2026/04/01/integrated-circuit-technology/图10.png" style="zoom:80%;"></p>
+<p>闩锁对 n+ 到 p+ 间距具有依赖性。对于 n+过电压应力，触发电流随着 n+ 到 p+ 分离的扩大而迅速增加。随着 n+ 到 p+ 间距的增加，$\alpha<em>{ NPN }$减小，因此$I</em> { TRIG } $增加。</p>
+<p><span style="color:red"><strong>这里有一个很重要的问题：为什么增加 n+ 到 p+ 的间距会增加 n+ 过压触发的触发电流，而对 p+ 过压触发的触发电流影响不大？</strong></span></p>
+<p><span style="color:red"><strong>Explanation：n + 过压触发的是横向NPN管，该NPN的基区宽度直接由n+到p+的间距决定，也就是说它的放大能力对间距高度敏感；而 p + 过压触发的是纵向PNP管，放大能力几乎不受间距影响。</strong></span></p>
+<h4 id="1-4-1-2-提高触发电流阈值"><a href="#1-4-1-2-提高触发电流阈值" class="headerlink" title="1.4.1.2 提高触发电流阈值"></a>1.4.1.2 提高触发电流阈值</h4><p>要触发闩锁，必须让寄生三极管的发射结正向导通（需要 $ \simeq 0.7V$ 的电压），这个电压由电流流过衬底电阻 $R_s$、阱电阻 $R_w$产生。只要把 $R_s$ 和 $R_w$ 降得足够低，就能大幅提高触发闩锁需要的电流，让闩锁难以触发。</p>
+<p>简单来说就是电阻越小，相同电流产生的电压就越小，很难凑够 $0.7V$ 打开三极管；同时电阻越小，电流越容易被直接导走，不会去触发三极管，需要更大的电流才能触发闩锁。</p>
+<p>有两种实现方式：</p>
+<ol>
+<li><p>降低衬底电阻 $R_s$：<strong>采用外延衬底(epitaxial substrate)</strong></p>
+<p>在重掺杂的 p+ 衬底上，生长一层很薄的轻掺杂 p 型外延层，器件做在薄外延层上。</p>
+<p><img src="/2026/04/01/integrated-circuit-technology/图11.png" style="zoom:80%;"></p>
+<ul>
+<li><p>原理：$R<em>s$(总衬底电阻) = $R</em>{epi}$(外延层电阻) + $R<em>{p+ \</em> sub}$(衬底电阻)。</p>
+<p>薄外延层让外延电阻很小，重掺杂的 p + 衬底本身电阻几乎为 0，因此总电阻RS大幅降低。</p>
+</li>
+<li><p>优势：重掺杂衬底远离器件的工作区，不会影响 MOS 管的正常性能。</p>
+</li>
+</ul>
+</li>
+<li><p>降低阱电阻RW：<strong>采用倒掺杂阱(retrograde well)</strong></p>
+<p>结构：和传统阱”表面掺杂高、底部掺杂低”相反，倒掺杂阱<strong>的阱底部掺杂浓度高，表面掺杂浓度低</strong>。</p>
+<p><img src="/2026/04/01/integrated-circuit-technology/图12.png" alt></p>
+<ul>
+<li>原理：阱底部高掺杂，直接把阱的体电阻 $R_w$ 降到很低；低电阻给阱电流提供了分流”捷径”，不会去触发寄生三极管，大幅减弱两个寄生管的耦合。</li>
+<li>效果：对 n+ 过压触发的闩锁改善效果最显著，相比传统N阱，倒掺杂阱的闩锁触发电流大得多，抗闩锁能力更强。</li>
+</ul>
+</li>
+</ol>
+<h3 id="1-4-2-保护带-guard-bands-guard-rings"><a href="#1-4-2-保护带-guard-bands-guard-rings" class="headerlink" title="1.4.2 保护带(guard bands/guard rings)"></a>1.4.2 保护带(guard bands/guard rings)</h3><p>保护带就是在NMOS管和PMOS管之间、或器件周围，加接固定电位的<strong>掺杂扩散区</strong>，提前”拦截/导走”会触发闩锁的载流子，<strong>切断寄生三极管的触发路径</strong>，从根源阻止闩锁正反馈的建立，是 I/O 电路抗闩锁的核心手段。</p>
+<p>其实就是把接阱或衬底电位的 n+、p+ 扩散区，放在NMOS管和PMOS管之间（或把器件围起来），这些扩散区就是保护带。</p>
+<p><img src="/2026/04/01/integrated-circuit-technology/图13.png" style="zoom:80%;"></p>
+<p>n+ 保护带(N阱内)：<strong>接 VDD</strong>，把N阱里的<strong>电子电流</strong> “转向” 导走，不让电流去触发纵向PNP寄生三极管；</p>
+<p><img src="/2026/04/01/integrated-circuit-technology/图14.png" style="zoom:80%;"></p>
+<p>p+ 保护带(p 衬底内)：<strong>接 GND</strong>，把 p 衬底里的<strong>空穴电流</strong>导走，不让电流去触发横向NPN寄生三极管。</p>
+<p>给保护环，把器件围起来，虽然抗闩锁效果更强，但会占用更多芯片面积。</p>
+<p><span style="color:red">保护环分为<strong>多子载流子保护环</strong>和<strong>少子载流子保护环</strong>两大类：</span></p>
+<ol>
+<li><p>多子载流子保护环</p>
+<p>就是上面的基础款保护环，核心作用是提前收集多子载流子，有效解耦寄生 BJT 的触发作用；是最常用的类型，内部电路受面积限制，通常只使用这种保护环。</p>
+</li>
+<li><p>少子载流子保护环</p>
+<p><img src="/2026/04/01/integrated-circuit-technology/图15.png" style="zoom:67%;"></p>
+<p>利用反偏的阱或衬底 PN 结，收集注入的少子载流子，彻底阻止载流子扩散触发闩锁。</p>
+<p>在 p衬底的体 CMOS 工艺中，其N阱结深更深，因此N阱做的少子保护环，效果远好于普通 n+ 扩散的保护环；</p>
+<p>p+ 少子保护环收集N阱里的少子(holes)；n+ 少子保护环抑制 p 衬底里的少子(Electrons)注入。</p>
+</li>
+</ol>
+<p>在 <strong>I/O电路</strong>中，一般推荐同时使用多子和少子保护环</p>
+<p>而因为受芯片面积限制，所以<strong>内部电路</strong>极少用多子和少子的组合，通常只单用多子载流子保护环。</p>
+<p>另外，给P阱或N阱周围的保护环做<strong>密集的接触孔(frequent contacts)</strong>，可以降低了寄生电阻(parasitic resistances)。</p>
+<h3 id="1-4-3-深层氧化物沟槽隔离-Deep-oxide-trench-isolation"><a href="#1-4-3-深层氧化物沟槽隔离-Deep-oxide-trench-isolation" class="headerlink" title="1.4.3 深层氧化物沟槽隔离(Deep oxide trench isolation)"></a>1.4.3 深层氧化物沟槽隔离(Deep oxide trench isolation)</h3><p>第三种闩锁预防的方式是用<strong>物理绝缘的深沟槽</strong>，彻底切断寄生三极管的耦合路径，从物理层面杜绝闩锁的发生与持续。</p>
+<p>在NMOS管和PMOS管之间刻蚀深沟槽，填充绝缘的氧化物(二氧化硅)，相当于在寄生NPN、PNP三极管之间插入一堵”绝缘墙”：</p>
+<ul>
+<li><p>直接切断两个三极管之间的载流子传输路径，让它们无法形成闩锁所需的正反馈回路(即解耦)；</p>
+</li>
+<li><p>同时大幅降低两个寄生三极管的电流增益，让环路增益远小于 1，彻底破坏闩锁的触发条件。</p>
+</li>
+<li><p>可以提升闩锁维持电压(Holding Voltage)</p>
+<p>维持电压定义：闩锁一旦触发，要维持住电源-地短路的闩锁状态，所需的最低电压。维持电压越高，闩锁越难持续保持。</p>
+<p><span style="color:red"><strong>沟槽越深，闩锁维持电压越高</strong>。</span></p>
+</li>
+</ul>
+<h3 id="1-4-4-绝缘衬底硅晶圆-SOI-silicon-on-insulator-wafer"><a href="#1-4-4-绝缘衬底硅晶圆-SOI-silicon-on-insulator-wafer" class="headerlink" title="1.4.4 绝缘衬底硅晶圆(SOI(silicon on insulator) wafer)"></a>1.4.4 绝缘衬底硅晶圆(SOI(silicon on insulator) wafer)</h3><p>SOI 完全避免了闩锁，因为它们没有寄生NPN和PNP晶体管。</p>
+<p><img src="/2026/04/01/integrated-circuit-technology/图16.png" style="zoom:80%;"></p>
+<h3 id="1-4-5-大闩锁保护窗口-Large-Latch-up-Protection-Window"><a href="#1-4-5-大闩锁保护窗口-Large-Latch-up-Protection-Window" class="headerlink" title="1.4.5 大闩锁保护窗口(Large Latch-up Protection Window)"></a>1.4.5 大闩锁保护窗口(Large Latch-up Protection Window)</h3><p><strong>闩锁保护窗口</strong>就是电源电压 $V<em>{DD}$ 与闩锁维持电压 $V_H$ 的差值区间。只有 $V</em>{DD}&gt;V<em>H$ 时，闩锁触发后能持续保持；若$V</em>{DD}&lt;V_H$，闩锁无法维持，芯片自动恢复。</p>
+<p>因此我们的目标就是扩大保护窗口，其本质就是<strong>提高 $V<em>H$ 或合理降低 $V</em>{DD}$</strong>，让闩锁难以触发或持续。</p>
+<h4 id="1-4-5-1-提高-V-H"><a href="#1-4-5-1-提高-V-H" class="headerlink" title="1.4.5.1 提高 $V_H$"></a>1.4.5.1 提高 $V_H$</h4><p><img src="/2026/04/01/integrated-circuit-technology/图17.png" style="zoom:80%;"></p>
+<p>这里的 $R<em>{s_1}$ 是 p+衬底和外延层的电阻的和 $R</em> { s<em>1 } =R</em> { p+ _sub } + R<em>{epi} \simeq R</em>{epi}$。$R_ { s_2 } $ 是n+和N阱之间的电阻。</p>
+<script type="math/tex; mode=display">
+V_{hold}=(V_ { ec } )_ { PNP } + (V_ { be } )_ { NPN }(1+ \frac { R_ { s_2 } } { R_{s_1} } )</script><p>其中，$(V<em> { ec } )</em> { PNP }$ 是PNP管的集电极-发射极饱和压降(通常$ \simeq 0.1-0.3 V$) ；$(V<em> { be } )</em> { NPN }$ 是NPN管的基极-发射极导通电压($\simeq 0.7 V$)。</p>
+<p>我们可以用表格更直观：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">调整对象</th>
+<th style="text-align:left">操作方式</th>
+<th style="text-align:left">原理</th>
+<th style="text-align:left">对应工艺 / 版图技巧</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">$R_ { s_2 } $(n+到n 阱电阻）</td>
+<td style="text-align:left">增大 n+到 p+ 间距</td>
+<td style="text-align:left">间距越大，$R_ { s_2 } $越大，$V_H$提升</td>
+<td style="text-align:left">增加 NMOS/PMOS 横向间距</td>
+</tr>
+<tr>
+<td style="text-align:left">$R_{s_1}$(p+衬底电阻)</td>
+<td style="text-align:left">采用 p+衬底和薄外延层</td>
+<td style="text-align:left">薄外延层降低$R_{s_1}$，间接提升 $V_H$</td>
+<td style="text-align:left">外延衬底工艺</td>
+</tr>
+<tr>
+<td style="text-align:left">$R_w$(N阱电阻)</td>
+<td style="text-align:left">采用倒掺杂阱(Retrograde well）</td>
+<td style="text-align:left">阱底部高掺杂降低$R_w$，提升$V_H$</td>
+<td style="text-align:left">倒掺杂阱工艺</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h4 id="1-4-5-2-降低-V-DD"><a href="#1-4-5-2-降低-V-DD" class="headerlink" title="1.4.5.2 降低 $V_{DD}$"></a>1.4.5.2 降低 $V_{DD}$</h4><p>因为闩锁的发生和维持需要两个关键条件，一个是寄生 BJT 的 $V<em>{BE} \simeq 0.7V$，才能导通；另一个是需要满足$V</em>{DD}&gt;V_H$，才能保持短路状态。</p>
+<p>而降低 VDD 可以同时破坏这两个条件：</p>
+<ul>
+<li>当 $V_{DD}&lt;0.7V$ 时，连 BJT 导通的基本电压都达不到，闩锁根本无法触发；</li>
+<li>当 $V_{DD}&lt;V_H$ 时，就算闩锁被意外触发，也无法维持住，会自动断开，相当于电路 “自愈” 了。</li>
+</ul>
+<p>在5nm等先进低功耗工艺，核心电路 $V<em>{DD}$ 降到 1V 以下，大部分场景下 $V</em>{DD}&lt;V_H$，闩锁风险极低。</p>
+<blockquote>
+<p><span style="color:red"><strong>解释为什么如果保持电压大于电源电压，则无法维持闩锁。建议一种提高保持电压的有效方法。</strong></span></p>
+<p><span style="color:red"><strong>当保持电压大于电源电压的时候，即使触发闩锁，电源电压也无法维持 $V<em> { be }$ 和 $V</em> { ec }$，导致寄生晶体管截止，闩锁无法持续。</strong></span></p>
+<p><span style="color:red"><strong>而要想提高电压，可以通过使用重掺杂 p+ 衬底和使用薄外延层能减小 $R<em> { s_1 }$；通过增加 n+到N阱之间的距离能增加 $R</em> { s_2 }$ 。其中最有效的方法是在 p + 衬底上使用外延层。</strong></span></p>
+</blockquote>
+<h3 id="1-4-6-Multiple-tap-cells"><a href="#1-4-6-Multiple-tap-cells" class="headerlink" title="1.4.6 Multiple tap cells"></a>1.4.6 Multiple tap cells</h3><p>tap cell是<strong>专门用于提供阱/衬底接电位的标准单元</strong>，替代传统单元自带的接电连接，核心目的是<strong>节省芯片面积</strong>。</p>
+<p>我们用表格总结一下传统的标准单元、Tapless cell以及Tap cell，方便直观看出区别：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">类型</th>
+<th style="text-align:left">结构特点</th>
+<th style="text-align:left">面积消耗</th>
+<th style="text-align:left">应用场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">传统标准单元</td>
+<td style="text-align:left">每个单元内部自带 n-well 接 $V<em>{DD}$、p-sub 接 $V</em>{SS}$</td>
+<td style="text-align:left">面积大</td>
+<td style="text-align:left">早期 CMOS 工艺</td>
+</tr>
+<tr>
+<td style="text-align:left">Tapless cell</td>
+<td style="text-align:left">单元内部无阱/衬底接电连接</td>
+<td style="text-align:left">面积小</td>
+<td style="text-align:left">现代主流设计</td>
+</tr>
+<tr>
+<td style="text-align:left">Tap cell</td>
+<td style="text-align:left"><strong>独立</strong>的专用接电单元，为周围多个Tapless cell统一提供<strong>n-well$\rightarrow<script type="math/tex">V_ { DD } $、p-sub$\rightarrow</script>V_ { SS }$</strong>的接电通路，相当于 “公共接电站”。</td>
+<td style="text-align:left">面积节省显著</td>
+<td style="text-align:left">现代标准单元库</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Tap cell有两个很重要的作用：</p>
+<ul>
+<li><p><span style="color:red"><strong>预防闩锁(Latch-up Prevention)</strong></span></p>
+<p>Tap cell提供<strong>低阻电流路径(low resistance paths for current flowing)</strong>：n-well 接 $V<em> { DD } $、p-sub 接 $V</em>{SS}$，让寄生三极管触发所需的电流/压降无法积累。相当于快速把噪声、载流子导走，切断闩锁的正反馈条件。</p>
+</li>
+<li><p><span style="color:red"><strong>避免浮体效应(Floating-body effect)</strong></span></p>
+<p>若阱/衬底悬空(floating)，电位会随噪声漂移，影响器件性能；</p>
+</li>
+</ul>
+<p>Tap cell有几个关键的设计规则：</p>
+<ul>
+<li><strong>间隔布置</strong>：Tap cell按固定间隔插入，无需每个单元都接电，最大化节省硅面积；</li>
+<li><strong>多点布置</strong>：大尺寸器件/高噪声场景需放置<strong>多个Tap cell</strong>(multiple numbers of tap cells are placed around the devices)，确保吸收噪声、维持恒定体电位；</li>
+<li><strong>纯物理单元(physical-only cell)</strong>：Tap cell无输入/输出，仅负责接电，不参与逻辑功能。</li>
+</ul>
+<h3 id="1-4-7-Bulk-FinFET-工艺下的闩锁预防"><a href="#1-4-7-Bulk-FinFET-工艺下的闩锁预防" class="headerlink" title="1.4.7 Bulk FinFET 工艺下的闩锁预防"></a>1.4.7 Bulk FinFET 工艺下的闩锁预防</h3><p>这一块内容了解即可，不做要求。</p>
+<p>FinFET里，闩锁效应依然存在。因为FinFET虽然用了 3D 沟道结构，但源漏区还是和平面CMOS一样，做在N阱/p衬底里，依然会形成寄生的晶闸管结构 —— 闩锁的物理根源没消失，风险依然存在。</p>
+<p>和平面 CMOS 思路一致，核心目标是<strong>提高触发电流和维持电压</strong>，常用方法：</p>
+<ul>
+<li>增加阱接触(well pickups，即 tap cell)，降低阱电阻；</li>
+<li>插入双保护环(double guard rings)：n 阱里的 n + 保护环、p 衬底里的 p + 保护环；</li>
+<li>其他平面工艺方法也适用，比如增加 n+-p + 间距、使用外延衬底等。</li>
+</ul>
+<p><img src="/2026/04/01/integrated-circuit-technology/图.png" alt></p>
+<p>Latch-up: </p>
+<ol>
 <li>如何减弱闩锁效应的影响：<ul>
 <li>增大nmos和pmos的距离</li>
 <li>降低I_RW和I_RS</li>
@@ -1084,7 +1362,7 @@
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">84.9k</span>
+                        class="white-color">90.8k</span>
             
             
             

@@ -1,0 +1,3291 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="Digital Integrated Circuit Design(EE6306), 博客，沫墨">
+    <meta name="description" content="数字电路子系统设计1 通用数字系统组成一个标准数字系统由数据通路(Datapath)、控制单元(Control Unit)、存储器(Memory)、输入/输出模块(Input/Output Modules) 四个模块构成，通过互连网络(In">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>Digital Integrated Circuit Design(EE6306) | 沫墨</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/dark.css" media="none" onload="if(media!='all')media='all'">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+        <link rel="stylesheet" type="text/css" href="/css/reward.css">
+    
+
+
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 8.1.1"></head>
+
+
+ 
+    <style type="text/css" lang="css">
+    #loading-container{
+        position: fixed;
+        top: 0;
+        left: 0;
+        min-height: 100vh;
+        width: 100vw;
+        z-index: 9999;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background: #FFF;
+        text-align: center;
+        /* loader页面消失采用渐隐的方式*/
+        -webkit-transition: opacity 1s ease;
+        -moz-transition: opacity 1s ease;
+        -o-transition: opacity 1s ease;
+        transition: opacity 1s ease;
+    }
+    .loading-image{
+        width: 120px;
+        height: 50px;
+        transform: translate(-50%);
+    }
+
+    .loading-image div:nth-child(2) {
+        -webkit-animation: pacman-balls 1s linear 0s infinite;
+        animation: pacman-balls 1s linear 0s infinite
+    }
+
+    .loading-image div:nth-child(3) {
+        -webkit-animation: pacman-balls 1s linear .33s infinite;
+        animation: pacman-balls 1s linear .33s infinite
+    }
+
+    .loading-image div:nth-child(4) {
+        -webkit-animation: pacman-balls 1s linear .66s infinite;
+        animation: pacman-balls 1s linear .66s infinite
+    }
+
+    .loading-image div:nth-child(5) {
+        -webkit-animation: pacman-balls 1s linear .99s infinite;
+        animation: pacman-balls 1s linear .99s infinite
+    }
+
+   .loading-image div:first-of-type {
+        width: 0;
+        height: 0;
+        border: 25px solid #49b1f5;
+        border-right-color: transparent;
+        border-radius: 25px;
+        -webkit-animation: rotate_pacman_half_up .5s 0s infinite;
+        animation: rotate_pacman_half_up .5s 0s infinite;
+    }
+    .loading-image div:nth-child(2) {
+        width: 0;
+        height: 0;
+        border: 25px solid #49b1f5;
+        border-right-color: transparent;
+        border-radius: 25px;
+        -webkit-animation: rotate_pacman_half_down .5s 0s infinite;
+        animation: rotate_pacman_half_down .5s 0s infinite;
+        margin-top: -50px;
+    }
+    @-webkit-keyframes rotate_pacman_half_up {0% {transform: rotate(270deg)}50% {transform: rotate(1turn)}to {transform: rotate(270deg)}}
+
+    @keyframes rotate_pacman_half_up {0% {transform: rotate(270deg)}50% {transform: rotate(1turn)}to {transform: rotate(270deg)}}
+
+    @-webkit-keyframes rotate_pacman_half_down {0% {transform: rotate(90deg)}50% {transform: rotate(0deg)}to {transform: rotate(90deg)}}
+
+    @keyframes rotate_pacman_half_down {0% {transform: rotate(90deg)}50% {transform: rotate(0deg)}to {transform: rotate(90deg)}}
+
+    @-webkit-keyframes pacman-balls {75% {opacity: .7}to {transform: translate(-100px, -6.25px)}}
+
+    @keyframes pacman-balls {75% {opacity: .7}to {transform: translate(-100px, -6.25px)}}
+
+
+    .loading-image div:nth-child(3),
+    .loading-image div:nth-child(4),
+    .loading-image div:nth-child(5),
+    .loading-image div:nth-child(6){
+        background-color: #49b1f5;
+        width: 15px;
+        height: 15px;
+        border-radius: 100%;
+        margin: 2px;
+        width: 10px;
+        height: 10px;
+        position: absolute;
+        transform: translateY(-6.25px);
+        top: 25px;
+        left: 100px;
+    }
+    .loading-text{
+        margin-bottom: 20vh;
+        text-align: center;
+        color: #2c3e50;
+        font-size: 2rem;
+        box-sizing: border-box;
+        padding: 0 10px;
+        text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    }
+    @media only screen and (max-width: 500px) {
+         .loading-text{
+            font-size: 1.5rem;
+         }
+    }
+    .fadeout {
+        opacity: 0;
+        filter: alpha(opacity=0);
+    }
+    /* logo出现动画 */
+    @-webkit-keyframes fadeInDown{0%{opacity:0;-webkit-transform:translate3d(0,-100%,0);transform:translate3d(0,-100%,0)}100%{opacity:1;-webkit-transform:none;transform:none}}
+    @keyframes fadeInDown{0%{opacity:0;-webkit-transform:translate3d(0,-100%,0);}}
+ </style>
+ <script>
+(function () {
+    const loaded = function(){
+       setTimeout(function(){
+            const loader = document.getElementById("loading-container");
+            loader.className="fadeout" ;//使用渐隐的方法淡出loading page
+            // document.getElementById("body-wrap").style.display="flex";
+            setTimeout(function(){
+                loader.style.display="none";
+            },2500); 
+        },1000);//强制显示loading page 1s  
+    };
+    loaded();
+})()
+</script>
+
+ 
+<body>
+    
+        <div id="loading-container">
+             <p class="loading-text">嘘~  正在从服务器偷取页面 . . . </p> 
+             <div class="loading-image">
+                 <div></div>
+                 <div></div>
+                 <div></div>
+                 <div></div> 
+                 <div></div>
+             </div>
+        </div>
+    
+
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">沫墨</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+  <li>
+    <a href="javascript:;" class="waves-effect waves-light" onclick="switchNightMode()" title="深色/浅色模式" >
+      <i id="sum-moon-icon" class="fas fa-sun" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">沫墨</div>
+        <div class="logo-desc">
+            
+            欢迎访问沫墨的博客
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/blinkfox/hexo-theme-matery" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/blinkfox/hexo-theme-matery" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/16.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">Digital Integrated Circuit Design(EE6306)</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E6%95%B0%E5%AD%97%E9%9B%86%E6%88%90%E7%94%B5%E8%B7%AF%EF%BC%8C%E5%AD%90%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/">
+                                <span class="chip bg-color">数字集成电路，子系统设计</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/%E5%8D%8A%E5%AF%BC%E4%BD%93%E5%88%B6%E9%80%A0%E4%B8%8E%E9%9B%86%E6%88%90%E7%94%B5%E8%B7%AF%E6%8A%80%E6%9C%AF/" class="post-category">
+                                半导体制造与集成电路技术
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2026-04-01
+                </div>
+                
+
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    18.2k
+                </div>
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.min.css">
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h1 id="数字电路子系统设计"><a href="#数字电路子系统设计" class="headerlink" title="数字电路子系统设计"></a>数字电路子系统设计</h1><h1 id="1-通用数字系统组成"><a href="#1-通用数字系统组成" class="headerlink" title="1 通用数字系统组成"></a>1 通用数字系统组成</h1><p>一个标准数字系统由<strong>数据通路(Datapath)、控制单元(Control Unit)、存储器(Memory)、输入/输出模块(Input/Output Modules)</strong> 四个模块构成，通过<strong>互连网络(Interconnect)</strong>将各模块连接，实现数据处理、存储与交互。</p>
+<h3 id="1-1-数据通路-Datapath"><a href="#1-1-数据通路-Datapath" class="headerlink" title="1.1 数据通路(Datapath)"></a>1.1 数据通路(Datapath)</h3><p>数据通路是系统的<strong>核心</strong>，所有计算/逻辑运算都在这里完成。主要由逻辑门（与非门、异或门等）、算术模块（加法器、乘法器等）互连而成，还包含寄存器（暂存中间结果）。计算结果存到 Memory 中；操作顺序由控制单元决定。</p>
+<h2 id="1-2-控制单元-Control-Unit"><a href="#1-2-控制单元-Control-Unit" class="headerlink" title="1.2 控制单元(Control Unit)"></a>1.2 控制单元(Control Unit)</h2><p>控制单元主要是决定数据通路在任意时刻执行的操作，是系统的”指挥官”。它可以被视为<strong>有限状态机(FSM)，由寄存器（触发器）和逻辑电路组成</strong>，属于<strong>时序电路</strong>（有记忆功能）。</p>
+<h2 id="1-3-存储器-Memory"><a href="#1-3-存储器-Memory" class="headerlink" title="1.3 存储器(Memory)"></a>1.3 存储器(Memory)</h2><p>其实就是集中式数据存储区。</p>
+<ul>
+<li>分类与作用<ul>
+<li>寄存器：存单个数据，可<strong>同时访问</strong>；</li>
+<li>ROM/RAM：存批量数据，<strong>一次仅访问 1-2 个</strong>。</li>
+</ul>
+</li>
+</ul>
+<h2 id="1-4-输入-输出-Input-Output"><a href="#1-4-输入-输出-Input-Output" class="headerlink" title="1.4 输入/输出(Input/Output)"></a>1.4 输入/输出(Input/Output)</h2><p>用来连接系统内部电路与外部世界。</p>
+<ul>
+<li><strong>输入保护</strong>：含保护电路，两个二极管将输入电压钳制在$(V_{ DD }+V_D)$  $\textasciitilde -V_D$之间（$V_D$为二极管正向压降，约 $0.4 \textasciitilde 0.7V$）。</li>
+</ul>
+<p><img src="/2026/04/01/digital-integrated-circuit-design/图1.png" style="zoom:67%;"></p>
+<h2 id="1-5互连-Interconnect"><a href="#1-5互连-Interconnect" class="headerlink" title="1.5互连(Interconnect)"></a>1.5互连(Interconnect)</h2><p>连接各模块，分为总线式、点对点式等。</p>
+<p>互连可以使得多个模块可连接，但<strong>同一时间仅一个模块能写总线</strong>；所有连接到总线的模块，输出端必须加三态缓冲器，避免总线冲突。</p>
+<ul>
+<li>三态缓冲器是数字电路的<strong>总线专用核心器件</strong>，和普通反相器/缓冲器的区别是：<ul>
+<li>普通门电路只有<strong>逻辑 0、逻辑 1</strong>两种输出状态；</li>
+<li>三态缓冲器多了<strong>高阻态(High-Z，也叫浮空态)</strong>：相当于输出端和电路 “物理断开”，完全不影响总线上的其他信号。</li>
+</ul>
+</li>
+</ul>
+<p><img src="/2026/04/01/digital-integrated-circuit-design/图2.png" style="zoom:67%;"></p>
+<ul>
+<li>上图是<strong>反相型三态缓冲器(Inverting Tri-state Buffer)</strong>：<ul>
+<li>使能端 <code>En=1</code>(高电平)：缓冲器正常工作，<strong>输出 = 输入取反</strong>（<code>Out = NOT In</code>）；</li>
+<li>使能端 <code>En=0</code>(低电平)：缓冲器关闭，输出进入<strong>高阻态</strong>，和总线完全断开。</li>
+</ul>
+</li>
+</ul>
+<h1 id="2-算术模块"><a href="#2-算术模块" class="headerlink" title="2 算术模块"></a>2 算术模块</h1><p>数字系统里负责数据运算的<strong>数据通路</strong>，核心就是算术模块，最常用的三类：</p>
+<ul>
+<li><strong>移位器、加法器（减法器）、乘法器。</strong></li>
+</ul>
+<h2 id="2-1-移位器-Shifter"><a href="#2-1-移位器-Shifter" class="headerlink" title="2.1 移位器(Shifter)"></a>2.1 移位器(Shifter)</h2><p>移位操作本质就是<strong>乘或除以2的n次方</strong>（左移 1 位 $= \times 2$，右移 1 位 $= \div 2$），是快速算术运算的基础。</p>
+<ul>
+<li><p><strong>移位寄存器的缺点</strong>：每个时钟只能移 1 位，要移多位需要多个周期，速度慢，不适合单周期多位移位。</p>
+</li>
+<li><p><strong>固定移位的实现</strong>：移位方向、位数固定时，直接用硬件连线改接即可（硬连线移位器）。</p>
+</li>
+<li><strong>移位器四大类</strong>：硬连线移位器、可编程移位器、桶形移位器、对数移位器。</li>
+</ul>
+<p>下面讲一下逻辑移位和算术移位：他们的区别就在于<strong>是否把数据当成有符号补码数，其右移补位规则不同</strong></p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">移位类型</th>
+<th style="text-align:left">针对数据</th>
+<th style="text-align:left">左移规则</th>
+<th style="text-align:left">右移规则</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">逻辑移位</td>
+<td style="text-align:left">无符号数</td>
+<td style="text-align:left">所有位左移，<strong>右侧空出补 0</strong>，左侧位移数丢弃</td>
+<td style="text-align:left">所有位右移，<strong>左侧空出补 0</strong>，右侧位移出丢弃</td>
+</tr>
+<tr>
+<td style="text-align:left">算术移位</td>
+<td style="text-align:left">有符号补码数</td>
+<td style="text-align:left">同逻辑左移（右侧补 0），注意可能溢出</td>
+<td style="text-align:left">所有位右移，<strong>左侧空出补原符号位（最高位）</strong>，右侧位移出丢弃（保证符号不变）：<br>原最高位是 1（负数）→ 补 1<br>原最高位是 0（正数）→ 补 0</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>💡 举个例子：8 位有符号数 - 1（补码<code>11111111</code>）</p>
+<ul>
+<li>算术右移 1 位：<code>11111111</code>（还是 - 1，正确）</li>
+<li>逻辑右移 1 位：<code>01111111</code>（变成 127，完全错误）</li>
+</ul>
+<h3 id="2-1-1-硬连线移位器-Hard-Wired-Shifter"><a href="#2-1-1-硬连线移位器-Hard-Wired-Shifter" class="headerlink" title="2.1.1 硬连线移位器(Hard-Wired Shifter)"></a>2.1.1 硬连线移位器(Hard-Wired Shifter)</h3><p>固定移位位数、方向，直接用硬件连线把输入位接到对应输出位，空位补 0。</p>
+<p>其特点就是结构极简、速度快，但<strong>完全不灵活</strong>，只能实现一种固定移位（比如只能右移 3 位），仅用于模块间固定的移位需求。</p>
+<p><img src="/2026/04/01/digital-integrated-circuit-design/图3.png" style="zoom:67%;"></p>
+<ul>
+<li><strong>例子</strong>：8 位数$a_7a_6a_5a_4a_3a_2a_1a_0$右移 3 位 $\rightarrow$ 输出$000a_7a_6a_5a_4a_3$</li>
+</ul>
+<h3 id="2-1-2-可编程移位器-Programmable-Shifter"><a href="#2-1-2-可编程移位器-Programmable-Shifter" class="headerlink" title="2.1.2 可编程移位器(Programmable Shifter)"></a>2.1.2 可编程移位器(Programmable Shifter)</h3><p>基础单元是 1 位左右移单元，可选择左移 1 位、右移 1 位、不移动(unchanged)。</p>
+<ul>
+<li><strong>多位实现</strong>：把多个 1 位单元级联，实现任意位数移位。</li>
+</ul>
+<p><img src="/2026/04/01/digital-integrated-circuit-design/图4.png" style="zoom:67%;"></p>
+<ul>
+<li><strong>缺点</strong>：级联单元越多，电路越大、延迟越高（速度慢），不适合大位宽。</li>
+</ul>
+<h3 id="2-1-3-桶形移位器-Barrel-Shifter"><a href="#2-1-3-桶形移位器-Barrel-Shifter" class="headerlink" title="2.1.3 桶形移位器(Barrel Shifter)"></a>2.1.3 桶形移位器(Barrel Shifter)</h3><p>用<strong>晶体管阵列</strong>实现，行数 = 数据位数，列数 = 最大移位位数，每个输出位可通过传输门选择任意输入位。</p>
+<p>桶形移位器<strong>无论移多少位，延迟都固定（仅经过 1 个传输门）</strong>，单周期可以完成任意移位，速度极快。但缺点是需要解码器生成控制信号，电路面积大（n 位数需要 $n^2$ 个晶体管），位宽越大面积越大。</p>
+<p><img src="/2026/04/01/digital-integrated-circuit-design/图5.png" style="zoom:80%;"></p>
+<p>同样控制输入只能同时有一个为”1”。当 $Sh_0$ 为 1，不移位； $Sh_1$为 1 ，右移 1 位，以此类推。</p>
+<p><img src="/2026/04/01/digital-integrated-circuit-design/图6.png" style="zoom:80%;"></p>
+<p>这是桶形移位器的一个特殊形式，旋转意味着 LSB 不会丢失，而是会被补充到 MSB。左移就是这里的下移。</p>
+<h3 id="2-1-4-对数移位器-Logarithmic-Shifter"><a href="#2-1-4-对数移位器-Logarithmic-Shifter" class="headerlink" title="2.1.4 对数移位器(Logarithmic Shifter)"></a>2.1.4 对数移位器(Logarithmic Shifter)</h3><p>把总移位位数拆成<strong>2的幂次</strong>（比如移 3 位 = 移 2 位 + 移 1 位，3=2+1），用$log_2 M$级移位单元（M = 最大移位位数），每级负责移 1、2、4、8… 位，组合实现任意移位。</p>
+<p>对比桶形的核心优势：</p>
+<ol>
+<li>控制信号是编码的，数量少，<strong>不需要解码器</strong>；</li>
+<li>大位宽下面积更小、速度更快（n 位数仅需 n×log₂n 个晶体管）；</li>
+<li>更适合大移位位数的场景。</li>
+</ol>
+<p><strong>延迟</strong>：对数级延迟（比如最大移 7 位，仅需 3 级），比桶形固定延迟略高，但远快于级联的可编程移位器。</p>
+<p><img src="/2026/04/01/digital-integrated-circuit-design/图7.png" style="zoom:80%;"></p>
+<h2 id="2-2-加法器"><a href="#2-2-加法器" class="headerlink" title="2.2 加法器"></a>2.2 加法器</h2><p>加法是数字系统中所有算术操作的基石，乘法、除法、移位、地址计算等功能都依赖加法实现，是 ALU 的核心功能。但多位加法的<strong>进位链延迟</strong>是限制芯片主频的关键因素，因此加法器的性能直接决定了整个数字系统的运行速度。</p>
+<p><strong>加法器优化的两个层级</strong>：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">优化层级</th>
+<th style="text-align:left">核心思路</th>
+<th style="text-align:left">典型工程方法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">逻辑级优化</td>
+<td style="text-align:left">重排布尔方程，消除冗余、缩短关键路径</td>
+<td style="text-align:left">超前进位加法器（CLA）、进位选择加法器（CSLA）、进位旁路加法器（CBA）</td>
+</tr>
+<tr>
+<td style="text-align:left">电路级优化</td>
+<td style="text-align:left">调整晶体管尺寸、电路拓扑，优化时序 / 功耗 / 面积</td>
+<td style="text-align:left">传输门逻辑、多米诺动态逻辑、镜像加法器、混合逻辑结构</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="2-2-1-全加器-Full-Adder"><a href="#2-2-1-全加器-Full-Adder" class="headerlink" title="2.2.1 全加器(Full Adder)"></a>2.2.1 全加器(Full Adder)</h3><p>全加器是<strong>1 位二进制加法</strong>的基础单元，是构建所有多位加法器的核心模块。</p>
+<p>先来看各端口定义：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">端口类型</th>
+<th style="text-align:left">信号名</th>
+<th style="text-align:left">含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">输入</td>
+<td style="text-align:left">$a, b$</td>
+<td style="text-align:left">两个 1 位二进制加数</td>
+</tr>
+<tr>
+<td style="text-align:left">输入</td>
+<td style="text-align:left">$c_i$ (carry-in)</td>
+<td style="text-align:left">来自低位的进位输入</td>
+</tr>
+<tr>
+<td style="text-align:left">输出</td>
+<td style="text-align:left">$s$ (sum)</td>
+<td style="text-align:left">本位和（1 位）</td>
+</tr>
+<tr>
+<td style="text-align:left">输出</td>
+<td style="text-align:left">$cₒ$ (carry-out)’</td>
+<td style="text-align:left">向高位的进位输出</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>为了得出布尔式，我们需要完整覆盖所有输入组合的输出，写出其真值表：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><code>a</code></th>
+<th style="text-align:left"><code>b</code></th>
+<th style="text-align:left"><code>cᵢ</code></th>
+<th style="text-align:left"><code>s</code></th>
+<th style="text-align:left"><code>cₒ</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">0</td>
+<td style="text-align:left">0</td>
+<td style="text-align:left">0</td>
+<td style="text-align:left">0</td>
+<td style="text-align:left">0</td>
+</tr>
+<tr>
+<td style="text-align:left">0</td>
+<td style="text-align:left">0</td>
+<td style="text-align:left">1</td>
+<td style="text-align:left">1</td>
+<td style="text-align:left">0</td>
+</tr>
+<tr>
+<td style="text-align:left">0</td>
+<td style="text-align:left">1</td>
+<td style="text-align:left">0</td>
+<td style="text-align:left">1</td>
+<td style="text-align:left">0</td>
+</tr>
+<tr>
+<td style="text-align:left">0</td>
+<td style="text-align:left">1</td>
+<td style="text-align:left">1</td>
+<td style="text-align:left">0</td>
+<td style="text-align:left">1</td>
+</tr>
+<tr>
+<td style="text-align:left">1</td>
+<td style="text-align:left">0</td>
+<td style="text-align:left">0</td>
+<td style="text-align:left">1</td>
+<td style="text-align:left">0</td>
+</tr>
+<tr>
+<td style="text-align:left">1</td>
+<td style="text-align:left">0</td>
+<td style="text-align:left">1</td>
+<td style="text-align:left">0</td>
+<td style="text-align:left">1</td>
+</tr>
+<tr>
+<td style="text-align:left">1</td>
+<td style="text-align:left">1</td>
+<td style="text-align:left">0</td>
+<td style="text-align:left">0</td>
+<td style="text-align:left">1</td>
+</tr>
+<tr>
+<td style="text-align:left">1</td>
+<td style="text-align:left">1</td>
+<td style="text-align:left">1</td>
+<td style="text-align:left">1</td>
+<td style="text-align:left">1</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>最终可以得到如下式子：</p>
+<script type="math/tex; mode=display">
+s = a \oplus b \oplus c_i \\ 
+c_o = ab + bc_i + ac_i</script><p><img src="/2026/04/01/digital-integrated-circuit-design/图8.png" style="zoom:80%;"></p>
+<ul>
+<li>红色圈出的是 $s$ 的卡诺图，验证了三输入异或逻辑的正确性；</li>
+<li>蓝色 / 绿色圈出的是 $c_o$ 的卡诺图，化简得到了最简与或式，对应上述进位表达式。</li>
+</ul>
+<p>上图右下角则是给出了全加器的标准电路结构：</p>
+<ul>
+<li>用<strong>2 个异或门</strong>实现 $s = a \oplus b \oplus c_i$；</li>
+<li>用<strong>2 个与门和 1 个或门</strong>实现 $c_o = ab + (a\oplus b)c_i$；</li>
+</ul>
+<h3 id="2-2-2-行波进位加法器-Ripple-Carry-Adder-RCA"><a href="#2-2-2-行波进位加法器-Ripple-Carry-Adder-RCA" class="headerlink" title="2.2.2 行波进位加法器(Ripple-Carry Adder, RCA)"></a>2.2.2 行波进位加法器(Ripple-Carry Adder, RCA)</h3><p>n 位加法器由 <strong>n 个全加器级联</strong>构成：初始进位 $c<em>i=0$，前一级的进位输出 $c_o$ 作为后一级的进位输入，进位逐位传递（如波纹般），最终输出和 $S_0 \textasciitilde S</em>{n−1}$与最终进位 $C_n$。<strong>结构极简、易实现</strong>，但<strong>延迟会随着位数 n 线性增长</strong>，n 越大延迟越严重，仅适用于低速、小位宽场景。</p>
+<p><img src="/2026/04/01/digital-integrated-circuit-design/图9.png" style="zoom:80%;"> 很重要的一环是延迟分析，我们取最坏情况进行解释：进位从最低位(LSB)全程传播到最高位(MSB)，例如 8 位加法：01111111+00000001=10000000。</p>
+<ul>
+<li><p>延迟公式：</p>
+<script type="math/tex; mode=display">
+t_{adder}=(n−1)×t_{carry}+t_{sum}</script><ul>
+<li>$t_{carry}$：全加器 $c_i \rightarrow c_o$ 的传播延迟（关键路径）</li>
+<li>$t_{sum}$：全加器 $c_i \rightarrow s$ 的传播延迟</li>
+</ul>
+</li>
+</ul>
+<p>由于加法器的<strong>关键路径在进位链</strong>，所以必须最小化每个全加器的进位延迟。为了减少延迟，我们需要先了解一下全加器单元的<strong>反演特性(Inverting Property)</strong>：</p>
+<ul>
+<li><p>反演特性公式：</p>
+<script type="math/tex; mode=display">
+\bar{s}(a,b,c_i)=s(\bar{a},\bar{b},\bar{c_i}), \\
+\bar{c_o}(a,b,c_i)=c_o(\bar{a},\bar{b},\bar{c_i})</script><p>含义：输入全取反时，输出也全取反（真值表可验证）。</p>
+</li>
+<li><p>利用该特性<strong>移除进位链中的反相器</strong>，减少反相级数量，直接降低进位延迟（如 4 位加法器的交替反相 / 非反相单元结构）。</p>
+</li>
+</ul>
+<h3 id="2-2-3-互补静态-CMOS-全加器-28T"><a href="#2-2-3-互补静态-CMOS-全加器-28T" class="headerlink" title="2.2.3 互补静态 CMOS 全加器(28T)"></a>2.2.3 互补静态 CMOS 全加器(28T)</h3><p>接下来我们用CMOS电路来实现全加器：</p>
+<ul>
+<li><p>逻辑公式：</p>
+<ul>
+<li>进位输出（反相）：$\overline { c_o } =\overline { ab } + \overline { a c_i } + \overline {bc_i}= \overline { ab } + (\bar a + \bar b)  \bar{c_i }$</li>
+<li>和输出：$\overline{s} = \bar { a } \bar { b } c_i + \bar { a } b \bar{c_i} + a \bar { b } \bar{ c_i }+abc_i=abc_i+ \overline { c_o }(a+b+c_i)$</li>
+</ul>
+</li>
+<li><p>电路组成：标准静态 CMOS（PMOS 上拉 + NMOS 下拉），共 28 个晶体管。</p>
+</li>
+</ul>
+<p><img src="/2026/04/01/digital-integrated-circuit-design/图10.png" alt></p>
+<p>但其具有很明显的缺陷：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">缺点</th>
+<th style="text-align:left">影响</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">晶体管数多（28 个）</td>
+<td style="text-align:left">面积大、功耗高</td>
+</tr>
+<tr>
+<td style="text-align:left">PMOS 堆叠结构</td>
+<td style="text-align:left">延迟大、速度慢</td>
+</tr>
+<tr>
+<td style="text-align:left">co本征电容大</td>
+<td style="text-align:left">负载大，进位延迟高</td>
+</tr>
+<tr>
+<td style="text-align:left">进位经 2 个反相级传播</td>
+<td style="text-align:left">关键路径延迟增加</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>我们可以利用反演特性，交替使用反相/非反相全加器单元，移除进位链中的反相器，减少反相级数量，降低延迟。例如下图所示的四位加法器：</p>
+<p><img src="/2026/04/01/digital-integrated-circuit-design/图11.png" style="zoom:80%;"></p>
+<h3 id="2-2-4-基于传输门的加法器-Transmission–Gate-Based-Adder"><a href="#2-2-4-基于传输门的加法器-Transmission–Gate-Based-Adder" class="headerlink" title="2.2.4 基于传输门的加法器(Transmission–Gate-Based Adder)"></a>2.2.4 基于传输门的加法器(Transmission–Gate-Based Adder)</h3><p>引入中间变量 $P=A \oplus B$，简化逻辑：</p>
+<ul>
+<li>和输出：$S=P \oplus C_i= \overline { \bar { P }  \bar { C_i } +PC_i }$</li>
+<li>进位输出：$Co=AB+PC_i=\overline {\bar{ P } \bar{ A } + P \bar{ C_i } }$</li>
+</ul>
+<p><img src="/2026/04/01/digital-integrated-circuit-design/图12.png" style="zoom:80%;"></p>
+<p>这种方法的优势就是晶体管数大幅减少（约 16T），结构紧凑、速度更快。</p>
+<h3 id="2-2-5-曼彻斯特进位门-Manchester-Carry-Gates"><a href="#2-2-5-曼彻斯特进位门-Manchester-Carry-Gates" class="headerlink" title="2.2.5 曼彻斯特进位门(Manchester Carry Gates)"></a>2.2.5 曼彻斯特进位门(Manchester Carry Gates)</h3><ul>
+<li><p>定义三个核心信号：</p>
+<ul>
+<li>$D=\bar{ A } \cdot \bar{ B }$：进位删除（A、B 均为 0 时清除进位）</li>
+<li>$P=A \oplus B$：进位传播（A、B 不同时传递进位）</li>
+<li>$G=A \cdot B$：进位生成（A、B 均为 1 时生成进位）</li>
+</ul>
+</li>
+<li><p>进位公式：$Co=G_i+P_iC_i$</p>
+<p>进位公式在后面超前进位加法还会进行推导，两者的基本进位公式几乎雷同。</p>
+</li>
+<li><p>电路：分为静态、动态（时钟控制）两种，动态结构适合高速进位链（如超前进位加法器），大幅提升大位宽加法速度。</p>
+</li>
+</ul>
+<p><img src="/2026/04/01/digital-integrated-circuit-design/图13.png" style="zoom: 50%;"></p>
+<p>以动态CMOS的方法来实现P/G 信号：</p>
+<ul>
+<li><strong>预充电(Clk=0)</strong>：PMOS 管导通，内部节点被预充到 VDD；</li>
+<li><strong>求值(Clk=1)</strong>：NMOS 下拉网络根据输入信号决定是否放电，输出反相逻辑；</li>
+<li><strong>Keeper(保持管)</strong>：弱 PMOS 管，用于补偿下拉路径的漏电，维持输出电平，解决动态逻辑的电荷泄漏、电荷共享问题。</li>
+</ul>
+<p><strong>(1) $P_i=a_i+b_i$</strong>（传播信号）</p>
+<p>用两个并联 NMOS 管实现”或逻辑”（简化了异或 $A \oplus B$，因递推公式中$G=1$时 $C_o$ 恒为 1，$A+B$ 可等价替代 $A \oplus B$，大幅简化电路）。</p>
+<p><strong>(2) $G_i=a_i \cdot b_i$</strong>（产生信号）</p>
+<p>用两个串联 NMOS 管实现”与逻辑”，仅当$a_i$、$b_i$均为 1 时，节点放电，对应 $Gi=1$。</p>
+<p><strong>Example：4 位曼彻斯特进位链(4-bit Manchester Carry Chain)</strong></p>
+<ol>
+<li><strong>预充电阶段($\phi=0$)</strong>：所有 PMOS 预充管导通，所有进位节点 $ \overline{ C_0 }∼ \overline{ C_3 }$ 被充到高电平（$C_0∼C_3=0$）；</li>
+<li><strong>求值阶段($\phi=1$)：</strong><ul>
+<li>若 $G<em>i=1$：本级 NMOS 下拉管导通，直接将 $\overline {C</em> { i+1 } }$ 拉低（对应 $C_{ i+1 }=1$，产生进位）；</li>
+<li>若 $P_i=1$：传输管导通，将前一级 $\overline { C_i } $ 的电平传播到下一级（传播进位）；</li>
+<li>递推公式：$C_{ i+1 }=G_i+P_iC_i$，逐位生成进位。</li>
+</ul>
+</li>
+</ol>
+<p><img src="/2026/04/01/digital-integrated-circuit-design/图14.png" style="zoom:80%;"></p>
+<h3 id="2-2-6-进位旁路加法器-Carry-Bypass-Adder"><a href="#2-2-6-进位旁路加法器-Carry-Bypass-Adder" class="headerlink" title="2.2.6 进位旁路加法器(Carry-Bypass Adder)"></a>2.2.6 进位旁路加法器(Carry-Bypass Adder)</h3><p>在<strong>行波进位链</strong>基础上增加一条<strong>旁路通道(Bypass Path)</strong>。</p>
+<p><strong>原理：</strong></p>
+<p>计算一组进位传播信号的<strong>块传播信号(Block Propagate, BP)</strong>。</p>
+<p>$BP=P_0 \cdot  P_1 \cdot P_2 \cdot P_3$</p>
+<p>（以 4 位块为例，只有当所有位都满足传播条件 $P_i=1$ 时，BP=1）。</p>
+<ul>
+<li>行为规则<ul>
+<li>若 <strong>BP=1</strong>：直接将输入进位 $C<em>{i,0}$ 通过多路选择器（MUX）旁路到输出 $C</em>{o,3}$，跳过中间 4 位的进位传播过程。</li>
+<li>若 <strong>BP=0</strong>：按正常行波方式逐级传播进位。</li>
+</ul>
+</li>
+</ul>
+<p><img src="/2026/04/01/digital-integrated-circuit-design/图15.png" style="zoom:80%;"></p>
+<p>其实单这样没啥用，延迟还是很高而且还多此一举。</p>
+<p>我们可以改成曼彻斯特进位旁路加法器，这样就可以减小进位链的延迟：</p>
+<p><img src="/2026/04/01/digital-integrated-circuit-design/图17.png" style="zoom:80%;"></p>
+<p>但是如果在一个大的电路里，拆分成几个，就可以加速并行计算，从而提高计算效率。</p>
+<p><img src="/2026/04/01/digital-integrated-circuit-design/图16.png" style="zoom:80%;"></p>
+<p>如上图所示，如果有 N-bit 的加法器，可以分为 $\frac{N}{M}$ 阶，每个阶处理 M bits。这里拿 4 阶 16 位举例。</p>
+<p>所以其延迟就是：</p>
+<script type="math/tex; mode=display">
+t_p=t_{setup}+M \cdot t_{carry}+( \frac { N } { M } -1)t_{ mux } + (M-1) t_{ carry } + t_{ sum }</script><p>其中</p>
+<ul>
+<li>$t_{setup}$ = fixed delay to get P and G signal</li>
+<li>$t_{carry}$ = carry delay in 1 bit, worse is M bit in 1 stage</li>
+<li>$t_{bypass}$ = delay through MUX in 1 stage</li>
+<li>$t_{sum}$ = delay of sum in final stage</li>
+</ul>
+<h3 id="2-2-7-进位选择加法器-Carry-Select-Adder"><a href="#2-2-7-进位选择加法器-Carry-Select-Adder" class="headerlink" title="2.2.7 进位选择加法器(Carry-Select Adder)"></a>2.2.7 进位选择加法器(Carry-Select Adder)</h3><p>它的原理就是利用”<strong>预计算</strong>“消除等待时间，先利用<strong>并行计算</strong>，让每个块<strong>预先计算两种情况</strong>——假设输入进位为 <strong>0</strong> 和 假设输入进位为 <strong>1</strong> 时的本组结果。然后当前一级进位 $C_{ in }$ arrives 后，通过多路选择器（MUX）<strong>瞬间选出</strong>正确的结果。流程图如下：</p>
+<p><img src="/2026/04/01/digital-integrated-circuit-design/图18.png" style="zoom:67%;"></p>
+<p>进位选择器常见的有三种改进方案：</p>
+<p><strong>(1) 线性进位加法器(Linear Carry-Select Adder)</strong></p>
+<p><img src="/2026/04/01/digital-integrated-circuit-design/图19.png" style="zoom:80%;"></p>
+<p>N 位加法器内置 M 位进位选择，划分成 $\frac { N } { M }$ 个阶级。总的延时为：</p>
+<script type="math/tex; mode=display">
+t_{ add }=t_{ setup }+M \cdot t_{ carry }+(\frac{ N } { M }) \cdot t_{ mux }+t_{ sum }</script><p>这种电路结构占用面积较小，设计简单。</p>
+<p><strong>(2) N 位平方根进位选择加法器(N-bit Square-Root Carry-Select Adder)</strong></p>
+<p>线性选择加法器前面的块要等的时间短，后面的块要等的时间长，那既然这样，我们可以让：</p>
+<ul>
+<li><strong>前面的块更小</strong>（算得快，尽快出进位给后面）</li>
+<li><strong>后面的块更大</strong>（等的时间长，不用那么快出，减少总块数）</li>
+</ul>
+<p><img src="/2026/04/01/digital-integrated-circuit-design/图20.png" style="zoom:80%;"></p>
+<p>如上图，总位数 N 其实就是一个<strong>首项为 2、公差为 1 的等差数列求和</strong>：</p>
+<script type="math/tex; mode=display">
+N=2+3+4+...+(P+1)= \frac{ P(P+3) }{ 2 } \simeq \frac{ P^2 }{ 2 } \,\,\, (当P很大时，3P可忽略)</script><p>变形得：$P \simeq \sqrt { 2N }$</p>
+<p>也就是<strong>总块数 P 和 $\sqrt { N }$ 成正比</strong>，总延迟里的 MUX 延迟变成了$\sqrt{ 2N } \times t_{mux}$，从线性级降到了平方根级。</p>
+<p>由此，就可以得到延迟公式：</p>
+<script type="math/tex; mode=display">
+t_{ add }= t_{ setup } + M \cdot t_{ carry } + \sqrt{ 2N } \cdot t_{ mux }+t_{ sum }</script><h3 id="2-2-8-超前进位加法器-Carry-Look-Ahead-Adder-CLA"><a href="#2-2-8-超前进位加法器-Carry-Look-Ahead-Adder-CLA" class="headerlink" title="2.2.8  超前进位加法器(Carry-Look-Ahead Adder, CLA)"></a>2.2.8  超前进位加法器(Carry-Look-Ahead Adder, CLA)</h3><p>从根本上打破<strong>行波进位 $C_{ i+1 }=G_i+P_i \cdot C_i$</strong> 的递推依赖，通过逻辑代数展开，<strong>直接由所有输入位的 P/G 信号计算出任意位的进位</strong>。</p>
+<p><img src="/2026/04/01/digital-integrated-circuit-design/图21.png" style="zoom:67%;"></p>
+<p>数学展开式如下：</p>
+<script type="math/tex; mode=display">
+C_1=g_0 + p_0 \cdot C_0\\
+C_2=g_1 + p_1 \cdot g_0 + p_1 \cdot p_0 \cdot C_0\\
+C_3=g_2 + p_2 \cdot g_1 + p_2 \cdot p_1 \cdot g_0 + p_2 \cdot p_1 \cdot p_0 \cdot C_0\\
+C_4=g_3 + p_3 \cdot g_2 + p_3 \cdot p_2 \cdot g_1 + p_3 \cdot p_2 \cdot p_1 \cdot g_0 + p_3 \cdot p_2 \cdot p_1 \cdot p_0 \cdot C_0</script><ul>
+<li><strong>G(Group Generate)</strong>：$g_3 + p_3 \cdot g_2+… $（组产生信号）</li>
+<li><strong>P(Group Propagate)</strong>：$p_3 \cdot p_2 \cdot p_1 \cdot p_0$（组传播信号）</li>
+<li>最终简化：$C_4=G+P \cdot C_0$</li>
+<li>所以最终第 $n$ 个进位公式为：$C_{ i+1 }=g_i + p_i \cdot C_i$</li>
+</ul>
+<p>关于进位公式如何推导，可以看B站上的视频：</p>
+<iframe src="//player.bilibili.com/player.html?isOutside=true&aid=84976227&bvid=BV1N7411k7sb&cid=145306691&p=1&high_quality=1&danmaku=0" allowfullscreen="allowfullscreen" width="100%" height="500" scrolling="no" frameborder="0" sandbox="allow-top-navigation allow-same-origin allow-forms allow-scripts"></iframe>
+
+<p>但这一种方式造成芯片<strong>面积巨大</strong>，连线复杂（P、G 信号扇出极多），功耗高。</p>
+<p><img src="/2026/04/01/digital-integrated-circuit-design/图22.png" style="zoom:80%;"></p>
+<p>上图是用超前进位加法器实现的全加器的整体架构，所有 $x_i$，$y_i$ 并行输入到 P/G 生成器和 CLA 单元，直接算出所有进位 $C_i$，最后组合输出和 $S_i$，无进位链的串行等待。</p>
+<p><img src="/2026/04/01/digital-integrated-circuit-design/图23.png" style="zoom:80%;"></p>
+<p><span style="font-size: 22px"><strong>Example: 4-bit Look-ahead Carry Generator</strong></span></p>
+<p>这里给出一种从 $C_0$ 得到 $C_4$ 的一种电路布局。</p>
+<p><img src="/2026/04/01/digital-integrated-circuit-design/图24.png" style="zoom:67%;"></p>
+<h2 id="2-3-乘法器"><a href="#2-3-乘法器" class="headerlink" title="2.3 乘法器"></a>2.3 乘法器</h2><h3 id="2-3-1-二进制乘法-Binary-Multiplication"><a href="#2-3-1-二进制乘法-Binary-Multiplication" class="headerlink" title="2.3.1 二进制乘法(Binary Multiplication)"></a>2.3.1 二进制乘法(Binary Multiplication)</h3><p>设两个无符号二进制数：</p>
+<ul>
+<li>M位<strong>被乘数 X</strong>：$X=\sum_{ i=0 }^{ M-1 } $（ $X_i \in \lbrace{0,1}\rbrace$，$2^i$ 是第 $i$ 位的权值，如最低位 $2^0=1$）</li>
+<li>N位<strong>乘数Y</strong>：$Y=\sum_{j=0}^{N-1}Y_j2^j$（同理，$Y_j$是 $Y$ 的第 $j$ 位）</li>
+</ul>
+<p>乘积 $Z=X \times Y$，结果为<strong>$M+N$位无符号数</strong>（$M$ 位 $\times N$ 位的最大乘积$(2^M−1)(2^N−1) &lt; 2^{ (M+N) }$，因此需要 $M+N$ 位存储），按权展开为：</p>
+<script type="math/tex; mode=display">
+Z= \sum_{ k=0 }^{ M+N-1 }Z_k2^k</script><p>将两个按权展开的数相乘，交换求和顺序：</p>
+<p>$Z=(\sum<em>{ i=0 }^{ M-1 }X_i2^i)(\sum</em>{ j=0 }^{ N-1 }Y<em>j2^j)=\sum</em>{ i=0 }^{ M-1 }(\sum_{ j=0 }^{ N-1 }X_iY_j2^{i+j})$</p>
+<p>二进制乘法可拆分为<strong>多个部分积(Partial Product)的和</strong>：</p>
+<ul>
+<li>$X_iY_j$：二进制位相乘，等价于<strong>逻辑与（AND）</strong>（$0\&amp;0=0$、$0\&amp;1=0$、$1\&amp;0=0$、$1\&amp;1=1$）</li>
+<li>$2^{ i+j }$：将该部分积左移 $i+j$ 位，对齐到对应权值的位置。</li>
+</ul>
+<p>如下图所示，这就是二进制乘法的计算过程：</p>
+<p><img src="/2026/04/01/digital-integrated-circuit-design/图25.png" style="zoom:50%;"></p>
+<p>我们可以将 $4$ 位 $\times 4$ 位无符号乘法的部分积<strong>可视化</strong>，用于指导加法器阵列的设计：</p>
+<p><img src="/2026/04/01/digital-integrated-circuit-design/图26.png" style="zoom: 67%;"></p>
+<hr>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">乘积位</th>
+<th style="text-align:left">点的数量</th>
+<th style="text-align:left">对应部分积项</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">$P_0$</td>
+<td style="text-align:left">1</td>
+<td style="text-align:left">$y_0x_0$</td>
+</tr>
+<tr>
+<td style="text-align:left">$P_1$</td>
+<td style="text-align:left">2</td>
+<td style="text-align:left">$y_1x_0,y_0x_1$</td>
+</tr>
+<tr>
+<td style="text-align:left">$P_2$</td>
+<td style="text-align:left">3</td>
+<td style="text-align:left">$y_2x_0,y_1x_1,y_0x_2$</td>
+</tr>
+<tr>
+<td style="text-align:left">$P_3$</td>
+<td style="text-align:left">4</td>
+<td style="text-align:left">$y_3x_0,y_2x_1,y_1x_2,y_0x_3$</td>
+</tr>
+<tr>
+<td style="text-align:left">$P_4$</td>
+<td style="text-align:left">3</td>
+<td style="text-align:left">$y_3x_1,y_2x_2,y_1x_3$</td>
+</tr>
+<tr>
+<td style="text-align:left">$P_5$</td>
+<td style="text-align:left">2</td>
+<td style="text-align:left">$y_3x_2,y_2x_3$</td>
+</tr>
+<tr>
+<td style="text-align:left">$P_6$</td>
+<td style="text-align:left">1</td>
+<td style="text-align:left">$y_3x_3$</td>
+</tr>
+<tr>
+<td style="text-align:left">$P_7$</td>
+<td style="text-align:left">1（进位）</td>
+<td style="text-align:left">加法产生的最高位进位</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>这是乘法器的输入级电路，展示了部分积的硬件实现原理：</p>
+<p><img src="/2026/04/01/digital-integrated-circuit-design/图27.png" style="zoom: 67%;"></p>
+<p>二进制位相乘 $y_j \cdot x_i$ 完全等价于<strong>逻辑与(AND)运算</strong>，因此用<strong>与门(AND Gate)</strong>生成部分积的每一位。该电路特性如下：</p>
+<ul>
+<li><strong>并行生成</strong>：所有部分积可同时生成，延迟仅为 1 个与门的延迟</li>
+<li><strong>面积开销</strong>：M位 $\times N$位乘法，需要$M \times N$个与门生成全部部分积</li>
+</ul>
+<h3 id="2-3-2-位串行乘法器"><a href="#2-3-2-位串行乘法器" class="headerlink" title="2.3.2 位串行乘法器"></a>2.3.2 位串行乘法器</h3><p>这是面积最小、但速度最慢的乘法器结构，以时间换面积，是低成本、低功耗场景的极简实现。</p>
+<p>要实现 $Q=M \times A$，其中 $M$ 为 $m$ 位被乘数，$A$ 为 $n$ 位乘数，最终乘积 Q 为 $m+n$ 位。电路实现硬件有 $m$ 位与门阵列（生成单周期部分积）、$m$ 位加法器、$m+n$ 位移位寄存器（高 $m$ 位存累加结果 $Q$，低 $n$ 位存乘数 $A$）。</p>
+<p><img src="/2026/04/01/digital-integrated-circuit-design/图28.png" style="zoom: 67%;"></p>
+<p>其工作流程如下：</p>
+<ul>
+<li>初始状态：移位寄存器低 $n$ 位加载乘数 $A$，高 $m$ 位清零。</li>
+<li>单时钟周期动作：<ol>
+<li>取寄存器最低位 $A[0]$（当前处理的乘数位），与被乘数 $M$ 逐位做与运算，生成当前周期的部分积；</li>
+<li>部分积与寄存器高 $m$ 位的历史累加结果，通过 $m$ 位加法器相加；</li>
+<li>加法结果整体右移 1 位，最低位作为乘积的 1 位固定输出，进位保留在高位，乘数同步右移 1 位，进入下一个周期。</li>
+</ol>
+</li>
+<li>总耗时：$n$ 个时钟周期完成 $m$ 位 $\times \, n$ 位乘法（如示例中 4 位乘数需要 4 个周期）。</li>
+</ul>
+<h3 id="2-3-3-阵列乘法器-Array-Multiplier"><a href="#2-3-3-阵列乘法器-Array-Multiplier" class="headerlink" title="2.3.3 阵列乘法器(Array Multiplier)"></a>2.3.3 阵列乘法器(Array Multiplier)</h3><p><strong>最基础的全并行乘法器</strong>，其先通过与门阵列并行生成所有部分积，再通过全加器组成的二维阵列，逐行累加部分积，直接输出最终乘积。</p>
+<p>我们以 $4$ 位 $\times \, 4 $ 位为例：</p>
+<p><img src="/2026/04/01/digital-integrated-circuit-design/图29.png" style="zoom: 80%;"></p>
+<ul>
+<li>部分积生成：$4 \times 4=16$ 个与门，并行生成所有 $y_jx_i$ 项；</li>
+<li>加法阵列：共 $N−1$ 次加法运算（$N$ 为乘数位宽），每行 $M$ 个全加器（$M$ 为被乘数位宽）；</li>
+<li>进位规则：每行全加器产生的进位，传递到<strong>下一行的同列</strong>全加器的进位输入端，逐行完成累加。</li>
+</ul>
+<p>所以阵列乘法器的延迟公式：</p>
+<script type="math/tex; mode=display">
+t_{ mult }=t_{ and } + [(M−1)+(N−2)]t_{ carry } + (N−1)t_{ sum }</script><p>其中：</p>
+<ul>
+<li>$t_{ and }$：与门的传输延迟；</li>
+<li>$t_{ carry }$：全加器的进位传播延迟；</li>
+<li>$t_{ sum }$：全加器的求和延迟；</li>
+</ul>
+<p>这个公式是根据下图推理出的， $M$ 是被乘数位数；$N$ 是乘数位数；$t<em>{and}$ 是 AND 门的延迟；$t</em>{ carry }$ 是输入和输出进位之间的传播延时；$t_{ sum }$ 是全加器输入以及输入进位与”和”位之间的延时。</p>
+<p><img src="/2026/04/01/digital-integrated-circuit-design/图30.png" style="zoom:67%;"></p>
+<p>$M-1$ 是第一行 carry 只传 $M-1$ 次，从最后一个 sum 下去。$N-2$ 是因为第一行不用传 carry（因为输入进位是 0），最后一行不用传，因为直接输出 sum。最后的 sum 是 $N-1$，因为 N 行只用将部分积加和 $N-1$ 次就能得出结果了。</p>
+<h3 id="2-3-4-进位保存乘法器-Carry-Save-Multiplier"><a href="#2-3-4-进位保存乘法器-Carry-Save-Multiplier" class="headerlink" title="2.3.4 进位保存乘法器(Carry-Save Multiplier)"></a>2.3.4 进位保存乘法器(Carry-Save Multiplier)</h3><p>阵列乘法器的痛点主要有进位逐行跨列传播，路径超长；因此需要一种新的方案。</p>
+<p><strong>高速乘法器的核心基础结构</strong>，其原理就是<strong>先不传播进位，把进位保存下来，到最后一步再统一传播</strong>：</p>
+<ul>
+<li>进位保存的优化：全加器作为3-2 压缩器使用，把 3 个输入（当前位部分积、上一级和、上一级进位）压缩为 2 个输出（本位和、进位）；产生的进位<strong>不传递到同列下一级，而是传递到下一级的右一列（对应更高 1 位的权值）</strong>，进位仅在本级内保存，不跨级传播。</li>
+</ul>
+<p><img src="/2026/04/01/digital-integrated-circuit-design/图31.png" style="zoom:80%;"></p>
+<ul>
+<li>与门阵列：并行生成所有部分积；</li>
+<li>CSA 压缩树：N−2 级进位保存加法器，每一级把部分积的行数减少，最终把 N 行部分积压缩为 2 行：1 行和（Sum）、1 行进位（Carry）；</li>
+<li><p>合并级(Merging Stage)：1 个进位传播加法器(Carry-Propagate Adder, CPA, 如超前进位加法器 CLA)，把最后 2 行的和与进位相加，得到最终乘积。</p>
+</li>
+<li><p>延迟公式：</p>
+<script type="math/tex; mode=display">
+t_{ mult }= t_{ AND }+(N−1)t_{ carry }+t_{ merge }</script><p>延迟仅与乘数位宽 $N$ 相关，与被乘数位宽 $M$ 无关，相比阵列乘法器延迟大幅降低。</p>
+</li>
+</ul>
+<p><img src="/2026/04/01/digital-integrated-circuit-design/图32.png" style="zoom:67%;"></p>
+<ul>
+<li>浅蓝色 HA 单元：半加器乘法单元，用于仅 2 个输入的列，实现 2-2 压缩；</li>
+<li>黄色 FA 单元：全加器乘法单元，核心的 3-2 压缩单元，用于 3 个及以上输入的列；</li>
+<li>粉色 Vector-merging 单元：向量合并单元，即最后一级的 CPA，完成和与进位的最终合并。</li>
+</ul>
+<h3 id="2-3-5-华莱士树与Dadda树-Wallace-Tree-and-Dadda-Tree"><a href="#2-3-5-华莱士树与Dadda树-Wallace-Tree-and-Dadda-Tree" class="headerlink" title="2.3.5 华莱士树与Dadda树(Wallace Tree and Dadda Tree)"></a>2.3.5 华莱士树与Dadda树(Wallace Tree and Dadda Tree)</h3><p>两种树型结构的核心目标一致：用<strong>最少的压缩级数</strong>，把多列的部分积压缩到每列仅 2 个点，最终用 <strong>CPA 合并得到乘积</strong>，仅压缩策略不同。</p>
+<p>部分和加法器可以设计成树形，可以减少关键路径和所需的加法器单元数目。根据点图，我们可以将点图重新安排成下图(b)中的树形，由此看出其深度。可以用全加器：三个输入和两个输出，一个输出和到当前列，一个输出进位到下一列；半加器：两个输入和两个输出。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">结构</th>
+<th style="text-align:left">压缩策略</th>
+<th style="text-align:left">实现细节</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Wallace Tree（华莱士树）</td>
+<td style="text-align:left">尽可能早压缩：每一级只要列中点数≥3，就用 FA 压缩，最大化减少每一级的点数</td>
+<td style="text-align:left">2 级压缩，Stage1 用 3 个 FA+1 个 HA，Stage2 用 2 个 FA+2 个 HA，最终用 4 位 CPA 合并</td>
+</tr>
+<tr>
+<td style="text-align:left">Dadda Tree（Dadda 树）</td>
+<td style="text-align:left">尽可能晚压缩：仅压缩到满足下一级的最大允许点数，不做多余压缩</td>
+<td style="text-align:left">2 级压缩，Stage1 用 2 个 FA，Stage2 用 2 个 FA+2 个 HA，最终用 6 位 CPA 合并</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><img src="/2026/04/01/digital-integrated-circuit-design/图33.png" style="zoom:80%;"></p>
+<p><strong>关于华莱士树，可以看如下视频：</strong></p>
+<iframe src="//player.bilibili.com/player.html?isOutside=true&aid=115978864232994&bvid=BV1df6cBAEmV&cid=35691955967&p=1&high_quality=1&danmaku=0" allowfullscreen="allowfullscreen" width="100%" height="500" scrolling="no" frameborder="0" sandbox="allow-top-navigation allow-same-origin allow-forms allow-scripts"></iframe>
+
+<p><strong>而Dadda树则可以复习以下视频：</strong></p>
+<iframe src="//player.bilibili.com/player.html?isOutside=true&aid=231581737&bvid=BV1W841127yY&cid=1214325900&p=1&high_quality=1&danmaku=0" allowfullscreen="allowfullscreen" width="100%" height="500" scrolling="no" frameborder="0" sandbox="allow-top-navigation allow-same-origin allow-forms allow-scripts"></iframe>
+
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>对比维度</th>
+<th>Wallace Tree（华莱士树）</th>
+<th>Dadda Tree（达达树）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Strategy for adding PP</strong>（部分积压缩策略）</td>
+<td>As soon as possible（<strong>尽早压缩</strong>）</td>
+<td>As late as possible（<strong>尽晚压缩</strong>）</td>
+</tr>
+<tr>
+<td><strong>CSA Tree</strong>（CSA 树结构）</td>
+<td>More complex（<strong>更复杂</strong>）</td>
+<td>Simpler（<strong>更简单</strong>）</td>
+</tr>
+<tr>
+<td><strong>CPA</strong>（最终进位传播加法器）</td>
+<td>Shorter（<strong>位宽更短</strong>）</td>
+<td>Longer（<strong>位宽更长</strong>）</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="2-3-6-有符号乘法器-Signed-Multiplication"><a href="#2-3-6-有符号乘法器-Signed-Multiplication" class="headerlink" title="2.3.6 有符号乘法器(Signed Multiplication)"></a>2.3.6 有符号乘法器(Signed Multiplication)</h3><p>对于正数，补码与其原码相同。对于负数，补码是其<strong>反码加1</strong>。反码是将原码的数值部分逐位取反（0变1，1变0）。</p>
+<p>以十进制数 -5 为例：</p>
+<ul>
+<li><p>原码表示：<em>10000101</em>（最高位为符号位，1表示负数）。</p>
+</li>
+<li><p>反码表示：<em>11111010</em>（将原码除符号位外的所有位取反）。</p>
+</li>
+<li><p>补码表示：<em>11111011</em>（反码加1）。</p>
+</li>
+</ul>
+<p>为了消除负号，使用补码的基本恒等式：</p>
+<script type="math/tex; mode=display">
+\bar a = 1−a \Rightarrow −a = \bar a − 1</script><p>其中 $\bar a$ 表示 $a$ 的<strong>按位取反</strong>（0 变 1，1 变 0），硬件中仅需非门即可实现。</p>
+<p><img src="/2026/04/01/digital-integrated-circuit-design/图34.png" style="zoom:67%;"></p>
+<p><strong>Example: 4 位 Baugh-Wooley 阵列乘法器</strong></p>
+<p><img src="/2026/04/01/digital-integrated-circuit-design/图35.png" style="zoom: 80%;"></p>
+<h1 id="3-数据通路的功耗考量-Power-Considerations-in-Datapath"><a href="#3-数据通路的功耗考量-Power-Considerations-in-Datapath" class="headerlink" title="3.  数据通路的功耗考量(Power Considerations in Datapath)"></a>3.  数据通路的功耗考量(Power Considerations in Datapath)</h1><p>CMOS 动态功耗公式如下：</p>
+<script type="math/tex; mode=display">
+P=f \times C_L \times V_{ DD } ^2 \times \sum \alpha</script><p>我们列个表对各项参数进行解释：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">参数</th>
+<th style="text-align:left">含义</th>
+<th style="text-align:left">通俗比喻</th>
+<th style="text-align:left">对功耗的影响</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">$P$</td>
+<td style="text-align:left">动态功耗（CMOS 最主要功耗来源，由节点电容充放电产生）</td>
+<td style="text-align:left">水管的 “水耗”</td>
+<td style="text-align:left">核心优化目标</td>
+</tr>
+<tr>
+<td style="text-align:left">$f$</td>
+<td style="text-align:left">工作频率（时钟每秒翻转次数）</td>
+<td style="text-align:left">水管开关频率</td>
+<td style="text-align:left">线性相关：频率越高，功耗越高</td>
+</tr>
+<tr>
+<td style="text-align:left">$C_L$</td>
+<td style="text-align:left">负载电容（节点总电容，含栅电容、线电容）</td>
+<td style="text-align:left">水管容积</td>
+<td style="text-align:left">线性相关：电容越大，功耗越高</td>
+</tr>
+<tr>
+<td style="text-align:left">$V_{DD}$</td>
+<td style="text-align:left">电源电压</td>
+<td style="text-align:left">水压</td>
+<td style="text-align:left"><strong>平方相关</strong>：降VDD是最有效的降功耗手段</td>
+</tr>
+<tr>
+<td style="text-align:left">$\alpha$</td>
+<td style="text-align:left">开关活动性（节点翻转概率，Σα为总翻转率）</td>
+<td style="text-align:left">水管通水比例</td>
+<td style="text-align:left">线性相关：翻转越多，功耗越高</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>通过上述公式不难看出：$V_{ DD }$是平方项，降电压对功耗是<strong>二次方级节省</strong>（如 $1.8V \rightarrow 1.2V$，功耗降至原 44.4%）；但代价是晶体管驱动能力下降，<strong>电路延迟增大、性能降低</strong>，这是低功耗设计最核心的<strong>功耗和性能权衡(Power-Performance Trade-off)</strong>。</p>
+<p><strong>要降低功耗，但同时也需要补偿降VDD带来的性能损失（在保性能的前提下降功耗），普遍的方法有：</strong></p>
+<ol>
+<li><p>并行架构(Parallel Functional Blocks)</p>
+<p>利用用多个并行模块，每个跑<strong>更低频率 + 更低$V_{ DD }$</strong>，并行处理数据，总吞吐量与原单模块高频率方案一致。</p>
+</li>
+<li><p>流水线架构(Pipeline Structure)</p>
+<p>将大组合逻辑拆分为多级流水线，每级负载电容更小，因此可用<strong>更低的 $V_{ DD }$</strong> 达到原有时钟频率（小电容充电更快，低电压也能满足时序）。</p>
+</li>
+<li><p><strong>多电源电压(Multiple Supply Voltages, MSV)</strong></p>
+<p>关键路径（需高速）用<strong>高 $V_{ DD }$</strong>，非关键路径（低速无影响）用<strong>低$V_{ DD }$</strong>，在不影响系统性能的前提下最大化降功耗。</p>
+<ul>
+<li>注意：需电平转换电路（Level Shifter）实现不同电压域的信号交互。</li>
+</ul>
+</li>
+<li><p><strong>动态电压频率调节(Dynamic Voltage and Frequency Scaling, DVFS)</strong></p>
+<p>根据系统负载动态调整频率和电压：负载低（如手机 idle）时降频降压，负载高（如玩游戏）时升频升压。</p>
+</li>
+<li><p><strong>掉电模式(Power-down Mode)</strong></p>
+<p>将空闲模块设为待机（Standby），切断 / 降低供电，消除静态 + 动态功耗。</p>
+</li>
+</ol>
+<h2 id="3-1-时钟门控-Clock-Gating"><a href="#3-1-时钟门控-Clock-Gating" class="headerlink" title="3.1 时钟门控(Clock Gating)"></a>3.1 时钟门控(Clock Gating)</h2><p>时钟树是芯片中功耗最高的部分（时钟持续翻转、负载极大），时钟门控的原理是：<strong>切断空闲模块的时钟，让触发器停止翻转，消除动态功耗</strong>（$f=0$，动态功耗为 0）。</p>
+<p><img src="/2026/04/01/digital-integrated-circuit-design/图36.png" style="zoom: 67%;"></p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">电路</th>
+<th style="text-align:left">方案</th>
+<th style="text-align:left">问题 / 优势</th>
+<th style="text-align:left">波形表现</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Bad Circuit</td>
+<td style="text-align:left">与门（AND）做隔离门，输入$clk+E_{ clk }$</td>
+<td style="text-align:left">错误方案：$E_{ clk }$在$clk$高电平时变化会产生<strong>毛刺(Glitch)</strong>，导致触发器误触发、额外功耗</td>
+<td style="text-align:left">$x$ 波形出现灰色尖峰毛刺</td>
+</tr>
+<tr>
+<td style="text-align:left">Good Circuit</td>
+<td style="text-align:left">或门（OR）做隔离门，输入$clk+ \bar{ E }_{ clk }$</td>
+<td style="text-align:left">正确方案：$\bar { E }<em>{ clk }$=0（使能开）时 $y=clk$，$\bar { E }</em>{ clk }$（使能关）时 $y$ 恒高，<strong>无毛刺、无时钟翻转</strong></td>
+<td style="text-align:left">$y$ 波形无毛刺，关断后无时钟</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="3-2-电源门控-Power-Gating"><a href="#3-2-电源门控-Power-Gating" class="headerlink" title="3.2 电源门控(Power Gating)"></a>3.2 电源门控(Power Gating)</h2><p>电源门控是为了彻底消除静态功耗（时钟门控仅消动态功耗，电源门控关电源，漏电流几乎为 0）。在空闲模块的电源轨串联<strong>电源开关（大尺寸 PMOS）</strong>，空闲时切断电源，消除静态漏电流和动态功耗；工作时恢复供电。</p>
+<p><img src="/2026/04/01/digital-integrated-circuit-design/图37.png" style="zoom:67%;"></p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">特性</th>
+<th style="text-align:left">细粒度（Fine Grain）</th>
+<th style="text-align:left">粗粒度（Coarse Grain）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">控制粒度</td>
+<td style="text-align:left">每个逻辑门 / 小模块加睡眠管</td>
+<td style="text-align:left">整个大功能模块（如 CPU 核）用一个电源开关</td>
+</tr>
+<tr>
+<td style="text-align:left">面积开销</td>
+<td style="text-align:left">大（逐门加管）</td>
+<td style="text-align:left">小（仅模块级加开关）</td>
+</tr>
+<tr>
+<td style="text-align:left">时序影响</td>
+<td style="text-align:left">大（每个门串联电阻，延迟增加）</td>
+<td style="text-align:left">小（仅模块级影响，可优化补偿）</td>
+</tr>
+<tr>
+<td style="text-align:left">设计复杂度</td>
+<td style="text-align:left">高（逐门设计，时序收敛难）</td>
+<td style="text-align:left">低（模块级设计，时序收敛易）</td>
+</tr>
+<tr>
+<td style="text-align:left">适用场景</td>
+<td style="text-align:left">小模块、对面积不敏感的场景</td>
+<td style="text-align:left">大模块、现代芯片主流方案（如手机 SoC）</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h1 id="4-设计方法"><a href="#4-设计方法" class="headerlink" title="4 设计方法"></a>4 设计方法</h1><h2 id="4-1-设计抽象层级"><a href="#4-1-设计抽象层级" class="headerlink" title="4.1 设计抽象层级"></a>4.1 设计抽象层级</h2><p>通过分层抽象降低设计复杂度，从底层器件到顶层系统的层级如下：</p>
+<p><img src="/2026/04/01/digital-integrated-circuit-design/图38.png" style="zoom:50%;"></p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">层级</th>
+<th style="text-align:left">核心定位</th>
+<th style="text-align:left">设计对象</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Device（器件）</td>
+<td style="text-align:left">物理底层</td>
+<td style="text-align:left">MOS 晶体管（G/S/D 极、n 阱结构）</td>
+</tr>
+<tr>
+<td style="text-align:left">Circuit（电路）</td>
+<td style="text-align:left">单元电路</td>
+<td style="text-align:left">反相器、与非门等 CMOS 基本电路</td>
+</tr>
+<tr>
+<td style="text-align:left">Gate（门级）</td>
+<td style="text-align:left">逻辑单元</td>
+<td style="text-align:left">与门、或门、触发器等标准逻辑门</td>
+</tr>
+<tr>
+<td style="text-align:left">Module（模块）</td>
+<td style="text-align:left">功能模块</td>
+<td style="text-align:left">ALU、寄存器、多路选择器等子系统</td>
+</tr>
+<tr>
+<td style="text-align:left">System（系统）</td>
+<td style="text-align:left">完整芯片</td>
+<td style="text-align:left">CPU、SoC、存储器控制器等整机系统</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>如下所示是 Gajski-Kuhn Y 图(Gajski-Kuhn Y Diagram)：</p>
+<p><img src="/2026/04/01/digital-integrated-circuit-design/图39.png" style="zoom: 50%;"></p>
+<p>IC 设计的经典三维模型，将设计划分为<strong>三个核心域</strong>，每个域对应不同抽象层级：</p>
+<ul>
+<li><strong>行为域(Behavioural Domain)</strong>：描述”做什么”（功能、算法、时序），从系统级到电路级的功能定义。</li>
+<li><strong>结构域(Structural Domain)</strong>：描述”用什么做”（硬件结构、模块连接），从处理器 / 存储器到晶体管的硬件实现。</li>
+<li><strong>物理域(Physical Domain)</strong>：描述”物理实现”（版图、布局、布线），从版图到物理分区的物理落地。</li>
+</ul>
+<h2 id="4-2-设计流程"><a href="#4-2-设计流程" class="headerlink" title="4.2 设计流程"></a>4.2 设计流程</h2><p>我们用完整的流程图来看看 IC 设计流程：</p>
+<p><img src="/2026/04/01/digital-integrated-circuit-design/图40.png" style="zoom:80%;"></p>
+<p>分为 <strong>前端（逻辑设计，prelayout）</strong>和<strong>后端（物理设计，postlayout）</strong> 两大阶段：</p>
+<ol>
+<li><p><strong>前端流程（逻辑设计，红线以上）</strong></p>
+<ul>
+<li><strong>Design Entry（设计输入）</strong>：用 Verilog/VHDL 编写 RTL 代码，或原理图 / 状态图输入</li>
+<li><strong>Logic Synthesis（逻辑综合）</strong>：将 RTL 代码综合为门级网表，映射到标准单元库</li>
+<li><strong>System Partitioning（系统划分）</strong>：模块划分、布局规划</li>
+<li><strong>Prelayout Simulation（布局前仿真）</strong>：功能仿真（前仿真），仅验证逻辑正确性，不考虑时序 / 寄生</li>
+</ul>
+</li>
+<li><p><strong>后端流程（物理设计，红线以下）</strong></p>
+<ul>
+<li><strong>Floorplanning（平面规划）</strong>：芯片电源、IO、模块布局，确定芯片面积</li>
+<li><strong>Placement（布局）</strong>：标准单元 placement，优化时序、面积</li>
+<li><strong>Routing（布线）</strong>：单元间连线，完成物理实现</li>
+<li><strong>Circuit Extraction（电路提取）</strong>：提取版图寄生参数（RC），生成后标注网表</li>
+<li><strong>Postlayout Simulation（布局后仿真）</strong>：时序仿真（后仿真），验证带寄生参数的时序或功能，确保满足约束</li>
+</ul>
+</li>
+</ol>
+<p>最终进行流片(Tapeout)，进入芯片制造环节。</p>
+<h2 id="4-3-EDA-工具"><a href="#4-3-EDA-工具" class="headerlink" title="4.3 EDA 工具"></a>4.3 EDA 工具</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">类别</th>
+<th style="text-align:left">核心定位</th>
+<th style="text-align:left">覆盖环节</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>Design Entry(设计输入)</strong></td>
+<td style="text-align:left">设计的起点，将需求转化为可处理的设计文件</td>
+<td style="text-align:left">原理图编辑、HDL 代码编写、层次化设计</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Analysis and Verification(分析与验证)</strong></td>
+<td style="text-align:left">验证设计的功能、时序、可靠性</td>
+<td style="text-align:left">全层级仿真、静态时序分析、形式验证等</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Synthesis and Implementation(综合与实现)</strong></td>
+<td style="text-align:left">从逻辑到物理的落地</td>
+<td style="text-align:left">逻辑综合、布局布线、版图生成</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Testing(测试)</strong></td>
+<td style="text-align:left">芯片制造后的测试与良率保障</td>
+<td style="text-align:left">可测试性设计(DFT)、自动测试向量生成(ATPG)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="4-3-1-设计输入工具-Design-Entry-Tool"><a href="#4-3-1-设计输入工具-Design-Entry-Tool" class="headerlink" title="4.3.1 设计输入工具(Design Entry Tool)"></a>4.3.1 设计输入工具(Design Entry Tool)</h3><ul>
+<li>Schematic Editor(原理图编辑器)<ul>
+<li>核心组件：<strong>Cell Library（单元库）</strong>，包含可复用的逻辑门、模块等组件</li>
+<li>核心功能：放置、移动、删除、连接、旋转 / 翻转、复制 / 粘贴等编辑操作</li>
+<li>层次化设计：模块可嵌套底层原理图，支持大规模设计的分层管理</li>
+<li>网表格式：<strong>EDIF(Electronic Design Interchange Format)</strong>，用于不同工具间的网表交互</li>
+</ul>
+</li>
+</ul>
+<h3 id="4-3-2-仿真类型"><a href="#4-3-2-仿真类型" class="headerlink" title="4.3.2 仿真类型"></a>4.3.2 仿真类型</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">类型</th>
+<th style="text-align:left">抽象层级</th>
+<th style="text-align:left">核心特点</th>
+<th style="text-align:left">适用场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>Circuit Simulation(电路仿真/晶体管级仿真)</strong></td>
+<td style="text-align:left">晶体管级</td>
+<td style="text-align:left">基于晶体管非线性模型，精度最高，仿真耗时最长，输出连续电压 / 电流波形</td>
+<td style="text-align:left">模拟电路、关键路径、小模块验证，不适合大规模数字电路</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Timing Simulation(时序仿真)</strong></td>
+<td style="text-align:left">晶体管级（简化模型）</td>
+<td style="text-align:left">用简化晶体管模型，降低复杂度、提升仿真速度，牺牲部分精度</td>
+<td style="text-align:left">数字电路时序验证，平衡精度与效率</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Switch Level Simulation(开关级仿真)</strong></td>
+<td style="text-align:left">开关级</td>
+<td style="text-align:left">将晶体管建模为开关 + 线性电阻，关断时电阻无穷大，导通时用平均导通电阻，电路等效为时变线性 RC 网络</td>
+<td style="text-align:left">数字电路仿真，精度与效率介于晶体管级与门级之间</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Gate Level Simulation(门级仿真)</strong></td>
+<td style="text-align:left">门级</td>
+<td style="text-align:left">以逻辑门为基本单元，仿真速度快，仅验证逻辑与时序</td>
+<td style="text-align:left">综合后网表验证，大规模数字电路</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Static Timing Analysis(静态时序分析，STA)</strong></td>
+<td style="text-align:left">门级/网表级</td>
+<td style="text-align:left">无需输入激励，静态分析电路时序，验证建立 / 保持时间，速度极快</td>
+<td style="text-align:left">数字 IC 时序验证的核心手段，流片前必做</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Functional Simulation(功能仿真)</strong></td>
+<td style="text-align:left">RTL/门级</td>
+<td style="text-align:left">仅验证逻辑功能，不考虑时序，仿真速度快</td>
+<td style="text-align:left">前端设计阶段，快速定位逻辑错误</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Behavioural Simulation(行为级仿真)</strong></td>
+<td style="text-align:left">行为级/算法级</td>
+<td style="text-align:left">基于算法 / 行为描述，不涉及具体硬件，仿真速度最快</td>
+<td style="text-align:left">系统级架构验证、算法验证，设计早期阶段</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h4 id="4-3-2-1-静态时序分析-Static-Timing-Analysis"><a href="#4-3-2-1-静态时序分析-Static-Timing-Analysis" class="headerlink" title="4.3.2.1 静态时序分析(Static Timing Analysis)"></a>4.3.2.1 静态时序分析(Static Timing Analysis)</h4><p>STA 是一种验证芯片时序性能的方法，它会检查所有可能的信号路径，确保芯片能在指定频率下稳定工作。</p>
+<ul>
+<li><p><strong>三种关键路径延迟</strong>:</p>
+<ol>
+<li><p><strong>Entry Delay (输入延迟)</strong></p>
+<ul>
+<li><strong>定义</strong>: 指信号路径<strong>从芯片的外部输入端口开始</strong>，到芯片内部某个 <strong>时序逻辑单元（如 D 触发器）的数据输入端（如 D 输入）</strong> 结束。</li>
+<li><strong>作用</strong>: 衡量外部信号到达内部触发器所需的时间。</li>
+</ul>
+</li>
+<li><p><strong>Stage Delay (级间延迟)</strong></p>
+<ul>
+<li><strong>定义</strong>: 指信号路径<strong>从一个时序逻辑单元的时钟输入端开始</strong>，到另一个时序逻辑单元的数据输入端结束。这通常是时序分析中最关键的路径，因为它决定了整个芯片的最高工作频率。</li>
+<li><strong>构成</strong>: 这条路径包括源触发器的时钟到输出（Clock-to-Q）延迟、中间所有组合逻辑的延迟以及互连线的延迟。</li>
+</ul>
+</li>
+<li><p><strong>Exit Delay (输出延迟)</strong></p>
+<ul>
+<li><p><strong>定义</strong>: 指信号路径<strong>从芯片内部某个时序逻辑单元的输出端开始</strong>，到<strong>芯片的外部输出端口</strong>结束。</p>
+</li>
+<li><p><strong>作用</strong>: 衡量内部信号到达芯片外部所需的时间。     </p>
+</li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
+<h4 id="4-3-2-2-功能仿真-Functional-Simulation"><a href="#4-3-2-2-功能仿真-Functional-Simulation" class="headerlink" title="4.3.2.2 功能仿真(Functional Simulation)"></a>4.3.2.2 功能仿真(Functional Simulation)</h4><p>功能仿真是逻辑仿真的一种扩展和应用。</p>
+<ul>
+<li><strong>关键特点</strong>:<ol>
+<li>复杂度：仿真的电路可以包含任何复杂程度的元件，从简单的与门到复杂的乘法器、RAM 等。</li>
+<li>电路中每个元件的功能都是通过硬件描述语言（如 VHDL 或 Verilog）来描述的。</li>
+<li>仿真的输出是代表逻辑电平（0 或 1）的信号。</li>
+<li>延迟模型复杂度：为了加快仿真速度，功能仿真通常采用<strong>零延迟模型</strong>。这意味着它忽略了所有门延迟和线延迟，假设信号是瞬时传播的。</li>
+</ol>
+</li>
+</ul>
+<h4 id="4-3-2-3-行为级仿真-Behavioural-Simulation"><a href="#4-3-2-3-行为级仿真-Behavioural-Simulation" class="headerlink" title="4.3.2.3 行为级仿真(Behavioural Simulation)"></a>4.3.2.3 行为级仿真(Behavioural Simulation)</h4><p>行为级仿真是一种更高抽象层次的仿真。</p>
+<ul>
+<li><strong>功能描述(Functional)</strong>: 代表了预期的硬件结构，即描述了哪些模块是如何连接在一起的。它更接近实际的电路实现。</li>
+<li><p><strong>行为描述(Behavioural)</strong>: 只描述了电路的输入-输出功能，而不关心其内部是如何实现的。它更像是一个算法或功能的描述。</p>
+</li>
+<li><p><strong>行为级仿真的特点</strong>::</p>
+<ol>
+<li>行为级仿真通常忽略具体的门级时序，而是以时钟周期为单位来描述操作。</li>
+<li>VHDL 和 Verilog 都支持行为级描述。</li>
+<li>行为级仿真的输出不仅可以是逻辑值，还可以是数值（如整数、浮点数），这使得它非常适合算法验证。</li>
+</ol>
+</li>
+</ul>
+<h2 id="4-4-延迟模型-Delay-Models"><a href="#4-4-延迟模型-Delay-Models" class="headerlink" title="4.4 延迟模型(Delay Models)"></a>4.4 延迟模型(Delay Models)</h2><p>延迟是信号从一个点传播到另一个点所需的时间，是决定芯片速度的关键因素。延迟模型是用来描述和量化逻辑单元（如一个与非门、一个触发器）内部信号传播延迟的数学模型。</p>
+<ul>
+<li><strong>三种核心延迟类型</strong>:<ol>
+<li><strong>Pin-to-pin delay (引脚到引脚延迟)</strong><ul>
+<li><strong>定义</strong>: 指信号从一个逻辑单元的<strong>输入引脚</strong>到其<strong>输出引脚</strong>的总传播延迟。</li>
+<li><strong>特点</strong>: 这个模型将整个逻辑单元视为一个 “黑盒子”，不关心其内部结构，只关注整体的输入输出延迟。它<strong>不包含</strong>单元之间互连线的延迟。</li>
+</ul>
+</li>
+<li><strong>Pin delay (引脚延迟)</strong><ul>
+<li><strong>定义</strong>: 指将延迟归属于某个特定的<strong>输入引脚</strong>。可以理解为信号从输入引脚进入单元内部，到单元内部第一个逻辑节点的延迟。</li>
+<li><strong>特点</strong>: 这是一种更精细的建模方式，允许时序分析工具更灵活地计算路径延迟。</li>
+</ul>
+</li>
+<li><strong>Net delay (Wire delay) (互连线延迟)</strong><ul>
+<li><strong>定义</strong>: 指信号在连接不同逻辑单元的 <strong>互连线（Net）</strong> 上传播所产生的延迟。</li>
+<li><strong>特点</strong>: 随着芯片制造工艺越来越先进，线宽变窄，线延迟在总延迟中所占的比重越来越大，甚至可能超过逻辑门本身的延迟。因此，精确计算线延迟对于现代芯片设计至关重要。</li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
+<h1 id="5-设计验证-Design-Verification"><a href="#5-设计验证-Design-Verification" class="headerlink" title="5 设计验证(Design Verification)"></a>5 设计验证(Design Verification)</h1><p>仿真结果并不能保证设计的正确性和功能性，仿真仅说明设计在给定的一组输入激励下如何反应。设计验证用于检测电路中的设计错误。主要有三种类型的设计验证：</p>
+<ol>
+<li><p>电气验证(Electrical Verification)</p>
+<p>针对<strong>晶体管级电路</strong>的电气特性检查，核心规则如下：</p>
+<ul>
+<li><strong>CMOS 电路反相数规则</strong>：两个 $C^2MOS$ 门（时钟 CMOS）之间的反相数必须为<strong>偶数</strong>，保证电平匹配，避免逻辑错误。</li>
+<li><strong>伪 NMOS 管尺寸规则</strong>：伪 NMOS 门中，PMOS 上拉管与 NMOS 下拉管的尺寸必须满足特定比例，以保证良好的低电平噪声容限（NML）。</li>
+<li><strong>驱动管尺寸规则</strong>：根据扇出（fanout）设置驱动管的最小尺寸，确保电路的上升 / 下降时间满足设计要求。</li>
+</ul>
+</li>
+<li><p>时序验证(Timing Verification)</p>
+<p>针对<strong>电路时序路径</strong>的延迟分析，核心要点：</p>
+<ul>
+<li><p><strong>关键路径识别难点</strong>：复杂电路中难以手动定位关键延迟路径，需依赖时序验证工具。</p>
+</li>
+<li><p><strong>工具核心能力</strong>：遍历电路网络，计算所有路径的延迟，识别关键路径。</p>
+</li>
+<li><p><strong>伪路径(False Path)检测</strong>：智能工具可识别实际不会发生的路径（如示例中与门输出恒为 1，对应路径无实际延迟），避免误判关键路径。</p>
+<p>例如，输入 $a$ 经反相器与原信号输入与门，输出 $z$ 恒为 1，该路径为伪路径，无实际时序影响。</p>
+</li>
+</ul>
+</li>
+</ol>
+<p><img src="/2026/04/01/digital-integrated-circuit-design/图41.png" style="zoom:50%;"></p>
+<ol>
+<li><p>形式验证(Formal Verification)</p>
+<p>基于<strong>数学方法</strong>的等价性验证，核心特点：</p>
+<p>从数学上证明电路的两种表示（如 RTL 代码与综合后门级网表）<strong>功能等价</strong>。在形式验证中，组件在行为上被描述为其输入和内部状态的函数。式验证器将派生电路与其初始规格进行比较这两个电路不需要相同但等效，它不依赖仿真激励，可 100% 验证功能等价性，报告所有不一致点。</p>
+</li>
+</ol>
+<h1 id="6-芯片实现方案分类-Implementation-Approaches"><a href="#6-芯片实现方案分类-Implementation-Approaches" class="headerlink" title="6 芯片实现方案分类(Implementation Approaches)"></a>6 芯片实现方案分类(Implementation Approaches)</h1><p><img src="/2026/04/01/digital-integrated-circuit-design/图42.png" style="zoom: 67%;"></p>
+<p>我们主要对半定制 IC 展开解释。</p>
+<h2 id="6-1-标准单元-Standard-Cell"><a href="#6-1-标准单元-Standard-Cell" class="headerlink" title="6.1 标准单元(Standard Cell)"></a>6.1 标准单元(Standard Cell)</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">要点</th>
+<th style="text-align:left">详细说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>设计基础</strong></td>
+<td style="text-align:left">使用<strong>预设计的标准单元库</strong>，库中单元包含逻辑门、功能模块（如加法器），且已完成版图设计与特性表征（delay/power）。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>设计要求</strong></td>
+<td style="text-align:left">仅需完成功能与逻辑设计，无需关注晶体管级细节。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>实现方式</strong></td>
+<td style="text-align:left">依赖 EDA 工具进行<strong>自动布局布线（Automatic placement &amp; routing）</strong>。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>优劣势</strong></td>
+<td style="text-align:left">✅ <strong>设计周期短、成本低</strong>；❌ <strong>硅片利用率低（面积效率差）</strong>，面积开销大。</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>自动版图生成技术（Compiled Cells &amp; Module Generators）</p>
+<ol>
+<li><p>单元编译器（Cell Compiler）</p>
+<ul>
+<li>输入：<strong>门级原理图</strong>与<strong>晶体管尺寸</strong>。</li>
+<li>输出：<strong>自动生成版图</strong>，将抽象的逻辑结构转换为物理版图。</li>
+</ul>
+</li>
+<li><p>模块生成器（Module Generators）</p>
+<ul>
+<li>功能：自动创建复杂功能模块（加法器、乘法器、寄存器、存储器）。</li>
+<li>特性：通常支持<strong>参数化（Parameterizable）</strong>，可生成不同位宽的模块（如 8 位 / 16 位加法器）。</li>
+</ul>
+</li>
+</ol>
+<h2 id="6-2-门阵列-Gate-Array"><a href="#6-2-门阵列-Gate-Array" class="headerlink" title="6.2 门阵列(Gate Array)"></a>6.2 门阵列(Gate Array)</h2><p>掩模可编程门阵列 (MPGA) 原始单元或晶体管由供应商制造逻辑门可以通过一层或多层连接层（掩模）从单元或晶体管配置设计时间与标准单元相同，因为使用了 EDA 工具制造时间比标准电池方法更短</p>
+<h2 id="6-3-可编程逻辑器件-Programmable-Logic-Devices"><a href="#6-3-可编程逻辑器件-Programmable-Logic-Devices" class="headerlink" title="6.3 可编程逻辑器件(Programmable Logic Devices)"></a>6.3 可编程逻辑器件(Programmable Logic Devices)</h2><p>PLD 是基于<strong>与-或阵列(AND-OR Array)</strong>结构的可编程逻辑器件，分类取决于与阵列/或阵列是否可编程。</p>
+<p>PLD主要有如下三种类型</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">器件类型</th>
+<th style="text-align:left">与阵列 (AND Array)</th>
+<th style="text-align:left">或阵列 (OR Array)</th>
+<th style="text-align:left">核心特点</th>
+<th style="text-align:left">逻辑实现能力</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>PROM</strong></td>
+<td style="text-align:left"><strong>Fixed (固定)</strong></td>
+<td style="text-align:left"><strong>Programmable (可编程)</strong></td>
+<td style="text-align:left">提供所有<strong>最小项（minterms）</strong>，结构最简单。</td>
+<td style="text-align:left">实现任意组合逻辑，但面积开销大。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>PAL</strong></td>
+<td style="text-align:left"><strong>Programmable</strong></td>
+<td style="text-align:left"><strong>Fixed</strong></td>
+<td style="text-align:left">与阵列可编程，或阵列固定。<strong>任意乘积项</strong>可生成，但乘积项数量受限于或阵列。</td>
+<td style="text-align:left">灵活性高，是早期主流可编程器件。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>PLA</strong></td>
+<td style="text-align:left"><strong>Programmable</strong></td>
+<td style="text-align:left"><strong>Programmable</strong></td>
+<td style="text-align:left">与、或阵列<strong>均可编程</strong>。任意乘积项可生成，且乘积项数量<strong>不固定</strong>。</td>
+<td style="text-align:left">通用性最强，可实现复杂逻辑，面积效率最高。</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ol>
+<li><p><strong>PROM</strong>：与阵列固定（译码器），产生所有最小项，或阵列可编程（存储数据）。</p>
+<p><img src="/2026/04/01/digital-integrated-circuit-design/图43.png" style="zoom:67%;"></p>
+</li>
+<li><p><strong>PAL</strong>：与阵列可编程（产生乘积项），或阵列固定（固定输出宽度）。</p>
+<p><img src="/2026/04/01/digital-integrated-circuit-design/图44.png" style="zoom:67%;"></p>
+</li>
+<li><p><strong>PLA</strong>：与阵列可编程，或阵列可编程（灵活组合乘积项与输出）。</p>
+<p><img src="/2026/04/01/digital-integrated-circuit-design/图45.png" style="zoom:67%;"></p>
+</li>
+</ol>
+<h2 id="6-4-现场可编程门阵列-Field-Programmable-Gate-Array-FPGA"><a href="#6-4-现场可编程门阵列-Field-Programmable-Gate-Array-FPGA" class="headerlink" title="6.4 现场可编程门阵列(Field Programmable Gate Array, FPGA)"></a>6.4 现场可编程门阵列(Field Programmable Gate Array, FPGA)</h2><p>无需定制掩模，混合可编程或基于 RAM 的逻辑单元。</p>
+<ol>
+<li><p>核心结构</p>
+<ul>
+<li><strong>核心(Core)</strong>：由大量可编程逻辑单元组成，每个单元包含<strong>组合逻辑</strong>与<strong>触发器(sequential logic)</strong>。</li>
+<li><strong>可编程互连(Interconnects)</strong>：围绕逻辑单元的可编程连线资源。</li>
+<li><strong>可编程 I/O</strong>：芯片周边的 I/O 单元。</li>
+</ul>
+</li>
+</ol>
+<h2 id="6-5-性能指标"><a href="#6-5-性能指标" class="headerlink" title="6.5 性能指标"></a>6.5 性能指标</h2><h3 id="6-5-1-各项维度对比"><a href="#6-5-1-各项维度对比" class="headerlink" title="6.5.1 各项维度对比"></a>6.5.1 各项维度对比</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">特性</th>
+<th style="text-align:left">FPGA / CPLD</th>
+<th style="text-align:left">Gate Arrays</th>
+<th style="text-align:left">Standard Cells</th>
+<th style="text-align:left">Full Custom</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>Design Time</strong></td>
+<td style="text-align:left">短 (Short)</td>
+<td style="text-align:left">短 (Short)</td>
+<td style="text-align:left">短 (Short)</td>
+<td style="text-align:left">长 (Long)</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Fabrication</strong></td>
+<td style="text-align:left">- (现场编程)</td>
+<td style="text-align:left">短 (Short)</td>
+<td style="text-align:left">长 (Long)</td>
+<td style="text-align:left">长 (Long)</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Chip Area</strong></td>
+<td style="text-align:left">非常大 (Very Large)</td>
+<td style="text-align:left">大 (Large)</td>
+<td style="text-align:left">中 (Intermediate)</td>
+<td style="text-align:left">小 (Small)</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Cost</strong></td>
+<td style="text-align:left">非常低 (Very Low)</td>
+<td style="text-align:left">低 (Low)</td>
+<td style="text-align:left">中 (Intermediate)</td>
+<td style="text-align:left">高 (High)</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Versatility</strong></td>
+<td style="text-align:left">非常低 (Very Low)</td>
+<td style="text-align:left">低 (Low)</td>
+<td style="text-align:left">中 (Intermediate)</td>
+<td style="text-align:left">高 (High)</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Design Cycle</strong></td>
+<td style="text-align:left">极短 (Very Short)</td>
+<td style="text-align:left">短 (Short)</td>
+<td style="text-align:left">中 (Intermediate)</td>
+<td style="text-align:left">长 (Long)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="6-5-2-设计灵活性"><a href="#6-5-2-设计灵活性" class="headerlink" title="6.5.2 设计灵活性"></a>6.5.2 设计灵活性</h3><p><img src="/2026/04/01/digital-integrated-circuit-design/图46.png" style="zoom:67%;"></p>
+<h1 id="7-设计综合-Design-Synthesis"><a href="#7-设计综合-Design-Synthesis" class="headerlink" title="7 设计综合(Design Synthesis)"></a>7 设计综合(Design Synthesis)</h1><blockquote>
+<p>设计综合是将<strong>一种抽象层级的设计视图</strong>转换为<strong>另一种更接近物理实现的设计视图</strong>的过程。</p>
+<p><strong>典型转换</strong>：通常是从<strong>行为级描述(Behavioural Specification，如算法 / RTL)</strong>转换为<strong>结构化描述(Structural Description，如门级网表 / 晶体管网络)</strong>。</p>
+</blockquote>
+<p><img src="/2026/04/01/digital-integrated-circuit-design/图47.png" style="zoom:67%;"></p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>综合类型</th>
+<th>层级</th>
+<th>输入</th>
+<th>输出</th>
+<th>核心目标</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Circuit Synthesis</strong></td>
+<td>电路级（Circuit Level）</td>
+<td>逻辑描述 / 逻辑方程</td>
+<td>晶体管级网表（Transistor Network）</td>
+<td>满足时序约束，优化电气性能</td>
+</tr>
+<tr>
+<td><strong>Logic Synthesis</strong></td>
+<td>逻辑级（Logic Level）</td>
+<td>行为级 / 逻辑级规范（布尔方程 / HDL）</td>
+<td>门级网表（Gate-level Netlist）</td>
+<td>优化面积、速度、功耗</td>
+</tr>
+<tr>
+<td><strong>Architectural Synthesis</strong></td>
+<td>架构级（Architectural Level）</td>
+<td>系统级算法 / 行为规范</td>
+<td>系统架构结构（如状态机、数据通路）</td>
+<td>系统架构设计，资源分配与调度</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="7-1-电路综合-Circuit-Synthesis"><a href="#7-1-电路综合-Circuit-Synthesis" class="headerlink" title="7.1 电路综合(Circuit Synthesis)"></a>7.1 电路综合(Circuit Synthesis)</h2><p>将逻辑描述转换为<strong>晶体管网络</strong>，但要满足<strong>时序约束(Timing Constraints)</strong>。</p>
+<p>分为两大阶段：</p>
+<ol>
+<li>推导晶体管网表(Derivation of Transistor Netlist)<ul>
+<li><strong>选择电路风格</strong>：从 CMOS 静态、传输管、动态、DCVSL 等中选择合适的电路结构。</li>
+<li><strong>构建逻辑网络</strong>：根据逻辑方程，利用德摩根定律将反相操作推至输入端，搭建 NMOS/PMOS 网络。</li>
+</ul>
+</li>
+<li>晶体管尺寸确定(Transistor Sizing)<ul>
+<li><strong>目标</strong>：调整晶体管宽长比($\frac{ W }{ L }$)，使驱动能力匹配，满足上升和下降时间。</li>
+<li><strong>核心规则</strong>：使 NMOS 与 PMOS 增益因子相等($\beta_n = \beta_p$)，确保高低电平翻转特性对称。</li>
+<li>晶体管尺寸计算规则：</li>
+</ul>
+</li>
+</ol>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>连接方式</th>
+<th>等效电导 / 电阻公式</th>
+<th>物理意义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>并联(Parallel)</strong></td>
+<td>$W_{ eq }=W_1+W_2$ ($L$不变)</td>
+<td>导通电阻减小，驱动能力增强</td>
+</tr>
+<tr>
+<td><strong>串联(Series)</strong></td>
+<td>$\frac{ 1 }{ W_{ eq } }=\frac{ 1 }{ W_1 }+\frac{ 1 }{ W_2 }$ ($L$不变)</td>
+<td>导通电阻增大，驱动能力减弱</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Example:</strong></p>
+<p>算出一个比例为 <strong>2/1</strong> 的逻辑门的晶体管尺寸：</p>
+<p><img src="/2026/04/01/digital-integrated-circuit-design/图48.png" style="zoom:67%;"></p>
+<h2 id="7-2-逻辑综合-Logic-Synthesis"><a href="#7-2-逻辑综合-Logic-Synthesis" class="headerlink" title="7.2 逻辑综合(Logic Synthesis)"></a>7.2 逻辑综合(Logic Synthesis)</h2><blockquote>
+<p>逻辑综合是将<strong>逻辑功能</strong>转换为<strong>门级电路结构</strong>的过程。</p>
+</blockquote>
+<ul>
+<li><strong>输入规范</strong>：状态转移图、原理图、布尔方程、真值表或 HDL 代码。</li>
+<li><strong>输出结果</strong>：门级网表（Multilevel Logic, PLA, FPGA/CPLD 结构）。</li>
+</ul>
+<p>优化的核心目标是在<strong>面积(Area)、速度(Speed)、功耗(Power)</strong>三者之间进行权衡(Trade-off)。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>阶段</th>
+<th>名称</th>
+<th>特点</th>
+<th>技术手段</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>1</strong></td>
+<td><strong>Logic Minimization</strong> (逻辑最小化)</td>
+<td><strong>工艺无关 (Technology-independent)</strong></td>
+<td>利用布尔代数、卡诺图等方法，<strong>最小化逻辑门数量</strong>，化简逻辑表达式。</td>
+</tr>
+<tr>
+<td><strong>2</strong></td>
+<td><strong>Technology Mapping</strong> (工艺映射)</td>
+<td><strong>工艺相关 (Technology-dependent)</strong></td>
+<td>将优化后的逻辑函数，<strong>映射</strong>到具体的工艺库单元（如标准单元、PLA、FPGA）。</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="7-2-1-组合逻辑综合-Combinational-Logic-Synthesis"><a href="#7-2-1-组合逻辑综合-Combinational-Logic-Synthesis" class="headerlink" title="7.2.1 组合逻辑综合(Combinational Logic Synthesis)"></a>7.2.1 组合逻辑综合(Combinational Logic Synthesis)</h3><p><img src="/2026/04/01/digital-integrated-circuit-design/图49.png" style="zoom:67%;"></p>
+<h3 id="7-2-2-时序逻辑综合-Sequential-Logic-Synthesis"><a href="#7-2-2-时序逻辑综合-Sequential-Logic-Synthesis" class="headerlink" title="7.2.2 时序逻辑综合(Sequential Logic Synthesis)"></a>7.2.2 时序逻辑综合(Sequential Logic Synthesis)</h3><p>时序逻辑综合不仅处理组合逻辑，还需处理<strong>状态（State）</strong>与<strong>存储元件（触发器）</strong>。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>任务</th>
+<th>定义</th>
+<th>作用与考点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>State Minimization</strong>(状态最小化)</td>
+<td>合并功能等价的状态。</td>
+<td>减少状态数，从而减少触发器数量和逻辑门数量，<strong>降低面积</strong>。(判据：对于任何输入，输出序列和下一状态都相同)</td>
+</tr>
+<tr>
+<td><strong>State Encoding</strong>(状态编码)</td>
+<td>给状态分配二进制代码。</td>
+<td>直接影响组合逻辑的复杂度。(例子：格雷码编码可能比二进制编码生成更简单的逻辑)</td>
+</tr>
+<tr>
+<td><strong>State Decomposition</strong>(状态分解)</td>
+<td>将大状态机拆分为多个小状态机。</td>
+<td>简化逻辑设计，降低单级逻辑的深度，<strong>提高系统速度</strong>。</td>
+</tr>
+<tr>
+<td><strong>Retiming</strong>(寄存器重定时)</td>
+<td>移动寄存器（触发器）的位置，不改变输入输出功能。</td>
+<td>调整流水线深度，优化 <strong>关键路径（Critical Path）</strong> 延迟，平衡系统吞吐率。</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h4 id="7-2-2-1-寄存器重定时-Retiming"><a href="#7-2-2-1-寄存器重定时-Retiming" class="headerlink" title="7.2.2.1 寄存器重定时(Retiming)"></a>7.2.2.1 寄存器重定时(Retiming)</h4><p>重定时就是在不改变电路输入输出行为的前提下，<strong>将寄存器从一个位置移动到另一个位置</strong>，其利用组合逻辑的延迟信息，通过移动寄存器来均衡各路径延迟。</p>
+<p><img src="/2026/04/01/digital-integrated-circuit-design/图50.png" style="zoom:67%;"></p>
+<p>接下来看一个例子：</p>
+<p><img src="/2026/04/01/digital-integrated-circuit-design/图51.png" style="zoom: 67%;"></p>
+<p>就是把 AND 门<strong>从 FF 前面移到 FF 后面</strong>，给 $a$ 和 $b$ 各加一个 FF。</p>
+<p>最终得到路径：$a \rightarrow FF，b \rightarrow FF \rightarrow  AND$门 $\rightarrow OR$门 $ \rightarrow x$，$d$ 直接连到 $OR$ 门。</p>
+<p>核心变化：</p>
+<ol>
+<li><strong>一条路径延迟降低</strong>：$a,b$ 到 FF 的路径延迟，从 AND 和 FF 变成 仅 FF，这条路径的时序裕量变大了。</li>
+<li><strong>另一条路径延迟增加</strong>：$a,b$ 到输出 $x$ 的总延迟，从 AND+FF+OR 变成 FF+AND+OR，总延迟不变，但路径分布变了。</li>
+<li><strong>核心权衡</strong>：重定时是<strong>全局时序平衡</strong>，不是 “所有路径都变快”，而是把长路径的延迟分摊到短路径上，让所有路径的最大延迟最小化，从而提升整体时钟频率。</li>
+</ol>
+<h2 id="7-3-架构综合-Architecture-Synthesis-High-Level-Synthesis"><a href="#7-3-架构综合-Architecture-Synthesis-High-Level-Synthesis" class="headerlink" title="7.3 架构综合(Architecture Synthesis / High-Level Synthesis)"></a>7.3 架构综合(Architecture Synthesis / High-Level Synthesis)</h2><p>架构综合（HLS）是<strong>设计流程的最早期阶段</strong>，从算法行为级直接生成硬件结构。将<strong>行为级描述</strong>（算法、C 代码、DFG）转换为<strong>结构化视图</strong>（RTL 级代码、硬件架构）。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>任务</th>
+<th>解释</th>
+<th>通俗比喻</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Operation Scheduling</strong>(操作调度)</td>
+<td>将数据流图（DFG）中的操作分配到<strong>特定的时钟周期（Control Steps）</strong>。</td>
+<td>决定 “什么时候做”。<em>(在满足时钟周期约束下，合理安排运算顺序)</em></td>
+</tr>
+<tr>
+<td><strong>Data Path Allocation</strong>(数据通路分配)</td>
+<td>根据调度结果，分配硬件资源（加法器、乘法器、寄存器）。</td>
+<td>决定 “用什么做”。<em>(是用 1 个加法器串行算，还是用 4 个加法器并行算？)</em></td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="7-3-1-行为级表示-Behavioural-Representation"><a href="#7-3-1-行为级表示-Behavioural-Representation" class="headerlink" title="7.3.1 行为级表示(Behavioural Representation)"></a>7.3.1 行为级表示(Behavioural Representation)</h3><ul>
+<li><p>数据流程图(DFG, Data Flow Graph)：</p>
+<ul>
+<li><p>是架构综合的<strong>输入</strong>。</p>
+</li>
+<li><p>由<strong>操作节点</strong>（如 $+、\times$）和<strong>有向边</strong>（数据依赖关系）组成。</p>
+</li>
+<li><p><strong>例子</strong>：$y=a+b+c$ 被画为两个串联的加法节点。</p>
+</li>
+</ul>
+<p><img src="/2026/04/01/digital-integrated-circuit-design/图52.png" style="zoom:50%;"></p>
+</li>
+</ul>
+<h3 id="7-3-2-操作规划-Operation-Scheduling"><a href="#7-3-2-操作规划-Operation-Scheduling" class="headerlink" title="7.3.2 操作规划(Operation Scheduling)"></a>7.3.2 操作规划(Operation Scheduling)</h3><p>任务是在一定的约束条件下将数据流图的操作节点分配给控制步骤（或时钟周期），并遵守优先级约束。约束可以是：</p>
+<ul>
+<li>硬件资源</li>
+<li>操作速度（时钟周期数） 高层次综合可以：</li>
+<li>在速度限制下优化硬件资源</li>
+<li>在硬件限制下优化速度</li>
+</ul>
+<h4 id="7-3-2-1-操作调度算法-Scheduling-Algorithms"><a href="#7-3-2-1-操作调度算法-Scheduling-Algorithms" class="headerlink" title="7.3.2.1 操作调度算法(Scheduling Algorithms)"></a>7.3.2.1 操作调度算法(Scheduling Algorithms)</h4><p>调度是 HLS 的核心，算法决定了资源与速度的平衡。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>算法</th>
+<th>全称</th>
+<th>核心思想</th>
+<th>特点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ASAP</strong></td>
+<td>As Soon As Possible</td>
+<td><strong>尽可能早</strong>执行。</td>
+<td>基于前驱约束，最早分配，倾向于<strong>并行</strong>，面积开销大。</td>
+</tr>
+<tr>
+<td><strong>ALAP</strong></td>
+<td>As Late As Possible</td>
+<td><strong>尽可能晚</strong>执行。</td>
+<td>基于后继约束，最晚分配，倾向于<strong>串行</strong>，资源占用小。</td>
+</tr>
+<tr>
+<td><strong>List Scheduling</strong></td>
+<td>列表调度</td>
+<td>按优先级列表依次分配。</td>
+<td>实用、高效，是工业界常用的启发式算法。</td>
+</tr>
+<tr>
+<td><strong>Force Directed</strong></td>
+<td>力导向调度</td>
+<td>考虑资源冲突与延迟的综合权衡。</td>
+<td>平衡资源利用率与延迟，优化效果优于 ASAP/ALAP。</td>
+</tr>
+<tr>
+<td><strong>ILP Scheduling</strong></td>
+<td>Integer Linear Programming</td>
+<td>数学建模求最优解。</td>
+<td><strong>全局最优</strong>，但计算复杂度极高，不适用于大设计。</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>给出一个数据流图的例子：</p>
+<p><img src="/2026/04/01/digital-integrated-circuit-design/图53.png" style="zoom:50%;"></p>
+<ol>
+<li><p>ASAP(As Soon As Possible，尽可能快调度)</p>
+<p>在满足数据依赖的前提下，每个操作尽量安排在<strong>最早</strong>的时钟周期执行。</p>
+<p>结果特征：</p>
+<ul>
+<li>总执行时间<strong>最短</strong>（仅需 4 个时钟周期）。</li>
+<li>资源占用：4 个乘法器、1 个加法器、1 个减法器、1 个比较器（资源需求高）。</li>
+</ul>
+</li>
+</ol>
+<p><img src="/2026/04/01/digital-integrated-circuit-design/图54.png" style="zoom:67%;"></p>
+<ol>
+<li><p>ALAP(As Late As Possible，尽可能慢调度)</p>
+<p>从最终输出时刻倒推，在满足时序约束和数据依赖的前提下，每个操作尽量推到<strong>最晚</strong>的时钟周期执行。</p>
+<p>结果特征：</p>
+<ul>
+<li>总执行时间与 ASAP 一致（4 个时钟周期），但操作的时间分布更 “靠后”。</li>
+<li>资源占用：2 个乘法器、1 个加法器、1 个减法器、1 个比较器（资源需求显著降低，实现了资源共享）。</li>
+</ul>
+</li>
+</ol>
+<p><img src="/2026/04/01/digital-integrated-circuit-design/图55.png" style="zoom: 67%;"></p>
+<ol>
+<li><p>List Scheduling（列表调度）</p>
+<p>给每个操作设定优先级（如关键度、操作数就绪时间），按优先级从高到低，依次将操作放入空闲的时钟周期，同时受资源约束。</p>
+<p>结果特征：</p>
+<ul>
+<li><p>总执行时间<strong>最长</strong>（需 5 个时钟周期）。</p>
+</li>
+<li><p>资源占用：2 个乘法器、1 个通用 ALU（复用<code>+</code>/<code>-</code>/<code>&lt;</code>运算），资源利用最均衡。</p>
+</li>
+</ul>
+</li>
+</ol>
+<p><img src="/2026/04/01/digital-integrated-circuit-design/图56.png" style="zoom:67%;"></p>
+<h3 id="7-3-3-数据路径分配"><a href="#7-3-3-数据路径分配" class="headerlink" title="7.3.3  数据路径分配"></a>7.3.3  数据路径分配</h3><p>这是 HLS 中调度之后的关键步骤，任务是将 “虚” 的数据流映射为 “实” 的硬件电路。</p>
+<ul>
+<li><p>核心任务：</p>
+<ol>
+<li><p><strong>寄存器分配(Register Allocation)</strong>：将数据流边（中间值）分配给具体的存储单元（寄存器）。</p>
+</li>
+<li><p><strong>模块分配(Module Allocation)</strong>：将调度好的操作（加、减、乘等）分配给具体的功能单元（ALU、乘法器）。</p>
+</li>
+<li><p><strong>互连分配(Interconnect Allocation)</strong>：设计寄存器 / 功能单元之间的连接线路（多路选择器 Mux、连线）。</p>
+</li>
+</ol>
+</li>
+</ul>
+<h4 id="7-3-3-1-寄存器分配算法"><a href="#7-3-3-1-寄存器分配算法" class="headerlink" title="7.3.3.1 寄存器分配算法"></a>7.3.3.1 寄存器分配算法</h4><p>必须存储中间值以供下一步操作。寄存器分配的任务是将值分配给寄存器，旨在最大限度地减少寄存器和互连的数量。不同时期存在的值可以共享单个寄存器。众所周知寄存器分配算法包括左边缘算法和派分区技术。</p>
+<p><img src="/2026/04/01/digital-integrated-circuit-design/图57.png" style="zoom:67%;"></p>
+<p>接下来重点讲解一下左边缘算法：</p>
+<p>左边缘算法(Left-Edge Algorithm)是按数据生命周期的”左边缘”（起始时刻）排序，依次分配寄存器，优先给新起始的生命周期找已有的空闲寄存器，找不到则新建寄存器。</p>
+<p><img src="/2026/04/01/digital-integrated-circuit-design/图58.png" style="zoom:50%;"></p>
+<p>分配过程（按左边缘从早到晚排序：$e_1→e_2→e_7→e_3→e_5→e_4→e_6→e_8$）</p>
+<ol>
+<li>分配<strong>$e_1$</strong>：无可用寄存器，新建<strong>$R_1$</strong> $\rightarrow$ $R_1$={$ e_1 $}。</li>
+<li>分配<strong>$e_2$</strong>：与 $e_1$ 生命周期重叠（均在 t1），无法共享，新建<strong>$R_2$</strong> $\rightarrow$ $R_2$={ $e_2$ }。</li>
+<li>分配<strong>$e_7$</strong>：与 $e_1/e_2$ 生命周期重叠（均在 t1），无法共享，新建<strong>$R_3$</strong> $\rightarrow$ $R_3$={ $e_7$ }。</li>
+<li>分配<strong>$e_3$</strong>：生命周期 t2-t3，此时 $R_1/R_2/R_3$ 均空闲，分配给 $R_1$ $\rightarrow$ $R_1$={ $e_1,e_3$ }。</li>
+<li>分配<strong>$e_5$</strong>：生命周期 t2-t3，与 $e_3$ 重叠，无法共享 $R_1$；$R_2/R_3$ 空闲，分配给 $R_2$ $\rightarrow$ $R_2$={ $e_2,e_5$ }。</li>
+<li>分配<strong>$e_4$</strong>：生命周期 t3-t4，与 $e_3/e_5$ 重叠，无法共享 $R_1/R_2$；$R_3$ 空闲，分配给 $R_3$ $\rightarrow$ $R_3$={ $e_7,e_4$ }。</li>
+<li>分配<strong>$e_6$</strong>：生命周期 t3-t4，与 $e_4$ 重叠，无法共享 $R_3$；$R_1/R_2$ 空闲，分配给 $R_1$ $\rightarrow$ $R_1$={ $e_1,e_3,e_4$ }。</li>
+<li>分配<strong>$e_8$</strong>：生命周期 t3-t4，与 $e_4/e_6$ 重叠，无法共享 $R_1/R_3$；$R_2$ 空闲，分配给 $R_2$ $\rightarrow$ $R_2$={ $e_2,e_5,e_6$ }。</li>
+</ol>
+<p>最终分配结果：</p>
+<ul>
+<li>$R_1$ = { $e_1, e_3, e_4$ }（生命周期均无交集，可共享）</li>
+<li>$R_2$ = {$e_2, e_5, e_6$}（生命周期均无交集，可共享）</li>
+<li>$R_3$ = {$e_7, e_8$}（生命周期均无交集，可共享）</li>
+</ul>
+<hr>
+<p><strong>Register Allocation Comparison</strong></p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>寄存器</th>
+<th>绑定的数据流边（Data Path 1）</th>
+<th>绑定的数据流边（Data Path 2）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$r_0$</td>
+<td>{e0, e1, e2}</td>
+<td>{e0, e2, e5}</td>
+</tr>
+<tr>
+<td>r1</td>
+<td>{e3, e5, e6}</td>
+<td>{e3}</td>
+</tr>
+<tr>
+<td>r2</td>
+<td>{e4}</td>
+<td>{e1, e4, e6}</td>
+</tr>
+<tr>
+<td>r3</td>
+<td>{e7}</td>
+<td>{e7}</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><img src="/2026/04/01/digital-integrated-circuit-design/图59.png" style="zoom: 80%;"></p>
+<h3 id="7-3-4-模块分配-Module-Allocation"><a href="#7-3-4-模块分配-Module-Allocation" class="headerlink" title="7.3.4 模块分配(Module Allocation)"></a>7.3.4 模块分配(Module Allocation)</h3><p><strong>Module Allocation（模块分配）</strong> 是将数据流图（DFG）中的<strong>抽象操作</strong>（如 $+$, $-$, $\times $）绑定到具体的<strong>物理功能模块</strong>（如加法器、减法器、乘法器）的过程。</p>
+<p>模块的数量在<strong>调度（Scheduling）</strong>阶段就已经确定（受限于资源约束和时序目标）。</p>
+<ul>
+<li>寄存器决定了数据什么时候送到哪里。</li>
+<li>模块决定了数据在什么时候进行什么运算。</li>
+</ul>
+<p>不同的绑定策略会导致不同的互连结构（多路选择器 Mux、总线、连线数量），这直接决定了芯片面积和布线复杂度。</p>
+<p><img src="/2026/04/01/digital-integrated-circuit-design/图60.png" style="zoom: 67%;"></p>
+<h3 id="7-3-5-互连分配-Interconnect-Allocation"><a href="#7-3-5-互连分配-Interconnect-Allocation" class="headerlink" title="7.3.5 互连分配(Interconnect Allocation)"></a>7.3.5 互连分配(Interconnect Allocation)</h3><p>互连分配是 HLS 的<strong>最后一步硬件映射</strong>，负责设计寄存器、功能模块、I/O 端口之间的连接网络，直接决定芯片的布线复杂度、时序收敛难度和最终面积。</p>
+<ul>
+<li>影响因素：<ul>
+<li><strong>寄存器分配</strong>：决定了中间数据的存储位置，是互连的起点</li>
+<li><strong>模块分配</strong>：决定了运算单元的位置，是互连的终点</li>
+<li><strong>架构连接风格</strong>：决定了互连的拓扑结构</li>
+</ul>
+</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">连接风格</th>
+<th style="text-align:left">实现方式</th>
+<th style="text-align:left">优点</th>
+<th style="text-align:left">缺点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>点对点(Point-to-Point)</strong></td>
+<td style="text-align:left">寄存器与功能单元直接用连线和多路选择器（Mux）连接</td>
+<td style="text-align:left">延迟低、控制简单、时序收敛容易</td>
+<td style="text-align:left">连线数量多、布线拥塞、面积大</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>总线(Bus)</strong></td>
+<td style="text-align:left">所有连接汇总到共享总线，分时复用</td>
+<td style="text-align:left">连线数量少、布线简单、面积小</td>
+<td style="text-align:left">延迟高、存在总线冲突风险、控制复杂</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>混合风格(Mixture of the above two styles)</strong></td>
+<td style="text-align:left">关键路径用点对点，非关键路径用总线</td>
+<td style="text-align:left">平衡延迟与面积，兼顾性能与成本</td>
+<td style="text-align:left">控制逻辑复杂，设计难度高</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h1 id="8-测试-Testing"><a href="#8-测试-Testing" class="headerlink" title="8 测试(Testing)"></a>8 测试(Testing)</h1><p>芯片设计正确，<strong>不代表流片制造出的电路能正常工作</strong>，测试的核心目标是筛选制造缺陷件，从源头降低全流程成本。</p>
+<p>关键要点：</p>
+<ul>
+<li><strong>制造缺陷来源</strong>：硅晶体杂质、光刻对准偏差、刻蚀精度不足等工艺问题，会导致电路开路、短路、性能退化等故障。</li>
+<li><strong>额外风险</strong>：可靠性应力测试（高低温、高压测试）可能引入新的故障。</li>
+<li><strong>成本铁则</strong>：故障发现越晚，修复成本呈指数级上升（行业经典<strong>1:10:100 法则</strong>：组件级发现故障成本为 1，板级为 10，系统级为 100），因此必须在制造后尽早测试。</li>
+</ul>
+<h2 id="8-1缺陷水平-Defect-Level"><a href="#8-1缺陷水平-Defect-Level" class="headerlink" title="8.1缺陷水平(Defect Level)"></a>8.1缺陷水平(Defect Level)</h2><p>产品质量的核心量化指标，指<strong>每百万件产品中的缺陷件数(parts per million, ppm)</strong>，用于衡量制造良率。</p>
+<p>例如生产 100,000 个元件时有 10 个有缺陷的元件，则缺陷水平为 0.01% 或 100ppm。</p>
+<h2 id="8-2-可测试性设计-Design-For-Testability-DFT"><a href="#8-2-可测试性设计-Design-For-Testability-DFT" class="headerlink" title="8.2 可测试性设计(Design For Testability, DFT)"></a>8.2 可测试性设计(Design For Testability, DFT)</h2><ul>
+<li>设计阶段：可无限制访问电路所有节点，随意观测内部状态。</li>
+<li>流片后：复杂电路（如 CPU，含数百万晶体管、海量状态）无法直接访问内部节点，无法完成测试。</li>
+</ul>
+<p>DFT 是芯片设计的<strong>必备环节</strong>：在 RTL 设计阶段，就加入扫描链、边界扫描、内建自测试（BIST）等测试结构，让制造后的电路具备可测试性，直接影响芯片的可制造性和良率。</p>
+<h2 id="8-3-测试分类-Test-Categories"><a href="#8-3-测试分类-Test-Categories" class="headerlink" title="8.3 测试分类(Test Categories)"></a>8.3 测试分类(Test Categories)</h2><p>量产测试按目标分为三类，各有明确分工：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">测试类型</th>
+<th style="text-align:left">核心目标</th>
+<th style="text-align:left">复杂度</th>
+<th style="text-align:left">应用场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>诊断测试</strong></td>
+<td style="text-align:left">识别并定位故障的具体位置</td>
+<td style="text-align:left">高</td>
+<td style="text-align:left">失效分析、良率提升、工艺优化</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>功能测试（go/no-go）</strong></td>
+<td style="text-align:left">仅判断芯片是否正常工作（合格 / 不合格）</td>
+<td style="text-align:left">低</td>
+<td style="text-align:left">量产筛选，是量产测试的核心环节</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>参数测试</strong></td>
+<td style="text-align:left">验证非离散性能参数（延迟、频率、噪声裕量等）</td>
+<td style="text-align:left">中</td>
+<td style="text-align:left">性能验证、可靠性测试（高低温 / 电压环境下）</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>量产测试通常按”参数测试→功能测试→诊断测试（仅失效件）”的顺序执行。</p>
+<h2 id="8-4-测试核心挑战-Testing-Issues"><a href="#8-4-测试核心挑战-Testing-Issues" class="headerlink" title="8.4 测试核心挑战(Testing Issues)"></a>8.4 测试核心挑战(Testing Issues)</h2><p>核心目标是<strong>减少测试时间$\rightarrow$提升测试机吞吐量$\rightarrow$降低测试成本</strong>（测试成本占芯片总成本的 10-30%，是量产阶段的核心优化方向）。</p>
+<p><img src="/2026/04/01/digital-integrated-circuit-design/图61.png" style="zoom:67%;"></p>
+<p>穷举测试完全不可行:</p>
+<ul>
+<li><strong>组合逻辑</strong>：N 个输入需要 $2^N$ 个测试向量，N=32 时测试向量超 40 亿，完全无法执行。</li>
+<li><strong>时序逻辑</strong>：N 个输入 + M 个状态寄存器，需要 $2^(N+M)$ 个测试向量，现代 CPU 的状态数上亿，复杂度完全爆炸。</li>
+</ul>
+<p>解决方案就是在设计阶段提前考虑测试（DFT），通过自动测试向量生成（ATPG）等技术，用最少的测试向量覆盖最多的故障。</p>
+<h2 id="8-5-测试方法的优化原则-Testing-Approach-Premises"><a href="#8-5-测试方法的优化原则-Testing-Approach-Premises" class="headerlink" title="8.5 测试方法的优化原则(Testing Approach Premises)"></a>8.5 测试方法的优化原则(Testing Approach Premises)</h2><p>穷举测试存在大量冗余：单个故障会被多个测试向量覆盖，因此可以通过<strong>故障覆盖率权衡</strong>降低测试成本。</p>
+<p>检测最后 1% 的故障，需要的测试向量数量远高于前 99%，测试成本呈指数级上升。</p>
+<p>量产测试通常仅追求<strong>95-99% 的故障覆盖率</strong>，平衡测试成本与良率损失（替换坏件的成本远低于额外测试的成本）。</p>
+<p>优化指标主要有下面两个：</p>
+<ol>
+<li><p>可控制性(Controllability)</p>
+<p>可控制性衡量<strong>仅通过电路的输入引脚，将内部某一节点设置为指定逻辑状态（0/1）的难易程度</strong>。</p>
+<ul>
+<li><strong>高可控制性（理想状态）</strong>：仅需<strong>单个输入向量</strong>，就能将节点设置为任意目标状态（0 或 1），测试难度极低。</li>
+<li><strong>低可控制性（差状态）</strong>：需要<strong>长序列的输入向量</strong>，才能将节点设置为目标状态，测试时间长、难度高。</li>
+</ul>
+<p><strong>高可控制性是可测试电路的必备要求</strong>，直接决定测试向量生成的复杂度和测试时间。</p>
+</li>
+<li><p>可观测性(Observability)</p>
+<p>可观测性衡量<strong>仅通过电路的输出引脚，观测内部某一节点当前逻辑状态的难易程度</strong>。</p>
+<ul>
+<li><strong>高可观测性（理想状态）</strong>：节点状态可<strong>直接在输出引脚观测到</strong>，无需额外运算或等待，测试难度极低。</li>
+<li><strong>低可观测性（差状态）</strong>：节点状态需要经过<strong>多个时钟周期的运算 / 传递</strong>，才能出现在输出端，观测难度高、测试时间长。</li>
+</ul>
+<p><strong>高可观测性是可测试电路的另一核心要求</strong>，与可控制性共同决定电路的可测试性。</p>
+</li>
+</ol>
+<h3 id="8-5-1-扫描链测试-Scan-Based-Test"><a href="#8-5-1-扫描链测试-Scan-Based-Test" class="headerlink" title="8.5.1 扫描链测试(Scan-Based Test)"></a>8.5.1 扫描链测试(Scan-Based Test)</h3><p>为解决<strong>时序电路测试难度爆炸</strong>的问题，将所有寄存器改造为<strong>可外部加载 / 读取的扫描寄存器</strong>，串联成一条移位寄存器链（扫描链），把时序电路的测试转化为组合逻辑测试。</p>
+<p><img src="/2026/04/01/digital-integrated-circuit-design/图62.png" style="zoom: 67%;"></p>
+<ul>
+<li><strong>可控制性</strong>：通过<code>ScanIn</code>将测试向量移位写入寄存器，直接控制内部节点状态。</li>
+<li><strong>可观测性</strong>：通过<code>ScanOut</code>将运算结果从寄存器移位读出，直接观测内部节点状态。</li>
+</ul>
+<p>测试流程(Scan-based Test Procedure)如下：</p>
+<ol>
+<li><strong>移位输入(Shift-in)</strong>：通过<code>ScanIn</code>引脚，在测试时钟控制下，将测试向量串行移位写入所有扫描寄存器。</li>
+<li><strong>系统时钟捕获(Capture)</strong>：发出 1 个系统时钟，让寄存器中的测试向量驱动组合逻辑运算，结果锁存回寄存器。</li>
+<li><strong>移位输出(Shift-out)</strong>：通过<code>ScanOut</code>引脚，将寄存器中的结果串行移位读出，与预期值对比，判断电路是否存在故障。</li>
+</ol>
+<p>以 4 位串行扫描链寄存器为例：</p>
+<p><img src="/2026/04/01/digital-integrated-circuit-design/图63.png" style="zoom: 67%;"></p>
+<p>在普通寄存器前加入<strong>二选一多路选择器(MUX)</strong>，由<code>Test</code>信号控制工作模式：</p>
+<ul>
+<li><strong>正常模式（Test=0）</strong>：选择<code>In</code>输入，寄存器正常工作，不影响电路功能。</li>
+<li><strong>扫描模式（Test=1）</strong>：选择<code>ScanIn</code>输入，寄存器串联成移位链，实现测试向量的移位读写。</li>
+</ul>
+<h3 id="8-5-2-边界扫描测试-Boundary-Scan-Test"><a href="#8-5-2-边界扫描测试-Boundary-Scan-Test" class="headerlink" title="8.5.2 边界扫描测试(Boundary-Scan Test)"></a>8.5.2 边界扫描测试(Boundary-Scan Test)</h3><p>在芯片的<strong>所有 I/O 引脚</strong>处添加边界扫描单元(BST Cell)，将所有单元串联成一条边界扫描链，实现芯片引脚级的可控制性和可观测性。</p>
+<ul>
+<li>解决 PCB 板级芯片间互连开路 / 短路测试难题，同时支持芯片内部功能测试。</li>
+</ul>
+<p>标准 BST 接口使用 4 根线，大幅降低测试成本：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">信号</th>
+<th style="text-align:left">全称</th>
+<th style="text-align:left">功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">TDI</td>
+<td style="text-align:left">Test Data Input</td>
+<td style="text-align:left">测试数据串行输入到扫描链</td>
+</tr>
+<tr>
+<td style="text-align:left">TDO</td>
+<td style="text-align:left">Test Data Output</td>
+<td style="text-align:left">测试数据从扫描链串行输出</td>
+</tr>
+<tr>
+<td style="text-align:left">TCK</td>
+<td style="text-align:left">Test Clock</td>
+<td style="text-align:left">测试时钟，同步所有扫描操作</td>
+</tr>
+<tr>
+<td style="text-align:left">TMS</td>
+<td style="text-align:left">Test Mode Select</td>
+<td style="text-align:left">测试模式选择，控制 TAP 状态机，切换工作模式</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h4 id="8-5-2-1-BST-单元-BST-Cell-与核心功能"><a href="#8-5-2-1-BST-单元-BST-Cell-与核心功能" class="headerlink" title="8.5.2.1 BST 单元(BST Cell)与核心功能"></a>8.5.2.1 BST 单元(BST Cell)与核心功能</h4><p>每个 I/O 引脚对应一个 BST 单元，包含 4 个工作模式：</p>
+<ul>
+<li><strong>Normal(正常模式)</strong>：<code>data_out = data_in</code>，完全透明，不影响电路正常工作。</li>
+<li><strong>Scan(扫描模式)</strong>：<code>scan_out = scan_in</code>，单元串联成移位链，实现测试向量的移位读写。</li>
+<li><strong>Capture(捕获模式)</strong>：锁存引脚当前状态，用于观测引脚互连状态。</li>
+<li><strong>Update(更新模式)</strong>：将扫描链中的测试向量加载到引脚，用于控制引脚状态。</li>
+</ul>
+<p>核心功能：</p>
+<ol>
+<li><strong>Capture(并行捕获)</strong>：并行捕获所有引脚状态到 BST 单元。</li>
+<li><strong>Shift(串行移位)</strong>：串行移入测试向量，同时串行移出捕获的结果。</li>
+<li><strong>Update(并行更新)</strong>：将测试向量并行加载到引脚，驱动电路测试。</li>
+<li><strong>Internal Test(内部测试)</strong>：测试芯片内部逻辑功能。</li>
+<li><strong>External Test(外部测试)</strong>：测试 PCB 板级芯片间的互连（开路 / 短路）。</li>
+</ol>
+<p><img src="/2026/04/01/digital-integrated-circuit-design/图64.png" style="zoom: 67%;"></p>
+<h3 id="8-5-3-内建自测试-Built-In-Self-Test-BIST"><a href="#8-5-3-内建自测试-Built-In-Self-Test-BIST" class="headerlink" title="8.5.3 内建自测试(Built-In Self-Test, BIST)"></a>8.5.3 内建自测试(Built-In Self-Test, BIST)</h3><p>在芯片内部集成<strong>完整的测试电路</strong>，让芯片无需外部测试机，即可自主完成自我测试，大幅降低量产测试成本，提升测试效率。</p>
+<p><strong>BIST核心模块如下图所示：</strong></p>
+<p><img src="/2026/04/01/digital-integrated-circuit-design/图65.png" style="zoom: 67%;"></p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">模块</th>
+<th style="text-align:left">功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>Test Vectors Generator (TPG/ATPG)</strong></td>
+<td style="text-align:left">自动生成测试向量（通常用线性反馈移位寄存器 LFSR 生成伪随机向量），替代外部测试机的向量输入。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Circuit Under Test (CUT)</strong></td>
+<td style="text-align:left">被测电路，即芯片的核心功能逻辑。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Output Response Analyzer (ORA)</strong></td>
+<td style="text-align:left">对 CUT 的输出响应进行压缩（如多输入特征寄存器 MISR），生成<strong>特征签名（Signature）</strong>，与无故障电路的预期签名对比。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>BIST Controller</strong></td>
+<td style="text-align:left">控制整个 BIST 流程，协调 TPG、CUT、ORA 的工作，输出最终的<code>Pass/Fail</code>结果。</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>优点：</strong></p>
+<ul>
+<li><strong>无需外部测试机</strong>：芯片上电后可自主完成测试，适合量产、板级测试、系统级测试。</li>
+<li><strong>测试速度快</strong>：内部测试时钟远高于外部测试机，大幅缩短测试时间。</li>
+<li><strong>可在线测试</strong>：支持芯片工作过程中的在线自检，提升系统可靠性。</li>
+</ul>
+<h2 id="8-6-故障模型-Fault-Models"><a href="#8-6-故障模型-Fault-Models" class="headerlink" title="8.6 故障模型(Fault Models)"></a>8.6 故障模型(Fault Models)</h2><p>芯片制造会产生各类物理缺陷，但直接用物理缺陷做测试不现实，因此需要<strong>故障模型</strong>：将实际物理缺陷抽象为电路逻辑层面的故障，让测试生成、仿真、验证可落地。</p>
+<ul>
+<li>信号间短路（signal short-circuits）</li>
+<li>信号与电源 / 地轨短路（short to supply rails）</li>
+<li>浮空节点（floating nodes，节点无驱动，电平不确定）</li>
+</ul>
+<p>我们一般使用固定型故障模型(Stuck-At Model)，这是最主流、最通用的故障模型，仅聚焦<strong>节点与电源 / 地短路</strong>的场景：</p>
+<ul>
+<li><strong>SA0（Stuck-At-Zero，固定 0 故障）</strong>：节点永远被钳位在逻辑 0，无法输出 1</li>
+<li><strong>SA1（Stuck-At-One，固定 1 故障）</strong>：节点永远被钳位在逻辑 1，无法输出 0</li>
+</ul>
+<h2 id="8-7-IDDQ-测试-IDDQ-Test"><a href="#8-7-IDDQ-测试-IDDQ-Test" class="headerlink" title="8.7 IDDQ 测试(IDDQ Test)"></a>8.7 IDDQ 测试(IDDQ Test)</h2><p>基于 CMOS 电路的静态特性：<strong>正常 CMOS 电路在静态（无开关动作）时，$V_{ DD }$ 到 $GND$ 的漏电流（IDDQ）极小（nA 级）</strong>；如果存在短路缺陷（$V_{ DD }$-$GND$ 短路、节点间短路等），漏电流会大幅飙升至 mA 级。</p>
+<p>测试逻辑：</p>
+<ul>
+<li>✅ 好芯片：IDDQ 远低于阈值（通常 μA~nA 级）</li>
+<li>❌ 坏芯片：IDDQ 超过阈值（ &gt;几 mA），直接判定失效</li>
+<li>工程价值：无需复杂测试向量，仅测电源电流即可快速筛除坏片，是量产测试的<strong>快速预筛手段</strong>，和功能测试形成互补。</li>
+</ul>
+<h2 id="8-8-故障仿真-Fault-Simulation"><a href="#8-8-故障仿真-Fault-Simulation" class="headerlink" title="8.8 故障仿真(Fault Simulation)"></a>8.8 故障仿真(Fault Simulation)</h2><p><strong>评估测试程序的质量，计算故障覆盖率(Fault Coverage)</strong>：</p>
+<blockquote>
+<p>故障覆盖率 = $ \frac { 被检测到的故障数 } {电路总故障数} $</p>
+<p>这是衡量测试有效性的核心指标，量产芯片的行业要求通常 $\geq 97%$。</p>
+</blockquote>
+<p>仿真流程：</p>
+<ol>
+<li>在电路中插入一个目标故障（如某节点 SA0）</li>
+<li>用现有测试向量对「故障电路」和「无故障电路」分别仿真</li>
+<li>对比输出结果：<ul>
+<li>✅ 输出不同 → 故障被该测试向量检测到</li>
+<li>❌ 输出相同 → 故障未被检测到</li>
+</ul>
+</li>
+<li>遍历所有故障，统计故障覆盖率，迭代优化测试向量。</li>
+</ol>
+<h3 id="8-8-1-测试向量-Test-Pattern-Test-Vector"><a href="#8-8-1-测试向量-Test-Pattern-Test-Vector" class="headerlink" title="8.8.1 测试向量(Test Pattern/Test Vector)"></a>8.8.1 测试向量(Test Pattern/Test Vector)</h3><p>输入到电路的一组逻辑值，用于激活并检测电路中的一个或多个故障。</p>
+<p>核心逻辑：</p>
+<ul>
+<li>故障覆盖率越高，需要的测试向量越多；</li>
+<li><strong>穷举测试（遍历所有输入组合）完全不可行</strong>：N 输入的组合逻辑需要 $2^N$ 个向量，N=32 时向量数超 40 亿，成本极高、完全不现实；</li>
+<li>工程原则：通过 ATPG 生成<strong>最优测试向量集</strong>，用最少的向量达到 95-99% 的故障覆盖率，平衡测试成本和产品质量。</li>
+</ul>
+<hr>
+<p><strong>测试概念实例：与门（AND Gate）测试</strong></p>
+<p>用 2 输入与门直观解释固定型故障的测试逻辑，核心思想是：<strong>激活故障，让故障在输出端产生可观测的差异</strong>。</p>
+<p><img src="/2026/04/01/digital-integrated-circuit-design/图66.png" style="zoom: 67%;"></p>
+<hr>
+<p><strong>自动测试向量生成</strong></p>
+<p><img src="/2026/04/01/digital-integrated-circuit-design/图67.png" style="zoom: 67%;"></p>
+<h3 id="8-8-2-D-Algorithm-For-ATPG"><a href="#8-8-2-D-Algorithm-For-ATPG" class="headerlink" title="8.8.2 D Algorithm For ATPG"></a>8.8.2 D Algorithm For ATPG</h3><p>D 算法引入了<strong>复合逻辑值 D（g/b，good/bad）</strong>，同时表示无故障电路（good）和故障电路（bad）的节点状态，用于直观体现故障的差异：</p>
+<ul>
+<li>$D = 1/0$：无故障电路节点为 1，故障电路节点为 0（故障导致节点从 1 变为 0，可观测差异）</li>
+<li>$D = 0/1$：无故障电路节点为 0，故障电路节点为 1（故障导致节点从 0 变为 1，可观测差异）</li>
+<li>普通逻辑值：0=0/0，1=1/1（无故障 / 故障状态一致，无差异）</li>
+</ul>
+<p><img src="/2026/04/01/digital-integrated-circuit-design/图68.png" style="zoom:67%;"></p>
+<p>完整 D 值真值表如下：</p>
+<p><img src="/2026/04/01/digital-integrated-circuit-design/图69.png" style="zoom:80%;"></p>
+<hr>
+<p><strong>D 算法完整流程</strong></p>
+<p>以 <strong>NAND 门电路中某节点 SA1（固定 1 故障）</strong> 为例，完整演示 D 算法的 4 个核心步骤：</p>
+<p><img src="/2026/04/01/digital-integrated-circuit-design/图70.png" style="zoom:80%;"></p>
+<p><strong>step 1: 激活故障(Fault Activation)</strong></p>
+<ul>
+<li>目标：让故障节点在无故障电路中为 0，故障电路中为 1，产生 $\bar{D}$（0/1）</li>
+<li>操作：给故障节点施加输入，使无故障状态为 0（SA1 故障会强制节点为 1，形成 0/1 的$\bar{D}$）</li>
+<li>实例：图中 U3 的输入节点，无故障时为 0，SA1 故障强制为 1，产生 $\bar{D}$。</li>
+</ul>
+<p><strong>step 2: 敏化路径(Path Sensitization)</strong></p>
+<ul>
+<li>目标：从故障节点到原始输出（PO）建立一条<strong>敏化路径</strong>，让$\bar{D} /D$ 可以传播到输出</li>
+<li>操作：为路径上的所有门电路设置使能值，保证 $\bar{D}/D$可以穿透</li>
+<li>实例：<ul>
+<li>路径：故障节点 $\rightarrow$ U3 $\rightarrow$ U5 $\rightarrow$ 输出 Z</li>
+<li>使能值设置：将 U4、U3 的其他输入设为 1（NAND 门的使能值为 1），让 $\bar{D}$ 可以从 U3 传播到 U5，最终到输出 Z，形成敏化路径（sensitized path），D-frontier 为待传播的 D 值边界。</li>
+</ul>
+</li>
+</ul>
+<p><strong>step 3: 反向证明(Justification/Backward Working)</strong></p>
+<ul>
+<li>目标：从敏化路径的使能值出发，反向推导电路的原始输入（PI），验证这些使能值可以通过输入实现，无冲突</li>
+<li>操作：从输出端反向推导，为每个门的输入赋值，最终得到原始输入 A/B/C 的取值</li>
+<li>实例：<ul>
+<li>反向推导 U5、U4、U3、U2 的输入要求，最终得到原始输入：<code>A=1, B=1, C=0</code></li>
+<li>验证：该输入可以满足所有使能值要求，无逻辑冲突。</li>
+</ul>
+</li>
+</ul>
+<p><strong>step 4：生成测试向量</strong></p>
+<ul>
+<li>最终得到的原始输入<code>A=1, B=1, C=0</code>，就是可检测该 SA1 故障的测试向量。</li>
+<li>验证：用该向量分别仿真无故障电路和故障电路，输出 Z 的差异可观测，证明向量有效。</li>
+</ul>
+<p><img src="/2026/04/01/digital-integrated-circuit-design/图.png" alt></p>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">Jeremy Yang</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://www.jeremyyang.github.io/2026/04/01/digital-integrated-circuit-design/">https://www.jeremyyang.github.io/2026/04/01/digital-integrated-circuit-design/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">Jeremy Yang</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/%E6%95%B0%E5%AD%97%E9%9B%86%E6%88%90%E7%94%B5%E8%B7%AF%EF%BC%8C%E5%AD%90%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/">
+                                    <span class="chip bg-color">数字集成电路，子系统设计</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
+            <div class="card">
+                <a href="/2026/04/01/digital-integrated-circuit-design/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="Digital Integrated Circuit Design(EE6306)">
+                        
+                        <span class="card-title">Digital Integrated Circuit Design(EE6306)</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2026-04-01
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E5%8D%8A%E5%AF%BC%E4%BD%93%E5%88%B6%E9%80%A0%E4%B8%8E%E9%9B%86%E6%88%90%E7%94%B5%E8%B7%AF%E6%8A%80%E6%9C%AF/" class="post-category">
+                                    半导体制造与集成电路技术
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E6%95%B0%E5%AD%97%E9%9B%86%E6%88%90%E7%94%B5%E8%B7%AF%EF%BC%8C%E5%AD%90%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/">
+                        <span class="chip bg-color">数字集成电路，子系统设计</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2026/04/01/integrated-circuit-technology/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="Integrated Circuit Technology(EE7602)">
+                        
+                        <span class="card-title">Integrated Circuit Technology(EE7602)</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2026-04-01
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E5%8D%8A%E5%AF%BC%E4%BD%93%E5%88%B6%E9%80%A0%E4%B8%8E%E9%9B%86%E6%88%90%E7%94%B5%E8%B7%AF%E6%8A%80%E6%9C%AF/" class="post-category">
+                                    半导体制造与集成电路技术
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E9%9B%86%E6%88%90%E7%94%B5%E8%B7%AF%EF%BC%8CLatch-up%EF%BC%8CESD/">
+                        <span class="chip bg-color">集成电路，Latch-up，ESD</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('120')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE' || selection.getRangeAt(0).commonAncestorContainer.nodeName === 'CODE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: 沫墨<br />'
+            + '文章作者: Jeremy Yang<br />'
+            + '文章链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+  <!-- 是否加载使用自带的 prismjs. -->
+  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            // 👇 这行是核心修改：强制提取 h1-h6 所有标题，一级标题# 就能显示了
+            headingSelector: 'h1, h2, h3, h4, h5, h6' 
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+    
+
+</main>
+
+
+<script src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+    MathJax.Hub.Config({
+        tex2jax: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+    });
+</script>
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="tencent"
+                   type="playlist"
+                   id="8693683401"
+                   fixed='true'
+                   autoplay='true'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="/libs/aplayer/Meting.min.js"></script>
+
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 15px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2021-2026</span>
+            
+            <a href="/about" target="_blank">Jeremy Yang</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+                &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                        class="white-color">116.8k</span>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+                <span id="sitetime"> Loading ...</span>
+                <script>
+                    var calcSiteTime = function () {
+                        var seconds = 1000;
+                        var minutes = seconds * 60;
+                        var hours = minutes * 60;
+                        var days = hours * 24;
+                        var years = days * 365;
+                        var today = new Date();
+                        var startYear = "2021";
+                        var startMonth = "10";
+                        var startDate = "28";
+                        var startHour = "0";
+                        var startMinute = "0";
+                        var startSecond = "0";
+                        var todayYear = today.getFullYear();
+                        var todayMonth = today.getMonth() + 1;
+                        var todayDate = today.getDate();
+                        var todayHour = today.getHours();
+                        var todayMinute = today.getMinutes();
+                        var todaySecond = today.getSeconds();
+                        var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                        var diff = t2 - t1;
+                        var diffYears = Math.floor(diff / years);
+                        var diffDays = Math.floor((diff / days) - diffYears * 365);
+
+                        // 区分是否有年份.
+                        var language = 'zh-CN';
+                        if (startYear === String(todayYear)) {
+                            document.getElementById("year").innerHTML = todayYear;
+                            var daysTip = 'This site has been running for ' + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                daysTip = '本站已运行 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                daysTip = '本站已運行 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = daysTip;
+                        } else {
+                            document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                            var yearsAndDaysTip = 'This site has been running for ' + diffYears + ' years and '
+                                + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                yearsAndDaysTip = '本站已运行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                yearsAndDaysTip = '本站已運行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = yearsAndDaysTip;
+                        }
+                    }
+
+                    calcSiteTime();
+                </script>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/Ude123456" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:1332075296@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1332075296" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1332075296" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+    <a href="https://blog.csdn.net/weixin_60872203?type=lately" class="tooltipped" target="_blank" data-tooltip="关注我的CSDN: https://blog.csdn.net/weixin_60872203?type=lately" data-position="top" data-delay="50">
+        <i class="fab fa-csdn">C</i>
+    </a>
+
+
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 白天和黑夜主题 -->
+<div class="stars-con">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>  
+</div>
+
+<script>
+    function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+        setTimeout(function () {
+            $('body').hasClass('DarkMode') 
+            ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+            : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+            
+            setTimeout(function () {
+            $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                $(this).remove()
+            })
+            }, 2e3)
+        })
+    }
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+
+    <!-- 雪花特效 -->
+     
+        <script type="text/javascript">
+            // 只在桌面版网页启用特效
+            var windowWidth = $(window).width();
+            if (windowWidth > 768) {
+                document.write('<script type="text/javascript" src="/libs/others/snow.js"><\/script>');
+            }
+        </script>
+    
+
+    <!-- 鼠标星星特效 -->
+     
+        <script type="text/javascript">
+            // 只在桌面版网页启用特效
+            var windowWidth = $(window).width();
+            if (windowWidth > 768) {
+                document.write('<script type="text/javascript" src="/libs/others/star.js"><\/script>');
+            }
+        </script>
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+    <script type="text/javascript" src="/libs/background/ribbon-dynamic.js" async="async"></script>
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>
+
+<script type="text/javascript" src="/js/click_show_text.js"></script>
+
+
+<!--动态线条背景-->
+<script type="text/javascript"
+color="122 103 238" opacity='0.8' zIndex="-2" count="130" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js">
+</script>

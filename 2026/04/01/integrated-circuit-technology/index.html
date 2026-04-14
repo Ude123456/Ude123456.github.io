@@ -510,8 +510,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/%E9%9B%86%E6%88%90%E7%94%B5%E8%B7%AF%EF%BC%8CLatch-up/">
-                                <span class="chip bg-color">集成电路，Latch-up</span>
+                            <a href="/tags/%E9%9B%86%E6%88%90%E7%94%B5%E8%B7%AF%EF%BC%8CLatch-up%EF%BC%8CESD/">
+                                <span class="chip bg-color">集成电路，Latch-up，ESD</span>
                             </a>
                         
                     </div>
@@ -544,7 +544,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    6.6k
+                    14.5k
                 </div>
                 
 
@@ -656,7 +656,7 @@ I_s=I_ { CRIT } \simeq \frac { V_ { bep } } { R_w}</script><p>其中，$V_{bep}$
 <li><span style="color:red"><strong>测量方法：</strong></span><ul>
 <li><span style="color:red"><strong>先通过过压把器件触发到闩锁态</strong></span></li>
 <li><span style="color:red"><strong>撤掉触发信号，缓慢降低电源电压</strong></span></li>
-<li><span style="color:red"><strong>当电源电流突然暴跌(器件回到高阻态)，此时的电压就是VH，对应电流就是IH。</strong></span></li>
+<li><span style="color:red"><strong>当电源电流突然暴跌(器件回到高阻态)，此时的电压就是$V_H$，对应电流就是$I_H$。</strong></span></li>
 </ul>
 </li>
 </ol>
@@ -853,31 +853,634 @@ V_{hold}=(V_ { ec } )_ { PNP } + (V_ { be } )_ { NPN }(1+ \frac { R_ { s_2 } } {
 <li>插入双保护环(double guard rings)：n 阱里的 n + 保护环、p 衬底里的 p + 保护环；</li>
 <li>其他平面工艺方法也适用，比如增加 n+-p + 间距、使用外延衬底等。</li>
 </ul>
-<p><img src="/2026/04/01/integrated-circuit-technology/图.png" alt></p>
-<p>Latch-up: </p>
+<h1 id="2-集成电路中的ESD和EOS保护"><a href="#2-集成电路中的ESD和EOS保护" class="headerlink" title="2 集成电路中的ESD和EOS保护"></a>2 集成电路中的ESD和EOS保护</h1><p>在集成电路中产生高能量/短持续时间的电感应损伤主要有三种机制：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">损伤类型</th>
+<th style="text-align:left">特点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>静电放电(Electrostatic discharge, ESD)</strong></td>
+<td style="text-align:left">持续时间极短（&lt;1μs），比如摸芯片时的静电火花，电压高但功率极低</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>电过应力(electrical overstress, EOS)</strong></td>
+<td style="text-align:left">持续时间更长（微秒到毫秒级），是更宽泛的”过压/过流事件”</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>闩锁效应(Latch-up)</strong></td>
+<td style="text-align:left">不受控的电流导通，会造成类似 EOS 的损伤；反过来 EOS 也可能触发闩锁</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>在纳米级 CMOS 工艺下，器件尺寸缩小，这三种失效会越来越严重，因此 ESD/EOS 防护是芯片商业化的核心技术。</p>
+<p>对 EOS 和 EDS 给出简单定义： </p>
+<ul>
+<li><strong>电过应力(Electrical Overstress, EOS)</strong>：广义上被定义为”器件承受了超过额定最大值的电流或电压，无时间限制”。</li>
+<li><strong>静电放电(Electrostastic Discharge, ESD)</strong>：不同静电电位的物体或表面之间的静电电荷转移（比如摩擦起电后的放电），<strong>是 EOS 的一种子集</strong>。</li>
+<li>广义和狭义区分（IC 行业）<ul>
+<li>广义 EOS：包含 ESD 在内的所有过压或过流事件；</li>
+<li>狭义 EOS：特指非静电引起的过压或过流事件，和 ESD 是并列概念。</li>
+</ul>
+</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">特性</th>
+<th style="text-align:left">ESD 事件</th>
+<th style="text-align:left">狭义 EOS 事件</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">成因</td>
+<td style="text-align:left">摩擦起电 / 静电场诱导</td>
+<td style="text-align:left">非静电或非摩擦起电诱导</td>
+</tr>
+<tr>
+<td style="text-align:left">电压</td>
+<td style="text-align:left">高压（kV 级）</td>
+<td style="text-align:left">较低（刚超过额定最大值即可）</td>
+</tr>
+<tr>
+<td style="text-align:left">持续时间</td>
+<td style="text-align:left">极短（$&lt; \textasciitilde 150$ns）</td>
+<td style="text-align:left">长（毫秒甚至持续）</td>
+</tr>
+<tr>
+<td style="text-align:left">功率</td>
+<td style="text-align:left">极低功率</td>
+<td style="text-align:left">低功率</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>关于 ESD ，有三种标准的模型</p>
 <ol>
-<li>如何减弱闩锁效应的影响：<ul>
-<li>增大nmos和pmos的距离</li>
-<li>降低I_RW和I_RS</li>
+<li><strong>HBM（人体模型）</strong>：人体带静电后接触芯片放电（最常见场景）；</li>
+<li><strong>MM（机器模型）</strong>：设备或机器带静电后接触芯片放电；</li>
+<li><strong>CDM（充电器件模型）</strong>：芯片自身带静电，接触导体后放电。</li>
+</ol>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">模型</th>
+<th style="text-align:left">全称</th>
+<th style="text-align:left">放电路径</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">HBM</td>
+<td style="text-align:left">人体模型</td>
+<td style="text-align:left">人体带电后通过肢体 $\rightarrow$ 接触芯片引脚 $\rightarrow$ 向地放电</td>
+</tr>
+<tr>
+<td style="text-align:left">MM</td>
+<td style="text-align:left">机器模型</td>
+<td style="text-align:left">自动化设备或工具带电 $\rightarrow$ 接触芯片向地放电</td>
+</tr>
+<tr>
+<td style="text-align:left">CDM</td>
+<td style="text-align:left">充电器件模型</td>
+<td style="text-align:left">芯片自身带电 $\rightarrow$ 接触地或低电位引脚放电</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="2-1-ESD模型"><a href="#2-1-ESD模型" class="headerlink" title="2.1 ESD模型"></a>2.1 ESD模型</h2><h3 id="2-1-1-人体模型-HBM"><a href="#2-1-1-人体模型-HBM" class="headerlink" title="2.1.1 人体模型(HBM)"></a>2.1.1 人体模型(HBM)</h3><p>模拟<strong>人体接触芯片引脚</strong>时，向低电位或地放电产生的瞬态电流应力。将其模型化为电路，使用100pF 电容(模拟人体电容)和1500Ω 电阻(模拟人体电阻)。电容先充电到高压，再通过电阻向被测器件(DUT)放电，形成瞬态电流。理想的电路图和电流波形如下所示：</p>
+<p><img src="/2026/04/01/integrated-circuit-technology/图18.png" style="zoom:80%;"></p>
+<p>但在真实世界里，人体参数不是固定值：</p>
+<ul>
+<li>寄生电感：5~10nH（测试仪器也会引入额外电感）</li>
+<li>人体电容：167~514pF（和鞋子材质有关，比如绝缘鞋电容更大）</li>
+<li>皮肤电阻：1kΩ~100kΩ（和皮肤油脂、出汗量有关，越干电阻越大）</li>
+</ul>
+<p>若同时考虑人体的电阻、电容与电感($R、C、L$)，以及测试仪的寄生电感与电容，那么 ESD 放电事件就可以等效为一个 RLC 电流源，电路里有两个<strong>虚线寄生电容</strong>，这是真实测试中必然存在的，导致波形出现上升沿、振铃和衰减常数。其对应的电流波形如下图所示。</p>
+<p><span style="color:red"><strong>记住非理想的 RLC 电路图和波形就可以了，一定要会画图！</strong></span></p>
+<p><img src="/2026/04/01/integrated-circuit-technology/图19.png" style="zoom:80%;"></p>
+<p>最终我们将其视为 DUT 阻抗为 0 的理想 RLC 电流源来进行建模，这也是IEC标准的理想 RLC模型，相比上面非理想的 RLC 电路，去掉了额外的寄生电容，是简化后的模型：</p>
+<p><img src="/2026/04/01/integrated-circuit-technology/图20.png" style="zoom:80%;"></p>
+<h3 id="2-1-2-机器模型-MM"><a href="#2-1-2-机器模型-MM" class="headerlink" title="2.1.2 机器模型(MM)"></a>2.1.2 机器模型(MM)</h3><p>MM主要发生场景是模拟工厂自动化生产中，<strong>带电的金属设备或工具(比如机械手、夹具、烙铁等)接触芯片</strong>导致的 ESD 损伤。一般是因为设备本身带静电（比如摩擦起电），接触芯片时会发生电弧放电，电荷直接冲进芯片。相当于”没有人体电阻限流的极端 HBM”，人体摸芯片还有 1.5kΩ 电阻限流，而金属设备几乎没电阻，放电会猛得多。</p>
+<p><span style="color:red"><strong>电路图和波形图一定要会画！</strong></span></p>
+<p><img src="/2026/04/01/integrated-circuit-technology/图21.png" style="zoom:80%;"></p>
+<ul>
+<li><p><strong>标准电路参数</strong>：200pF 电容 + 750nH（0.75μH）电感，还有寄生元件（电阻、电容）。</p>
+<p>电感直接控制电流的上升时间：电感越小，电流上升越快、峰值越高，对芯片的冲击越猛，是决定 MM 危害程度的核心因素。</p>
+</li>
+</ul>
+<p>从上图可以看到波形是<strong>欠阻尼振荡波形</strong>（因为电阻极小，RLC 电路阻尼很低，电流会来回震荡）。但在同样电压下，MM 的电流峰值远大于 HBM（比如 400V MM 的电流和 4000V HBM 差不多）。</p>
+<h3 id="2-1-3-充电器件模型-CDM"><a href="#2-1-3-充电器件模型-CDM" class="headerlink" title="2.1.3 充电器件模型(CDM)"></a>2.1.3 充电器件模型(CDM)</h3><p>CDM其实就是模拟<strong>芯片自己先带电</strong>，然后接触到地或低电位导体(比如金属桌面、测试机台)时，<strong>从芯片内部向外放电</strong>的 ESD 事件。通俗来说就是，HBM和MM是”外部打芯片”，CDM 是”芯片自己炸”—— 芯片自身像个带电的气球，一碰地就瞬间放电。</p>
+<ul>
+<li><strong>原理</strong>：<strong>摩擦起电</strong></li>
+<li>典型例子<ol>
+<li>芯片在塑料包装管里滑动(芯片引脚 = 导体，塑料 = 绝缘体)。</li>
+<li>芯片在测试机台（接地不良）的传送带上滑动。</li>
+</ol>
+</li>
+<li>结果：芯片整体带上正或负高压，此时接触地就会瞬间放电。</li>
+</ul>
+<p><strong>对CDM进行测试的方法如下：</strong></p>
+<p><img src="/2026/04/01/integrated-circuit-technology/图22.png" style="zoom:80%;"></p>
+<ol>
+<li>芯片放在<strong>绝缘夹具(insulating fixture)</strong>上(引脚悬空)。</li>
+<li><strong>高压发生器(high-voltage generator)</strong>给芯片充电(125V~1000V)。</li>
+<li>用<strong>探针(Pogo Probe)</strong> 接触芯片引脚，将芯片接地，瞬间放电。</li>
+</ol>
+<p><span style="color:red"><strong>接下来CDM模型的放电波形一定要会画，必考：</strong></span></p>
+<p><img src="/2026/04/01/integrated-circuit-technology/图23.png" style="zoom:67%;"></p>
+<h2 id="2-2-ESD预防措施"><a href="#2-2-ESD预防措施" class="headerlink" title="2.2 ESD预防措施"></a>2.2 ESD预防措施</h2><p>从器件上来划分，主要有下面两种预防措施：</p>
+<h5 id="1-处理-ESD-敏感器件"><a href="#1-处理-ESD-敏感器件" class="headerlink" title="(1) 处理 ESD 敏感器件"></a>(1) 处理 ESD 敏感器件</h5><p>主要有以下几点内容，了解即可：</p>
+<ol>
+<li><p><strong>工作区(Work area)</strong>——必须在防静电工作站操作</p>
+<p>要求处理 ESD 敏感器件(SSD)，必须在<strong>防静电工作站(Static-safe workstation)</strong>进行。如果无法使用防静电手腕带，或者工作站上有无法移除的绝缘材料时：</p>
+<ul>
+<li>使用<strong>离子风机(Air ionizer)</strong>：它能吹出带正负电荷的离子，中和物体表面的静电。</li>
+<li>涂抹<strong>局部抗静电剂(Topical anti-stats)</strong>：抑制静电的产生和积累。</li>
+</ul>
+</li>
+<li><p><strong>人员操作(Personnel)</strong>—— 先放电，再动手</p>
+<p>工作人员在打开装有芯片的保护容器前，<strong>必须先释放身上积累的静电</strong>。</p>
+<p>操作方法</p>
+<ul>
+<li>先用手摸一下接地表面(Ground surface)，把电导走。</li>
+<li>最理想的操作应该是佩戴<strong>防静电手腕带(Wrist-strap)</strong>，直接通过人体保护电阻接地，彻底泄放电荷。</li>
+</ul>
+</li>
+<li><p><strong>包装与运输(Packaging and Transportation)</strong>—— 全程罩住</p>
+<p>芯片在存储或运输过程中，必须<strong>时刻放在防静电包装袋(Static protective bag)或容器中</strong>。防静电袋(如屏蔽袋)是导体，能把芯片屏蔽起来，使芯片<strong>内外电位相等</strong>，避免芯片在运输摩擦中带电或被静电击穿。</p>
+</li>
+</ol>
+<h5 id="2-片上-ESD-保护-On-chip-Protection"><a href="#2-片上-ESD-保护-On-chip-Protection" class="headerlink" title="(2) 片上 ESD 保护(On-chip Protection)"></a>(2) 片上 ESD 保护(On-chip Protection)</h5><p>为了保护芯片内部的精密电路(Internal circuits)不被破坏，需要在在芯片的引脚(Pad)周围设计”保镖”电路(ESD Clamp)。这样做的作用就是：</p>
+<ul>
+<li><strong>钳位电压</strong>：当高压 ESD 来袭时，迅速把电压钳制在安全范围内，不让高电压冲进内部电路。</li>
+<li><strong>泄放电流</strong>：提供一条<strong>低阻抗通路</strong>，让几安培的大 ESD 电流直接流向地，避开内部电路。</li>
+</ul>
+<p><img src="/2026/04/01/integrated-circuit-technology/图24.png" style="zoom:80%;"></p>
+<p>而芯片里的 ESD 保护电路主要分两类，列出表格较为直观：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>全称</th>
+<th>通俗叫法</th>
+<th>保护对象</th>
+<th>核心作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Local clamp</strong></td>
+<td>局部钳位</td>
+<td>二极管 / IO 钳位</td>
+<td><strong>I/O引脚</strong></td>
+<td>挡在输入输出引脚门口，防止引脚带电冲进来</td>
+</tr>
+<tr>
+<td><strong>Power-rail clamp</strong></td>
+<td>电源轨钳位</td>
+<td>SCR（可控硅）</td>
+<td><strong>电源和地</strong></td>
+<td>守在电源($V<em> { DD }$)和地($V</em> { SS }$)之间，防止电源波动冲击内部</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p> ESD 有四种应力模式，也就是 ESD 放电的四个具体方向，对应 Local Clamp 的保护范围：</p>
+<ol>
+<li><strong>PS 模式 (Positive-to-$V_{SS}$)</strong>：正电位引脚流向地($V_{SS}$)</li>
+<li><strong>NS 模式 (Negative-to-$V_{SS}$)</strong>：负电位引脚流向地($V_{SS}$)</li>
+<li><strong>PD 模式 (Positive-to-$V_{DD}$)</strong>：正电位引脚流向电源($V_{DD}$)</li>
+<li><strong>ND 模式 (Negative-to-$V_{DD}$)</strong>：负电位引脚流向电源($V_{DD}$)</li>
+</ol>
+<p><span style="color:red"><strong>4 种 ESD 应力模式的工作逻辑要会描述：</strong></span></p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">模式</th>
+<th style="text-align:left">场景</th>
+<th style="text-align:left">二极管动作</th>
+<th style="text-align:left">电流流向</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">PS（正→地）</td>
+<td style="text-align:left">I/O 带正高压碰 Vss</td>
+<td style="text-align:left">下二极管正向导通</td>
+<td style="text-align:left">I/O → 下二极管 → Vss</td>
+</tr>
+<tr>
+<td style="text-align:left">NS（负→地）</td>
+<td style="text-align:left">I/O 带负高压碰 Vss</td>
+<td style="text-align:left">上二极管正向导通</td>
+<td style="text-align:left">Vdd → 上二极管 → I/O</td>
+</tr>
+<tr>
+<td style="text-align:left">PD（正→电源）</td>
+<td style="text-align:left">I/O 带正高压碰 Vdd</td>
+<td style="text-align:left">上二极管正向导通</td>
+<td style="text-align:left">I/O → 上二极管 → Vdd</td>
+</tr>
+<tr>
+<td style="text-align:left">ND（负→电源）</td>
+<td style="text-align:left">I/O 带负高压碰 Vdd</td>
+<td style="text-align:left">下二极管正向导通</td>
+<td style="text-align:left">Vss → 下二极管 → I/O</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>ESD 钳位电路(Clamp)必须满足 <strong>“一高一低”</strong> 的矛盾要求：</p>
+<ul>
+<li><strong>正常工作时(Normal)</strong>：必须是<strong>断开状态(Off-state)</strong>，漏电流(Leakage current)要<strong>尽可能小</strong>，不然会耗电、干扰芯片正常功能。</li>
+<li><strong>ESD发生时(ESD Event)</strong>：必须瞬间变成 <strong>低阻抗(Low-impedance)</strong> 通路，像开关一样 “啪” 地导通，把电流泄走。</li>
+</ul>
+<p>电源轨钳位电路为 ESD 电流提供完整泄放通路，确保所有应力模式下都能有效防护。</p>
+<hr>
+<p><span style="color:red"><strong>片上ESD保护的总体目标，这个必背：</strong></span></p>
+<p><span style="color:red"><strong>1. 核心防护功能</strong></span></p>
+<ul>
+<li><span style="color:red">钳位 ESD 电压(Clamp the ESD voltage)，分流 ESD 应力电流(hunt the ESD stress current)</span></li>
+<li><span style="color:red">提供 HBM、CDM 防护(protection for HBM and CDM)</span></li>
+</ul>
+<p><span style="color:red"><strong>2. 放电性能要求</strong></span></p>
+<ul>
+<li><span style="color:red">快速导通(Turn on fast)，响应 &lt; 300ps(&lt;300 ps response)</span></li>
+<li><span style="color:red">承载 1-2A的大电流(Carry large currents of 1–2 A or more)，持续 150ns(for 150 ns)</span></li>
+<li><span style="color:red">导通电阻低(low on-resistance)</span></li>
+</ul>
+<p><span style="color:red"><strong>3. 芯片兼容性要求</strong></span></p>
+<ul>
+<li><span style="color:red">焊盘(bond pad)占用面积最小(Occupy minimum area)</span></li>
+<li><span style="color:red">寄生电容最小(minimum capacitance)</span></li>
+<li><span style="color:red">串联电阻最小(minimum series resistance)</span></li>
+<li><span style="color:red">不增加静态漏电流(Not cause increased $I_{DDQ}$ or I/O leakage)</span></li>
+<li><span style="color:red">不干扰芯片功能测试(Not interfere with the IC’s functional testing)</span></li>
+<li><span style="color:red">不引发闩锁(latch-up)或电过应力(EOS)失效</span></li>
+</ul>
+<p><span style="color:red"><strong>4. 可靠性要求</strong></span></p>
+<ul>
+<li><span style="color:red">抗工艺漂移(immune to process drifts)</span></li>
+<li><span style="color:red">抗多次脉冲冲击(robust for numerous pulses)</span></li>
+<li><span style="color:red">耐受老化测试(Survive the burn-in tests)</span></li>
+</ul>
+<p><strong>记忆口诀：钳压分流（Clamp/shunt），快通低阻（Turn on/low R），扛流 150（1-2A/150ns）；小面积（minimum area）、低容阻（minimum C/R），零漏测（no leakage/no test interference）、无闩锁（no latch-up/EOS）；抗漂移（immune to process drifts）、耐脉冲（robust for pulses）、过老化（survive burn-in），双模防护（HBM/CDM）全搞定。</strong></p>
+<hr>
+<p>在 ESD 保护方案中有三种半导体器件常用于实现：二极管、栅极接地NMOS管(GGNMOS)和可控硅(SCR)。</p>
+<p>二极管属于非回滞型器件（单向 ESD 保护器件），而 SCR 和 GGNMOS 属于回滞型器件（双向 ESD 保护器件）。这些器件均能在正负双向被触发并导通电。</p>
+<p>但这三种器件各有缺点：二极管存在高漏电流问题，GGNMOS 健壮性较低，而 SCR 容易发生闩锁效应。</p>
+<h3 id="2-2-1-局部钳位-Local-clamp"><a href="#2-2-1-局部钳位-Local-clamp" class="headerlink" title="2.2.1 局部钳位(Local clamp)"></a>2.2.1 局部钳位(Local clamp)</h3><h4 id="2-2-1-1-二极管ESD保护"><a href="#2-2-1-1-二极管ESD保护" class="headerlink" title="2.2.1.1 二极管ESD保护"></a>2.2.1.1 二极管ESD保护</h4><p>二极管能防护ESD的原理就是，当 ESD 高压出现在 I/O 引脚时，利用二极管<strong>单向放电性(unidirectional discharging path)</strong>进行正向导通(forward-biased)，把大电流泄放到电源($V<em> { DD }$)或地($V</em>{SS}$)，避免高压击穿内部电路。</p>
+<p><span style="color:red"><strong>下面的图一定要记牢，必考：</strong></span></p>
+<p><img src="/2026/04/01/integrated-circuit-technology/图25.png" alt></p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">结构类型</th>
+<th style="text-align:left">原理</th>
+<th style="text-align:left">特点</th>
+<th style="text-align:left">适用场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>STI 限定二极管(STI-bounded)</strong></td>
+<td style="text-align:left">用浅沟槽隔离(STI，芯片的绝缘沟槽)隔离 P+或N+ 区</td>
+<td style="text-align:left">隔离效果好、漏电流小，但导通电阻大、ESD 鲁棒性弱</td>
+<td style="text-align:left">常规 ESD 防护、对漏电流要求高的场景</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>栅限定二极管(Gate-bounded)</strong></td>
+<td style="text-align:left">用 MOS 管栅极作为隔离，限定 P+或N+ 区</td>
+<td style="text-align:left">导通电阻小、ESD 鲁棒性强（扛大电流），但漏电流稍大</td>
+<td style="text-align:left">对 ESD 抗扰要求高的场景</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><span style="color:red"><strong>上面二极管的I-V 特性图一定要会画。</strong></span></p>
+<hr>
+<p>当芯片引脚处于高工作电压(higher operating voltage)时，就可以使用堆叠二极管结构(Stacked Diodes)。因为单个二极管导通电压 0.7V，若芯片工作电压高（如3.3V或5V），单管会在正常工作时就导通，因此可以把多个二极管串联(stacked configuration)，总导通电压就是二极管数量 $\times $ 0.7V，这样就可以让导通电压落在ESD 设计窗口（<strong>芯片正常工作电压 &lt; 导通电压 &lt; 内部电路击穿电压</strong>）内。</p>
+<p>堆叠二极管结构的优点就在于可以灵活调整导通电压，适配高电压芯片；但是缺点也很明显，占用芯片面积大、引脚寄生电阻增加，影响高频信号完整性。</p>
+<h4 id="2-2-1-2-GGNMOS管ESD保护"><a href="#2-2-1-2-GGNMOS管ESD保护" class="headerlink" title="2.2.1.2 GGNMOS管ESD保护"></a>2.2.1.2 GGNMOS管ESD保护</h4><p>GGNMOS，接地栅NMOS管(Grounded‑Gate NMOS)，就是NMOS 管的<strong>栅极直接接地</strong>。GGNMOS实现ESD保护是<strong>局部钳位(Local clamp)</strong> 的一种，位于 I/O 引脚和地之间。在正常工作状态下，栅极接地，源极也接地，所以管子处于<strong>关断(off)</strong> 状态，完全不影响芯片正常功能。</p>
+<p><span style="color:red"><strong>工作机制必须掌握！</strong></span></p>
+<p><img src="/2026/04/01/integrated-circuit-technology/图26.png" style="zoom:80%;"></p>
+<p><span style="color:red"><strong>(1) 正 ESD 事件(Positive ESD)</strong></span></p>
+<p>当I/O引脚突然变成正的高电压(即PS/PD 模式)。</p>
+<p>主要的保护流程如下：</p>
+<ol>
+<li><strong>触发(Avalanche Breakdown)</strong>：I/O 脚(Drain)的正高压导致寄生 NPN 三极管的<strong>集电极-基极结发生雪崩击穿</strong>。</li>
+<li><strong>产生衬底电流</strong>：击穿过程产生大量<strong>衬底电流($I_ { SUB }$)</strong>，流向地。</li>
+<li><strong>形成电压差</strong>：$I<em>{ SUB }$ 流过衬底寄生电阻($ R</em>{ SUB }$)，产生电压降 $V<em>{ BE }=I</em>{ SUB } \times R_{ SUB }$。</li>
+<li><strong>导通 BJT</strong>：当 $V_{BE} \simeq 0.7V$ 时，<strong>寄生 NPN 三极管完全导通</strong>。</li>
+<li><strong>低阻通路（Snapback）</strong>：一旦 BJT 导通，I/O 脚与地之间变成<strong>低阻抗(low on-resistance)</strong>，电流顺畅流走，I-V 曲线上出现<strong>回滞效应(Snapback)</strong>。</li>
+</ol>
+<p><img src="/2026/04/01/integrated-circuit-technology/图27.png" alt></p>
+<p><span style="color:red"><strong>(2) 负 ESD 事件(Negative ESD)</strong></span></p>
+<p>当I/O 引脚电压低于 $V_{SS}$ 时(即NS/ND 模式)。</p>
+<p>主要的保护流程如下：</p>
+<ol>
+<li><strong>二极管导通</strong>：此时利用 GGNMOS 结构中的<strong>寄生结二极管(N+/P-Well)</strong> 正向导通。</li>
+<li><strong>低阻通路</strong>：二极管导通后，I/O脚和 $V_{SS}$ 之间形成低阻抗通路。</li>
+<li><strong>电流流向</strong>：电流从 P-Well($V_{SS}$) 流向 N+(I/O)脚。</li>
+</ol>
+<blockquote>
+<p>导通条件：$V<em> { I/O }−V</em> { SS }&lt;−0.7V$ 时，N+和P-Well结二极管导通。</p>
+</blockquote>
+<hr>
+<p>如下图所示，为了<strong>节省芯片面积</strong>，GNNOMS使用多finger结构(Multi-finger structure)。多指结构就是把多个单指结构(single-finger)<strong>并联</strong>，共享漏极(Drain)和源极(Source)区域。这样就可以在相同的面积下，增加总宽度，提升 ESD 鲁棒性。</p>
+<p><img src="/2026/04/01/integrated-circuit-technology/图28.png" style="zoom:80%;"></p>
+<p>上面共有4个GGNMOS。</p>
+<p>我们想要GGNMOS的抗 ESD 能力强(robust)，就得把结面积做大，但这又会导致<strong>寄生电容增加</strong>，也就是N+/P-Well 底部电容(Bottom capacitance)太大。为了解决这个问题，我们可以在 N+ 漏极下方<strong>注入额外的N阱(additional N-well)</strong>，用N阱或P阱电容(sidewall capacitance)来<strong>替换</strong>掉大部分 N+/P-Well 底部电容，从而使得<strong>总电容大幅降低</strong>。</p>
+<h4 id="2-2-1-3-SCR用于ESD保护"><a href="#2-2-1-3-SCR用于ESD保护" class="headerlink" title="2.2.1.3 SCR用于ESD保护"></a>2.2.1.3 SCR用于ESD保护</h4><p>SCR，可控硅整流器(Silicon Controlled Rectifier)，由一个<strong>横向 NPN 三极管</strong>和一个<strong>垂直 PNP 三极管</strong>组成的<strong>4 层(P+/N-well/P-well/N+)</strong>双向器件。</p>
+<p>SCR有几个优势：</p>
+<ol>
+<li><p><strong>面积效率极高(Small layout area)</strong>：在很小的版图面积下，就能提供极强的 ESD 防护能力。</p>
+</li>
+<li><p><strong>低寄生电容(Low parasitic capacitance)</strong>：这是<strong>高频电路(High-frequency circuits)</strong> 的福音，因为它对信号的干扰比二极管和 GGNMOS 都小。</p>
+</li>
+<li><p><strong>无闩锁风险(Latch-up free)</strong>：在<strong>低电源电压(low supply voltage)</strong> 的先进 CMOS 工艺中，SCR 可以安全使用，不会产生闩锁效应（这是之前 GGNMOS 需要担心的问题）。</p>
+</li>
+<li><p><strong>双向防护(Bi-directional)</strong>：既能防正 ESD，又能防负 ESD，无需像二极管那样堆叠或双向设计。</p>
+</li>
+</ol>
+<p><span style="color:red"><strong>下面的电路等效图必须要记住，一定要会画图：</strong></span></p>
+<p><img src="/2026/04/01/integrated-circuit-technology/图29.png" style="zoom:80%;"></p>
+<p>SCR 等效电路中有两个寄生电阻：</p>
+<ul>
+<li><p>$R_{ N-well }$(N阱电阻)：位于 P+ 和 N+ 之间。</p>
+</li>
+<li><p>$R_{ P-well }$(P阱电阻)：位于N阱和衬底之间。</p>
+</li>
+</ul>
+<p><span style="color:red"><strong>下面所示图给出了包含两个寄生电阻的SCR等效电路以及其直流 I-V特性图，一定要会画：</strong></span></p>
+<p><img src="/2026/04/01/integrated-circuit-technology/图30.png" style="zoom:80%;"></p>
+<p>与GGNOMS一样，SCR也有两种工作模式：</p>
+<p><span style="color:red"><strong>(1) 正 ESD 事件(Positive ESD)</strong></span></p>
+<p>当I/O 引脚(阳极, Anode)突然出现正高压。</p>
+<p>主要可以分成两个部分：<strong>雪崩击穿 + 正反馈锁存（Snapback）</strong></p>
+<ol>
+<li><p>雪崩击穿(Avalanche Breakdown)</p>
+<ul>
+<li>当阳极电压超过<strong>N-well/P-well 结的雪崩击穿电压</strong>，发生击穿。</li>
+<li>产生大量空穴(Hole)和电子(Electron)。</li>
+</ul>
+</li>
+<li><p>电压降触发 BJT</p>
+<ul>
+<li>空穴电流流过 P 阱寄生电阻($R_{p-well}$)，产生电压降；当电压超过 0.7V 时，<strong>寄生 NPN 三极管导通</strong>。</li>
+<li>电子电流流过 N 阱寄生电阻($R_{n-well}$)，触发<strong>寄生 PNP 三极管导通</strong>。</li>
+</ul>
+</li>
+<li><p>正反馈锁存(Latching)</p>
+<ul>
+<li>两个 BJT 一旦导通，就会形成<strong>正反馈（Positive-feedback regenerative mechanism）</strong>：电流越大，电压越高，导通越彻底。</li>
+<li>不需要再次雪崩击穿，就能保持导通状态（这就是 Latch 状态）。</li>
 </ul>
 </li>
 </ol>
+<p>最终，I/O 引脚与 $V_{SS}$ 之间形成<strong>极低阻抗</strong>的通路，电流顺畅流走；I-V 曲线上出现<strong>Snapback</strong>。</p>
+<p><span style="color:red"><strong>(2) 负 ESD 事件(Negative ESD)</strong></span></p>
+<p>当I/O 引脚电压低于 $V_{SS}$。</p>
+<ol>
+<li><p>二极管导通</p>
+<ul>
+<li>此时利用 SCR 结构中固有的<strong>N-well/P-well 寄生结二极管</strong>正向导通。</li>
+<li>导通电压约为 $\simeq 1V$（二极管导通电压）。</li>
+</ul>
+</li>
+<li><p>钳位作用</p>
+<ul>
+<li>二极管把负电压钳制在$\simeq -1V$水平，不会让负高压击穿内部电路。</li>
+<li>电流从 P-well($V_{SS}$)流向 N+(I/O 引脚)，或者反之。</li>
+</ul>
+</li>
+</ol>
+<blockquote>
+<p>记忆口诀</p>
+<p><strong>正压雪崩来触发，负压二极管顶一顶；</strong></p>
+<p><strong>正反馈锁存低阻通，1.5V 保稳行。</strong></p>
+</blockquote>
+<h3 id="2-2-2-电源轨钳位-Power-rail-clamp"><a href="#2-2-2-电源轨钳位-Power-rail-clamp" class="headerlink" title="2.2.2 电源轨钳位(Power-rail clamp)"></a>2.2.2 电源轨钳位(Power-rail clamp)</h3><p>如果说 I/O 引脚的保护(Local Clamp)是 “门卫”，那么<strong>电源轨(Power-rail)保护</strong>就是”大坝闸门”。其目的就是保护芯片内部的核心电路(Core Circuit)，不让 $V<em> { DD }$ 和 $V</em>{ SS }$ 之间的电压波动击穿内部逻辑。当ESD 来袭时，瞬间打开一条大路，把 $V<em> { DD }$ 和 $V</em>{ SS }$ 之间的高压和低压 “泄放” 掉；平时关死，不漏一点电。</p>
+<h4 id="2-2-2-1-RC-based-ESD检测联动大尺寸NMOS钳位"><a href="#2-2-2-1-RC-based-ESD检测联动大尺寸NMOS钳位" class="headerlink" title="2.2.2.1 RC-based ESD检测联动大尺寸NMOS钳位"></a>2.2.2.1 RC-based ESD检测联动大尺寸NMOS钳位</h4><p><img src="/2026/04/01/integrated-circuit-technology/图31.png" style="zoom:80%;"></p>
+<p>电路主要由两个部分组成：</p>
+<ol>
+<li><p>RC 瞬态检测电路（RC-based ESD-transient detection circuit）</p>
+<ul>
+<li>由电阻 $R$ 和电容 $C$ 组成。</li>
+<li>作用：它是一个”延时器”，用来识别 ESD 这种纳秒级的快脉冲，而不是芯片正常工作的微秒级信号。</li>
+</ul>
+</li>
+<li><p>大尺寸 NMOS 管(Large-sized NMOS, <strong>MESD</strong>)</p>
+<ul>
+<li>这是主开关管。</li>
+<li>作用：ESD 来袭时，它导通，直接把 $V<em> { DD }$ 和 $V</em>{ SS }$ 连起来，给大电流提供通路。</li>
+</ul>
+</li>
+</ol>
+<p>这里利用了ESD信号和RC电路的<strong>时间差(Time Delay)</strong>。因为ESD 信号的速度极快（上升时间$\textasciitilde$10ns），像一道闪电。而RC 电路的速度很慢（时间常数～微秒级，$\mu s$），像个迟钝的老人。<span style="color:red"><strong>具体流程如下，一定要会描述，考试必考，并且上面的电路图一定要会画：</strong></span></p>
+<ol>
+<li><p><strong>正常工作</strong>：</p>
+<p>$V<em>A$(A 点电压)跟随 $V</em>{DD}$ 变化，始终保持在低电平，<strong>MESD</strong> 保持关断。</p>
+</li>
+<li><p><strong>正ESD突袭($V_{DD}$ 突升)</strong></p>
+<ul>
+<li>$V_{DD}$ 瞬间飙升(Overvoltage)。</li>
+<li>虽然 A 点电压也想升，但<strong>RC电路反应慢</strong>，A 点电压上升<strong>慢得多</strong>(much more slowly)。</li>
+<li>结果A 点电压还没来得及升高，而栅极电压$V<em>G$被 $V</em>{DD}$ 直接拉高，导致 <strong>MESD导通</strong>。</li>
+<li>最终MESD 像闸门一样打开，$V<em>{DD}$ 的高压直接泄向 $V</em>{SS}$，保护内部。</li>
+</ul>
+</li>
+<li><p>负ESD突袭($V_{SS}$ 突降)</p>
+<ul>
+<li>$V_{SS}$ 瞬间暴跌(Undervoltage)。</li>
+<li>A 点电压因为耦合效应，可能导致$M_p$导通，但由于 RC 延迟，因此$M_n$依然保持导通状态，栅极电压$V_G$无法有效拉低。</li>
+<li>结果<strong>MESD不导通</strong>（注意：传统 RC 钳位主要防正ESD，负 ESD 可能需要辅助二极管或其他机制）。</li>
+</ul>
+</li>
+</ol>
+<p>但是在<strong>薄栅氧</strong>的先进工艺(GP 工艺)中，RC-based NMOS 因为<strong>漏电不可容忍</strong>且<strong>击穿电压不足</strong>，被淘汰了。SCR(Silicon-Controlled Rectifier）)成为了电源轨钳位电路的主流器件(the main ESD clamp device)，因为 SCR 没有栅极(no poly-gate structure)，<strong>完全没有栅漏电流</strong>，且导通电阻极低，面积效率高。</p>
+<h4 id="2-2-2-2-RC-based-ESD检测联动SCR钳位"><a href="#2-2-2-2-RC-based-ESD检测联动SCR钳位" class="headerlink" title="2.2.2.2 RC-based ESD检测联动SCR钳位"></a>2.2.2.2 RC-based ESD检测联动SCR钳位</h4><p>这个电路其实就是是上面RC检测和大尺寸NMOS方案的升级，专门解决先进 CMOS 工艺（薄栅氧、低电源电压）的几个问题：</p>
+<ol>
+<li>大 NMOS 关断漏电流极大，静态功耗飙升；</li>
+<li>薄栅氧导致栅氧漏电严重、击穿电压低，容易失效；</li>
+<li>大尺寸 NMOS 占用大量版图面积，成本高。</li>
+</ol>
+<p>它用<strong>可控硅整流器(SCR)替代大尺寸NMOS</strong>作为钳位器件，结合 RC 瞬态检测电路，既保留了 RC 电路识别 ESD 快脉冲的能力，又发挥了 SCR的”无栅氧、低漏电、高鲁棒性、小面积”的优势。</p>
+<p><span style="color:red"><strong>电路原理图一定要会画，而且要会描述工作流程！</strong></span></p>
+<p><img src="/2026/04/01/integrated-circuit-technology/图31.png" style="zoom:80%;"></p>
+<p>电路也一样由两个部分组成：</p>
+<ol>
+<li><p>电阻 $R$ + <strong>MOM电容(Metal-Oxide-Metal，金属 - 氧化物 - 金属)</strong></p>
+<p>和传统 RC 电路逻辑一致，也是利用时间差区分ESD 快脉冲和正常工作慢信号</p>
+</li>
+</ol>
+<p><span style="color:red"><strong>有两种工作状态，一定要记住：</strong></span></p>
+<p><span style="color:red"><strong>(1) 正常工作状态</strong></span></p>
+<ul>
+<li>A 点电压(RC 电路输出)<strong>完全跟随 $V_{ DD }$ 的电压变化</strong>，因此 PMOS 管$M<em>p$的栅极(A 点)和源极($V</em>{ DD }$)电压相等，$M_p$<strong>完全关断</strong>；</li>
+<li>NMOS 管$M<em>n$的栅极接 A 点(等于 $V</em>{ DD }$)，源极接 $V<em>{ SS }$，因此$M_n$<strong>导通</strong>，把 B 点电压拉到接近 $V</em>{ SS }$(低电平)；</li>
+<li>B 点低电平无法触发 SCR，SCR<strong>彻底关断</strong>，没有任何触发电流，整个电路漏电流极低，不会产生额外功耗。</li>
+</ul>
+<p><span style="color:red"><strong>(2) ESD 触发状态</strong></span></p>
+<p>分两种 ESD 场景：</p>
+<ol>
+<li><p>正 ESD 事件( $V_{DD}$ 突然过压)</p>
+<ul>
+<li>$V_{DD}$ 电源线突然出现纳秒级的正高压 ESD 脉冲(如 HBM、CDM 事件)；</li>
+<li><strong>触发逻辑</strong>：$V<em>{DD}$ 上升速度极快（$\textasciitilde$10ns），但 A 点受 RC 电路延迟（$\mu s$ 级）限制，电压上升**远慢于 $V</em>{DD}$**；</li>
+<li><strong>结果</strong>：$M<em>p$的源极($V</em>{DD}$)电压远高于栅极（A 点）电压，$M_p$<strong>瞬间导通</strong>，把 B 点电压直接拉高；</li>
+<li>所以B 点高电压触发 SCR 导通，SCR 在 $V<em>{DD}$ 和 $V</em>{SS}$ 之间形成低阻通路，把 ESD 高压快速泄放到地，保护内部电路。</li>
+</ul>
+</li>
+<li><p>负 ESD 事件($V_{ SS }$ 突然欠压)</p>
+<ul>
+<li>$V<em>{SS}$ 电源线突然出现负高压（如$V</em>{ SS }$ 瞬间降到远低于 0V）；</li>
+<li><strong>触发逻辑</strong>：$V<em>{ SS }$ 突然暴跌，$M_n$因栅极（A 点）仍为 $V</em>{ DD }$ 电平，<strong>保持导通</strong>，把 B 点电压拉到接近 $V_{ SS }$（极低电平）；</li>
+<li><strong>结果</strong>：B 点低电平导致 N-well/P-well 结发生<strong>雪崩击穿</strong>，产生的电流触发 SCR 导通；</li>
+<li>最终 SCR 就会导通，泄放负 ESD 电流，钳位电压，保护内部电路。</li>
+</ul>
+</li>
+</ol>
+<h4 id="2-2-2-3-Diode-string-ESD-Detection联动SCR钳位"><a href="#2-2-2-3-Diode-string-ESD-Detection联动SCR钳位" class="headerlink" title="2.2.2.3 Diode-string ESD Detection联动SCR钳位"></a>2.2.2.3 Diode-string ESD Detection联动SCR钳位</h4><p><strong>Diode-string检测和SCR 钳位</strong>是另一种<strong>电源轨 ESD 防护方案</strong>。它弃用了 RC 的”时间延迟”逻辑，转而利用<strong>二极管的”高电平触发”””特性</strong>，直接通过电压差来识别 ESD。</p>
+<p><span style="color:red"><strong>电路图一定要背，死记硬背也得记住，考试必考！</strong></span></p>
+<p><img src="/2026/04/01/integrated-circuit-technology/图33.png" style="zoom:80%;"></p>
+<ul>
+<li>左侧是二极管串检测电路（Diode-string + R）<ul>
+<li><strong>Diode-string</strong>：多个二极管串联，放在 $V<em>{DD}$ 和 $V</em>{SS}$ 之间。</li>
+<li><strong>电阻 $R$</strong>：串联在检测支路中。</li>
+<li><strong>二极管 $D_o$</strong>：关键保护管，串联在 $M_p$ 漏极和 SCR 触发端之间。</li>
+</ul>
+</li>
+<li>右侧：P 型触发 SCR（核心泄放开关）<ul>
+<li>结构依然是 <strong>P+ $\rightarrow$ N-well $\rightarrow$ P-well $ \rightarrow $ N+</strong>。</li>
+<li><strong>触发端</strong>：位于 P-well，由 B 点电压($V_p$)控制。</li>
+</ul>
+</li>
+</ul>
+<p><span style="color:red"><strong>接下来我们需要知道这一方案的工作流程：</strong></span></p>
+<p>我把<strong>正常工作</strong>、<strong>正 ESD</strong>、<strong>负 ESD</strong>三个场景的逻辑完全理顺，保证你看懂。</p>
+<ol>
+<li>正常工作状态(Normal Operation)<ul>
+<li><strong>场景</strong>：芯片正常上电，$V_{DD}$ 稳定在工作电压（如 1V）。</li>
+<li><strong>检测端</strong>：$V_{ DD }&lt;$ 二极管串阈值电压 $\rightarrow$ <strong>二极管串截止</strong>。</li>
+<li><strong>电流</strong>：电阻 R 上<strong>无电流流过</strong>。</li>
+<li>触发逻辑：<ul>
+<li>$M_p$ 的栅极（A 点）无压降，$M_p$ <strong>关断</strong>。</li>
+<li>$M<em>n$ 的栅极接 A 点，漏极接 $V</em>{ DD }$，源极接 $V_{SS}$，因此 $M_n$ <strong>导通</strong>。</li>
+<li>$M_n$ 导通把 B 点（触发端）拉到 <strong>低电平</strong> $\rightarrow$ <strong>SCR 关断</strong>。</li>
+</ul>
+</li>
+<li><strong>结果</strong>：电路待机，<strong>无漏电</strong>。</li>
+</ul>
+</li>
+<li><p>正 ESD 事件($V_{DD}$ Overvoltage)</p>
+<ul>
+<li><strong>触发点</strong>：$V<em>{DD}−V</em>{SS}&gt;$ 二极管串阈值电压。</li>
+<li>过程：<ul>
+<li>二极管串<strong>导通</strong>。</li>
+<li>电流流过电阻 $R$，产生<strong>电压降</strong>。</li>
+<li>A 点电压被拉低，$M_p$ <strong>导通</strong>。</li>
+<li>$M_p$ 导通后，把 B 点电压拉高到<strong>高电平</strong>。</li>
+<li><strong>SCR 触发导通</strong>，在 $V<em>{DD}$ 和 $V</em>{SS}$ 之间泄放 ESD 能量。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>负 ESD 事件（$V_{SS}$ Undervoltage）</p>
+<ul>
+<li><strong>触发点</strong>：$V<em>{DD}−V</em>{SS}&gt;$ 二极管串阈值电压。</li>
+<li>过程：<ul>
+<li>同样，二极管串<strong>导通</strong>。</li>
+<li>电流流过电阻 $R$，产生<strong>电压降</strong>。</li>
+<li>A 点电压被拉低，$M_p$ <strong>导通</strong>。</li>
+<li>B 点拉高，<strong>SCR 触发导通</strong>，钳位负电压。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<blockquote>
+<p>二极管串方案不仅能防正 ESD，也能防负 ESD，因为<strong>电压差</strong>超过阈值时它都会导通。</p>
+<p> <strong>我的理解</strong>：</p>
+<p>二极管串就像一个 “电压门槛”。正常电压太低，门不开；ESD 电压太高，门一开，电阻 $R$ 就 “吃醋 了（产生压降），立马把开关 $M_p$ 打开，进而启动 SCR。</p>
+</blockquote>
+<p>这里还有个小细节：为什么要加 二极管$D_o$？</p>
+<p>我个人的理解是：</p>
+<p>在大 NMOS 方案中，大管待机漏电很大。这里用了 $M_p$ 作为触发开关，但为了不让它在正常工作时漏电，加入了 $D_o$ 二极管作为隔离。正常工作时，$M_p$ 关断，但 $D_o$可以反向隔离，彻底切断 $M_p$ 和 SCR 触发端之间的漏电路径，把总漏电流压到极低。</p>
+<hr>
+<h3 id="2-2-3-采用-SOI-CMOS的ESD片上保护"><a href="#2-2-3-采用-SOI-CMOS的ESD片上保护" class="headerlink" title="2.2.3 采用 SOI CMOS的ESD片上保护"></a>2.2.3 采用 SOI CMOS的ESD片上保护</h3><h4 id="2-2-3-1-SOI-二极管"><a href="#2-2-3-1-SOI-二极管" class="headerlink" title="2.2.3.1 SOI 二极管"></a>2.2.3.1 SOI 二极管</h4><h4 id="2-2-3-2-SOI-SCR"><a href="#2-2-3-2-SOI-SCR" class="headerlink" title="2.2.3.2 SOI SCR"></a>2.2.3.2 SOI SCR</h4><p>由于 SOI 中独特的器件特性, 在体 CMOS 中实现的相同 SCR 设计无法直接迁移到 SOI 技术中。采用 SOI 技术构建的 SCR 器件具有以下独特特性:</p>
+<ol>
+<li>在薄硅膜中形成的横向 PNPN 结构</li>
+<li>不存在与衬底的寄生器件</li>
+<li>用于交叉耦合 PNP 和 NPN 的横向体接触方案</li>
+</ol>
+<p><img src="/2026/04/01/integrated-circuit-technology/图34.png" alt></p>
+<ol>
+<li>外部触发电路与主 SCR 之间的隔离</li>
+</ol>
+<p>体硅 SCR 的触发是<strong>雪崩击穿以及衬底电阻压降</strong>，触发电压由<strong>阱电阻</strong>和<strong>击穿电压</strong>共同决定，数值适中，适配芯片工作电压。但 SOI SCR<strong>没有衬底电阻</strong>，触发完全靠<strong>PN 结直接雪崩击穿</strong>，触发电压远高于先进 SOI 工艺的工作电压（比如 1V 核电压），会直接击穿内部电路，完全无法使用。</p>
+<p>因此必须给 SOI SCR 加<strong>外部触发技术</strong>，把触发电压从十几伏的击穿电压降到适配工作电压的安全值，目前主要有两种方案：<strong>二极管触发 SCR(DTSCR)</strong>和<strong>RC触发 SCR(RCSCR)</strong>。</p>
+<p><span style="color:red"><strong>(1) 二极管触发 SCR(Diode-triggered SCR, DTSCR)</strong></span></p>
+<p><img src="/2026/04/01/integrated-circuit-technology/图35.png" style="zoom:80%;"></p>
+<ul>
+<li>外部串联<strong>二极管串</strong>，接到 SCR PNP 管的基极。</li>
+<li>正常工作：$V_{DD}&lt;$ 二极管串阈值电压，二极管截止，SCR 关断，漏电流极低。</li>
+<li>ESD 来袭：电压超过二极管串导通电压($二极管数量\times 0.7V$)，二极管串导通，给 PNP 基极注入电流，触发 SCR 导通，泄放 ESD 电流。</li>
+</ul>
+<p>DTSCR适用于<strong>低电容、低电压的I/O口ESD 保护（局部钳位）</strong>，比如射频 LNA（低噪声放大器）的 I/O 口。因为二极管串的寄生电容极低，不会影响高频射频信号的完整性，完美适配 I/O口的低电容需求。</p>
+<p>我个人认为其实DTSCR就是给 SCR 装了一个电压门槛：正常电压太低，门不开；ESD 电压够高，门一开就触发 SCR，专门给 I/O 口用，不影响信号。</p>
+<p><span style="color:red"><strong>(2) RC触发 SCR(RC-triggered SCR, RCSCR)</strong></span> </p>
+<p><img src="/2026/04/01/integrated-circuit-technology/图36.png" style="zoom:80%;"></p>
+<ul>
+<li>由RC 网络 + 反相器链组成双路控制电路：<ul>
+<li>RC 网络：负责检测 ESD，ESD 来临时触发 SCR。</li>
+<li>反相器链：分别给 PNP 的 N-well 基极、NPN 的 P-well 基极提供触发电流；正常工作时，把 N-well 拉到和阳极同电位、P-well 拉到地（和阴极同电位），SCR 无正向偏置，漏电流极小。</li>
+</ul>
+</li>
+<li>正常工作：RC 无延迟，反相器链关断 SCR，漏电流极低。</li>
+<li>ESD 来袭：RC 延迟，反相器链输出触发电流，SCR 导通泄放。</li>
+</ul>
+<p>RCSCR适用于<strong>对漏电敏感的电源轨钳位（Power-rail Clamp）</strong>，比如电池供电的移动芯片电源。因为RCSCR 的漏电流极低，不会浪费电池电量，完美适配电源的低漏电需求。</p>
+<p>我个人认为RCSCR就是给 SCR 装了一个时间检测器：只有 ESD 这种快脉冲才触发，正常慢信号不触发，专门给电源用，不耗电。</p>
+<h4 id="2-2-3-3-用于高压-ICs-的ESD片上保护"><a href="#2-2-3-3-用于高压-ICs-的ESD片上保护" class="headerlink" title="2.2.3.3 用于高压 ICs 的ESD片上保护"></a>2.2.3.3 用于高压 ICs 的ESD片上保护</h4><h4 id="2-2-3-4-分段发射极拓扑"><a href="#2-2-3-4-分段发射极拓扑" class="headerlink" title="2.2.3.4 分段发射极拓扑"></a>2.2.3.4 分段发射极拓扑</h4><h4 id="2-2-3-5-适用于120V-SOI工艺的ESD保护设计"><a href="#2-2-3-5-适用于120V-SOI工艺的ESD保护设计" class="headerlink" title="2.2.3.5 适用于120V SOI工艺的ESD保护设计"></a>2.2.3.5 适用于120V SOI工艺的ESD保护设计</h4><h2 id="2-3-ESD-测试"><a href="#2-3-ESD-测试" class="headerlink" title="2.3 ESD 测试"></a>2.3 ESD 测试</h2><p>这里我认为其他都不重要，只要记住<span style="color:red"><strong>TPL测试</strong></span>就可以了，但以防万一还是都讲了。</p>
+<h3 id="2-3-1-HBM-测试"><a href="#2-3-1-HBM-测试" class="headerlink" title="2.3.1 HBM 测试"></a>2.3.1 HBM 测试</h3><h3 id="2-3-2-CDM-测试"><a href="#2-3-2-CDM-测试" class="headerlink" title="2.3.2 CDM 测试"></a>2.3.2 CDM 测试</h3><h3 id="2-3-3-MM-测试"><a href="#2-3-3-MM-测试" class="headerlink" title="2.3.3 MM 测试"></a>2.3.3 MM 测试</h3><h3 id="2-3-4-传输线脉冲-Transmission-Line-Pulse-TLP-测试"><a href="#2-3-4-传输线脉冲-Transmission-Line-Pulse-TLP-测试" class="headerlink" title="2.3.4 传输线脉冲(Transmission Line Pulse, TLP)测试"></a><span style="color:red">2.3.4 传输线脉冲(Transmission Line Pulse, TLP)测试</span></h3><p>之前学的 HBM、MM、CDM 这些经典的 ESD 模型，本质是 <strong>“黑盒测试”</strong>：</p>
+<ul>
+<li>只能给芯片加一个复杂、极短的高压脉冲，最后只看”过/不过(pass/fail)”；</li>
+<li>完全看不到保护器件内部的工作过程，不知道它是怎么导通、哪里失效、参数是多少；</li>
+<li>脉冲波形复杂，电路响应难以测量，无法提取器件的 I-V 特性。</li>
+</ul>
+<p>而 <strong>TLP</strong> 是一种<strong>“白盒测试”</strong>，专门用来打开 ESD 的黑盒：</p>
+<ul>
+<li>它能产生<strong>标准、可控的方波脉冲</strong>，精准模拟 ESD 的瞬态特性；</li>
+<li>可以直接测量器件在 ESD 应力下的<strong>瞬态电流、电压</strong>，提取完整的<strong>瞬态 I-V 曲线</strong>；</li>
+<li>能直接读出器件的关键参数：导通电压、保持电压、二次击穿电流等，彻底搞懂保护器件的工作机理。</li>
+</ul>
+<p><img src="/2026/04/01/integrated-circuit-technology/图37.png" style="zoom:80%;"></p>
+<p>其主要组成有：一根约 10 米长的<strong>同轴传输线（Coax Cable）</strong>，特性阻抗 50Ω；<strong>高压电源(HV Supply)</strong>给传输线充电到设定电压；<strong>开关 S</strong>会瞬间闭合，让传输线放电到被测器件(DUT)；以及一个<strong>示波器(Oscilloscope)</strong>，能实时测量 DUT 的电流、电压波形。</p>
+<p>原理简单来说就是：TLP 就像一个 “精准的 ESD 模拟器”，用一根长电缆当”分布式电容”，每次只给芯片打一个可控的方波，而不是 HBM 那种复杂的随机脉冲。</p>
+<p><span style="color:red"><strong>这一节最重要的就是瞬态电流和电压的时域测量方法，一定要记牢：</strong></span></p>
+<ul>
+<li><span style="color:red"><strong>先给器件打一个低电压的 TLP 脉冲，测对应的电流，得到一个电压 $V$，电流 $I$ 的数据点；</strong></span></li>
+<li><span style="color:red"><strong>慢慢提高脉冲的电压，每次测一个($V$，$I$)点；</strong></span></li>
+<li><span style="color:red"><strong>每次打完脉冲，给器件留 1~2 秒的散热时间，不会把器件烧坏；</strong></span></li>
+<li><span style="color:red"><strong>把所有的点连起来，就是器件的瞬态 I-V 曲线，完美还原器件在 ESD 冲击下的完整行为。</strong></span></li>
+</ul>
+<p><img src="/2026/04/01/integrated-circuit-technology/图.png" alt></p>
 <p>ESD: </p>
 <ol>
-<li><p>要能描述三个经典模型的放电路径，并且会画电路图，并且电流波形图也要熟悉</p>
-</li>
-<li><p>两种片上ESD保护的方式要记住，一种是本地钳位，另一种是电源轨钳位</p>
-</li>
-<li><p>ESD所有电路保护的要求目标都要会背</p>
-<p><img src="/2026/04/01/integrated-circuit-technology/Users\把航写进诗尾\AppData\Roaming\Typora\typora-user-images\image-20260402150205079.png" alt="image-20260402150205079"></p>
-</li>
-<li><p>要知道ESD保护的三种方式，然后还要会画电路图，还要会画I-V特性曲线</p>
-<p>这部分碰到的电路图和剖面图全部要求都会画。</p>
-</li>
-<li><p>RC检测电路和SRC钳位合作排静电的原理要会描述，还要会画图，电路图一定要会</p>
-</li>
-<li><p>电源轨要会</p>
-</li>
+<li></li>
 <li><p>TLP测试要知道是什么，而且要知道是怎么测的，也就是过程是啥样的</p>
 <ul>
 <li>先给器件打一个低电压的 TLP 脉冲，测对应的电流，得到一个「电压 V，电流 I」的数据点；</li>
@@ -951,8 +1554,8 @@ V_{hold}=(V_ { ec } )_ { PNP } + (V_ { be } )_ { NPN }(1+ \frac { R_ { s_2 } } {
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/%E9%9B%86%E6%88%90%E7%94%B5%E8%B7%AF%EF%BC%8CLatch-up/">
-                                    <span class="chip bg-color">集成电路，Latch-up</span>
+                                <a href="/tags/%E9%9B%86%E6%88%90%E7%94%B5%E8%B7%AF%EF%BC%8CLatch-up%EF%BC%8CESD/">
+                                    <span class="chip bg-color">集成电路，Latch-up，ESD</span>
                                 </a>
                             
                         </div>
@@ -1031,18 +1634,17 @@ V_{hold}=(V_ { ec } )_ { PNP } + (V_ { be } )_ { NPN }(1+ \frac { R_ { s_2 } } {
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="far fa-dot-circle"></i>&nbsp;本篇
-            </div>
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2026/04/01/integrated-circuit-technology/">
+                <a href="/2026/04/01/digital-integrated-circuit-design/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="Integrated Circuit Technology(EE7602)">
+                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="Digital Integrated Circuit Design(EE6306)">
                         
-                        <span class="card-title">Integrated Circuit Technology(EE7602)</span>
+                        <span class="card-title">Digital Integrated Circuit Design(EE6306)</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1052,9 +1654,9 @@ V_{hold}=(V_ { ec } )_ { PNP } + (V_ { be } )_ { NPN }(1+ \frac { R_ { s_2 } } {
                         
                     </div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2026-04-01
-                            </span>
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2026-04-01
+                        </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -1067,12 +1669,11 @@ V_{hold}=(V_ { ec } )_ { PNP } + (V_ { be } )_ { NPN }(1+ \frac { R_ { s_2 } } {
                         </span>
                     </div>
                 </div>
-
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E9%9B%86%E6%88%90%E7%94%B5%E8%B7%AF%EF%BC%8CLatch-up/">
-                        <span class="chip bg-color">集成电路，Latch-up</span>
+                    <a href="/tags/%E6%95%B0%E5%AD%97%E9%9B%86%E6%88%90%E7%94%B5%E8%B7%AF%EF%BC%8C%E5%AD%90%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/">
+                        <span class="chip bg-color">数字集成电路，子系统设计</span>
                     </a>
                     
                 </div>
@@ -1362,7 +1963,7 @@ V_{hold}=(V_ { ec } )_ { PNP } + (V_ { be } )_ { NPN }(1+ \frac { R_ { s_2 } } {
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">90.8k</span>
+                        class="white-color">116.8k</span>
             
             
             

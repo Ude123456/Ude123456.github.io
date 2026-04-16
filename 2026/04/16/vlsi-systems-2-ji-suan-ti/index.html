@@ -584,9 +584,9 @@ N= \frac {内存访问时间 \, T_{memory}} {CPU周期时间 \, T_{ CPU }}</scri
 <h1 id="2-两级内存层次平均访问时间计算"><a href="#2-两级内存层次平均访问时间计算" class="headerlink" title="2 两级内存层次平均访问时间计算"></a>2 两级内存层次平均访问时间计算</h1><p>核心参数：</p>
 <ul>
 <li>$H$：命中率(Hit Ratio)，CPU访问中命中高速层的比例，$0 \leq H \leq 1$；</li>
-<li>$ t<em>{A1} $：高速层(M1，如Cache/主存)的访问时间，$ t</em>{A1}=t_{M1} $</li>
-<li>$ t<em>{A2} $：高速层(M2，如主存/硬盘)的系统访问时间，如$ t</em>{A2} = t<em>B + t</em>{A1} $；</li>
-<li>$ t<em>B $：从 M2 到 M1 的块传输时间，$ t_B = b_s × t</em>{M2} $，其中 $ b<em>s $ 是块大小，$ t</em>{M2} $ 是 M2 的单字访问时间。</li>
+<li>$ t<em>{ A1 } $：高速层(M1，如Cache/主存)的访问时间，$ t</em>{ A1 }=t_{ M1 } $</li>
+<li>$ t<em>{ A2 } $：高速层(M2，如主存/硬盘)的系统访问时间，如$ t</em>{ A2 } = t<em>B + t</em>{ A1 } $；</li>
+<li>$ t<em>B $：从 M2 到 M1 的块传输时间，$ t_B = b_s × t</em>{ M2 } $，其中 $ b<em>s $ 是块大小，$ t</em>{ M2 } $ 是 M2 的单字访问时间。</li>
 </ul>
 <p>四个公式要背：</p>
 <ol>
@@ -602,8 +602,7 @@ t_A = H × t_{M1} + (1-H) × (t_{B} + t_{t_{M1}})
 t_A = t_{M1} + (1-H)×t_{M2}</script></li>
 <li><p>访问效率公式：</p>
 <script type="math/tex; mode=display">
-e = \frac {t_{A1}} {t_A} 
-\\ = \frac {1} { H + \frac{(1-H) \cdot t_{A2}} {t_{A1}} } 
+e = \frac {t_{A1}} {t_A}  = \frac {1} { H + \frac{(1-H) \cdot t_{A2}} {t_{A1}} } 
 \\ = \frac { t_ { A1 }} {H}  \cdot (1-H)t_{A2}</script></li>
 </ol>
 <h3 id="Example-1"><a href="#Example-1" class="headerlink" title="Example:"></a>Example:</h3><p>主存访问时间 $t_{ M1 }=200ns$</p>
@@ -624,7 +623,7 @@ t_{ A2 } = t_B + t_{A1} = 5.12×10^{10} + 200 ≈ 5.12×10^{10} \, ns</script><p
 <script type="math/tex; mode=display">
 t_A = 0.99 \times 200 + (1-0.99) \times 5.12 \times 10^{10} ≈ 198 + 5.12×10^8 \times ns ≈ 512ms</script><p>结论：即使 $ H=0.99 $，硬盘的慢速会导致系统速度大幅下降。</p>
 <h1 id="3-匹配逻辑布尔函数"><a href="#3-匹配逻辑布尔函数" class="headerlink" title="3 匹配逻辑布尔函数"></a>3 匹配逻辑布尔函数</h1><ol>
-<li><strong>单比特匹配逻辑</strong>：$ A<em>j $ 是参数寄存器第 j 位，$ F</em>{ ij } $ 是第 i 个字第 j 位的存储内容，该位匹配的逻辑是<strong>同或（XNOR）</strong>：<script type="math/tex; mode=display">
+<li><strong>单比特匹配逻辑</strong>：$ A<em>j $ 是参数寄存器第 $j$ 位，$ F</em>{ ij } $ 是第 $i$ 个字第 $j$ 位的存储内容，该位匹配的逻辑是<strong>同或（XNOR）</strong>：<script type="math/tex; mode=display">
 X_j = A_j·F_{ ij } + A_j'·F_{ ij }'</script></li>
 </ol>
 <p>（$ A<em>j $ 和 $ F</em>{ ij } $ 相等时，$X_j=1$，否则为 0）</p>
@@ -714,7 +713,7 @@ C_s = \frac{ (C_c \cdot S_{ca} + C_m \cdot S_{me}) } { (S_{ ca } + S_ { me } ) }
 <script type="math/tex; mode=display">
 C_s = \frac{ (C_c·S_{ca} + C_m·S_{me}) } { (S_{ ca } + S_ { me } ) }</script><p>得：</p>
 <script type="math/tex; mode=display">
-10C_m \cdot S_{ ca } + C_m \cdot S_{ me } = 1.01 C_m \times 32MB</script><p>约去 $ C<em>m $，代入 $ S</em>{ me }=32MB-S_{ ca } $，解得：</p>
+10C_m \cdot S_{ ca } + C_m \cdot S_{ me } = 1.01 C_m \times 32MB</script><p>约去 $ C<em>m $，代入 $ S</em> { me }=32 \, MB - S_ { ca } $，解得：</p>
 <script type="math/tex; mode=display">
 S_{ ca } ≈ 0.0319 \, MB = 31.9 \, KB，\\
 S_{ me } ≈ 31.968 \, MB</script><p>结论：仅增加 1% 的成本，就能大幅提升系统速度。</p>

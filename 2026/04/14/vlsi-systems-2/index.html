@@ -1,0 +1,1627 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="VLSI Systems 2(EE6309), 博客，沫墨">
+    <meta name="description" content="1 内存管理(Memory Management) 在冯诺依曼架构中，一个简单的计算机包含了以下四个组成部分：
+
+CPU
+Main Memory
+A Single System Bus
+I/O Devices
+
+而现代计算机则更为复杂，组成">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>VLSI Systems 2(EE6309) | 沫墨</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/dark.css" media="none" onload="if(media!='all')media='all'">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+        <link rel="stylesheet" type="text/css" href="/css/reward.css">
+    
+
+
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 8.1.1"></head>
+
+
+ 
+    <style type="text/css" lang="css">
+    #loading-container{
+        position: fixed;
+        top: 0;
+        left: 0;
+        min-height: 100vh;
+        width: 100vw;
+        z-index: 9999;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background: #FFF;
+        text-align: center;
+        /* loader页面消失采用渐隐的方式*/
+        -webkit-transition: opacity 1s ease;
+        -moz-transition: opacity 1s ease;
+        -o-transition: opacity 1s ease;
+        transition: opacity 1s ease;
+    }
+    .loading-image{
+        width: 120px;
+        height: 50px;
+        transform: translate(-50%);
+    }
+
+    .loading-image div:nth-child(2) {
+        -webkit-animation: pacman-balls 1s linear 0s infinite;
+        animation: pacman-balls 1s linear 0s infinite
+    }
+
+    .loading-image div:nth-child(3) {
+        -webkit-animation: pacman-balls 1s linear .33s infinite;
+        animation: pacman-balls 1s linear .33s infinite
+    }
+
+    .loading-image div:nth-child(4) {
+        -webkit-animation: pacman-balls 1s linear .66s infinite;
+        animation: pacman-balls 1s linear .66s infinite
+    }
+
+    .loading-image div:nth-child(5) {
+        -webkit-animation: pacman-balls 1s linear .99s infinite;
+        animation: pacman-balls 1s linear .99s infinite
+    }
+
+   .loading-image div:first-of-type {
+        width: 0;
+        height: 0;
+        border: 25px solid #49b1f5;
+        border-right-color: transparent;
+        border-radius: 25px;
+        -webkit-animation: rotate_pacman_half_up .5s 0s infinite;
+        animation: rotate_pacman_half_up .5s 0s infinite;
+    }
+    .loading-image div:nth-child(2) {
+        width: 0;
+        height: 0;
+        border: 25px solid #49b1f5;
+        border-right-color: transparent;
+        border-radius: 25px;
+        -webkit-animation: rotate_pacman_half_down .5s 0s infinite;
+        animation: rotate_pacman_half_down .5s 0s infinite;
+        margin-top: -50px;
+    }
+    @-webkit-keyframes rotate_pacman_half_up {0% {transform: rotate(270deg)}50% {transform: rotate(1turn)}to {transform: rotate(270deg)}}
+
+    @keyframes rotate_pacman_half_up {0% {transform: rotate(270deg)}50% {transform: rotate(1turn)}to {transform: rotate(270deg)}}
+
+    @-webkit-keyframes rotate_pacman_half_down {0% {transform: rotate(90deg)}50% {transform: rotate(0deg)}to {transform: rotate(90deg)}}
+
+    @keyframes rotate_pacman_half_down {0% {transform: rotate(90deg)}50% {transform: rotate(0deg)}to {transform: rotate(90deg)}}
+
+    @-webkit-keyframes pacman-balls {75% {opacity: .7}to {transform: translate(-100px, -6.25px)}}
+
+    @keyframes pacman-balls {75% {opacity: .7}to {transform: translate(-100px, -6.25px)}}
+
+
+    .loading-image div:nth-child(3),
+    .loading-image div:nth-child(4),
+    .loading-image div:nth-child(5),
+    .loading-image div:nth-child(6){
+        background-color: #49b1f5;
+        width: 15px;
+        height: 15px;
+        border-radius: 100%;
+        margin: 2px;
+        width: 10px;
+        height: 10px;
+        position: absolute;
+        transform: translateY(-6.25px);
+        top: 25px;
+        left: 100px;
+    }
+    .loading-text{
+        margin-bottom: 20vh;
+        text-align: center;
+        color: #2c3e50;
+        font-size: 2rem;
+        box-sizing: border-box;
+        padding: 0 10px;
+        text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    }
+    @media only screen and (max-width: 500px) {
+         .loading-text{
+            font-size: 1.5rem;
+         }
+    }
+    .fadeout {
+        opacity: 0;
+        filter: alpha(opacity=0);
+    }
+    /* logo出现动画 */
+    @-webkit-keyframes fadeInDown{0%{opacity:0;-webkit-transform:translate3d(0,-100%,0);transform:translate3d(0,-100%,0)}100%{opacity:1;-webkit-transform:none;transform:none}}
+    @keyframes fadeInDown{0%{opacity:0;-webkit-transform:translate3d(0,-100%,0);}}
+ </style>
+ <script>
+(function () {
+    const loaded = function(){
+       setTimeout(function(){
+            const loader = document.getElementById("loading-container");
+            loader.className="fadeout" ;//使用渐隐的方法淡出loading page
+            // document.getElementById("body-wrap").style.display="flex";
+            setTimeout(function(){
+                loader.style.display="none";
+            },2500); 
+        },1000);//强制显示loading page 1s  
+    };
+    loaded();
+})()
+</script>
+
+ 
+<body>
+    
+        <div id="loading-container">
+             <p class="loading-text">嘘~  正在从服务器偷取页面 . . . </p> 
+             <div class="loading-image">
+                 <div></div>
+                 <div></div>
+                 <div></div>
+                 <div></div> 
+                 <div></div>
+             </div>
+        </div>
+    
+
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">沫墨</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+  <li>
+    <a href="javascript:;" class="waves-effect waves-light" onclick="switchNightMode()" title="深色/浅色模式" >
+      <i id="sum-moon-icon" class="fas fa-sun" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">沫墨</div>
+        <div class="logo-desc">
+            
+            欢迎访问沫墨的博客
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/blinkfox/hexo-theme-matery" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/blinkfox/hexo-theme-matery" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/13.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">VLSI Systems 2(EE6309)</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86-%E5%B9%B6%E8%A1%8C%E5%A4%84%E7%90%86-%E6%97%B6%E9%92%9F%E5%90%8C%E6%AD%A5/">
+                                <span class="chip bg-color">内存管理, 并行处理, 时钟同步</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/%E5%8D%8A%E5%AF%BC%E4%BD%93%E5%88%B6%E9%80%A0%E4%B8%8E%E9%9B%86%E6%88%90%E7%94%B5%E8%B7%AF%E6%8A%80%E6%9C%AF/" class="post-category">
+                                半导体制造与集成电路技术
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2026-04-14
+                </div>
+                
+
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    3.3k
+                </div>
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.min.css">
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h1 id="1-内存管理-Memory-Management"><a href="#1-内存管理-Memory-Management" class="headerlink" title="1 内存管理(Memory Management)"></a>1 内存管理(Memory Management)</h1><p> 在冯诺依曼架构中，一个简单的计算机包含了以下四个组成部分：</p>
+<ul>
+<li>CPU</li>
+<li>Main Memory</li>
+<li>A Single System Bus</li>
+<li>I/O Devices</li>
+</ul>
+<p>而现代计算机则更为复杂，组成部分如下：</p>
+<ul>
+<li><strong>CPU</strong></li>
+<li><strong>Floating Point Processor</strong></li>
+<li><strong>Accelerator </strong></li>
+<li><strong>Cache</strong></li>
+<li><strong>Main Memory (RAM) </strong></li>
+<li><strong>Secondary Memory (SSD Hard Disks,) </strong></li>
+<li><strong>Auxiliary Storage (External Hard Disks, USB Flash Drive, Cloud Drive) </strong></li>
+<li><strong>I/O Devices (Terminals)</strong></li>
+</ul>
+<p><img src="/2026/04/14/vlsi-systems-2/图1.png" style="zoom:80%;"></p>
+<h2 id="1-1-主存组织-Main-Memory-Organization"><a href="#1-1-主存组织-Main-Memory-Organization" class="headerlink" title="1.1 主存组织(Main Memory Organization)"></a>1.1 主存组织(Main Memory Organization)</h2><p>主存是存储程序和数据的，并将其传输给 CPU 执行的区域。它是由多个<strong>存储单元(Cells/Locations)</strong>组成，每个单元拥有唯一的<strong>地址(Address</strong>)，程序通过地址精准访问数据。</p>
+<p>每个存储单元的结构分为两个部分：</p>
+<ol>
+<li><strong>数据位</strong>：真正存储指令、业务数据的部分，常见规格有8bit（1字节）、16bit、32bit等。 </li>
+<li><strong>元位/标志位(Meta Bit/Tag/Valid/Flag Bit)</strong>：附加在数据位旁的额外二进制位，不存储业务数据，相当于存储单元的”身份证”，用来标识数据的属性和状态：    <ul>
+<li>作用：<ul>
+<li><strong>区分指令与数据</strong>：约定 <code>0</code> 代表当前单元是<strong>CPU可执行指令</strong>，<code>1</code> 代表是<strong>普通数据</strong>，避免CPU误把数据当指令执行。    </li>
+<li><strong>区分数据类型</strong>：标记当前数据是整数还是浮点数，让CPU用正确的运算规则处理。    </li>
+<li>扩展作用：还可作为有效位标记数据是否有效、保护位标记读写权限等</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<p>CPU 通过两个寄存器与内存交互：</p>
+<ul>
+<li><p><strong>MAR(Memory Address Register)</strong>：<strong>地址寄存器</strong>。CPU 将要访问的内存地址放入 MAR，内存通过 MAR 解析目标位置。</p>
+</li>
+<li><p><strong>MBR/MDR(Memory Buffer/Data Register)</strong>：<strong>数据缓冲/寄存器</strong>。用于暂存 CPU 与内存之间交换的数据（读入时存数据，写出时存指令）。</p>
+</li>
+</ul>
+<p>CPU 读取内存数据（指令或数据）的步骤如下：</p>
+<ol>
+<li>CPU 将目标地址送入<strong>MAR</strong>。</li>
+<li>CPU 向内存发送<strong>读控制信号(Read Signal)</strong>。</li>
+<li>经过一个<strong>存储周期(Memory Cycle)</strong> 后，内存将对应数据放入<strong>MBR</strong>。</li>
+<li>CPU从 MBR 中取出数据进行处理。</li>
+</ol>
+<h3 id="1-1-1-内存体-Memory-Bank"><a href="#1-1-1-内存体-Memory-Bank" class="headerlink" title="1.1.1 内存体(Memory Bank)"></a>1.1.1 内存体(Memory Bank)</h3><p>单内存模块的访问速度远低于CPU时钟速度，形成了经典的内存墙问题。</p>
+<p>内存体技术将主存划分为<strong>多个独立可并行访问的存储模块（Bank）</strong>，每个 Bank 拥有独立的地址译码、读写电路，可同时响应 CPU/I/O 的访存请求，从而大幅提升内存带宽与系统整体效率。</p>
+<h4 id="1-1-1-1-高位交织-High-Order-Interleave"><a href="#1-1-1-1-高位交织-High-Order-Interleave" class="headerlink" title="1.1.1.1 高位交织(High Order Interleave)"></a>1.1.1.1 高位交织(High Order Interleave)</h4><p>将连续的大块地址被分配到同一个Bank，相当于把内存分成多个独立的分区。  例如：Bank1存储地址$0 \sim K-1$，Bank2存储$K \sim 2K-1$，以此类推。 </p>
+<p>地址分为两个字段，格式为：<code>&lt;bank&gt;&lt;addr&gt;</code>，<strong>高位用于选择Bank，低位用于Bank内寻址</strong>。这种方式支持多设备并行访问，当CPU和I/O设备使用不同Bank存储指令/数据时，可通过不同总线同时访问，互不干扰，提升系统并发性能。例如在流水线处理器中，将指令和操作数分别存放在不同Bank，实现取指令和读操作数的并行执行。 </p>
+<p><img src="/2026/04/14/vlsi-systems-2/图2.png" style="zoom: 80%;"></p>
+<blockquote>
+<p>通俗来讲，我们可以把高位交织看成是把仓库分成多个独立大货架，每个货架放一类货物(指令或数据)，不同工人(CPU和I/O)可同时去不同货架取货。</p>
+</blockquote>
+<h4 id="1-1-1-2-低位交织-Low-Order-Interleave）"><a href="#1-1-1-2-低位交织-Low-Order-Interleave）" class="headerlink" title="1.1.1.2 低位交织(Low Order Interleave）"></a>1.1.1.2 低位交织(Low Order Interleave）</h4><p>与高位交织不同，其地址分配逻辑是连续的地址被交替分配到不同Bank，形成流水线式访存结构。  例如：10个Bank时，Bank1存储<code>0,10,20,30...</code>，Bank2存储<code>1,11,21,31...</code>。 </p>
+<p>同样的，地址还是分为两个字段，格式为：<code>&lt;addr&gt;&lt;bank&gt;</code>，但变成<strong>低位用于选择Bank，高位用于Bank内寻址</strong>。这样可以实现连续访存流水线化，让内存有效访问速度匹配CPU时钟。CPU可在等待Bank1访存完成的同时，依次访问Bank2、Bank3…，等轮完所有Bank回到Bank1时，前一次访存已完成，可立即发起下一次访问，最终将内存访问速度提升至接近CPU速度。</p>
+<p><img src="/2026/04/14/vlsi-systems-2/图3.png" style="zoom: 80%;"></p>
+<blockquote>
+<p>将低位交织比作把仓库货物按顺序轮流放到多个货架，工人(CPU)可按顺序依次从不同货架取货，无需等待前一个货架取货完成，实现流水线取货。</p>
+</blockquote>
+<p><span style="font-size:22px"><strong>Example:</strong></span></p>
+<p>CPU时钟为200MHz，内存访问周期为50ns，需要多少个Bank、采用何种交织方式，才能让内存访问速度匹配CPU？第1个Bank的地址是什么？ </p>
+<p><span style="font-size:22px"><strong>Solution: </strong></span></p>
+<ol>
+<li><p><strong>计算CPU周期</strong> </p>
+<p>CPU周期 = $\frac {1} {200}MHz$ = 5ns；</p>
+</li>
+<li><p><strong>计算Bank数</strong>    </p>
+<p>采用低位交织，Bank数 = $\frac { 内存周期 }  { CPU周期 } $= $\frac { 50ns } { 5ns }$ = 10个（10路低位交织）</p>
+</li>
+<li><p><strong>第1个Bank的地址</strong></p>
+<p>低位交织中，第1个Bank的地址为<code>0, 10, 20, 30...</code>（步长为Bank数10）</p>
+</li>
+</ol>
+<h3 id="1-1-2-内存管理单元-Memory-Management-Unit-MMU"><a href="#1-1-2-内存管理单元-Memory-Management-Unit-MMU" class="headerlink" title="1.1.2 内存管理单元(Memory Management Unit, MMU)"></a>1.1.2 内存管理单元(Memory Management Unit, MMU)</h3><p>MMU是操作系统的核心组件，负责监管所有存储设备之间的信息流动。其的要求是在满足系统性能要求的前提下，<strong>最小化每比特存储的成本（cost per bit of storage）</strong>。</p>
+<p>通过 <strong>分层存储结构(Hierarchical Memory)</strong> 实现，由多级不同速度、不同成本的存储器组成金字塔结构，越靠近 CPU 的层级速度越快、容量越小、成本越高；越远离 CPU 的层级速度越慢、容量越大、成本越低。主要功能如下：</p>
+<ul>
+<li>调整层次中各存储器的访问频率，最大化高速存储的利用率</li>
+<li>提供高效的层级间数据传输机制</li>
+<li>平衡所有计算机组件的速度与成本，实现整体性能最优</li>
+</ul>
+<h3 id="1-1-3-存储层次结构-Memory-Hierarchy"><a href="#1-1-3-存储层次结构-Memory-Hierarchy" class="headerlink" title="1.1.3 存储层次结构(Memory Hierarchy)"></a>1.1.3 存储层次结构(Memory Hierarchy)</h3><p>存储层次遵循<strong>局部性原理(Locality Principle)</strong>，CPU 访问的数据具有时间局部性（近期会重复访问）和空间局部性（近期会访问相邻数据），因此将常用数据放在高速上层，不常用数据放在低速下层，兼顾速度与容量。</p>
+<p><img src="/2026/04/14/vlsi-systems-2/图4.png" style="zoom: 67%;"></p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>存储层级</th>
+<th>访问时间</th>
+<th>核心特点</th>
+<th>典型介质</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Cache（高速缓存）</strong></td>
+<td>≈5~50 ns</td>
+<td>速度极快、容量小、随机访问、双极型 SRAM、成本高；每个块附带元位（标记位 / 有效位）用于命中判断</td>
+<td>CPU 片内 / 片外 SRAM</td>
+</tr>
+<tr>
+<td><strong>Main Memory（主存）</strong></td>
+<td>≈100~500 ns</td>
+<td>随机访问、成本适中、MOS 型 DRAM</td>
+<td>系统内存（DRAM）</td>
+</tr>
+<tr>
+<td><strong>Secondary Memory（二级存储）</strong></td>
+<td>≥5000 ns（DASDS）</td>
+<td>直接访问 + 顺序访问、大容量、低成本</td>
+<td>机械硬盘 / SSD</td>
+</tr>
+<tr>
+<td><strong>Auxiliary Memory（辅助存储）</strong></td>
+<td>分钟级</td>
+<td>离线归档存储、顺序 / 直接访问、极低单位成本</td>
+<td>磁带、DVD-ROM、移动硬盘</td>
+</tr>
+</tbody>
+</table>
+</div>
+<blockquote>
+<p>注：DASDS = Direct-Access Storage Devices（直接访问存储设备），可直接寻址，区别于磁带这类顺序访问设备。</p>
+</blockquote>
+<hr>
+<h2 id="三、严格分层存储下的-CPU-访问流程"><a href="#三、严格分层存储下的-CPU-访问流程" class="headerlink" title="三、严格分层存储下的 CPU 访问流程"></a>三、严格分层存储下的 CPU 访问流程</h2><p>CPU 仅从最顶层的 Cache 获取数据，数据缺失时逐级向下查找，并将数据向上迁移，完整流程如下：</p>
+<p>命中未命中命中未命中命中未命中命中未命中CPU需要数据搜索CacheCPU从Cache取数据，流程结束搜索主存1. 将包含目标数据的块复制到Cache 2. CPU从Cache取数据搜索二级存储（硬盘）1. 将包含目标数据的页复制到主存 2. 将块从主存复制到Cache 3. CPU从Cache取数据搜索辅助存储（磁带/DVD等）1. 将包含目标数据的文件复制到二级存储 2. 将页复制到主存 3. 将块复制到Cache 4. CPU从Cache取数据数据未找到</p>
+<p>命中未命中命中未命中命中未命中命中未命中CPU需要数据搜索CacheCPU从Cache取数据，流程结束搜索主存1. 将包含目标数据的块复制到Cache 2. CPU从Cache取数据搜索二级存储（硬盘）1. 将包含目标数据的页复制到主存 2. 将块从主存复制到Cache 3. CPU从Cache取数据搜索辅助存储（磁带/DVD等）1. 将包含目标数据的文件复制到二级存储 2. 将页复制到主存 3. 将块复制到Cache 4. CPU从Cache取数据数据未找到</p>
+<p><img src="chrome://doubao-launcher/chat/38421616046576386" alt="img"></p>
+<p>豆包</p>
+<p>你的 AI 助手，助力每日工作学习</p>
+<h3 id="核心逻辑"><a href="#核心逻辑" class="headerlink" title="核心逻辑"></a>核心逻辑</h3><ul>
+<li><strong>数据逐级向上迁移</strong>：每次缺失时，将包含目标数据的更大块（块→页→文件）从下层加载到上层，利用空间局部性提升后续访问的命中率</li>
+<li><strong>CPU 仅访问顶层 Cache</strong>：保证 CPU 始终以最快速度获取数据，屏蔽下层存储的速度差异</li>
+<li>与「元位」呼应：Cache 的命中判断依赖每个块附带的元位（标记位、有效位等），和之前存储单元的元位知识点完全贯通</li>
+</ul>
+<hr>
+<h2 id="四、两级存储层次的性能公式推导"><a href="#四、两级存储层次的性能公式推导" class="headerlink" title="四、两级存储层次的性能公式推导"></a>四、两级存储层次的性能公式推导</h2><h3 id="核心参数定义"><a href="#核心参数定义" class="headerlink" title="核心参数定义"></a>核心参数定义</h3><ul>
+<li>M1：上层高速存储（如 Cache），tM1为其访问时间</li>
+<li>M2：下层低速存储（如主存），tM2为其访问时间</li>
+<li>H：<strong>命中率（Hit Ratio）</strong>：CPU 访问的数据在M1中命中的概率</li>
+<li>tA：<strong>系统平均访问时间（Average Access Time）</strong></li>
+<li>tB：<strong>块传输时间</strong>：从M2到M1传输一个块的时间，tB=bs×tM2（bs为块大小）</li>
+</ul>
+<h3 id="公式推导"><a href="#公式推导" class="headerlink" title="公式推导"></a>公式推导</h3><ol>
+<li>基础平均访问时间公式</li>
+</ol>
+<p>   命中时仅需访问</p>
+<p>   M1</p>
+<p>   ，未命中时需先从</p>
+<p>   M2</p>
+<p>   传输块到</p>
+<p>   M1</p>
+<p>   ，再访问</p>
+<p>   M1</p>
+<p>   ：</p>
+<p>   tA=H⋅tM1+(1−H)⋅(tB+tM1)=tM1+(1−H)tB=tM1+(1−H)(bs×tM2)</p>
+<ul>
+<li><p>特殊情况：块大小</p>
+<p>bs=1</p>
+<p>（仅传输 1 个字），公式简化为：</p>
+</li>
+</ul>
+<p>  tA=tM1+(1−H)⋅tM2</p>
+<ol>
+<li>访问效率公式</li>
+</ol>
+<p>   访问效率</p>
+<p>   e</p>
+<p>   定义为「上层存储访问时间 / 系统平均访问时间」，越接近 1 说明性能越好：</p>
+<p>   e=tAtM1=H+(1−H)tM1tM21</p>
+<hr>
+<h2 id="五、经典例题详解与性能分析"><a href="#五、经典例题详解与性能分析" class="headerlink" title="五、经典例题详解与性能分析"></a>五、经典例题详解与性能分析</h2><h3 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h3><p>已知主存访问时间为 200 ns，计算以下两种存储配置的平均访问时间，并分析性能：</p>
+<h4 id="a-Cache-主存层次"><a href="#a-Cache-主存层次" class="headerlink" title="(a) Cache - 主存层次"></a>(a) Cache - 主存层次</h4><ul>
+<li>Cache 命中率H=0.7，Cache 访问时间tM1=20 ns</li>
+</ul>
+<h4 id="b-主存-硬盘层次（分页）"><a href="#b-主存-硬盘层次（分页）" class="headerlink" title="(b) 主存 - 硬盘层次（分页）"></a>(b) 主存 - 硬盘层次（分页）</h4><ul>
+<li>主存命中率H=0.99，硬盘平均访问时间 50 ms，页大小 1K 字（1024 字）</li>
+</ul>
+<hr>
+<h3 id="a-Cache-主存层次计算"><a href="#a-Cache-主存层次计算" class="headerlink" title="(a) Cache - 主存层次计算"></a>(a) Cache - 主存层次计算</h3><p><strong>参数</strong>：</p>
+<ul>
+<li>H=0.7，tA1=20 ns（Cache 访问时间）</li>
+<li>tA2=200+20=220 ns（未命中时，主存访问 + Cache 加载时间）</li>
+</ul>
+<p><strong>计算</strong>：</p>
+<p>tA=HtA1+(1−H)tA2=0.7×20+0.3×220=14+66=80 ns</p>
+<p><strong>性能分析</strong>：</p>
+<ul>
+<li>速度提升：200200−80=60%</li>
+<li>结论：即使命中率仅 0.7，也能带来 60% 的速度提升，<strong>Cache 命中率是系统性能的核心，命中率越高，性能越好</strong>。</li>
+</ul>
+<hr>
+<h3 id="b-主存-硬盘层次计算"><a href="#b-主存-硬盘层次计算" class="headerlink" title="(b) 主存 - 硬盘层次计算"></a>(b) 主存 - 硬盘层次计算</h3><p><strong>参数</strong>：</p>
+<ul>
+<li>H=0.99，tA1=200 ns（主存访问时间）</li>
+<li>硬盘访问时间：50 ms=50×106 ns，页大小bs=1024</li>
+<li>tA2=50×106×1024+200≈5.12×1010 ns（页传输 + 主存访问时间）</li>
+</ul>
+<p><strong>计算</strong>：</p>
+<p>tA=0.99×200+0.01×5.12×1010≈198+5.12×108≈512 ms</p>
+<p><strong>性能分析</strong>：</p>
+<ul>
+<li>速度提升为负值（≈−2.56×106%），说明系统性能大幅下降</li>
+<li>结论：硬盘速度极慢，串行传输的特性导致一次缺页就会严重拖慢系统，<strong>存储层次中，下层设备的速度是系统性能的瓶颈，设备越快，性能越好</strong>。</li>
+</ul>
+<hr>
+<h2 id="六、核心结论与博客适配建议"><a href="#六、核心结论与博客适配建议" class="headerlink" title="六、核心结论与博客适配建议"></a>六、核心结论与博客适配建议</h2><h3 id="核心结论"><a href="#核心结论" class="headerlink" title="核心结论"></a>核心结论</h3><ol>
+<li>存储层次的核心是<strong>局部性原理</strong>，通过分层存储平衡速度、容量与成本</li>
+<li><strong>命中率</strong>是高速缓存性能的核心指标，直接决定系统平均访问时间</li>
+<li>低速存储（如机械硬盘）是系统性能的瓶颈，需尽量减少对其的访问</li>
+<li>两级存储平均访问时间公式是分析存储系统性能的核心工具</li>
+</ol>
+<h3 id="博客整合建议"><a href="#博客整合建议" class="headerlink" title="博客整合建议"></a>博客整合建议</h3><p>可将本内容接在之前的「主存组织」「内存体与地址交织」之后，作为「存储系统核心：内存管理与层次结构」章节，结构如下：</p>
+<ol>
+<li>内存管理与 MMU 概念</li>
+<li>存储层次结构与局部性原理</li>
+<li>CPU 访问存储的完整流程（呼应元位知识点）</li>
+<li>两级存储性能公式推导</li>
+<li>经典例题与性能分析</li>
+<li>核心结论与拓展（如现代存储层次的优化：SSD 替代机械硬盘、多级 Cache 等）</li>
+</ol>
+<hr>
+<h2 id="七、拓展知识（博客加分项）"><a href="#七、拓展知识（博客加分项）" class="headerlink" title="七、拓展知识（博客加分项）"></a>七、拓展知识（博客加分项）</h2><ul>
+<li><strong>局部性原理</strong>：分为时间局部性（近期重复访问）和空间局部性（访问相邻数据），是存储层次的理论基础</li>
+<li><strong>现代 MMU</strong>：除了内存管理，还负责<strong>虚拟地址到物理地址的转换</strong>，实现虚拟内存、内存保护等功能</li>
+<li><strong>多级 Cache</strong>：现代 CPU 采用 L1/L2/L3 三级 Cache，进一步提升命中率，降低平均访问时间</li>
+<li><strong>SSD 的影响</strong>：用 SSD 替代机械硬盘，大幅提升二级存储的速度，缓解主存 - 硬盘层次的性能瓶颈</li>
+</ul>
+<p><img src="/2026/04/14/vlsi-systems-2/图.png" style="zoom: 80%;"></p>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">Jeremy Yang</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://www.jeremyyang.github.io/2026/04/14/vlsi-systems-2/">https://www.jeremyyang.github.io/2026/04/14/vlsi-systems-2/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">Jeremy Yang</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86-%E5%B9%B6%E8%A1%8C%E5%A4%84%E7%90%86-%E6%97%B6%E9%92%9F%E5%90%8C%E6%AD%A5/">
+                                    <span class="chip bg-color">内存管理, 并行处理, 时钟同步</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2026/04/16/vlsi-systems-2-ji-suan-ti/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="VLSI Systems 2(计算题)">
+                        
+                        <span class="card-title">VLSI Systems 2(计算题)</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2026-04-16
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E5%8D%8A%E5%AF%BC%E4%BD%93%E5%88%B6%E9%80%A0%E4%B8%8E%E9%9B%86%E6%88%90%E7%94%B5%E8%B7%AF%E6%8A%80%E6%9C%AF/" class="post-category">
+                                    半导体制造与集成电路技术
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86-%E5%B9%B6%E8%A1%8C%E5%A4%84%E7%90%86-%E6%97%B6%E9%92%9F%E5%90%8C%E6%AD%A5/">
+                        <span class="chip bg-color">内存管理, 并行处理, 时钟同步</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2026/04/01/integrated-circuit-technology/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="Integrated Circuit Technology(EE7602)">
+                        
+                        <span class="card-title">Integrated Circuit Technology(EE7602)</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2026-04-01
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E5%8D%8A%E5%AF%BC%E4%BD%93%E5%88%B6%E9%80%A0%E4%B8%8E%E9%9B%86%E6%88%90%E7%94%B5%E8%B7%AF%E6%8A%80%E6%9C%AF/" class="post-category">
+                                    半导体制造与集成电路技术
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E9%9B%86%E6%88%90%E7%94%B5%E8%B7%AF%EF%BC%8CLatch-up%EF%BC%8CESD/">
+                        <span class="chip bg-color">集成电路，Latch-up，ESD</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('120')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE' || selection.getRangeAt(0).commonAncestorContainer.nodeName === 'CODE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: 沫墨<br />'
+            + '文章作者: Jeremy Yang<br />'
+            + '文章链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+  <!-- 是否加载使用自带的 prismjs. -->
+  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            // 👇 这行是核心修改：强制提取 h1-h6 所有标题，一级标题# 就能显示了
+            headingSelector: 'h1, h2, h3, h4, h5, h6' 
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+    
+
+</main>
+
+
+<script src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+    MathJax.Hub.Config({
+        tex2jax: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+    });
+</script>
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="tencent"
+                   type="playlist"
+                   id="8693683401"
+                   fixed='true'
+                   autoplay='true'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="/libs/aplayer/Meting.min.js"></script>
+
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 15px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2021-2026</span>
+            
+            <a href="/about" target="_blank">Jeremy Yang</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+                &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                        class="white-color">123.3k</span>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+                <span id="sitetime"> Loading ...</span>
+                <script>
+                    var calcSiteTime = function () {
+                        var seconds = 1000;
+                        var minutes = seconds * 60;
+                        var hours = minutes * 60;
+                        var days = hours * 24;
+                        var years = days * 365;
+                        var today = new Date();
+                        var startYear = "2021";
+                        var startMonth = "10";
+                        var startDate = "28";
+                        var startHour = "0";
+                        var startMinute = "0";
+                        var startSecond = "0";
+                        var todayYear = today.getFullYear();
+                        var todayMonth = today.getMonth() + 1;
+                        var todayDate = today.getDate();
+                        var todayHour = today.getHours();
+                        var todayMinute = today.getMinutes();
+                        var todaySecond = today.getSeconds();
+                        var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                        var diff = t2 - t1;
+                        var diffYears = Math.floor(diff / years);
+                        var diffDays = Math.floor((diff / days) - diffYears * 365);
+
+                        // 区分是否有年份.
+                        var language = 'zh-CN';
+                        if (startYear === String(todayYear)) {
+                            document.getElementById("year").innerHTML = todayYear;
+                            var daysTip = 'This site has been running for ' + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                daysTip = '本站已运行 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                daysTip = '本站已運行 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = daysTip;
+                        } else {
+                            document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                            var yearsAndDaysTip = 'This site has been running for ' + diffYears + ' years and '
+                                + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                yearsAndDaysTip = '本站已运行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                yearsAndDaysTip = '本站已運行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = yearsAndDaysTip;
+                        }
+                    }
+
+                    calcSiteTime();
+                </script>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/Ude123456" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:1332075296@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1332075296" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1332075296" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+    <a href="https://blog.csdn.net/weixin_60872203?type=lately" class="tooltipped" target="_blank" data-tooltip="关注我的CSDN: https://blog.csdn.net/weixin_60872203?type=lately" data-position="top" data-delay="50">
+        <i class="fab fa-csdn">C</i>
+    </a>
+
+
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 白天和黑夜主题 -->
+<div class="stars-con">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>  
+</div>
+
+<script>
+    function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+        setTimeout(function () {
+            $('body').hasClass('DarkMode') 
+            ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+            : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+            
+            setTimeout(function () {
+            $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                $(this).remove()
+            })
+            }, 2e3)
+        })
+    }
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+
+    <!-- 雪花特效 -->
+     
+        <script type="text/javascript">
+            // 只在桌面版网页启用特效
+            var windowWidth = $(window).width();
+            if (windowWidth > 768) {
+                document.write('<script type="text/javascript" src="/libs/others/snow.js"><\/script>');
+            }
+        </script>
+    
+
+    <!-- 鼠标星星特效 -->
+     
+        <script type="text/javascript">
+            // 只在桌面版网页启用特效
+            var windowWidth = $(window).width();
+            if (windowWidth > 768) {
+                document.write('<script type="text/javascript" src="/libs/others/star.js"><\/script>');
+            }
+        </script>
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+    <script type="text/javascript" src="/libs/background/ribbon-dynamic.js" async="async"></script>
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>
+
+<script type="text/javascript" src="/js/click_show_text.js"></script>
+
+
+<!--动态线条背景-->
+<script type="text/javascript"
+color="122 103 238" opacity='0.8' zIndex="-2" count="130" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js">
+</script>

@@ -584,9 +584,9 @@ N= \frac {内存访问时间 \, T_{memory}} {CPU周期时间 \, T_{ CPU }}</scri
 <h1 id="2-两级内存层次平均访问时间计算"><a href="#2-两级内存层次平均访问时间计算" class="headerlink" title="2 两级内存层次平均访问时间计算"></a>2 两级内存层次平均访问时间计算</h1><p>核心参数：</p>
 <ul>
 <li>$H$：命中率(Hit Ratio)，CPU访问中命中高速层的比例，$0 \leq H \leq 1$；</li>
-<li>$t<em>{A1}$：高速层(M1，如Cache/主存)的访问时间，$t</em>{A1}=t_{M1}$</li>
-<li>$t<em>{A2}$：高速层(M2，如主存/硬盘)的系统访问时间，如$t</em>{A2} = t<em>B + t</em>{A1}$；</li>
-<li>$t<em>B$：从 M2 到 M1 的块传输时间，$t_B = b_s × t</em>{M2}$，其中 $b<em>s$ 是块大小，$t</em>{M2}$ 是 M2 的单字访问时间。</li>
+<li>$ t<em>{A1} $：高速层(M1，如Cache/主存)的访问时间，$ t</em>{A1}=t_{M1} $</li>
+<li>$ t<em>{A2} $：高速层(M2，如主存/硬盘)的系统访问时间，如$ t</em>{A2} = t<em>B + t</em>{A1} $；</li>
+<li>$ t<em>B $：从 M2 到 M1 的块传输时间，$ t_B = b_s × t</em>{M2} $，其中 $ b<em>s $ 是块大小，$ t</em>{M2} $ 是 M2 的单字访问时间。</li>
 </ul>
 <p>四个公式要背：</p>
 <ol>
@@ -622,12 +622,12 @@ t_B = b_S \times t_{M2} = 1024 \times 5 \times 10^7 \, ns = 5.12×10^{10} \, ns<
 <script type="math/tex; mode=display">
 t_{ A2 } = t_B + t_{A1} = 5.12×10^{10} + 200 ≈ 5.12×10^{10} \, ns</script><p>则：</p>
 <script type="math/tex; mode=display">
-t_A = 0.99 \times 200 + (1-0.99) \times 5.12 \times 10^{10} ≈ 198 + 5.12×10^8 \times ns ≈ 512ms</script><p>结论：即使 H=0.99，硬盘的慢速会导致系统速度大幅下降。</p>
+t_A = 0.99 \times 200 + (1-0.99) \times 5.12 \times 10^{10} ≈ 198 + 5.12×10^8 \times ns ≈ 512ms</script><p>结论：即使 $ H=0.99 $，硬盘的慢速会导致系统速度大幅下降。</p>
 <h1 id="3-匹配逻辑布尔函数"><a href="#3-匹配逻辑布尔函数" class="headerlink" title="3 匹配逻辑布尔函数"></a>3 匹配逻辑布尔函数</h1><ol>
-<li><strong>单比特匹配逻辑</strong>：$A<em>j$ 是参数寄存器第 j 位，$F</em>{ ij }$ 是第 i 个字第 j 位的存储内容，该位匹配的逻辑是<strong>同或（XNOR）</strong>：<script type="math/tex; mode=display">
+<li><strong>单比特匹配逻辑</strong>：$ A<em>j $ 是参数寄存器第 j 位，$ F</em>{ ij } $ 是第 i 个字第 j 位的存储内容，该位匹配的逻辑是<strong>同或（XNOR）</strong>：<script type="math/tex; mode=display">
 X_j = A_j·F_{ ij } + A_j'·F_{ ij }'</script></li>
 </ol>
-<p>（$A<em>j$ 和 $F</em>{ ij }$ 相等时，$X_j=1$，否则为 0）</p>
+<p>（$ A<em>j $ 和 $ F</em>{ ij } $ 相等时，$X_j=1$，否则为 0）</p>
 <ol>
 <li><p><strong>带掩码的单比特逻辑</strong>：$K_j$ 是键寄存器第 j 位，$K_j=1$ 时参与匹配，$K_j=0$ 时该位恒为匹配成功：</p>
 <script type="math/tex; mode=display">
@@ -644,7 +644,7 @@ M_i = (X_1 + K_1') · (X_2 + K_2') · … · (X_n + K_n')</script><p>无掩码�
 M_i= \prod_{j=1}^{n}(A_j \cdot F_{ij} + A_j' \cdot F_{ij}'+K_j' )</script></li>
 <li><p><strong>带元位（有效位）的匹配逻辑</strong>：</p>
 <p>加入元位 $T_i$，$T_i=1$ 表示该字有效，只有有效字的匹配才有效。</p>
-<p>有效匹配需要同时满足 “内容匹配 M_i=1” 和 “字有效 T_i=1”，因此布尔函数为：</p>
+<p>有效匹配需要同时满足 “内容匹配 $ M_i=1 $” 和 “字有效 $ T_i=1 $”，因此布尔函数为：</p>
 <script type="math/tex; mode=display">
 L_{ match } = M_i \cdot T_i</script></li>
 </ol>
@@ -678,7 +678,7 @@ W = \frac{S_p} {2} + \frac{S_s} {S_p}</script><p>（$S_s$= 段大小，$S_p$= �
 </ul>
 </li>
 <li><p>最优页大小推导</p>
-<p>对 $S_p$求导，令导数为 0，得到开销最小的最优页大小：</p>
+<p>对 $S_p$ 求导，令导数为 0，得到开销最小的最优页大小：</p>
 <script type="math/tex; mode=display">
 S_p = \sqrt{(2 \cdot S_s)}</script></li>
 </ol>
@@ -701,20 +701,20 @@ U = \frac {1} {(1 + \sqrt{(\frac{2} {S_s})})}</script><ol>
 </ul>
 <h2 id="7-1-Cache-主存系统平均成本计算"><a href="#7-1-Cache-主存系统平均成本计算" class="headerlink" title="7.1 Cache-主存系统平均成本计算"></a>7.1 Cache-主存系统平均成本计算</h2><p><strong>核心公式</strong>：</p>
 <script type="math/tex; mode=display">
-C_s = \frac{ (C_c·S_{ca} + C_m·S_{me}) } { (S_{ ca } + S_ { me } ) }</script><p>其中，</p>
+C_s = \frac{ (C_c \cdot S_{ca} + C_m \cdot S_{me}) } { (S_{ ca } + S_ { me } ) }</script><p>其中，</p>
 <ul>
 <li>$C_c$=Cache 每比特成本，</li>
 <li>$C_m$= 主存每比特成本，</li>
 <li>$S_{ ca }$=Cache 大小，</li>
-<li>$S_{ me }$= 主存大小）。</li>
+<li>$S_{ me }$= 主存大小。</li>
 </ul>
-<h3 id="Example-3"><a href="#Example-3" class="headerlink" title="Example:"></a>Example:</h3><p>If the cost of the cache memory is 10 times the cost of the main memory, and the total amount of memory required is 32 MB, determine the size of each type of memory to achieve a total memory cost of only 1.01 times the cost of the main memory</p>
-<h3 id="Solution-2"><a href="#Solution-2" class="headerlink" title="Solution:"></a>Solution:</h3><p>已知：$C<em>c=10·C_m$，总内存大小 $S</em>{ ca }+S_{ me }=32MB$，要求 $C_s=1.01·C_m$</p>
+<h3 id="Example-3"><a href="#Example-3" class="headerlink" title="Example:"></a>Example:</h3><p>If the cost of the cache memory is 10 times the cost of the main memory, and the total amount of memory required is 32 MB, determine the size of each type of memory to achieve a total memory cost of only 1.01 times the cost of the main memory.</p>
+<h3 id="Solution-2"><a href="#Solution-2" class="headerlink" title="Solution:"></a>Solution:</h3><p>已知：$ C<em>c=10 \cdot C_m $，总内存大小 $ S</em>{ ca }+S_{ me }=32MB $，要求 $C_s=1.01·C_m$</p>
 <p>代入公式：</p>
 <script type="math/tex; mode=display">
 C_s = \frac{ (C_c·S_{ca} + C_m·S_{me}) } { (S_{ ca } + S_ { me } ) }</script><p>得：</p>
 <script type="math/tex; mode=display">
-10C_m·S_{ ca } + C_m·S_{ me } = 1.01 C_m ×32MB</script><p>约去 $C<em>m$，代入 $S</em>{ me }=32MB-S_{ ca }$，解得：</p>
+10C_m \cdot S_{ ca } + C_m \cdot S_{ me } = 1.01 C_m \times 32MB</script><p>约去 $ C<em>m $，代入 $ S</em>{ me }=32MB-S_{ ca } $，解得：</p>
 <script type="math/tex; mode=display">
 S_{ ca } ≈ 0.0319 \, MB = 31.9 \, KB，\\
 S_{ me } ≈ 31.968 \, MB</script><p>结论：仅增加 1% 的成本，就能大幅提升系统速度。</p>

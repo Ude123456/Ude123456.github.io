@@ -5,8 +5,9 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="房价预测（kaggle系列）, 博客，沫墨">
-    <meta name="description" content="一、下载和缓存数据集首先，先维护字典DATA_HUB,将数据集名称的字符映射到数据集相关的二元组上，这个二元组包含了数据集的URL和验证文件完整性的sha-1密钥。所有这样的数据集都托管在地址为DATA_URL的站点上。
-123456789">
+    <meta name="description" content="一、下载和缓存数据集
+首先，先维护字典DATA_HUB,将数据集名称的字符映射到数据集相关的二元组上，这个二元组包含了数据集的URL和验证文件完整性的sha-1密钥。所有这样的数据集都托管在地址为DATA_URL的站点上。
+12345678">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -552,11 +553,13 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="一、下载和缓存数据集"><a href="#一、下载和缓存数据集" class="headerlink" title="一、下载和缓存数据集"></a>一、下载和缓存数据集</h2><p>首先，先维护字典DATA_HUB,将数据集名称的字符映射到数据集相关的二元组上，这个二元组包含了数据集的URL和验证文件完整性的sha-1密钥。所有这样的数据集都托管在地址为DATA_URL的站点上。</p>
+                <h2 id="一、下载和缓存数据集">一、下载和缓存数据集</h2>
+<p>首先，先维护字典DATA_HUB,将数据集名称的字符映射到数据集相关的二元组上，这个二元组包含了数据集的URL和验证文件完整性的sha-1密钥。所有这样的数据集都托管在地址为DATA_URL的站点上。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> hashlib</span><br><span class="line"><span class="keyword">import</span> tarfile</span><br><span class="line"><span class="keyword">import</span> zipfile</span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line"><span class="comment">#save</span></span><br><span class="line">DATA_HUB = <span class="built_in">dict</span>()</span><br><span class="line">DATA_URL = <span class="string">&#x27;https://d2l-data.s3_accelerate.amazonaws.com/&#x27;</span></span><br></pre></td></tr></table></figure>
 <p>定义一个downlowd函数用来下载数据集，将数据集缓存在本地目录中，并返回下载问文件的名称。如果缓存目录中已经存在这个数据集文件，并且sha-1与存储在DATA_HUB中的匹配时，则将使用缓存文件，以避免重复下载。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">download</span>(<span class="params">name,cache_dir=os.path.join(<span class="params"><span class="string">&#x27;..&#x27;</span>,<span class="string">&#x27;data&#x27;</span></span>)</span>):</span><br><span class="line">    <span class="comment">#下载一个DATA_HUB中的文件，返回本地文件名</span></span><br><span class="line">    <span class="keyword">assert</span> name <span class="keyword">in</span> DATA_HUB,<span class="string">f&quot;<span class="subst">&#123;name&#125;</span>不存在于<span class="subst">&#123;DATA_HUB&#125;</span>.&quot;</span></span><br><span class="line">    url, sha1_hash = DATA_HUB[name]</span><br><span class="line">    os.makedirs(cache_dir, exist_ok=<span class="literal">True</span>)</span><br><span class="line">    fname = os.path.join(cache_dir, url.split(<span class="string">&#x27;/&#x27;</span>)[-<span class="number">1</span>])</span><br><span class="line">    <span class="keyword">if</span> os.path.exists(fname):</span><br><span class="line">    	sha1 = hashlib.sha1()</span><br><span class="line">        <span class="keyword">with</span> <span class="built_in">open</span>(fname,<span class="string">&#x27;rb&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">            <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">                data = f.read(<span class="number">1048576</span>)</span><br><span class="line">                <span class="keyword">if</span> <span class="keyword">not</span> data:</span><br><span class="line">                    <span class="keyword">break</span></span><br><span class="line">                sha1.upgrade(data)</span><br><span class="line">		<span class="keyword">if</span> sha1.hexdigest() == sha1_hash:</span><br><span class="line">        	<span class="keyword">return</span> fname    <span class="comment">#hit cache</span></span><br><span class="line">	<span class="built_in">print</span>(<span class="string">f&#x27;正在从<span class="subst">&#123;url&#125;</span>中下载<span class="subst">&#123;fname&#125;</span>...&#x27;</span>)</span><br><span class="line">	r = requests.get(url, stream=<span class="literal">True</span>, verify=<span class="literal">True</span>)</span><br><span class="line">	<span class="keyword">with</span> <span class="built_in">open</span>(fname,<span class="string">&#x27;wb&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">		f.write(r.content)</span><br><span class="line">	<span class="keyword">return</span> fname</span><br></pre></td></tr></table></figure>
-<h2 id="二、访问和读取数据集"><a href="#二、访问和读取数据集" class="headerlink" title="二、访问和读取数据集"></a>二、访问和读取数据集</h2><p>可以观察数据集的每条记录都包括了房屋的属性值和属性，如街道类型、施工年份、屋顶类型、地下室状况等。这些特征由各种数据类型组成。例如，建筑年份由整数表示，屋顶类型由离散类别表示，其他特征由浮点数表示，并且一些数据完全丢失了，缺失值被简单地标记为“NA”。</p>
+<h2 id="二、访问和读取数据集">二、访问和读取数据集</h2>
+<p>可以观察数据集的每条记录都包括了房屋的属性值和属性，如街道类型、施工年份、屋顶类型、地下室状况等。这些特征由各种数据类型组成。例如，建筑年份由整数表示，屋顶类型由离散类别表示，其他特征由浮点数表示，并且一些数据完全丢失了，缺失值被简单地标记为“NA”。</p>
 <p>我们首先使用pandas读入并处理数据。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="keyword">from</span> torch <span class="keyword">import</span> nn</span><br><span class="line"><span class="keyword">from</span> d2l <span class="keyword">import</span> torch <span class="keyword">as</span> d2l</span><br></pre></td></tr></table></figure>
 <p>使用定义的脚本下载并缓存Kaggle房屋数据集。</p>
@@ -696,6 +699,280 @@
     
 
     
+
+    
+        <style>
+    .twikoo-card {
+        margin: 1.5rem auto;
+    }
+
+    .twikoo-card .card-content {
+        padding: 20px;
+    }
+
+    #tcomments textarea {
+        box-sizing: border-box;
+        background: url("/") 100% 100% no-repeat;
+    }
+
+    #tcomments p {
+        margin: 2px 2px 10px;
+        font-size: 1.05rem;
+        line-height: 1.78rem;
+    }
+
+    #tcomments blockquote p {
+        text-indent: 0.2rem;
+    }
+
+    #tcomments a {
+        padding: 0 2px;
+        color: #4cbf30;
+        font-weight: 500;
+        text-decoration: none;
+    }
+
+    #tcomments img {
+        max-width: 100%;
+        height: auto;
+        cursor: pointer;
+    }
+
+    #tcomments ol li {
+        list-style-type: decimal;
+    }
+
+    #tcomments ol,
+    ul {
+        display: block;
+        padding-left: 2em;
+        word-spacing: 0.05rem;
+    }
+
+    #tcomments ul li,
+    ol li {
+        display: list-item;
+        line-height: 1.8rem;
+        font-size: 1rem;
+    }
+
+    #tcomments ul li {
+        list-style-type: disc;
+    }
+
+    #tcomments ul ul li {
+        list-style-type: circle;
+    }
+
+    #tcomments table,
+    th,
+    td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    #tcomments table,
+    th,
+    td {
+        border: 0;
+    }
+
+    table tr:nth-child(2n),
+    thead {
+        background-color: #fafafa;
+    }
+
+    #tcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #tcomments table td {
+        min-width: 80px;
+    }
+
+    #tcomments h1 {
+        font-size: 1.85rem;
+        font-weight: bold;
+        line-height: 2.2rem;
+    }
+
+    #tcomments h2 {
+        font-size: 1.65rem;
+        font-weight: bold;
+        line-height: 1.9rem;
+    }
+
+    #tcomments h3 {
+        font-size: 1.45rem;
+        font-weight: bold;
+        line-height: 1.7rem;
+    }
+
+    #tcomments h4 {
+        font-size: 1.25rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    #tcomments h5 {
+        font-size: 1.1rem;
+        font-weight: bold;
+        line-height: 1.4rem;
+    }
+
+    #tcomments h6 {
+        font-size: 1rem;
+        line-height: 1.3rem;
+    }
+
+    #tcomments p {
+        font-size: 1rem;
+        line-height: 1.5rem;
+    }
+
+    #tcomments hr {
+        margin: 12px 0;
+        border: 0;
+        border-top: 1px solid #ccc;
+    }
+
+    #tcomments blockquote {
+        margin: 15px 0;
+        border-left: 5px solid #42b983;
+        padding: 1rem 0.8rem 0.3rem 0.8rem;
+        color: #666;
+        background-color: rgba(66, 185, 131, .1);
+    }
+
+    #tcomments pre {
+        font-family: monospace, monospace;
+        padding: 1.2em;
+        margin: .5em 0;
+        background: #272822;
+        overflow: auto;
+        border-radius: 0.3em;
+        tab-size: 4;
+    }
+
+    #tcomments code {
+        font-family: monospace, monospace;
+        padding: 1px 3px;
+        font-size: 0.92rem;
+        color: #e96900;
+        background-color: #f8f8f8;
+        border-radius: 2px;
+    }
+
+    #tcomments pre code {
+        font-family: monospace, monospace;
+        padding: 0;
+        color: #e8eaf6;
+        background-color: #272822;
+    }
+
+    #tcomments pre[class*="language-"] {
+        padding: 1.2em;
+        margin: .5em 0;
+    }
+
+    #tcomments code[class*="language-"],
+    pre[class*="language-"] {
+        color: #e8eaf6;
+    }
+
+    #tcomments [type="checkbox"]:not(:checked),
+    [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+
+    #tcomments b,
+    strong {
+        font-weight: bold;
+    }
+
+    #tcomments dfn {
+        font-style: italic;
+    }
+
+    #tcomments small {
+        font-size: 85%;
+    }
+
+    #tcomments cite {
+        font-style: normal;
+    }
+
+    #tcomments mark {
+        background-color: #fcf8e3;
+        padding: .2em;
+    }
+
+    #tcomments table,
+    th,
+    td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    table tr:nth-child(2n),
+    thead {
+        background-color: #fafafa;
+    }
+
+    #tcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #tcomments table td {
+        min-width: 80px;
+    }
+
+    #tcomments [type="checkbox"]:not(:checked),
+    [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+</style>
+
+<div class="card twikoo-card" data-aos="fade-up">
+    <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; padding-left: 20px; top: 15px; padding-bottom: 5px;">
+        <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
+        <span>评论</span>
+    </div>
+    <div class="card-content" style="display: grid">
+        <div id="tcomments"></div>
+    </div>
+</div>
+
+<script src="/libs/twikoo/twikoo.all.min.js"></script>
+<script>
+    twikoo.init({
+        envId: 'https://twikoo-fawn-omega.vercel.app',
+        el: '#tcomments',
+        region: '',
+        path: ''
+    }).then(function () {
+        var tkInputs = document.querySelector('#twikoo').getElementsByTagName('input');
+        for (var tkInputsIndex = 0; tkInputsIndex < tkInputs.length; tkInputsIndex++) {
+            if (tkInputs[tkInputsIndex]) {
+                tkInputs[tkInputsIndex].classList.add('browser-default');
+            }
+        }
+    });
+</script>
 
     
 
@@ -1026,7 +1303,7 @@
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">123.3k</span>
+                        class="white-color">718.2k</span>
             
             
             
@@ -1297,15 +1574,7 @@ $(function () {
     
 
     <!-- 雪花特效 -->
-     
-        <script type="text/javascript">
-            // 只在桌面版网页启用特效
-            var windowWidth = $(window).width();
-            if (windowWidth > 768) {
-                document.write('<script type="text/javascript" src="/libs/others/snow.js"><\/script>');
-            }
-        </script>
-    
+    **
 
     <!-- 鼠标星星特效 -->
      

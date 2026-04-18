@@ -6,18 +6,17 @@
     <meta charset="utf-8">
     <meta name="keywords" content="深度学习3：循环神经网络, 博客，沫墨">
     <meta name="description" content="
-循环神经网络（RNN,recurrent neural network）是一类扩展的人工神经网络，它是为了对序列数据进行建模而产生的。
+循环神经网络（RNN,recurrent neural network）是一类扩展的人工神经网络，它是为了对
+序列数据进行建模而产生的。
 
-1、前导知识命名实体识别任务
-
+1、前导知识
+命名实体识别任务
 
 符号化表示
 
-
 计算机存储单词信息
 
-
-循环神经网络按照时刻序列接">
+循环神经网络按照时刻序列接受">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -560,7 +559,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    376
+                    377
                 </div>
                 
 
@@ -581,67 +580,79 @@
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <blockquote>
-<p>循环神经网络（RNN,recurrent neural network）是一类扩展的人工神经网络，它是为了对<br>序列数据进行建模而产生的。</p>
+<p>循环神经网络（RNN,recurrent neural network）是一类扩展的人工神经网络，它是为了对<br>
+序列数据进行建模而产生的。</p>
 </blockquote>
-<h2 id="1、前导知识"><a href="#1、前导知识" class="headerlink" title="1、前导知识"></a>1、前导知识</h2><font size="5">命名实体识别任务</font>
-
-<p><img src="/2022/07/19/shen-du-xue-xi-3-xun-huan-shen-jing-wang-luo/图1.png" alt></p>
-<font size="5">符号化表示</font>
-
-<p><img src="/2022/07/19/shen-du-xue-xi-3-xun-huan-shen-jing-wang-luo/图2.png" alt></p>
-<font size="5">计算机存储单词信息</font>
-
-<p><img src="/2022/07/19/shen-du-xue-xi-3-xun-huan-shen-jing-wang-luo/图3.png" alt></p>
-<font size="5">循环神经网络按照时刻序列接受数据</font>
-
-<p><img src="/2022/07/19/shen-du-xue-xi-3-xun-huan-shen-jing-wang-luo/图4.png" alt></p>
-<h2 id="2、循环神经网络的内部构造"><a href="#2、循环神经网络的内部构造" class="headerlink" title="2、循环神经网络的内部构造"></a>2、循环神经网络的内部构造</h2><h3 id="2-1-网络内部计算过程"><a href="#2-1-网络内部计算过程" class="headerlink" title="2.1　网络内部计算过程"></a>2.1　网络内部计算过程</h3><p><img src="/2022/07/19/shen-du-xue-xi-3-xun-huan-shen-jing-wang-luo/图5.png" alt></p>
-<p><img src="/2022/07/19/shen-du-xue-xi-3-xun-huan-shen-jing-wang-luo/图6.png" alt></p>
-<h3 id="2-2-循环神经网络遇到的问题"><a href="#2-2-循环神经网络遇到的问题" class="headerlink" title="2.2　循环神经网络遇到的问题"></a>2.2　循环神经网络遇到的问题</h3><ul>
-<li><p>深层面临的问题</p>
+<h2 id="1、前导知识">1、前导知识</h2>
+<p><font size="5">命名实体识别任务</font></p>
+<p><img src="/2022/07/19/shen-du-xue-xi-3-xun-huan-shen-jing-wang-luo/%E5%9B%BE1.png" alt></p>
+<p><font size="5">符号化表示</font></p>
+<p><img src="/2022/07/19/shen-du-xue-xi-3-xun-huan-shen-jing-wang-luo/%E5%9B%BE2.png" alt></p>
+<p><font size="5">计算机存储单词信息</font></p>
+<p><img src="/2022/07/19/shen-du-xue-xi-3-xun-huan-shen-jing-wang-luo/%E5%9B%BE3.png" alt></p>
+<p><font size="5">循环神经网络按照时刻序列接受数据</font></p>
+<p><img src="/2022/07/19/shen-du-xue-xi-3-xun-huan-shen-jing-wang-luo/%E5%9B%BE4.png" alt></p>
+<h2 id="2、循环神经网络的内部构造">2、循环神经网络的内部构造</h2>
+<h3 id="2-1-网络内部计算过程">2.1　网络内部计算过程</h3>
+<p><img src="/2022/07/19/shen-du-xue-xi-3-xun-huan-shen-jing-wang-luo/%E5%9B%BE5.png" alt></p>
+<p><img src="/2022/07/19/shen-du-xue-xi-3-xun-huan-shen-jing-wang-luo/%E5%9B%BE6.png" alt></p>
+<h3 id="2-2-循环神经网络遇到的问题">2.2　循环神经网络遇到的问题</h3>
 <ul>
-<li>当网络层次越来越深的时候（序列越来越长）就可能产生：<ul>
+<li>
+<p>深层面临的问题</p>
+<ul>
+<li>当网络层次越来越深的时候（序列越来越长）就可能产生：
+<ul>
 <li>梯度爆炸</li>
 <li>梯度消失</li>
 </ul>
 </li>
 </ul>
 </li>
-<li><p>循环神经网络深层面临的问题</p>
+<li>
+<p>循环神经网络深层面临的问题</p>
 </li>
 </ul>
-<p>The cat , which aleardy ate apples banana …, <font color="red">was</font> full.<br>The cat<font color="red">s</font>, which aleardy ate apples banana …, <font color="red">were</font> full.</p>
+<p>The cat , which aleardy ate apples banana …, <font color="red">was</font> full.<br>
+The cat<font color="red">s</font>, which aleardy ate apples banana …, <font color="red">were</font> full.</p>
 <p>正确的预测可能依赖于很久之前的某些信息，然而，RNN的预测受到的主要影响是较为靠近的词的影响</p>
-<p><img src="/2022/07/19/shen-du-xue-xi-3-xun-huan-shen-jing-wang-luo/图7.png" alt></p>
-<h2 id="3、经典循环神经网络"><a href="#3、经典循环神经网络" class="headerlink" title="3、经典循环神经网络"></a>3、经典循环神经网络</h2><h3 id="3-1-LSTM"><a href="#3-1-LSTM" class="headerlink" title="3.1　LSTM"></a>3.1　LSTM</h3><p><img src="/2022/07/19/shen-du-xue-xi-3-xun-huan-shen-jing-wang-luo/图8.png" alt></p>
-<font size="5">RNN的长依赖问题</font>
-
-<p><img src="/2022/07/19/shen-du-xue-xi-3-xun-huan-shen-jing-wang-luo/图9.png" alt></p>
-<p><img src="/2022/07/19/shen-du-xue-xi-3-xun-huan-shen-jing-wang-luo/图10.png" alt></p>
-<p>1）LSTM第一步<br><img src="/2022/07/19/shen-du-xue-xi-3-xun-huan-shen-jing-wang-luo/图11.png" alt></p>
-<p>2）LSTM第二步<br><img src="/2022/07/19/shen-du-xue-xi-3-xun-huan-shen-jing-wang-luo/图12.png" alt></p>
-<p>3）LSTM第三步<br><img src="/2022/07/19/shen-du-xue-xi-3-xun-huan-shen-jing-wang-luo/图13.png" alt></p>
-<p>4）LSTM第四步<br><img src="/2022/07/19/shen-du-xue-xi-3-xun-huan-shen-jing-wang-luo/图14.png" alt></p>
-<font size="5">总结：</font>
-
-<p><img src="/2022/07/19/shen-du-xue-xi-3-xun-huan-shen-jing-wang-luo/图15.png" alt></p>
-<h3 id="3-2-GRU"><a href="#3-2-GRU" class="headerlink" title="3.2　GRU"></a>3.2　GRU</h3><p><img src="/2022/07/19/shen-du-xue-xi-3-xun-huan-shen-jing-wang-luo/图16.png" alt></p>
-<p><img src="/2022/07/19/shen-du-xue-xi-3-xun-huan-shen-jing-wang-luo/图17.png" alt></p>
-<h3 id="3-3-RNN、GRU、LSTM的对比"><a href="#3-3-RNN、GRU、LSTM的对比" class="headerlink" title="3.3　RNN、GRU、LSTM的对比"></a>3.3　RNN、GRU、LSTM的对比</h3><font size="5">RNN vs. GRU vs. LSTM</font>
-
-<p><img src="/2022/07/19/shen-du-xue-xi-3-xun-huan-shen-jing-wang-luo/图18.png" alt></p>
-<font size="5">GRU vs. LSTM</font>
-
-<p><img src="/2022/07/19/shen-du-xue-xi-3-xun-huan-shen-jing-wang-luo/图19.png" alt></p>
-<h2 id="4、循环神经网络的变体"><a href="#4、循环神经网络的变体" class="headerlink" title="4、循环神经网络的变体"></a>4、循环神经网络的变体</h2><h3 id="4-1-双向循环网络（Bi-directional-RNNs"><a href="#4-1-双向循环网络（Bi-directional-RNNs" class="headerlink" title="4.1　双向循环网络（Bi-directional RNNs)"></a>4.1　双向循环网络（Bi-directional RNNs)</h3><ul>
+<p><img src="/2022/07/19/shen-du-xue-xi-3-xun-huan-shen-jing-wang-luo/%E5%9B%BE7.png" alt></p>
+<h2 id="3、经典循环神经网络">3、经典循环神经网络</h2>
+<h3 id="3-1-LSTM">3.1　LSTM</h3>
+<p><img src="/2022/07/19/shen-du-xue-xi-3-xun-huan-shen-jing-wang-luo/%E5%9B%BE8.png" alt></p>
+<p><font size="5">RNN的长依赖问题</font></p>
+<p><img src="/2022/07/19/shen-du-xue-xi-3-xun-huan-shen-jing-wang-luo/%E5%9B%BE9.png" alt></p>
+<p><img src="/2022/07/19/shen-du-xue-xi-3-xun-huan-shen-jing-wang-luo/%E5%9B%BE10.png" alt></p>
+<p>1）LSTM第一步<br>
+<img src="/2022/07/19/shen-du-xue-xi-3-xun-huan-shen-jing-wang-luo/%E5%9B%BE11.png" alt></p>
+<p>2）LSTM第二步<br>
+<img src="/2022/07/19/shen-du-xue-xi-3-xun-huan-shen-jing-wang-luo/%E5%9B%BE12.png" alt></p>
+<p>3）LSTM第三步<br>
+<img src="/2022/07/19/shen-du-xue-xi-3-xun-huan-shen-jing-wang-luo/%E5%9B%BE13.png" alt></p>
+<p>4）LSTM第四步<br>
+<img src="/2022/07/19/shen-du-xue-xi-3-xun-huan-shen-jing-wang-luo/%E5%9B%BE14.png" alt></p>
+<p><font size="5">总结：</font></p>
+<p><img src="/2022/07/19/shen-du-xue-xi-3-xun-huan-shen-jing-wang-luo/%E5%9B%BE15.png" alt></p>
+<h3 id="3-2-GRU">3.2　GRU</h3>
+<p><img src="/2022/07/19/shen-du-xue-xi-3-xun-huan-shen-jing-wang-luo/%E5%9B%BE16.png" alt></p>
+<p><img src="/2022/07/19/shen-du-xue-xi-3-xun-huan-shen-jing-wang-luo/%E5%9B%BE17.png" alt></p>
+<h3 id="3-3-RNN、GRU、LSTM的对比">3.3　RNN、GRU、LSTM的对比</h3>
+<p><font size="5">RNN vs. GRU vs. LSTM</font></p>
+<p><img src="/2022/07/19/shen-du-xue-xi-3-xun-huan-shen-jing-wang-luo/%E5%9B%BE18.png" alt></p>
+<p><font size="5">GRU vs. LSTM</font></p>
+<p><img src="/2022/07/19/shen-du-xue-xi-3-xun-huan-shen-jing-wang-luo/%E5%9B%BE19.png" alt></p>
+<h2 id="4、循环神经网络的变体">4、循环神经网络的变体</h2>
+<h3 id="4-1-双向循环网络（Bi-directional-RNNs">4.1　双向循环网络（Bi-directional RNNs)</h3>
+<ul>
 <li>RNN处理输入序列既可以从正向处理信息，也同时从反向处理信息</li>
 </ul>
-<p><img src="/2022/07/19/shen-du-xue-xi-3-xun-huan-shen-jing-wang-luo/图20.png" alt></p>
-<h3 id="4-2-深层循环网络（Multi-layer-RNNs"><a href="#4-2-深层循环网络（Multi-layer-RNNs" class="headerlink" title="4.2　深层循环网络（Multi-layer RNNs)"></a>4.2　深层循环网络（Multi-layer RNNs)</h3><ul>
+<p><img src="/2022/07/19/shen-du-xue-xi-3-xun-huan-shen-jing-wang-luo/%E5%9B%BE20.png" alt></p>
+<h3 id="4-2-深层循环网络（Multi-layer-RNNs">4.2　深层循环网络（Multi-layer RNNs)</h3>
+<ul>
 <li>在复杂应用场景下可以使用多层循环网络</li>
 <li>也就是单层循环网络的堆叠</li>
 </ul>
-<p><img src="/2022/07/19/shen-du-xue-xi-3-xun-huan-shen-jing-wang-luo/图21.png" alt></p>
+<p><img src="/2022/07/19/shen-du-xue-xi-3-xun-huan-shen-jing-wang-luo/%E5%9B%BE21.png" alt></p>
 
                 
             </div>
@@ -782,6 +793,280 @@
     
 
     
+
+    
+        <style>
+    .twikoo-card {
+        margin: 1.5rem auto;
+    }
+
+    .twikoo-card .card-content {
+        padding: 20px;
+    }
+
+    #tcomments textarea {
+        box-sizing: border-box;
+        background: url("/") 100% 100% no-repeat;
+    }
+
+    #tcomments p {
+        margin: 2px 2px 10px;
+        font-size: 1.05rem;
+        line-height: 1.78rem;
+    }
+
+    #tcomments blockquote p {
+        text-indent: 0.2rem;
+    }
+
+    #tcomments a {
+        padding: 0 2px;
+        color: #4cbf30;
+        font-weight: 500;
+        text-decoration: none;
+    }
+
+    #tcomments img {
+        max-width: 100%;
+        height: auto;
+        cursor: pointer;
+    }
+
+    #tcomments ol li {
+        list-style-type: decimal;
+    }
+
+    #tcomments ol,
+    ul {
+        display: block;
+        padding-left: 2em;
+        word-spacing: 0.05rem;
+    }
+
+    #tcomments ul li,
+    ol li {
+        display: list-item;
+        line-height: 1.8rem;
+        font-size: 1rem;
+    }
+
+    #tcomments ul li {
+        list-style-type: disc;
+    }
+
+    #tcomments ul ul li {
+        list-style-type: circle;
+    }
+
+    #tcomments table,
+    th,
+    td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    #tcomments table,
+    th,
+    td {
+        border: 0;
+    }
+
+    table tr:nth-child(2n),
+    thead {
+        background-color: #fafafa;
+    }
+
+    #tcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #tcomments table td {
+        min-width: 80px;
+    }
+
+    #tcomments h1 {
+        font-size: 1.85rem;
+        font-weight: bold;
+        line-height: 2.2rem;
+    }
+
+    #tcomments h2 {
+        font-size: 1.65rem;
+        font-weight: bold;
+        line-height: 1.9rem;
+    }
+
+    #tcomments h3 {
+        font-size: 1.45rem;
+        font-weight: bold;
+        line-height: 1.7rem;
+    }
+
+    #tcomments h4 {
+        font-size: 1.25rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    #tcomments h5 {
+        font-size: 1.1rem;
+        font-weight: bold;
+        line-height: 1.4rem;
+    }
+
+    #tcomments h6 {
+        font-size: 1rem;
+        line-height: 1.3rem;
+    }
+
+    #tcomments p {
+        font-size: 1rem;
+        line-height: 1.5rem;
+    }
+
+    #tcomments hr {
+        margin: 12px 0;
+        border: 0;
+        border-top: 1px solid #ccc;
+    }
+
+    #tcomments blockquote {
+        margin: 15px 0;
+        border-left: 5px solid #42b983;
+        padding: 1rem 0.8rem 0.3rem 0.8rem;
+        color: #666;
+        background-color: rgba(66, 185, 131, .1);
+    }
+
+    #tcomments pre {
+        font-family: monospace, monospace;
+        padding: 1.2em;
+        margin: .5em 0;
+        background: #272822;
+        overflow: auto;
+        border-radius: 0.3em;
+        tab-size: 4;
+    }
+
+    #tcomments code {
+        font-family: monospace, monospace;
+        padding: 1px 3px;
+        font-size: 0.92rem;
+        color: #e96900;
+        background-color: #f8f8f8;
+        border-radius: 2px;
+    }
+
+    #tcomments pre code {
+        font-family: monospace, monospace;
+        padding: 0;
+        color: #e8eaf6;
+        background-color: #272822;
+    }
+
+    #tcomments pre[class*="language-"] {
+        padding: 1.2em;
+        margin: .5em 0;
+    }
+
+    #tcomments code[class*="language-"],
+    pre[class*="language-"] {
+        color: #e8eaf6;
+    }
+
+    #tcomments [type="checkbox"]:not(:checked),
+    [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+
+    #tcomments b,
+    strong {
+        font-weight: bold;
+    }
+
+    #tcomments dfn {
+        font-style: italic;
+    }
+
+    #tcomments small {
+        font-size: 85%;
+    }
+
+    #tcomments cite {
+        font-style: normal;
+    }
+
+    #tcomments mark {
+        background-color: #fcf8e3;
+        padding: .2em;
+    }
+
+    #tcomments table,
+    th,
+    td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    table tr:nth-child(2n),
+    thead {
+        background-color: #fafafa;
+    }
+
+    #tcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #tcomments table td {
+        min-width: 80px;
+    }
+
+    #tcomments [type="checkbox"]:not(:checked),
+    [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+</style>
+
+<div class="card twikoo-card" data-aos="fade-up">
+    <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; padding-left: 20px; top: 15px; padding-bottom: 5px;">
+        <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
+        <span>评论</span>
+    </div>
+    <div class="card-content" style="display: grid">
+        <div id="tcomments"></div>
+    </div>
+</div>
+
+<script src="/libs/twikoo/twikoo.all.min.js"></script>
+<script>
+    twikoo.init({
+        envId: 'https://twikoo-fawn-omega.vercel.app',
+        el: '#tcomments',
+        region: '',
+        path: ''
+    }).then(function () {
+        var tkInputs = document.querySelector('#twikoo').getElementsByTagName('input');
+        for (var tkInputsIndex = 0; tkInputsIndex < tkInputs.length; tkInputsIndex++) {
+            if (tkInputs[tkInputsIndex]) {
+                tkInputs[tkInputsIndex].classList.add('browser-default');
+            }
+        }
+    });
+</script>
 
     
 
@@ -1048,13 +1333,6 @@
 </main>
 
 
-<script src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-<script>
-    MathJax.Hub.Config({
-        tex2jax: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
-    });
-</script>
-
 
 
     <footer class="page-footer bg-color">
@@ -1127,7 +1405,7 @@
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">123.3k</span>
+                        class="white-color">718.2k</span>
             
             
             
@@ -1398,15 +1676,7 @@ $(function () {
     
 
     <!-- 雪花特效 -->
-     
-        <script type="text/javascript">
-            // 只在桌面版网页启用特效
-            var windowWidth = $(window).width();
-            if (windowWidth > 768) {
-                document.write('<script type="text/javascript" src="/libs/others/snow.js"><\/script>');
-            }
-        </script>
-    
+    **
 
     <!-- 鼠标星星特效 -->
      

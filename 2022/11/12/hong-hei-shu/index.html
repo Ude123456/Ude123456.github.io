@@ -9,7 +9,10 @@
 
 学过了二叉查找树还有平衡二叉树以后，再看点更复杂的树形结构——红黑树，跟平衡二叉树一样，红黑树也是为了解决二叉搜索树不能自平衡的问题。红黑树是2-3树的变形，以2-3树的角度去理解红黑树会容易的多。
 
-先回忆一下AVL树：AVL树就是要">
+
+先回忆一下AVL树：
+
+AVL树">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -556,7 +559,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    5.7k
+                    6.1k
                 </div>
                 
 
@@ -579,84 +582,313 @@
                 <hr>
 <blockquote>
 <p>学过了二叉查找树还有平衡二叉树以后，再看点更复杂的树形结构——红黑树，跟平衡二叉树一样，红黑树也是为了解决二叉搜索树不能自平衡的问题。红黑树是2-3树的变形，以2-3树的角度去理解红黑树会容易的多。</p>
-<hr>
-<p>先回忆一下AVL树：<br><img src="/2022/11/12/hong-hei-shu/图1.png" alt><br>AVL树就是要保证插入结点后，任一结点对应的两棵子树的最大高度差为1，这样就可以保证整棵树的深度最小。</p>
 </blockquote>
+<hr>
+<p>先回忆一下AVL树：<br>
+<img src="/2022/11/12/hong-hei-shu/%E5%9B%BE1.png" alt><br>
+AVL树就是要保证插入结点后，任一结点对应的两棵子树的最大高度差为1，这样就可以保证整棵树的深度最小。</p>
 <p>AVL虽然高度平衡，但是我们发现它每次插入或者删除结点的时候，树的平衡都可能被打破，而且如果要一直保证也就是动态的来使得这个 AVL 树达到平衡是需要很多操作的，太多步的操作反而会影响这个树形结构的的性能。除非是在树结构变化特别少的情况，不然我们让AVL 树平衡的时候，搜索性能的提升可能还不够抵消平衡树所带来的性能消耗。所以就相继出现了2-3树和红黑树。</p>
 <hr>
-<h2 id="1、2-3树"><a href="#1、2-3树" class="headerlink" title="1、2-3树"></a>1、2-3树</h2><h3 id="1、什么是2-3树"><a href="#1、什么是2-3树" class="headerlink" title="1、什么是2-3树"></a>1、什么是2-3树</h3><p>2-3树的意思就是说，一个父节点可以有两个子结点，也可以有三个子结点，并且其也满足类似二叉搜索树的定义（父结点的值大于左子树，但小于右子树），所有叶子节点都在同一层。</p>
+<h2 id="1、2-3树">1、2-3树</h2>
+<h3 id="1、什么是2-3树">1、什么是2-3树</h3>
+<p>2-3树的意思就是说，一个父节点可以有两个子结点，也可以有三个子结点，并且其也满足类似二叉搜索树的定义（父结点的值大于左子树，但小于右子树），所有叶子节点都在同一层。</p>
 <p>2-3树的某个节点会有两种可能，一是正常的2节点，二是3节点：</p>
 <ul>
-<li>2节点：父亲节点存储一个值，最多有左右两个子树。假设父节点为p，子节点为l(左节点)、r(有节点)，且满足：<br>　　　　　　<script type="math/tex">l < p < r</script><br>如下图：<br><img src="/2022/11/12/hong-hei-shu/图2.png" alt></li>
-<li>3节点：父亲节点存储两个值，最多有左中右三个子树。假设父节点分别为p1,p2，子节点分别为l(左节点)、m(中间节点)、r(右节点)，且满足：<br>　　　　　<script type="math/tex">\begin{cases}
-l < p1  \\
-p1 < m < p2\\
-r > p2\\
-\end{cases}</script><br>如下图：<br><img src="/2022/11/12/hong-hei-shu/图3.png" alt><br>一颗完整的2-3树就如下图所示：<br><img src="/2022/11/12/hong-hei-shu/图4.png" alt></li>
+<li>2节点：父亲节点存储一个值，最多有左右两个子树。假设父节点为p，子节点为l(左节点)、r(有节点)，且满足：<br>
+　　　　　　$$l &lt; p &lt; r$$<br>
+如下图：<br>
+<img src="/2022/11/12/hong-hei-shu/%E5%9B%BE2.png" alt></li>
+<li>3节点：父亲节点存储两个值，最多有左中右三个子树。假设父节点分别为p1,p2，子节点分别为l(左节点)、m(中间节点)、r(右节点)，且满足：<br>
+　　　　　$$\begin{cases}<br>
+l &lt; p1  \<br>
+p1 &lt; m &lt; p2\<br>
+r &gt; p2\<br>
+\end{cases}$$<br>
+如下图：<br>
+<img src="/2022/11/12/hong-hei-shu/%E5%9B%BE3.png" alt><br>
+一颗完整的2-3树就如下图所示：<br>
+<img src="/2022/11/12/hong-hei-shu/%E5%9B%BE4.png" alt></li>
 </ul>
-<h3 id="2、2-3树的创建"><a href="#2、2-3树的创建" class="headerlink" title="2、2-3树的创建"></a>2、2-3树的创建</h3><p>假设有一组数据集合数组为<strong>{ 30, 13, 7, 43, 23, 12, 9, 33, 42, 21, 18, 6, 3, 50 }。</strong></p>
+<h3 id="2、2-3树的创建">2、2-3树的创建</h3>
+<p>假设有一组数据集合数组为**{ 30, 13, 7, 43, 23, 12, 9, 33, 42, 21, 18, 6, 3, 50 }。**</p>
 <p>创建2-3树的过程：</p>
-<p>1、将30作为根节点<br><img src="/2022/11/12/hong-hei-shu/图5.png" alt><br>2、插入13，13比30小，融合成一个值为（13  30）的3节点<br><img src="/2022/11/12/hong-hei-shu/图6.png" alt><br>3、插入7，7比13小，融合成一个值为（7  13  30）的4节点，然后分解<br><img src="/2022/11/12/hong-hei-shu/图7.png" alt><br>4、插入43，43大于13，43大于30，与30一起融合成3节点<br><img src="/2022/11/12/hong-hei-shu/图8.png" alt><br>5、插入23，23大于13，23小于30，与（30  43）融合成4节点，然后分解<br><img src="/2022/11/12/hong-hei-shu/图9.png" alt><br>6、插入12，12小于13，12大于7，与7融合成3节点<br><img src="/2022/11/12/hong-hei-shu/图10.png" alt><br>7、插入9，9小于13，9大于7，9小于12，与（7  12）融合成4节点，然后分解。分解后9升级到上一层，与（13  30）融合成4节点，再次分解<br><img src="/2022/11/12/hong-hei-shu/图11.png" alt><br>8、插入33，33大于13，33大于30，33小于43，与43融合成3节点<br><img src="/2022/11/12/hong-hei-shu/图12.png" alt><br>9、插入42，42大于13，42大于30，42大于33，42小于43，与（33  43）融合成4节点，然后分解<br><img src="/2022/11/12/hong-hei-shu/图13.png" alt><br>10、省略后面过程，最终生成结果为：<br><img src="/2022/11/12/hong-hei-shu/图14.png" alt><br>至此，我们创建了一颗2-3树，可以看出2-3树的平衡性还是很好的。</p>
-<h2 id="2、红黑树"><a href="#2、红黑树" class="headerlink" title="2、红黑树"></a>2、红黑树</h2><hr>
-<blockquote>
-<p>尽管有平衡二叉树和2-3树了，但是现在用的多的还是红黑树，主要是因为红黑树有这4点的优势：<br>1、AVL的左右子树高度差不能超过1，每次进行插入/删除操作时，几乎都需要通过旋转操作保持平衡。<br>2、在频繁进行插入/删除的场景中，频繁的旋转操作使得AVL的性能大打折扣。<br>3、红黑树通过牺牲严格的平衡，换取插入/删除时少量的旋转操作，整体性能优于AVL。（红黑树插入时的不平衡，不超过两次旋转就可以解决；删除时的不平衡，不超过三次旋转就能解决。）<br>4、红黑树的红黑规则，保证最坏的情况下，也能在O(log2N)时间内完成查找操作。</p>
+<p>1、将30作为根节点<br>
+<img src="/2022/11/12/hong-hei-shu/%E5%9B%BE5.png" alt><br>
+2、插入13，13比30小，融合成一个值为（13  30）的3节点<br>
+<img src="/2022/11/12/hong-hei-shu/%E5%9B%BE6.png" alt><br>
+3、插入7，7比13小，融合成一个值为（7  13  30）的4节点，然后分解<br>
+<img src="/2022/11/12/hong-hei-shu/%E5%9B%BE7.png" alt><br>
+4、插入43，43大于13，43大于30，与30一起融合成3节点<br>
+<img src="/2022/11/12/hong-hei-shu/%E5%9B%BE8.png" alt><br>
+5、插入23，23大于13，23小于30，与（30  43）融合成4节点，然后分解<br>
+<img src="/2022/11/12/hong-hei-shu/%E5%9B%BE9.png" alt><br>
+6、插入12，12小于13，12大于7，与7融合成3节点<br>
+<img src="/2022/11/12/hong-hei-shu/%E5%9B%BE10.png" alt><br>
+7、插入9，9小于13，9大于7，9小于12，与（7  12）融合成4节点，然后分解。分解后9升级到上一层，与（13  30）融合成4节点，再次分解<br>
+<img src="/2022/11/12/hong-hei-shu/%E5%9B%BE11.png" alt><br>
+8、插入33，33大于13，33大于30，33小于43，与43融合成3节点<br>
+<img src="/2022/11/12/hong-hei-shu/%E5%9B%BE12.png" alt><br>
+9、插入42，42大于13，42大于30，42大于33，42小于43，与（33  43）融合成4节点，然后分解<br>
+<img src="/2022/11/12/hong-hei-shu/%E5%9B%BE13.png" alt><br>
+10、省略后面过程，最终生成结果为：<br>
+<img src="/2022/11/12/hong-hei-shu/%E5%9B%BE14.png" alt><br>
+至此，我们创建了一颗2-3树，可以看出2-3树的平衡性还是很好的。</p>
+<h2 id="2、红黑树">2、红黑树</h2>
 <hr>
-<h3 id="1、将2-3树转换成红黑树"><a href="#1、将2-3树转换成红黑树" class="headerlink" title="1、将2-3树转换成红黑树"></a>1、将2-3树转换成红黑树</h3><p>创建了一棵2-3树以后，我们就可以进行一些结构上的变化<br>将所有的3节点进行变换，并且满足三个条件：</p>
+<blockquote>
+<p>尽管有平衡二叉树和2-3树了，但是现在用的多的还是红黑树，主要是因为红黑树有这4点的优势：<br>
+1、AVL的左右子树高度差不能超过1，每次进行插入/删除操作时，几乎都需要通过旋转操作保持平衡。<br>
+2、在频繁进行插入/删除的场景中，频繁的旋转操作使得AVL的性能大打折扣。<br>
+3、红黑树通过牺牲严格的平衡，换取插入/删除时少量的旋转操作，整体性能优于AVL。（红黑树插入时的不平衡，不超过两次旋转就可以解决；删除时的不平衡，不超过三次旋转就能解决。）<br>
+4、红黑树的红黑规则，保证最坏的情况下，也能在O(log2N)时间内完成查找操作。</p>
+</blockquote>
+<hr>
+<h3 id="1、将2-3树转换成红黑树">1、将2-3树转换成红黑树</h3>
+<p>创建了一棵2-3树以后，我们就可以进行一些结构上的变化<br>
+将所有的3节点进行变换，并且满足三个条件：</p>
 <ul>
 <li>红链接均为左链接。</li>
 <li>没有任何一个节点同时和两条红链接相连。</li>
 <li>任意空链接到根节点路径上的黑色连接数目相同。</li>
 </ul>
-</blockquote>
-<p>这三个条件均满足以后我们创建的就是一棵不那么标准的红黑树，如下图：<br><img src="/2022/11/12/hong-hei-shu/图15.png" alt></p>
-<h3 id="2、红黑树的性质"><a href="#2、红黑树的性质" class="headerlink" title="2、红黑树的性质"></a>2、红黑树的性质</h3><p>红黑树本身是一棵二叉查找树，在其基础上附加了两个要求：</p>
+<p>这三个条件均满足以后我们创建的就是一棵不那么标准的红黑树，如下图：<br>
+<img src="/2022/11/12/hong-hei-shu/%E5%9B%BE15.png" alt></p>
+<h3 id="2、红黑树的性质">2、红黑树的性质</h3>
+<p>红黑树本身是一棵二叉查找树，在其基础上附加了两个要求：</p>
 <ul>
 <li>树中的每个结点增加了一个用于存储颜色的标志域；</li>
 <li>树中没有一条路径比其他任何路径长出两倍，整棵树要接近于“平衡”的状态。</li>
 </ul>
 <hr>
 <blockquote>
-<p>路径：指的是从任何一个结点开始，一直到其子孙的叶子结点的长度；<br>接近于平衡：红黑树并不是平衡二叉树，只是由于对各路径的长度之差有限制，所以近似于平衡的状态。</p>
+<p>路径：指的是从任何一个结点开始，一直到其子孙的叶子结点的长度；<br>
+接近于平衡：红黑树并不是平衡二叉树，只是由于对各路径的长度之差有限制，所以近似于平衡的状态。</p>
+</blockquote>
 <hr>
-<p>下面图示的就是一棵典型的红黑树：<br><img src="/2022/11/12/hong-hei-shu/图16.png" alt></p>
+<p>下面图示的就是一棵典型的红黑树：<br>
+<img src="/2022/11/12/hong-hei-shu/%E5%9B%BE16.png" alt></p>
 <hr>
-<p>观察上图，可以发现红黑树的一些规律：<br>1、这些节点<strong>不是红色的就是黑色的</strong>，但是<strong>根节点是黑色的</strong>。<br>2、再看叶子节点，叶子节点跟普通的树不太一样，<strong>红黑树的叶子节点都是null节点（空节点）并且都为黑色的</strong>。<br>3、假设从根节点出发，然后从最左边的路径走到叶子节点，都没有连续的红色节点。所以可以得出一个结论，<strong>同一路径，不存在连续的红色节点</strong>。<br>以上观察出来的这三条规律就是红黑规则的一部分。</p>
+<blockquote>
+<p>观察上图，可以发现红黑树的一些规律：<br>
+1、这些节点<strong>不是红色的就是黑色的</strong>，但是<strong>根节点是黑色的</strong>。<br>
+2、再看叶子节点，叶子节点跟普通的树不太一样，<strong>红黑树的叶子节点都是null节点（空节点）并且都为黑色的</strong>。<br>
+3、假设从根节点出发，然后从最左边的路径走到叶子节点，都没有连续的红色节点。所以可以得出一个结论，<strong>同一路径，不存在连续的红色节点</strong>。<br>
+以上观察出来的这三条规律就是红黑规则的一部分。</p>
+</blockquote>
 <hr>
 <p>因此我们就可以得出红黑树的红黑规则了：</p>
-</blockquote>
 <ul>
 <li>性质1：每个结点要么是黑色，要么是红色。</li>
 <li>性质2：根节点是黑色。</li>
 <li>性质3：每个叶子结点（NIL）是黑色。</li>
 <li>性质4：每个红色结点的两个子结点一定都是黑色。</li>
 <li>性质5：任意一结点到每个叶子结点的路径都包含数量相同的黑结点。</li>
-<li>从性质5又可以推出：<pre><code>    性质5.1：如果一个结点存在黑子结点，那么该结点肯定有两个子结点
-</code></pre></li>
+<li>从性质5又可以推出：<br>
+性质5.1：如果一个结点存在黑子结点，那么该结点肯定有两个子结点</li>
 </ul>
-<h3 id="3、红黑树的术语约定"><a href="#3、红黑树的术语约定" class="headerlink" title="3、红黑树的术语约定"></a>3、红黑树的术语约定</h3><p><img src="/2022/11/12/hong-hei-shu/图17.png" alt><br>正在遍历的结点称做当前结点，如图2中的D，它的父亲叫做父结点，它的父亲的另外一个子结点叫做叔叔结点，父亲的父亲叫做祖父结点。</p>
-<h3 id="4、红黑树基本操作"><a href="#4、红黑树基本操作" class="headerlink" title="4、红黑树基本操作"></a>4、红黑树基本操作</h3><blockquote>
-<p>$\color{red}{红黑树总是通过旋转和变色达到自平衡}$</p>
+<h3 id="3、红黑树的术语约定">3、红黑树的术语约定</h3>
+<p><img src="/2022/11/12/hong-hei-shu/%E5%9B%BE17.png" alt><br>
+正在遍历的结点称做当前结点，如图2中的D，它的父亲叫做父结点，它的父亲的另外一个子结点叫做叔叔结点，父亲的父亲叫做祖父结点。</p>
+<h3 id="4、红黑树基本操作">4、红黑树基本操作</h3>
+<blockquote>
+<p>
+    <span id="mjx-7820e9e8">
+      <style>
+      #mjx-7820e9e8{
+        display:contents;
+        mjx-assistive-mml {
+          user-select: text !important;
+          clip: auto !important;
+          color: rgba(0,0,0,0);
+        }
+        
+mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+  min-height: 1px;
+  min-width: 1px;
+}
+
+mjx-container[jax="SVG"] > svg a {
+  fill: blue;
+  stroke: blue;
+}
+
+mjx-assistive-mml {
+  position: absolute !important;
+  top: 0px;
+  left: 0px;
+  clip: rect(1px, 1px, 1px, 1px);
+  padding: 1px 0px 0px 0px !important;
+  border: 0px !important;
+  display: block !important;
+  width: auto !important;
+  overflow: hidden !important;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+mjx-assistive-mml[display="block"] {
+  width: 100% !important;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][display="true"][width="full"] {
+  display: flex;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line], svg[data-table] > g > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame], svg[data-table] > g > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed, svg[data-table] > g > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted, svg[data-table] > g > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > g > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"] path[data-c], mjx-container[jax="SVG"] use[data-c] {
+  stroke-width: 3;
+}
+
+g[data-mml-node="xypic"] path {
+  stroke-width: inherit;
+}
+
+.MathJax g[data-mml-node="xypic"] path {
+  stroke-width: inherit;
+}
+
+      }
+      </style>
+      <mjx-container class="MathJax" jax="SVG" style="position: relative;"><svg style="vertical-align: -0.452ex;" xmlns="http://www.w3.org/2000/svg" width="38.462ex" height="2.149ex" role="img" focusable="false" viewbox="0 -750 17000 950" aria-hidden="true"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mstyle" fill="red" stroke="red"><g data-mml-node="TeXAtom" data-mjx-texclass="ORD"><g data-mml-node="mi"><text data-variant="normal" transform="scale(1,-1)" font-size="884px" font-family="serif">红</text></g><g data-mml-node="mi" transform="translate(1000,0)"><text data-variant="normal" transform="scale(1,-1)" font-size="884px" font-family="serif">黑</text></g><g data-mml-node="mi" transform="translate(2000,0)"><text data-variant="normal" transform="scale(1,-1)" font-size="884px" font-family="serif">树</text></g><g data-mml-node="mi" transform="translate(3000,0)"><text data-variant="normal" transform="scale(1,-1)" font-size="884px" font-family="serif">总</text></g><g data-mml-node="mi" transform="translate(4000,0)"><text data-variant="normal" transform="scale(1,-1)" font-size="884px" font-family="serif">是</text></g><g data-mml-node="mi" transform="translate(5000,0)"><text data-variant="normal" transform="scale(1,-1)" font-size="884px" font-family="serif">通</text></g><g data-mml-node="mi" transform="translate(6000,0)"><text data-variant="normal" transform="scale(1,-1)" font-size="884px" font-family="serif">过</text></g><g data-mml-node="mi" transform="translate(7000,0)"><text data-variant="normal" transform="scale(1,-1)" font-size="884px" font-family="serif">旋</text></g><g data-mml-node="mi" transform="translate(8000,0)"><text data-variant="normal" transform="scale(1,-1)" font-size="884px" font-family="serif">转</text></g><g data-mml-node="mi" transform="translate(9000,0)"><text data-variant="normal" transform="scale(1,-1)" font-size="884px" font-family="serif">和</text></g><g data-mml-node="mi" transform="translate(10000,0)"><text data-variant="normal" transform="scale(1,-1)" font-size="884px" font-family="serif">变</text></g><g data-mml-node="mi" transform="translate(11000,0)"><text data-variant="normal" transform="scale(1,-1)" font-size="884px" font-family="serif">色</text></g><g data-mml-node="mi" transform="translate(12000,0)"><text data-variant="normal" transform="scale(1,-1)" font-size="884px" font-family="serif">达</text></g><g data-mml-node="mi" transform="translate(13000,0)"><text data-variant="normal" transform="scale(1,-1)" font-size="884px" font-family="serif">到</text></g><g data-mml-node="mi" transform="translate(14000,0)"><text data-variant="normal" transform="scale(1,-1)" font-size="884px" font-family="serif">自</text></g><g data-mml-node="mi" transform="translate(15000,0)"><text data-variant="normal" transform="scale(1,-1)" font-size="884px" font-family="serif">平</text></g><g data-mml-node="mi" transform="translate(16000,0)"><text data-variant="normal" transform="scale(1,-1)" font-size="884px" font-family="serif">衡</text></g></g></g></g></g></svg><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle mathcolor="red"><mrow data-mjx-texclass="ORD"><mi mathvariant="normal">红</mi><mi mathvariant="normal">黑</mi><mi mathvariant="normal">树</mi><mi mathvariant="normal">总</mi><mi mathvariant="normal">是</mi><mi mathvariant="normal">通</mi><mi mathvariant="normal">过</mi><mi mathvariant="normal">旋</mi><mi mathvariant="normal">转</mi><mi mathvariant="normal">和</mi><mi mathvariant="normal">变</mi><mi mathvariant="normal">色</mi><mi mathvariant="normal">达</mi><mi mathvariant="normal">到</mi><mi mathvariant="normal">自</mi><mi mathvariant="normal">平</mi><mi mathvariant="normal">衡</mi></mrow></mstyle></math></mjx-assistive-mml></mjx-container>
+    </span>
+  </p>
 </blockquote>
-<p>1、左旋<br><img src="/2022/11/12/hong-hei-shu/图18.gif" alt></p>
+<p>1、左旋<br>
+<img src="/2022/11/12/hong-hei-shu/%E5%9B%BE18.gif" alt></p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">left_rotate</span><span class="params">(RBT_Node* x)</span> <span class="comment">//x 表示需要进行左旋的子树的根结点</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	RBT_Node* y = x-&gt;right_Child;  <span class="comment">//找到根节点的右子树</span></span><br><span class="line">    x-&gt;right_Child = y-&gt;left_Child;  <span class="comment">//将右子树的左孩子移动至节点x的右孩子处</span></span><br><span class="line">        </span><br><span class="line">    <span class="comment">//y所指结点的左结点不为空</span></span><br><span class="line">    <span class="keyword">if</span> (y-&gt;left_Child != nil)</span><br><span class="line">    &#123;</span><br><span class="line">    	y-&gt;left_Child-&gt;parent = x;</span><br><span class="line">	&#125;</span><br><span class="line">    y-&gt;parent = x-&gt;parent;  <span class="comment">//设置y的双亲结点为x的双亲节点</span></span><br><span class="line">        </span><br><span class="line">    <span class="comment">//判断x节点是不是其父节点的左右子树</span></span><br><span class="line">    <span class="keyword">if</span> (x-&gt;parent == nil)</span><br><span class="line">    &#123;</span><br><span class="line">		root = y;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span> <span class="keyword">if</span> (x-&gt;parent-&gt;left_Child == x)<span class="comment">//x在左子树</span></span><br><span class="line">    &#123;</span><br><span class="line">		x-&gt;parent-&gt;left_Child = y;</span><br><span class="line">	&#125;</span><br><span class="line">    <span class="keyword">else</span>  <span class="comment">//x在右子树</span></span><br><span class="line">    &#123;</span><br><span class="line">    	x-&gt;parent-&gt;right_Child = y;</span><br><span class="line">    &#125;</span><br><span class="line">    x-&gt;parent = y;</span><br><span class="line">    y-&gt;left_Child = x;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>2、右旋<br><img src="/2022/11/12/hong-hei-shu/图19.gif" alt></p>
+<p>2、右旋<br>
+<img src="/2022/11/12/hong-hei-shu/%E5%9B%BE19.gif" alt></p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//右旋操作（与左子树操作基本相同）</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">right_rotate</span><span class="params">(RBT_Node* x)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	RBT_Node* y = x-&gt;left_Child;</span><br><span class="line">	x-&gt;left_Child = y-&gt;right_Child;</span><br><span class="line">	<span class="keyword">if</span> (y-&gt;right_Child != nil)</span><br><span class="line">	&#123;</span><br><span class="line">		y-&gt;right_Child-&gt;parent = x;</span><br><span class="line">	&#125;</span><br><span class="line">	y-&gt;parent = x-&gt;parent;</span><br><span class="line">	<span class="keyword">if</span> (x-&gt;parent == nil)</span><br><span class="line">	&#123;</span><br><span class="line">		root = y;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span> <span class="keyword">if</span> (x-&gt;parent-&gt;left_Child == x)</span><br><span class="line">	&#123;</span><br><span class="line">		x-&gt;parent-&gt;left_Child = y;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">	&#123;</span><br><span class="line">		x-&gt;parent-&gt;right_Child = y;</span><br><span class="line">	&#125;</span><br><span class="line">	x-&gt;parent = y;</span><br><span class="line">	y-&gt;right_Child = x;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><img src="/2022/11/12/hong-hei-shu/图20.png" alt></p>
+<p><img src="/2022/11/12/hong-hei-shu/%E5%9B%BE20.png" alt></p>
 <p>3、变色</p>
 <p>结点的颜色由红变黑或由黑变红。</p>
-<h3 id="5、红黑树的插入"><a href="#5、红黑树的插入" class="headerlink" title="5、红黑树的插入"></a>5、红黑树的插入</h3><blockquote>
-<p>在创建红黑树或者向已有红黑树中添加新的数据时，其实我们只需要按部就班地执行以下3 步操作：<br>1、由于红黑树本身是一棵二叉查找树，所以在插入新的结点时，完全按照二叉查找树插入结点的方法，找到新结点插入的位置；<br>2、将新插入的结点结点初始化，颜色设置为红色后插入到指定位置；（将新结点初   始化为红色插入后，不会破坏红黑树第 5 条的性质）<br>3、由于插入新的结点，可能会破坏红黑树第 4 条的性质（若其父结点颜色为红色，就破坏了红黑树的性质），此时需要调整二叉查找树，想办法通过旋转以及修改树中结点的颜色，使其重新成为红黑树！</p>
+<h3 id="5、红黑树的插入">5、红黑树的插入</h3>
+<blockquote>
+<p>在创建红黑树或者向已有红黑树中添加新的数据时，其实我们只需要按部就班地执行以下3 步操作：<br>
+1、由于红黑树本身是一棵二叉查找树，所以在插入新的结点时，完全按照二叉查找树插入结点的方法，找到新结点插入的位置；<br>
+2、将新插入的结点结点初始化，颜色设置为红色后插入到指定位置；（将新结点初   始化为红色插入后，不会破坏红黑树第 5 条的性质）<br>
+3、由于插入新的结点，可能会破坏红黑树第 4 条的性质（若其父结点颜色为红色，就破坏了红黑树的性质），此时需要调整二叉查找树，想办法通过旋转以及修改树中结点的颜色，使其重新成为红黑树！</p>
 </blockquote>
 <p>第一步和第二步都比较容易，与二叉查找树差不多，最麻烦的就是第三步对树的调整。在红黑树中插入结点时，根据插入位置的不同可分为以下 3 种情况，前两种都比较简单：</p>
 <p>第一种，插入位置为整棵树的树根。处理办法：只需要将插入结点的颜色改为黑色即可。</p>
 <p>第二种：如果插入位置的双亲结点的颜色为黑色。处理方法：此种情况不需要做任何工作，新插入的颜色为红色的结点不会破坏红黑树的性质。</p>
 <p>第三种情况就麻烦了，插入位置的双亲结点的颜色为红色。同样的，我们也有相对应的处理方法：因为插入结点颜色为红色，并且双亲结点也是红色的，所以破坏了红黑树第 4 条性质，那么这个时候就需要结合其祖父结点和祖父结点的另一个孩子结点（即叔叔结点）的状态，在这里我们又要分成 3 种情况来讨论：</p>
-<p>1、当前结点的父节点是红色，且“叔叔结点”也是红色，所以破坏了红黑树的第 4 条性质。此时的解决方案就是：我们将父结点颜色改为黑色；将叔叔结点颜色改为黑色；再将祖父结点颜色改为红色；下一步将祖父结点认做当前结点，继续判断，处理结果如下图所示：<br><img src="/2022/11/12/hong-hei-shu/图21.png" alt><br>分析：此种情况下，由于父结点和当前结点颜色都是红色，所以为了不产生冲突，将父结点的颜色改为黑色。但是虽避免了破坏第 4 条，但是却导致该条路径上的黑高度增加了 1 ，破坏了第 5 条性质。但是在将祖父结点颜色改为红色、叔叔结点颜色改为黑色后，该部分子树没有破坏第 5 条性质。但是由于将祖父结点的颜色改变，还需判断是否破坏了上层树的结构，所以需要将祖父结点看做当前结点，继续判断。</p>
-<p>2、当前结点的父结点颜色为红色，叔叔结点颜色为黑色，且当前结点是父结点的右孩子。解决方案：将父结点作为当前结点做左旋操作。<br><img src="/2022/11/12/hong-hei-shu/图22.png" alt><br>在进行以父结点为当前结点的左旋操作后，此种情况就转变成了第 3 种情况，处理过程跟第 3 种情况同步进行。</p>
-<p>3、当前结点的父结点颜色为红色，叔叔结点颜色为黑色，且当前结点是父结点的左孩子。解决方案：将父结点颜色改为黑色，祖父结点颜色改为红色，从祖父结点处进行右旋处理。如下图所示：<br><img src="/2022/11/12/hong-hei-shu/图23.png" alt><br>分析：在此种情况下，由于当前结点 F 和父结点 S 颜色都为红色，违背了红黑树的性质 4，此时可以将 S 颜色改为黑色，又违反了性质 5，因为所有通过 S 的路径其黑高度都增加了 1 ，所以需要将其祖父结点颜色设为红色后紧接一个右旋，这样这部分子树有成为了红黑树。（上图中的右图虽看似不是红黑树，但是只是整棵树的一部分，以 S 为根结点的子树一定是一棵红黑树)</p>
+<p>1、当前结点的父节点是红色，且“叔叔结点”也是红色，所以破坏了红黑树的第 4 条性质。此时的解决方案就是：我们将父结点颜色改为黑色；将叔叔结点颜色改为黑色；再将祖父结点颜色改为红色；下一步将祖父结点认做当前结点，继续判断，处理结果如下图所示：<br>
+<img src="/2022/11/12/hong-hei-shu/%E5%9B%BE21.png" alt><br>
+分析：此种情况下，由于父结点和当前结点颜色都是红色，所以为了不产生冲突，将父结点的颜色改为黑色。但是虽避免了破坏第 4 条，但是却导致该条路径上的黑高度增加了 1 ，破坏了第 5 条性质。但是在将祖父结点颜色改为红色、叔叔结点颜色改为黑色后，该部分子树没有破坏第 5 条性质。但是由于将祖父结点的颜色改变，还需判断是否破坏了上层树的结构，所以需要将祖父结点看做当前结点，继续判断。</p>
+<p>2、当前结点的父结点颜色为红色，叔叔结点颜色为黑色，且当前结点是父结点的右孩子。解决方案：将父结点作为当前结点做左旋操作。<br>
+<img src="/2022/11/12/hong-hei-shu/%E5%9B%BE22.png" alt><br>
+在进行以父结点为当前结点的左旋操作后，此种情况就转变成了第 3 种情况，处理过程跟第 3 种情况同步进行。</p>
+<p>3、当前结点的父结点颜色为红色，叔叔结点颜色为黑色，且当前结点是父结点的左孩子。解决方案：将父结点颜色改为黑色，祖父结点颜色改为红色，从祖父结点处进行右旋处理。如下图所示：<br>
+<img src="/2022/11/12/hong-hei-shu/%E5%9B%BE23.png" alt><br>
+分析：在此种情况下，由于当前结点 F 和父结点 S 颜色都为红色，违背了红黑树的性质 4，此时可以将 S 颜色改为黑色，又违反了性质 5，因为所有通过 S 的路径其黑高度都增加了 1 ，所以需要将其祖父结点颜色设为红色后紧接一个右旋，这样这部分子树有成为了红黑树。（上图中的右图虽看似不是红黑树，但是只是整棵树的一部分，以 S 为根结点的子树一定是一棵红黑树)</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">RBT_Node* <span class="title">Insert_BST</span><span class="params">(RBT_Node*&amp; p, RBT_Node*&amp; r, <span class="type">const</span> <span class="type">int</span>&amp; v)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (r == nil)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="comment">//数为空</span></span><br><span class="line">		r = <span class="keyword">new</span> <span class="built_in">RBT_Node</span>(v, RED, nil, nil, p);</span><br><span class="line">		<span class="keyword">if</span> (p == nil)</span><br><span class="line">		&#123;</span><br><span class="line">			root = r;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span> (v &gt; p-&gt;val)  <span class="comment">//插入的节点键值小于父节点的键值</span></span><br><span class="line">		&#123;</span><br><span class="line">			p-&gt;right_Child = r;  <span class="comment">//则该节点成为父节点右孩子</span></span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">		&#123;</span><br><span class="line">			p-&gt;left_Child = r;  <span class="comment">//则该节点成为父节点右孩子</span></span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//若不为空，则一直搜索直至找到空</span></span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span> (v &lt; r-&gt;val)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="built_in">Insert_BST</span>(r,r-&gt;left_Child, v);  <span class="comment">//利用递归进行调用</span></span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="built_in">Insert_BST</span>(r,r-&gt;right_Child, v);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> r;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//插入后的调整函数</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">insert</span><span class="params">(<span class="type">const</span> <span class="type">int</span>&amp; v)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	RBT_Node* z = <span class="built_in">Insert_BST</span>(nil, root, v);</span><br><span class="line">	<span class="comment">//首先判断其父节点颜色为红色时才需要调整；为黑色时直接插入即可，不需要调整</span></span><br><span class="line">	<span class="keyword">while</span> (z-&gt;parent-&gt;color == RED)  <span class="comment">//父节点的颜色为红色</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="comment">//由于还涉及到其叔叔节点，所以此处需分开讨论，确定父节点是祖父节点的左孩子还是右孩子</span></span><br><span class="line">		<span class="keyword">if</span> (z-&gt;parent-&gt;parent-&gt;left_Child == z-&gt;parent)  <span class="comment">//父节点是左节点</span></span><br><span class="line">		&#123;</span><br><span class="line">			<span class="comment">//叔节点为红色</span></span><br><span class="line">			<span class="keyword">if</span> (z-&gt;parent-&gt;parent-&gt;right_Child-&gt;color == RED)  </span><br><span class="line">			&#123;</span><br><span class="line">				<span class="comment">/*如果叔叔结节点颜色为红色，此为第 1 种情况，</span></span><br><span class="line"><span class="comment">				处理方法为：父节点颜色改为黑色；叔叔节点颜色改为黑色；祖父节点颜色改为红色，将祖父节点赋值为当前结点，继续判					断；*/</span></span><br><span class="line">				z-&gt;parent-&gt;color = BLACK;  <span class="comment">//父节点</span></span><br><span class="line">				z-&gt;parent-&gt;parent-&gt;right_Child-&gt;color = BLACK;  <span class="comment">//叔节点</span></span><br><span class="line">				z-&gt;parent-&gt;parent-&gt;color = RED;  <span class="comment">//祖父节点</span></span><br><span class="line">				z = z-&gt;parent-&gt;parent;  </span><br><span class="line">			&#125;</span><br><span class="line">			<span class="comment">/*反之，如果叔叔节点颜色为黑色，</span></span><br><span class="line"><span class="comment">			此处需分为两种情况：1、当前节点是父节点的右孩子；2、当前节点是父节点的左孩子*/</span></span><br><span class="line">			<span class="keyword">else</span></span><br><span class="line">			&#123;</span><br><span class="line">				<span class="comment">/*当前节点的父节点颜色为红色，叔叔节点颜色为黑色，且当前节点是父节点的右孩子。</span></span><br><span class="line"><span class="comment">				解决方案：将父节点作为当前节点做左旋操作。*/</span></span><br><span class="line">				<span class="keyword">if</span> (z-&gt;parent-&gt;right_Child == z)</span><br><span class="line">				&#123;</span><br><span class="line">					z = z-&gt;parent;</span><br><span class="line">					<span class="built_in">left_rotate</span>(z);</span><br><span class="line">				&#125;</span><br><span class="line">				<span class="comment">/*当前节点的父节点颜色为红色，叔叔节点颜色为黑色，且当前节点是父节点的左孩子。</span></span><br><span class="line"><span class="comment">				解决方案：将父节点颜色改为黑色，祖父节点颜色改为红色，从祖父节点处进行右旋处理。*/</span></span><br><span class="line">				z-&gt;parent-&gt;color = BLACK;</span><br><span class="line">				z-&gt;parent-&gt;parent-&gt;color = RED;</span><br><span class="line">				<span class="built_in">right_rotate</span>(z-&gt;parent-&gt;parent);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">            </span><br><span class="line">		<span class="comment">/*如果父节点时祖父节点的右孩子只需将以上代码部分中的left改为right即可，道理是一样的。*/</span></span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">if</span> (z-&gt;parent-&gt;parent-&gt;left_Child-&gt;color == RED)</span><br><span class="line">			&#123;</span><br><span class="line">				z-&gt;parent-&gt;color = BLACK;</span><br><span class="line">				z-&gt;parent-&gt;parent-&gt;color = RED;</span><br><span class="line">				z-&gt;parent-&gt;parent-&gt;left_Child-&gt;color = BLACK;</span><br><span class="line">				z = z-&gt;parent-&gt;parent;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">else</span></span><br><span class="line">			&#123;</span><br><span class="line">				<span class="keyword">if</span> (z-&gt;parent-&gt;left_Child == z)</span><br><span class="line">				&#123;</span><br><span class="line">					z = z-&gt;parent;</span><br><span class="line">					<span class="built_in">right_rotate</span>(z);</span><br><span class="line">				&#125;</span><br><span class="line">				z-&gt;parent-&gt;color = BLACK;</span><br><span class="line">				z-&gt;parent-&gt;parent-&gt;color = RED;</span><br><span class="line">				<span class="built_in">left_rotate</span>(z-&gt;parent-&gt;parent);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	root-&gt;color = BLACK;  <span class="comment">//将根节点的颜色设置为黑色</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="6、红黑树的删除"><a href="#6、红黑树的删除" class="headerlink" title="6、红黑树的删除"></a>6、红黑树的删除</h3><blockquote>
-<p>删除节点要比插入节点简单一点，在红黑树中删除结点，只需要完成 2 步操作：<br>1、将红黑树按照二叉查找树删除结点的方法删除指定结点；<br>2、重新调整删除结点后的树，使之重新成为红黑树；（还是通过旋转和重新着色的方式进行调整）</p>
+<h3 id="6、红黑树的删除">6、红黑树的删除</h3>
+<blockquote>
+<p>删除节点要比插入节点简单一点，在红黑树中删除结点，只需要完成 2 步操作：<br>
+1、将红黑树按照二叉查找树删除结点的方法删除指定结点；<br>
+2、重新调整删除结点后的树，使之重新成为红黑树；（还是通过旋转和重新着色的方式进行调整）</p>
 </blockquote>
 <p>在树删除结点的时候，又要分为 3 种情况：</p>
 <p>第一种：若该删除结点本身是叶子结点，则可以直接删除；</p>
@@ -667,11 +899,18 @@ r > p2\\
 <li>如果删除结点的颜色为红色，则不会破坏；</li>
 <li>如果删除结点的颜色为黑色，则肯定会破坏红黑树的第 5 条性质，此时就需要对树进行调整，调整方案又分成4种情况讨论：</li>
 </ul>
-<p>1、删除结点的兄弟结点颜色是红色，调整措施为：将兄弟结点颜色改为黑色，父亲结点改为红色，以父亲结点来进行左旋操作，同时更新删除结点的兄弟结点（左旋后兄弟结点发生了变化），如下图所示：<br><img src="/2022/11/12/hong-hei-shu/图24.png" alt><br>2、删除结点的兄弟结点及其孩子全部都是黑色的，调整措施为：将删除结点的兄弟结点设为红色，同时设置删除结点的父结点标记为新的结点，继续判断；</p>
+<p>1、删除结点的兄弟结点颜色是红色，调整措施为：将兄弟结点颜色改为黑色，父亲结点改为红色，以父亲结点来进行左旋操作，同时更新删除结点的兄弟结点（左旋后兄弟结点发生了变化），如下图所示：<br>
+<img src="/2022/11/12/hong-hei-shu/%E5%9B%BE24.png" alt><br>
+2、删除结点的兄弟结点及其孩子全部都是黑色的，调整措施为：将删除结点的兄弟结点设为红色，同时设置删除结点的父结点标记为新的结点，继续判断；</p>
 <p>3、删除结点的兄弟结点是黑色，其左孩子是红色，右孩子是黑色。调整措施为：将兄弟结点设为红色，兄弟结点的左孩子结点设为黑色，以兄弟结点为准进行右旋操作，最终更新删除结点的兄弟结点；</p>
 <p>4、删除结点的兄弟结点是黑色，其右孩子是红色（左孩子不管是什么颜色），调整措施为：将删除结点的父结点的颜色赋值给其兄弟结点，然后再设置父结点颜色为黑色，兄弟结点的右孩子结点为黑色，根据其父结点做左旋操作，最后设置替换删除结点的结点为根结点；</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">RBT_Transplant</span><span class="params">(RBT_Node*&amp; u, RBT_Node*&amp; v)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (u-&gt;parent == nil)</span><br><span class="line">    &#123;</span><br><span class="line">        root = v;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (u == u-&gt;parent-&gt;left_Child)</span><br><span class="line">    &#123;</span><br><span class="line">        u-&gt;parent-&gt;left_Child = v;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        u-&gt;parent-&gt;right_Child = v;</span><br><span class="line">    &#125;</span><br><span class="line">    v-&gt;parent = u-&gt;parent;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//删除节点</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">Delete_RBT</span><span class="params">(RBT_Node* z)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    RBT_Node* y = z;</span><br><span class="line">    <span class="type">bool</span> delcol = y-&gt;color;</span><br><span class="line">    RBT_Node* x = z;</span><br><span class="line">    <span class="comment">/*如果只有一个孩子结点（只有左孩子或只有右孩子），</span></span><br><span class="line"><span class="comment">    直接用孩子结点顶替该结点位置即可（没有孩子结点的也走此判断语句）。*/</span></span><br><span class="line">    <span class="keyword">if</span> (z-&gt;left_Child == nil)</span><br><span class="line">    &#123;</span><br><span class="line">        x = z-&gt;right_Child;</span><br><span class="line">        <span class="built_in">RBT_Transplant</span>(z, z-&gt;right_Child);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (z-&gt;right_Child == nil)</span><br><span class="line">    &#123;</span><br><span class="line">        x = z-&gt;left_Child;</span><br><span class="line">        <span class="built_in">RBT_Transplant</span>(z, z-&gt;left_Child);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//如果两个孩子，就找到右子树中最小的结点，将之代替，然后直接删除该结点即可</span></span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        y = <span class="built_in">Find_min</span>(z-&gt;right_Child);</span><br><span class="line">        delcol = y-&gt;color;</span><br><span class="line">        x = y-&gt;right_Child;</span><br><span class="line">        <span class="keyword">if</span> (y-&gt;parent == z)</span><br><span class="line">        &#123;</span><br><span class="line">            x-&gt;parent = y;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">RBT_Transplant</span>(y, y-&gt;right_Child);</span><br><span class="line">            y-&gt;right_Child = z-&gt;right_Child;</span><br><span class="line">            y-&gt;right_Child-&gt;parent = y;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">RBT_Transplant</span>(z, y);</span><br><span class="line">        y-&gt;left_Child = z-&gt;left_Child;</span><br><span class="line">        y-&gt;left_Child-&gt;parent = y;</span><br><span class="line">        y-&gt;color = z-&gt;color;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/*在删除该结点之前，需判断此结点的颜色：如果是红色，直接删除，不会破坏红黑树；</span></span><br><span class="line"><span class="comment">    若是黑色，删除后会破坏红黑树的第 5 条性质，需要对树做调整。*/</span></span><br><span class="line">    <span class="keyword">if</span> (delcol == BLACK)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">Delete_Fixup_RBT</span>(x);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">Delete_RBT</span><span class="params">(<span class="type">const</span> <span class="type">int</span>&amp; v)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    RBT_Node* z = <span class="built_in">Get_Node</span>(root, v);</span><br><span class="line">    <span class="keyword">if</span> (z == nil)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">Delete_RBT</span>(z);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//删除后调整树节点</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">Delete_Fixup_RBT</span><span class="params">(RBT_Node* x)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">while</span> (x != root &amp;&amp; x-&gt;color == BLACK)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (x == x-&gt;parent-&gt;left_Child)</span><br><span class="line">        &#123;</span><br><span class="line">            RBT_Node* w = x-&gt;parent-&gt;right_Child;</span><br><span class="line">            <span class="comment">/*第 1 种情况：删除节点的兄弟节点颜色是红色。</span></span><br><span class="line"><span class="comment">            解决方案为：将兄弟节点颜色改为黑色，父亲节点改为红色，以父亲节点来进行左旋操作，同时更新删除结点的兄弟结点（左旋后			 兄弟结点发生了变化）*/</span></span><br><span class="line">            <span class="keyword">if</span> (w-&gt;color == RED)</span><br><span class="line">            &#123;</span><br><span class="line">                w-&gt;color = BLACK;</span><br><span class="line">                x-&gt;parent-&gt;color = RED;</span><br><span class="line">                <span class="built_in">left_rotate</span>(x-&gt;parent);</span><br><span class="line">                w = x-&gt;parent-&gt;right_Child;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">/*第2种情况：删除节点的兄弟节点及其孩子全部都是黑色的。</span></span><br><span class="line"><span class="comment">            解决方案为：将删除节点的兄弟结点设为红色，同时设置删除节点的父节点标记为新的结点，继续判断*/</span></span><br><span class="line">            <span class="keyword">if</span> (w-&gt;left_Child-&gt;color == BLACK &amp;&amp; w-&gt;right_Child-&gt;color== BLACK)</span><br><span class="line">            &#123;</span><br><span class="line">                w-&gt;color = RED;</span><br><span class="line">                x = x-&gt;parent;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">            &#123;</span><br><span class="line">                <span class="comment">/*第3种情况：删除节点的兄弟结点是黑色，其左孩子是红色，右孩子是黑色。</span></span><br><span class="line"><span class="comment">                解决方案为：将兄弟节点设为红色，兄弟节点的左孩子结点设为黑色，以兄弟节点为准进行右旋操作，最终更新删除结点的兄				    弟节点*/</span></span><br><span class="line">                <span class="keyword">if</span> (w-&gt;right_Child-&gt;color == BLACK)</span><br><span class="line">                &#123;</span><br><span class="line">                    w-&gt;left_Child-&gt;color = BLACK;</span><br><span class="line">                    w-&gt;color = RED;</span><br><span class="line">                    <span class="built_in">right_rotate</span>(w);</span><br><span class="line">                    w = x-&gt;parent-&gt;right_Child;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="comment">/*第4种情况：删除节点的兄弟结点是黑色，其右孩子是红色（左孩子不管是什么颜色）</span></span><br><span class="line"><span class="comment">                解决方案为：将删除节点的父节点的颜色赋值给其兄弟节点，然后再设置父节点颜色为黑色，兄弟节点的右孩子节点为黑色，				    根据其父节点做左旋操作，最后设置替换删除节点的结点为根结点；将删除节点的父节点的颜色赋值给其兄弟节点，然后再设				    置父节点颜色为黑色，兄弟节点的右孩子节点为黑色，根据其父节点做左旋操作，最后设置替换删除节点的结点为根节点*/</span></span><br><span class="line">                w-&gt;color = x-&gt;parent-&gt;color;</span><br><span class="line">                x-&gt;parent-&gt;color = BLACK;</span><br><span class="line">                w-&gt;right_Child-&gt;color = BLACK;</span><br><span class="line">                <span class="built_in">left_rotate</span>(x-&gt;parent);</span><br><span class="line">                x = root;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            RBT_Node* w = x-&gt;parent-&gt;left_Child;</span><br><span class="line">            <span class="keyword">if</span> (w-&gt;color == RED)</span><br><span class="line">            &#123;</span><br><span class="line">                w-&gt;color = BLACK;</span><br><span class="line">                x-&gt;parent-&gt;color = RED;</span><br><span class="line">                <span class="built_in">right_rotate</span>(x-&gt;parent);</span><br><span class="line">                w = x-&gt;parent-&gt;left_Child;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (w-&gt;right_Child-&gt;color == BLACK &amp;&amp; w-&gt;left_Child-&gt;color== RED)</span><br><span class="line">            &#123;</span><br><span class="line">                w-&gt;color = RED;</span><br><span class="line">                x = x-&gt;parent;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span> (w-&gt;left_Child-&gt;color == BLACK)</span><br><span class="line">                &#123;</span><br><span class="line">                    w-&gt;right_Child-&gt;color = BLACK;</span><br><span class="line">                    w-&gt;color = RED;</span><br><span class="line">                    <span class="built_in">left_rotate</span>(w);</span><br><span class="line">                    w = x-&gt;parent-&gt;left_Child;</span><br><span class="line">                &#125;</span><br><span class="line">                w-&gt;color = x-&gt;parent-&gt;color;</span><br><span class="line">                x-&gt;parent-&gt;color = BLACK;</span><br><span class="line">                w-&gt;left_Child-&gt;color = BLACK;</span><br><span class="line">                <span class="built_in">right_rotate</span>(x-&gt;parent);</span><br><span class="line">                x = root;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    x-&gt;color = BLACK;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="6、红黑树的应用"><a href="#6、红黑树的应用" class="headerlink" title="6、红黑树的应用"></a>6、红黑树的应用</h3><p>1、散列表的冲突处理<br>map的实现，底层一般会采用红黑树，在节点多的时候效率高。<br>在节点少的时候，可用链表方式。<br><img src="/2022/11/12/hong-hei-shu/图25.png" alt><br>2、动态插入、删除和查询较多的场景</p>
+<h3 id="6、红黑树的应用">6、红黑树的应用</h3>
+<p>1、散列表的冲突处理<br>
+map的实现，底层一般会采用红黑树，在节点多的时候效率高。<br>
+在节点少的时候，可用链表方式。<br>
+<img src="/2022/11/12/hong-hei-shu/%E5%9B%BE25.png" alt><br>
+2、动态插入、删除和查询较多的场景</p>
 
                 
             </div>
@@ -816,6 +1055,280 @@ r > p2\\
     
 
     
+
+    
+        <style>
+    .twikoo-card {
+        margin: 1.5rem auto;
+    }
+
+    .twikoo-card .card-content {
+        padding: 20px;
+    }
+
+    #tcomments textarea {
+        box-sizing: border-box;
+        background: url("/") 100% 100% no-repeat;
+    }
+
+    #tcomments p {
+        margin: 2px 2px 10px;
+        font-size: 1.05rem;
+        line-height: 1.78rem;
+    }
+
+    #tcomments blockquote p {
+        text-indent: 0.2rem;
+    }
+
+    #tcomments a {
+        padding: 0 2px;
+        color: #4cbf30;
+        font-weight: 500;
+        text-decoration: none;
+    }
+
+    #tcomments img {
+        max-width: 100%;
+        height: auto;
+        cursor: pointer;
+    }
+
+    #tcomments ol li {
+        list-style-type: decimal;
+    }
+
+    #tcomments ol,
+    ul {
+        display: block;
+        padding-left: 2em;
+        word-spacing: 0.05rem;
+    }
+
+    #tcomments ul li,
+    ol li {
+        display: list-item;
+        line-height: 1.8rem;
+        font-size: 1rem;
+    }
+
+    #tcomments ul li {
+        list-style-type: disc;
+    }
+
+    #tcomments ul ul li {
+        list-style-type: circle;
+    }
+
+    #tcomments table,
+    th,
+    td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    #tcomments table,
+    th,
+    td {
+        border: 0;
+    }
+
+    table tr:nth-child(2n),
+    thead {
+        background-color: #fafafa;
+    }
+
+    #tcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #tcomments table td {
+        min-width: 80px;
+    }
+
+    #tcomments h1 {
+        font-size: 1.85rem;
+        font-weight: bold;
+        line-height: 2.2rem;
+    }
+
+    #tcomments h2 {
+        font-size: 1.65rem;
+        font-weight: bold;
+        line-height: 1.9rem;
+    }
+
+    #tcomments h3 {
+        font-size: 1.45rem;
+        font-weight: bold;
+        line-height: 1.7rem;
+    }
+
+    #tcomments h4 {
+        font-size: 1.25rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    #tcomments h5 {
+        font-size: 1.1rem;
+        font-weight: bold;
+        line-height: 1.4rem;
+    }
+
+    #tcomments h6 {
+        font-size: 1rem;
+        line-height: 1.3rem;
+    }
+
+    #tcomments p {
+        font-size: 1rem;
+        line-height: 1.5rem;
+    }
+
+    #tcomments hr {
+        margin: 12px 0;
+        border: 0;
+        border-top: 1px solid #ccc;
+    }
+
+    #tcomments blockquote {
+        margin: 15px 0;
+        border-left: 5px solid #42b983;
+        padding: 1rem 0.8rem 0.3rem 0.8rem;
+        color: #666;
+        background-color: rgba(66, 185, 131, .1);
+    }
+
+    #tcomments pre {
+        font-family: monospace, monospace;
+        padding: 1.2em;
+        margin: .5em 0;
+        background: #272822;
+        overflow: auto;
+        border-radius: 0.3em;
+        tab-size: 4;
+    }
+
+    #tcomments code {
+        font-family: monospace, monospace;
+        padding: 1px 3px;
+        font-size: 0.92rem;
+        color: #e96900;
+        background-color: #f8f8f8;
+        border-radius: 2px;
+    }
+
+    #tcomments pre code {
+        font-family: monospace, monospace;
+        padding: 0;
+        color: #e8eaf6;
+        background-color: #272822;
+    }
+
+    #tcomments pre[class*="language-"] {
+        padding: 1.2em;
+        margin: .5em 0;
+    }
+
+    #tcomments code[class*="language-"],
+    pre[class*="language-"] {
+        color: #e8eaf6;
+    }
+
+    #tcomments [type="checkbox"]:not(:checked),
+    [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+
+    #tcomments b,
+    strong {
+        font-weight: bold;
+    }
+
+    #tcomments dfn {
+        font-style: italic;
+    }
+
+    #tcomments small {
+        font-size: 85%;
+    }
+
+    #tcomments cite {
+        font-style: normal;
+    }
+
+    #tcomments mark {
+        background-color: #fcf8e3;
+        padding: .2em;
+    }
+
+    #tcomments table,
+    th,
+    td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    table tr:nth-child(2n),
+    thead {
+        background-color: #fafafa;
+    }
+
+    #tcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #tcomments table td {
+        min-width: 80px;
+    }
+
+    #tcomments [type="checkbox"]:not(:checked),
+    [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+</style>
+
+<div class="card twikoo-card" data-aos="fade-up">
+    <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; padding-left: 20px; top: 15px; padding-bottom: 5px;">
+        <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
+        <span>评论</span>
+    </div>
+    <div class="card-content" style="display: grid">
+        <div id="tcomments"></div>
+    </div>
+</div>
+
+<script src="/libs/twikoo/twikoo.all.min.js"></script>
+<script>
+    twikoo.init({
+        envId: 'https://twikoo-fawn-omega.vercel.app',
+        el: '#tcomments',
+        region: '',
+        path: ''
+    }).then(function () {
+        var tkInputs = document.querySelector('#twikoo').getElementsByTagName('input');
+        for (var tkInputsIndex = 0; tkInputsIndex < tkInputs.length; tkInputsIndex++) {
+            if (tkInputs[tkInputsIndex]) {
+                tkInputs[tkInputsIndex].classList.add('browser-default');
+            }
+        }
+    });
+</script>
 
     
 
@@ -1090,13 +1603,6 @@ r > p2\\
 </main>
 
 
-<script src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-<script>
-    MathJax.Hub.Config({
-        tex2jax: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
-    });
-</script>
-
 
 
     <footer class="page-footer bg-color">
@@ -1169,7 +1675,7 @@ r > p2\\
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">123.3k</span>
+                        class="white-color">718.2k</span>
             
             
             
@@ -1440,15 +1946,7 @@ $(function () {
     
 
     <!-- 雪花特效 -->
-     
-        <script type="text/javascript">
-            // 只在桌面版网页启用特效
-            var windowWidth = $(window).width();
-            if (windowWidth > 768) {
-                document.write('<script type="text/javascript" src="/libs/others/snow.js"><\/script>');
-            }
-        </script>
-    
+    **
 
     <!-- 鼠标星星特效 -->
      

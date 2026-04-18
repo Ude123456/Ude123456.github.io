@@ -568,15 +568,27 @@ Dijkstra算法刚接触时确实有点难以理解，尤其是代码的实现，
             <div id="articleContent">
                 <hr>
 <blockquote>
-<p>Dijkstra算法刚接触时确实有点难以理解，尤其是代码的实现，但其背后的逻辑实际上是用贪心算法来支撑的。但是在算法学习中Dijkstra算法又是最基本的一种算法，对于求解单源最短路径有着极大的作用。在这里我简单讲一下自己的理解，我的代码参考了《图解数据结构》，该代码适合稠密图，使用的是邻接矩阵来存储的图。 </p>
+<p>Dijkstra算法刚接触时确实有点难以理解，尤其是代码的实现，但其背后的逻辑实际上是用贪心算法来支撑的。但是在算法学习中Dijkstra算法又是最基本的一种算法，对于求解单源最短路径有着极大的作用。在这里我简单讲一下自己的理解，我的代码参考了《图解数据结构》，该代码适合稠密图，使用的是邻接矩阵来存储的图。</p>
+</blockquote>
 <hr>
-<h2 id="1、Dijkstra算法主要步骤"><a href="#1、Dijkstra算法主要步骤" class="headerlink" title="1、Dijkstra算法主要步骤"></a>1、Dijkstra算法主要步骤</h2></blockquote>
-<p><img src="/2021/11/12/zui-duan-lu-jing-dijkstra-suan-fa/Dijkstra算法步骤.png" alt></p>
-<p>对于贪心算法，简单描述一下：<br>贪心算法正如其名字一样，贪心算法只注重眼前利益，就像贪心的小人一样，因此得名贪心算法，该算法即从一个初始解，一步步选取当前最优解，最终得出近似的最优解（注意：不一定是该问题的最优解，而是近似于最优解）。<br>实现该算法的基本过程如下。<br>（1）从问题的某一初始解出发。<br>（2）while能向给定总目标前进一步。<br>（3）求出可行解的一个解元素。<br>（4）由所有解元素组合成问题的一个可行解。<br>（想更深入了解请参考链接<a target="_blank" rel="noopener" href="https://blog.csdn.net/effective_coder/article/details/8736718?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522164621206116781685343755%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&amp;request_id=164621206116781685343755&amp;biz_id=0&amp;utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-8736718.pc_search_result_control_group&amp;utm_term=%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95%E8%AF%A6%E8%A7%A3&amp;spm=1018.2226.3001.4187）">https://blog.csdn.net/effective_coder/article/details/8736718?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522164621206116781685343755%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&amp;request_id=164621206116781685343755&amp;biz_id=0&amp;utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-8736718.pc_search_result_control_group&amp;utm_term=%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95%E8%AF%A6%E8%A7%A3&amp;spm=1018.2226.3001.4187）</a></p>
+<h2 id="1、Dijkstra算法主要步骤">1、Dijkstra算法主要步骤</h2>
+<p><img src="/2021/11/12/zui-duan-lu-jing-dijkstra-suan-fa/Dijkstra%E7%AE%97%E6%B3%95%E6%AD%A5%E9%AA%A4.png" alt></p>
+<p>对于贪心算法，简单描述一下：<br>
+贪心算法正如其名字一样，贪心算法只注重眼前利益，就像贪心的小人一样，因此得名贪心算法，该算法即从一个初始解，一步步选取当前最优解，最终得出近似的最优解（注意：不一定是该问题的最优解，而是近似于最优解）。<br>
+实现该算法的基本过程如下。<br>
+（1）从问题的某一初始解出发。<br>
+（2）while能向给定总目标前进一步。<br>
+（3）求出可行解的一个解元素。<br>
+（4）由所有解元素组合成问题的一个可行解。<br>
+（想更深入了解请参考链接<a target="_blank" rel="noopener" href="https://blog.csdn.net/effective_coder/article/details/8736718?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522164621206116781685343755%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&amp;request_id=164621206116781685343755&amp;biz_id=0&amp;utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-8736718.pc_search_result_control_group&amp;utm_term=%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95%E8%AF%A6%E8%A7%A3&amp;spm=1018.2226.3001.4187%EF%BC%89">https://blog.csdn.net/effective_coder/article/details/8736718?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522164621206116781685343755%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&amp;request_id=164621206116781685343755&amp;biz_id=0&amp;utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-8736718.pc_search_result_control_group&amp;utm_term=贪心算法详解&amp;spm=1018.2226.3001.4187）</a></p>
 <hr>
-<h2 id="2、Dijkstra算法小结"><a href="#2、Dijkstra算法小结" class="headerlink" title="2、Dijkstra算法小结"></a>2、Dijkstra算法小结</h2><p> 1、Dijkstra算法一般是用来解决单源最短路径问题（指定一个点（源点）到其余各个顶点的最短路径，也叫做“单源最短路径”。）<br> 2、其时间复杂度仅为O(n^2^)，并且非常高效，甚至可以优化成O(log2n)。<br> 3、Dijkstra算法中权值只能为正数，若权值为负数则不能使用该算法。（权值即图各个边所赋予的值）  </p>
+<h2 id="2、Dijkstra算法小结">2、Dijkstra算法小结</h2>
+<p>1、Dijkstra算法一般是用来解决单源最短路径问题（指定一个点（源点）到其余各个顶点的最短路径，也叫做“单源最短路径”。）<br>
+2、其时间复杂度仅为O(n^2^)，并且非常高效，甚至可以优化成O(log2n)。<br>
+3、Dijkstra算法中权值只能为正数，若权值为负数则不能使用该算法。（权值即图各个边所赋予的值）</p>
 <hr>
-<h2 id="3、算法实现"><a href="#3、算法实现" class="headerlink" title="3、算法实现"></a>3、算法实现</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iomanip&gt;</span></span></span><br><span class="line"> </span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"> </span><br><span class="line"><span class="meta">#<span class="keyword">define</span> SIZE 7</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> NUMBER 6</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> INFINITE 123456  <span class="comment">//宏定义无穷大</span></span></span><br><span class="line"> </span><br><span class="line"><span class="comment">//首先定义图的数组</span></span><br><span class="line"><span class="type">int</span> Graph_Matrix[SIZE][SIZE];</span><br><span class="line"><span class="type">int</span> Distance[SIZE];  <span class="comment">//路径长度</span></span><br><span class="line"> </span><br><span class="line"><span class="comment">//建立有向图</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">Create_Graph</span><span class="params">(<span class="type">int</span> *Path_Cost)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> i,j;</span><br><span class="line">    <span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;SIZE;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span>(j=<span class="number">0</span>;j&lt;SIZE;j++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">//若是在对角线上，设置元素值为0</span></span><br><span class="line">            <span class="keyword">if</span>(i==j)</span><br><span class="line">            &#123;</span><br><span class="line">                Graph_Matrix[i][j]=<span class="number">0</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">//其他位置元素的值为无穷大</span></span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">            &#123;</span><br><span class="line">                Graph_Matrix[i][j]=INFINITE;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="type">int</span> End_Point,Start_Point;  <span class="comment">//图的边起始位置和终止位置</span></span><br><span class="line"> </span><br><span class="line">    <span class="comment">//存入图的各个数据：边，权重</span></span><br><span class="line">    i=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span>(i&lt;SIZE)</span><br><span class="line">    &#123;</span><br><span class="line">        Start_Point=Path_Cost[i*<span class="number">3</span>];  <span class="comment">//在邻接矩阵中的行</span></span><br><span class="line">        End_Point=Path_Cost[i*<span class="number">3</span>+<span class="number">1</span>];  <span class="comment">//在邻接矩阵中的列</span></span><br><span class="line">        <span class="comment">//图各边权值转化为邻接矩阵中所在的位置</span></span><br><span class="line">        Graph_Matrix[Start_Point][End_Point]=Path_Cost[i*<span class="number">3</span>+<span class="number">2</span>];</span><br><span class="line">        i++;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="comment">//打印邻接矩阵</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">Print_Matrix</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> i=<span class="number">0</span>,j=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(i=<span class="number">1</span>;i&lt;SIZE;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;vex&quot;</span> &lt;&lt; i ;</span><br><span class="line">        <span class="keyword">for</span>(j=<span class="number">1</span>;j&lt;SIZE;j++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">//为了美观和可读性，将值为无穷大的元素打印为x</span></span><br><span class="line">            <span class="keyword">if</span>(Graph_Matrix[i][j]==INFINITE)</span><br><span class="line">            &#123;</span><br><span class="line">                cout &lt;&lt; <span class="built_in">setw</span>(<span class="number">5</span>) &lt;&lt; <span class="string">&quot;x&quot;</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">            &#123;</span><br><span class="line">                cout &lt;&lt; <span class="built_in">setw</span>(<span class="number">5</span>) &lt;&lt; Graph_Matrix[i][j];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        cout &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="comment">//开始求解单源最短路径</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">Shortest_Path</span><span class="params">(<span class="type">int</span> vertex1,<span class="type">int</span> vertex_total)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> Shortest_vertex=<span class="number">1</span>;  <span class="comment">//初始化</span></span><br><span class="line">    <span class="type">int</span> Shortest_distance;  <span class="comment">//最短距离</span></span><br><span class="line">    <span class="type">int</span> flag[SIZE];  <span class="comment">//标志数组，标志顶点是否已经遍历过</span></span><br><span class="line">    <span class="type">int</span> i,j;</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">for</span>(i=<span class="number">1</span>;i&lt;=vertex_total;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        flag[i]=<span class="number">0</span>;  <span class="comment">//初始化标志数组</span></span><br><span class="line">        Distance[i]=Graph_Matrix[vertex1][i];  <span class="comment">//将图的权值存入Distance[]数组中</span></span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    flag[vertex1]=<span class="number">1</span>;  <span class="comment">//标志该顶点已经找过</span></span><br><span class="line">    Distance[vertex1]=<span class="number">0</span>;  <span class="comment">//顶点到该顶点自身的距离为0</span></span><br><span class="line"> </span><br><span class="line">    <span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;=vertex_total<span class="number">-1</span>;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        Shortest_distance=INFINITE;</span><br><span class="line">        <span class="keyword">for</span>(j=<span class="number">0</span>;j&lt;=vertex_total;j++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">//找到最小权边的顶点</span></span><br><span class="line">            <span class="keyword">if</span>(flag[j]==<span class="number">0</span> &amp;&amp; Distance[j]&lt;=Shortest_distance)</span><br><span class="line">            &#123;</span><br><span class="line">                Shortest_distance=Distance[j];</span><br><span class="line">                Shortest_vertex=j;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"> </span><br><span class="line">        flag[Shortest_vertex]=<span class="number">1</span>;  <span class="comment">//找到下一个顶点后标记为已经经过</span></span><br><span class="line"> </span><br><span class="line">        <span class="keyword">for</span>(j=<span class="number">0</span>;j&lt;=vertex_total;j++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">//以上一个顶点为父节点，若前一个顶点和下一个权边的和最小，则更新最短路径</span></span><br><span class="line">            <span class="keyword">if</span>(flag[j]==<span class="number">0</span> &amp;&amp;</span><br><span class="line">               Distance[Shortest_vertex]+Graph_Matrix[Shortest_vertex][j]</span><br><span class="line">               &lt;Distance[j])</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="comment">//更新最短路径</span></span><br><span class="line">                Distance[j]=Distance[Shortest_vertex]+Graph_Matrix[Shortest_vertex][j];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> Path_Cost[<span class="number">9</span>][<span class="number">3</span>]=&#123;&#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>&#125;,&#123;<span class="number">1</span>,<span class="number">3</span>,<span class="number">5</span>&#125;,&#123;<span class="number">1</span>,<span class="number">4</span>,<span class="number">1</span>&#125;,&#123;<span class="number">1</span>,<span class="number">5</span>,<span class="number">3</span>&#125;,&#123;<span class="number">1</span>,<span class="number">6</span>,<span class="number">4</span>&#125;,</span><br><span class="line">                         &#123;<span class="number">2</span>,<span class="number">5</span>,<span class="number">3</span>&#125;,&#123;<span class="number">4</span>,<span class="number">5</span>,<span class="number">7</span>&#125;,&#123;<span class="number">4</span>,<span class="number">6</span>,<span class="number">6</span>&#125;,&#123;<span class="number">4</span>,<span class="number">3</span>,<span class="number">2</span>&#125;&#125;;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;=========================================&quot;</span>  &lt;&lt; endl;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;此范例图的邻接矩阵如下：&quot;</span> &lt;&lt; endl;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;=========================================&quot;</span> &lt;&lt; endl;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;顶点   vex1 vex2 vex3 vex4 vex5 vex6&quot;</span> &lt;&lt; endl;</span><br><span class="line">    <span class="built_in">Create_Graph</span>(&amp;Path_Cost[<span class="number">0</span>][<span class="number">0</span>]);</span><br><span class="line">    <span class="built_in">Print_Matrix</span>();</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;=========================================&quot;</span>  &lt;&lt; endl;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;顶点1到各顶点最短距离的最终结果&quot;</span> &lt;&lt; endl;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;=========================================&quot;</span>  &lt;&lt; endl;</span><br><span class="line">    <span class="comment">//查找最短路径</span></span><br><span class="line">    <span class="built_in">Shortest_Path</span>(<span class="number">1</span>,NUMBER);</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;SIZE;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;顶点1&quot;</span> &lt;&lt; <span class="string">&quot;到顶点&quot;</span> &lt;&lt; i &lt;&lt; <span class="string">&quot;的最短距离=&quot;</span> &lt;&lt; Distance[i] &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="built_in">system</span>(<span class="string">&quot;pause&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="3、算法实现">3、算法实现</h2>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iomanip&gt;</span></span></span><br><span class="line"> </span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"> </span><br><span class="line"><span class="meta">#<span class="keyword">define</span> SIZE 7</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> NUMBER 6</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> INFINITE 123456  <span class="comment">//宏定义无穷大</span></span></span><br><span class="line"> </span><br><span class="line"><span class="comment">//首先定义图的数组</span></span><br><span class="line"><span class="type">int</span> Graph_Matrix[SIZE][SIZE];</span><br><span class="line"><span class="type">int</span> Distance[SIZE];  <span class="comment">//路径长度</span></span><br><span class="line"> </span><br><span class="line"><span class="comment">//建立有向图</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">Create_Graph</span><span class="params">(<span class="type">int</span> *Path_Cost)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> i,j;</span><br><span class="line">    <span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;SIZE;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span>(j=<span class="number">0</span>;j&lt;SIZE;j++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">//若是在对角线上，设置元素值为0</span></span><br><span class="line">            <span class="keyword">if</span>(i==j)</span><br><span class="line">            &#123;</span><br><span class="line">                Graph_Matrix[i][j]=<span class="number">0</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">//其他位置元素的值为无穷大</span></span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">            &#123;</span><br><span class="line">                Graph_Matrix[i][j]=INFINITE;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="type">int</span> End_Point,Start_Point;  <span class="comment">//图的边起始位置和终止位置</span></span><br><span class="line"> </span><br><span class="line">    <span class="comment">//存入图的各个数据：边，权重</span></span><br><span class="line">    i=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span>(i&lt;SIZE)</span><br><span class="line">    &#123;</span><br><span class="line">        Start_Point=Path_Cost[i*<span class="number">3</span>];  <span class="comment">//在邻接矩阵中的行</span></span><br><span class="line">        End_Point=Path_Cost[i*<span class="number">3</span>+<span class="number">1</span>];  <span class="comment">//在邻接矩阵中的列</span></span><br><span class="line">        <span class="comment">//图各边权值转化为邻接矩阵中所在的位置</span></span><br><span class="line">        Graph_Matrix[Start_Point][End_Point]=Path_Cost[i*<span class="number">3</span>+<span class="number">2</span>];</span><br><span class="line">        i++;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="comment">//打印邻接矩阵</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">Print_Matrix</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> i=<span class="number">0</span>,j=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(i=<span class="number">1</span>;i&lt;SIZE;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;vex&quot;</span> &lt;&lt; i ;</span><br><span class="line">        <span class="keyword">for</span>(j=<span class="number">1</span>;j&lt;SIZE;j++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">//为了美观和可读性，将值为无穷大的元素打印为x</span></span><br><span class="line">            <span class="keyword">if</span>(Graph_Matrix[i][j]==INFINITE)</span><br><span class="line">            &#123;</span><br><span class="line">                cout &lt;&lt; <span class="built_in">setw</span>(<span class="number">5</span>) &lt;&lt; <span class="string">&quot;x&quot;</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">            &#123;</span><br><span class="line">                cout &lt;&lt; <span class="built_in">setw</span>(<span class="number">5</span>) &lt;&lt; Graph_Matrix[i][j];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        cout &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="comment">//开始求解单源最短路径</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">Shortest_Path</span><span class="params">(<span class="type">int</span> vertex1,<span class="type">int</span> vertex_total)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> Shortest_vertex=<span class="number">1</span>;  <span class="comment">//初始化</span></span><br><span class="line">    <span class="type">int</span> Shortest_distance;  <span class="comment">//最短距离</span></span><br><span class="line">    <span class="type">int</span> flag[SIZE];  <span class="comment">//标志数组，标志顶点是否已经遍历过</span></span><br><span class="line">    <span class="type">int</span> i,j;</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">for</span>(i=<span class="number">1</span>;i&lt;=vertex_total;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        flag[i]=<span class="number">0</span>;  <span class="comment">//初始化标志数组</span></span><br><span class="line">        Distance[i]=Graph_Matrix[vertex1][i];  <span class="comment">//将图的权值存入Distance[]数组中</span></span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    flag[vertex1]=<span class="number">1</span>;  <span class="comment">//标志该顶点已经找过</span></span><br><span class="line">    Distance[vertex1]=<span class="number">0</span>;  <span class="comment">//顶点到该顶点自身的距离为0</span></span><br><span class="line"> </span><br><span class="line">    <span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;=vertex_total<span class="number">-1</span>;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        Shortest_distance=INFINITE;</span><br><span class="line">        <span class="keyword">for</span>(j=<span class="number">0</span>;j&lt;=vertex_total;j++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">//找到最小权边的顶点</span></span><br><span class="line">            <span class="keyword">if</span>(flag[j]==<span class="number">0</span> &amp;&amp; Distance[j]&lt;=Shortest_distance)</span><br><span class="line">            &#123;</span><br><span class="line">                Shortest_distance=Distance[j];</span><br><span class="line">                Shortest_vertex=j;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"> </span><br><span class="line">        flag[Shortest_vertex]=<span class="number">1</span>;  <span class="comment">//找到下一个顶点后标记为已经经过</span></span><br><span class="line"> </span><br><span class="line">        <span class="keyword">for</span>(j=<span class="number">0</span>;j&lt;=vertex_total;j++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">//以上一个顶点为父节点，若前一个顶点和下一个权边的和最小，则更新最短路径</span></span><br><span class="line">            <span class="keyword">if</span>(flag[j]==<span class="number">0</span> &amp;&amp;</span><br><span class="line">               Distance[Shortest_vertex]+Graph_Matrix[Shortest_vertex][j]</span><br><span class="line">               &lt;Distance[j])</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="comment">//更新最短路径</span></span><br><span class="line">                Distance[j]=Distance[Shortest_vertex]+Graph_Matrix[Shortest_vertex][j];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> Path_Cost[<span class="number">9</span>][<span class="number">3</span>]=&#123;&#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>&#125;,&#123;<span class="number">1</span>,<span class="number">3</span>,<span class="number">5</span>&#125;,&#123;<span class="number">1</span>,<span class="number">4</span>,<span class="number">1</span>&#125;,&#123;<span class="number">1</span>,<span class="number">5</span>,<span class="number">3</span>&#125;,&#123;<span class="number">1</span>,<span class="number">6</span>,<span class="number">4</span>&#125;,</span><br><span class="line">                         &#123;<span class="number">2</span>,<span class="number">5</span>,<span class="number">3</span>&#125;,&#123;<span class="number">4</span>,<span class="number">5</span>,<span class="number">7</span>&#125;,&#123;<span class="number">4</span>,<span class="number">6</span>,<span class="number">6</span>&#125;,&#123;<span class="number">4</span>,<span class="number">3</span>,<span class="number">2</span>&#125;&#125;;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;=========================================&quot;</span>  &lt;&lt; endl;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;此范例图的邻接矩阵如下：&quot;</span> &lt;&lt; endl;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;=========================================&quot;</span> &lt;&lt; endl;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;顶点   vex1 vex2 vex3 vex4 vex5 vex6&quot;</span> &lt;&lt; endl;</span><br><span class="line">    <span class="built_in">Create_Graph</span>(&amp;Path_Cost[<span class="number">0</span>][<span class="number">0</span>]);</span><br><span class="line">    <span class="built_in">Print_Matrix</span>();</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;=========================================&quot;</span>  &lt;&lt; endl;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;顶点1到各顶点最短距离的最终结果&quot;</span> &lt;&lt; endl;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;=========================================&quot;</span>  &lt;&lt; endl;</span><br><span class="line">    <span class="comment">//查找最短路径</span></span><br><span class="line">    <span class="built_in">Shortest_Path</span>(<span class="number">1</span>,NUMBER);</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;SIZE;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;顶点1&quot;</span> &lt;&lt; <span class="string">&quot;到顶点&quot;</span> &lt;&lt; i &lt;&lt; <span class="string">&quot;的最短距离=&quot;</span> &lt;&lt; Distance[i] &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="built_in">system</span>(<span class="string">&quot;pause&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
                 
             </div>
             <hr/>
@@ -712,6 +724,280 @@ Dijkstra算法刚接触时确实有点难以理解，尤其是代码的实现，
     
 
     
+
+    
+        <style>
+    .twikoo-card {
+        margin: 1.5rem auto;
+    }
+
+    .twikoo-card .card-content {
+        padding: 20px;
+    }
+
+    #tcomments textarea {
+        box-sizing: border-box;
+        background: url("/") 100% 100% no-repeat;
+    }
+
+    #tcomments p {
+        margin: 2px 2px 10px;
+        font-size: 1.05rem;
+        line-height: 1.78rem;
+    }
+
+    #tcomments blockquote p {
+        text-indent: 0.2rem;
+    }
+
+    #tcomments a {
+        padding: 0 2px;
+        color: #4cbf30;
+        font-weight: 500;
+        text-decoration: none;
+    }
+
+    #tcomments img {
+        max-width: 100%;
+        height: auto;
+        cursor: pointer;
+    }
+
+    #tcomments ol li {
+        list-style-type: decimal;
+    }
+
+    #tcomments ol,
+    ul {
+        display: block;
+        padding-left: 2em;
+        word-spacing: 0.05rem;
+    }
+
+    #tcomments ul li,
+    ol li {
+        display: list-item;
+        line-height: 1.8rem;
+        font-size: 1rem;
+    }
+
+    #tcomments ul li {
+        list-style-type: disc;
+    }
+
+    #tcomments ul ul li {
+        list-style-type: circle;
+    }
+
+    #tcomments table,
+    th,
+    td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    #tcomments table,
+    th,
+    td {
+        border: 0;
+    }
+
+    table tr:nth-child(2n),
+    thead {
+        background-color: #fafafa;
+    }
+
+    #tcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #tcomments table td {
+        min-width: 80px;
+    }
+
+    #tcomments h1 {
+        font-size: 1.85rem;
+        font-weight: bold;
+        line-height: 2.2rem;
+    }
+
+    #tcomments h2 {
+        font-size: 1.65rem;
+        font-weight: bold;
+        line-height: 1.9rem;
+    }
+
+    #tcomments h3 {
+        font-size: 1.45rem;
+        font-weight: bold;
+        line-height: 1.7rem;
+    }
+
+    #tcomments h4 {
+        font-size: 1.25rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    #tcomments h5 {
+        font-size: 1.1rem;
+        font-weight: bold;
+        line-height: 1.4rem;
+    }
+
+    #tcomments h6 {
+        font-size: 1rem;
+        line-height: 1.3rem;
+    }
+
+    #tcomments p {
+        font-size: 1rem;
+        line-height: 1.5rem;
+    }
+
+    #tcomments hr {
+        margin: 12px 0;
+        border: 0;
+        border-top: 1px solid #ccc;
+    }
+
+    #tcomments blockquote {
+        margin: 15px 0;
+        border-left: 5px solid #42b983;
+        padding: 1rem 0.8rem 0.3rem 0.8rem;
+        color: #666;
+        background-color: rgba(66, 185, 131, .1);
+    }
+
+    #tcomments pre {
+        font-family: monospace, monospace;
+        padding: 1.2em;
+        margin: .5em 0;
+        background: #272822;
+        overflow: auto;
+        border-radius: 0.3em;
+        tab-size: 4;
+    }
+
+    #tcomments code {
+        font-family: monospace, monospace;
+        padding: 1px 3px;
+        font-size: 0.92rem;
+        color: #e96900;
+        background-color: #f8f8f8;
+        border-radius: 2px;
+    }
+
+    #tcomments pre code {
+        font-family: monospace, monospace;
+        padding: 0;
+        color: #e8eaf6;
+        background-color: #272822;
+    }
+
+    #tcomments pre[class*="language-"] {
+        padding: 1.2em;
+        margin: .5em 0;
+    }
+
+    #tcomments code[class*="language-"],
+    pre[class*="language-"] {
+        color: #e8eaf6;
+    }
+
+    #tcomments [type="checkbox"]:not(:checked),
+    [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+
+    #tcomments b,
+    strong {
+        font-weight: bold;
+    }
+
+    #tcomments dfn {
+        font-style: italic;
+    }
+
+    #tcomments small {
+        font-size: 85%;
+    }
+
+    #tcomments cite {
+        font-style: normal;
+    }
+
+    #tcomments mark {
+        background-color: #fcf8e3;
+        padding: .2em;
+    }
+
+    #tcomments table,
+    th,
+    td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    table tr:nth-child(2n),
+    thead {
+        background-color: #fafafa;
+    }
+
+    #tcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #tcomments table td {
+        min-width: 80px;
+    }
+
+    #tcomments [type="checkbox"]:not(:checked),
+    [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+</style>
+
+<div class="card twikoo-card" data-aos="fade-up">
+    <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; padding-left: 20px; top: 15px; padding-bottom: 5px;">
+        <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
+        <span>评论</span>
+    </div>
+    <div class="card-content" style="display: grid">
+        <div id="tcomments"></div>
+    </div>
+</div>
+
+<script src="/libs/twikoo/twikoo.all.min.js"></script>
+<script>
+    twikoo.init({
+        envId: 'https://twikoo-fawn-omega.vercel.app',
+        el: '#tcomments',
+        region: '',
+        path: ''
+    }).then(function () {
+        var tkInputs = document.querySelector('#twikoo').getElementsByTagName('input');
+        for (var tkInputsIndex = 0; tkInputsIndex < tkInputs.length; tkInputsIndex++) {
+            if (tkInputs[tkInputsIndex]) {
+                tkInputs[tkInputsIndex].classList.add('browser-default');
+            }
+        }
+    });
+</script>
 
     
 
@@ -1046,7 +1332,7 @@ Dijkstra算法刚接触时确实有点难以理解，尤其是代码的实现，
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">123.3k</span>
+                        class="white-color">718.2k</span>
             
             
             
@@ -1317,15 +1603,7 @@ $(function () {
     
 
     <!-- 雪花特效 -->
-     
-        <script type="text/javascript">
-            // 只在桌面版网页启用特效
-            var windowWidth = $(window).width();
-            if (windowWidth > 768) {
-                document.write('<script type="text/javascript" src="/libs/others/snow.js"><\/script>');
-            }
-        </script>
-    
+    **
 
     <!-- 鼠标星星特效 -->
      

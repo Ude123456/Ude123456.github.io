@@ -5,7 +5,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="VLSI Systems 2(EE6309), 博客，沫墨">
-    <meta name="description" content="1 内存管理(Memory Management) 在冯诺依曼架构中，一个简单的计算机包含了以下四个组成部分：
+    <meta name="description" content="1 内存管理(Memory Management)
+在冯诺依曼架构中，一个简单的计算机包含了以下四个组成部分：
 
 CPU
 Main Memory
@@ -571,7 +572,8 @@ I/O Devices
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="1-内存管理-Memory-Management"><a href="#1-内存管理-Memory-Management" class="headerlink" title="1 内存管理(Memory Management)"></a>1 内存管理(Memory Management)</h1><p> 在冯诺依曼架构中，一个简单的计算机包含了以下四个组成部分：</p>
+                <h1>1 内存管理(Memory Management)</h1>
+<p>在冯诺依曼架构中，一个简单的计算机包含了以下四个组成部分：</p>
 <ul>
 <li>CPU</li>
 <li>Main Memory</li>
@@ -582,22 +584,25 @@ I/O Devices
 <ul>
 <li><strong>CPU</strong></li>
 <li><strong>Floating Point Processor</strong></li>
-<li><strong>Accelerator </strong></li>
+<li>**Accelerator **</li>
 <li><strong>Cache</strong></li>
-<li><strong>Main Memory (RAM) </strong></li>
-<li><strong>Secondary Memory (SSD Hard Disks,) </strong></li>
-<li><strong>Auxiliary Storage (External Hard Disks, USB Flash Drive, Cloud Drive) </strong></li>
+<li>**Main Memory (RAM) **</li>
+<li>**Secondary Memory (SSD Hard Disks,) **</li>
+<li>**Auxiliary Storage (External Hard Disks, USB Flash Drive, Cloud Drive) **</li>
 <li><strong>I/O Devices (Terminals)</strong></li>
 </ul>
-<p><img src="/2026/04/14/vlsi-systems-2/图1.png" style="zoom:80%;"></p>
-<h2 id="1-1-主存组织-Main-Memory-Organization"><a href="#1-1-主存组织-Main-Memory-Organization" class="headerlink" title="1.1 主存组织(Main Memory Organization)"></a>1.1 主存组织(Main Memory Organization)</h2><p>主存是存储程序和数据的，并将其传输给 CPU 执行的区域。它是由多个<strong>存储单元(Cells/Locations)</strong>组成，每个单元拥有唯一的<strong>地址(Address</strong>)，程序通过地址精准访问数据。</p>
+<img src="/2026/04/14/vlsi-systems-2/图1.png" style="zoom:80%;">
+<h2 id="1-1-主存组织-Main-Memory-Organization">1.1 主存组织(Main Memory Organization)</h2>
+<p>主存是存储程序和数据的，并将其传输给 CPU 执行的区域。它是由多个<strong>存储单元(Cells/Locations)<strong>组成，每个单元拥有唯一的</strong>地址(Address</strong>)，程序通过地址精准访问数据。</p>
 <p>每个存储单元的结构分为两个部分：</p>
 <ol>
-<li><strong>数据位</strong>：真正存储指令、业务数据的部分，常见规格有8bit（1字节）、16bit、32bit等。 </li>
-<li><strong>元位/标志位(Meta Bit/Tag/Valid/Flag Bit)</strong>：附加在数据位旁的额外二进制位，不存储业务数据，相当于存储单元的”身份证”，用来标识数据的属性和状态：    <ul>
-<li>作用：<ul>
-<li><strong>区分指令与数据</strong>：约定 <code>0</code> 代表当前单元是<strong>CPU可执行指令</strong>，<code>1</code> 代表是<strong>普通数据</strong>，避免CPU误把数据当指令执行。    </li>
-<li><strong>区分数据类型</strong>：标记当前数据是整数还是浮点数，让CPU用正确的运算规则处理。    </li>
+<li><strong>数据位</strong>：真正存储指令、业务数据的部分，常见规格有8bit（1字节）、16bit、32bit等。</li>
+<li><strong>元位/标志位(Meta Bit/Tag/Valid/Flag Bit)</strong>：附加在数据位旁的额外二进制位，不存储业务数据，相当于存储单元的&quot;身份证&quot;，用来标识数据的属性和状态：
+<ul>
+<li>作用：
+<ul>
+<li><strong>区分指令与数据</strong>：约定 <code>0</code> 代表当前单元是<strong>CPU可执行指令</strong>，<code>1</code> 代表是<strong>普通数据</strong>，避免CPU误把数据当指令执行。</li>
+<li><strong>区分数据类型</strong>：标记当前数据是整数还是浮点数，让CPU用正确的运算规则处理。</li>
 <li>扩展作用：还可作为有效位标记数据是否有效、保护位标记读写权限等</li>
 </ul>
 </li>
@@ -606,9 +611,11 @@ I/O Devices
 </ol>
 <p>CPU 通过两个寄存器与内存交互：</p>
 <ul>
-<li><p><strong>MAR(Memory Address Register)</strong>：<strong>地址寄存器</strong>。CPU 将要访问的内存地址放入 MAR，内存通过 MAR 解析目标位置。</p>
+<li>
+<p><strong>MAR(Memory Address Register)</strong>：<strong>地址寄存器</strong>。CPU 将要访问的内存地址放入 MAR，内存通过 MAR 解析目标位置。</p>
 </li>
-<li><p><strong>MBR/MDR(Memory Buffer/Data Register)</strong>：<strong>数据缓冲/寄存器</strong>。用于暂存 CPU 与内存之间交换的数据（读入时存数据，写出时存指令）。</p>
+<li>
+<p><strong>MBR/MDR(Memory Buffer/Data Register)</strong>：<strong>数据缓冲/寄存器</strong>。用于暂存 CPU 与内存之间交换的数据（读入时存数据，写出时存指令）。</p>
 </li>
 </ul>
 <p>CPU 读取内存数据（指令或数据）的步骤如下：</p>
@@ -618,44 +625,695 @@ I/O Devices
 <li>经过一个<strong>存储周期(Memory Cycle)</strong> 后，内存将对应数据放入<strong>MBR</strong>。</li>
 <li>CPU从 MBR 中取出数据进行处理。</li>
 </ol>
-<h3 id="1-1-1-内存体-Memory-Bank"><a href="#1-1-1-内存体-Memory-Bank" class="headerlink" title="1.1.1 内存体(Memory Bank)"></a>1.1.1 内存体(Memory Bank)</h3><p>单内存模块的访问速度远低于CPU时钟速度，形成了经典的内存墙问题。</p>
+<h3 id="1-1-1-内存体-Memory-Bank">1.1.1 内存体(Memory Bank)</h3>
+<p>单内存模块的访问速度远低于CPU时钟速度，形成了经典的内存墙问题。</p>
 <p>内存体技术将主存划分为<strong>多个独立可并行访问的存储模块（Bank）</strong>，每个 Bank 拥有独立的地址译码、读写电路，可同时响应 CPU/I/O 的访存请求，从而大幅提升内存带宽与系统整体效率。</p>
-<h4 id="1-1-1-1-高位交织-High-Order-Interleave"><a href="#1-1-1-1-高位交织-High-Order-Interleave" class="headerlink" title="1.1.1.1 高位交织(High Order Interleave)"></a>1.1.1.1 高位交织(High Order Interleave)</h4><p>将连续的大块地址被分配到同一个Bank，相当于把内存分成多个独立的分区。  例如：Bank1存储地址$0 \sim K-1$，Bank2存储$K \sim 2K-1$，以此类推。 </p>
-<p>地址分为两个字段，格式为：<code>&lt;bank&gt;&lt;addr&gt;</code>，<strong>高位用于选择Bank，低位用于Bank内寻址</strong>。这种方式支持多设备并行访问，当CPU和I/O设备使用不同Bank存储指令/数据时，可通过不同总线同时访问，互不干扰，提升系统并发性能。例如在流水线处理器中，将指令和操作数分别存放在不同Bank，实现取指令和读操作数的并行执行。 </p>
-<p><img src="/2026/04/14/vlsi-systems-2/图2.png" style="zoom: 80%;"></p>
+<h4 id="1-1-1-1-高位交织-High-Order-Interleave">1.1.1.1 高位交织(High Order Interleave)</h4>
+<p>将连续的大块地址被分配到同一个Bank，相当于把内存分成多个独立的分区。  例如：Bank1存储地址
+    <span id="mjx-136b71d8">
+      <style>
+      #mjx-136b71d8{
+        display:contents;
+        mjx-assistive-mml {
+          user-select: text !important;
+          clip: auto !important;
+          color: rgba(0,0,0,0);
+        }
+        
+mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+  min-height: 1px;
+  min-width: 1px;
+}
+
+mjx-container[jax="SVG"] > svg a {
+  fill: blue;
+  stroke: blue;
+}
+
+mjx-assistive-mml {
+  position: absolute !important;
+  top: 0px;
+  left: 0px;
+  clip: rect(1px, 1px, 1px, 1px);
+  padding: 1px 0px 0px 0px !important;
+  border: 0px !important;
+  display: block !important;
+  width: auto !important;
+  overflow: hidden !important;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+mjx-assistive-mml[display="block"] {
+  width: 100% !important;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][display="true"][width="full"] {
+  display: flex;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line], svg[data-table] > g > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame], svg[data-table] > g > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed, svg[data-table] > g > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted, svg[data-table] > g > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > g > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"] path[data-c], mjx-container[jax="SVG"] use[data-c] {
+  stroke-width: 3;
+}
+
+g[data-mml-node="xypic"] path {
+  stroke-width: inherit;
+}
+
+.MathJax g[data-mml-node="xypic"] path {
+  stroke-width: inherit;
+}
+
+      }
+      </style>
+      <mjx-container class="MathJax" jax="SVG" style="position: relative;"><svg style="vertical-align: -0.186ex;" xmlns="http://www.w3.org/2000/svg" width="10.057ex" height="1.731ex" role="img" focusable="false" viewbox="0 -683 4445 765" aria-hidden="true"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mn"><path data-c="30" d="M96 585Q152 666 249 666Q297 666 345 640T423 548Q460 465 460 320Q460 165 417 83Q397 41 362 16T301 -15T250 -22Q224 -22 198 -16T137 16T82 83Q39 165 39 320Q39 494 96 585ZM321 597Q291 629 250 629Q208 629 178 597Q153 571 145 525T137 333Q137 175 145 125T181 46Q209 16 250 16Q290 16 318 46Q347 76 354 130T362 333Q362 478 354 524T321 597Z"/></g><g data-mml-node="mo" transform="translate(777.8,0)"><path data-c="223C" d="M55 166Q55 241 101 304T222 367Q260 367 296 349T362 304T421 252T484 208T554 189Q616 189 655 236T694 338Q694 350 698 358T708 367Q722 367 722 334Q722 260 677 197T562 134H554Q517 134 481 152T414 196T355 248T292 293T223 311Q179 311 145 286Q109 257 96 218T80 156T69 133Q55 133 55 166Z"/></g><g data-mml-node="mi" transform="translate(1833.6,0)"><path data-c="1D43E" d="M285 628Q285 635 228 637Q205 637 198 638T191 647Q191 649 193 661Q199 681 203 682Q205 683 214 683H219Q260 681 355 681Q389 681 418 681T463 682T483 682Q500 682 500 674Q500 669 497 660Q496 658 496 654T495 648T493 644T490 641T486 639T479 638T470 637T456 637Q416 636 405 634T387 623L306 305Q307 305 490 449T678 597Q692 611 692 620Q692 635 667 637Q651 637 651 648Q651 650 654 662T659 677Q662 682 676 682Q680 682 711 681T791 680Q814 680 839 681T869 682Q889 682 889 672Q889 650 881 642Q878 637 862 637Q787 632 726 586Q710 576 656 534T556 455L509 418L518 396Q527 374 546 329T581 244Q656 67 661 61Q663 59 666 57Q680 47 717 46H738Q744 38 744 37T741 19Q737 6 731 0H720Q680 3 625 3Q503 3 488 0H478Q472 6 472 9T474 27Q478 40 480 43T491 46H494Q544 46 544 71Q544 75 517 141T485 216L427 354L359 301L291 248L268 155Q245 63 245 58Q245 51 253 49T303 46H334Q340 37 340 35Q340 19 333 5Q328 0 317 0Q314 0 280 1T180 2Q118 2 85 2T49 1Q31 1 31 11Q31 13 34 25Q38 41 42 43T65 46Q92 46 125 49Q139 52 144 61Q147 65 216 339T285 628Z"/></g><g data-mml-node="mo" transform="translate(2944.8,0)"><path data-c="2212" d="M84 237T84 250T98 270H679Q694 262 694 250T679 230H98Q84 237 84 250Z"/></g><g data-mml-node="mn" transform="translate(3945,0)"><path data-c="31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z"/></g></g></g></svg><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mn>0</mn><mo>∼</mo><mi>K</mi><mo>−</mo><mn>1</mn></math></mjx-assistive-mml></mjx-container>
+    </span>
+  ，Bank2存储
+    <span id="mjx-94ddd518">
+      <style>
+      #mjx-94ddd518{
+        display:contents;
+        mjx-assistive-mml {
+          user-select: text !important;
+          clip: auto !important;
+          color: rgba(0,0,0,0);
+        }
+        
+mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+  min-height: 1px;
+  min-width: 1px;
+}
+
+mjx-container[jax="SVG"] > svg a {
+  fill: blue;
+  stroke: blue;
+}
+
+mjx-assistive-mml {
+  position: absolute !important;
+  top: 0px;
+  left: 0px;
+  clip: rect(1px, 1px, 1px, 1px);
+  padding: 1px 0px 0px 0px !important;
+  border: 0px !important;
+  display: block !important;
+  width: auto !important;
+  overflow: hidden !important;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+mjx-assistive-mml[display="block"] {
+  width: 100% !important;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][display="true"][width="full"] {
+  display: flex;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line], svg[data-table] > g > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame], svg[data-table] > g > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed, svg[data-table] > g > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted, svg[data-table] > g > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > g > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"] path[data-c], mjx-container[jax="SVG"] use[data-c] {
+  stroke-width: 3;
+}
+
+g[data-mml-node="xypic"] path {
+  stroke-width: inherit;
+}
+
+.MathJax g[data-mml-node="xypic"] path {
+  stroke-width: inherit;
+}
+
+      }
+      </style>
+      <mjx-container class="MathJax" jax="SVG" style="position: relative;"><svg style="vertical-align: -0.186ex;" xmlns="http://www.w3.org/2000/svg" width="12.068ex" height="1.731ex" role="img" focusable="false" viewbox="0 -683 5334 765" aria-hidden="true"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D43E" d="M285 628Q285 635 228 637Q205 637 198 638T191 647Q191 649 193 661Q199 681 203 682Q205 683 214 683H219Q260 681 355 681Q389 681 418 681T463 682T483 682Q500 682 500 674Q500 669 497 660Q496 658 496 654T495 648T493 644T490 641T486 639T479 638T470 637T456 637Q416 636 405 634T387 623L306 305Q307 305 490 449T678 597Q692 611 692 620Q692 635 667 637Q651 637 651 648Q651 650 654 662T659 677Q662 682 676 682Q680 682 711 681T791 680Q814 680 839 681T869 682Q889 682 889 672Q889 650 881 642Q878 637 862 637Q787 632 726 586Q710 576 656 534T556 455L509 418L518 396Q527 374 546 329T581 244Q656 67 661 61Q663 59 666 57Q680 47 717 46H738Q744 38 744 37T741 19Q737 6 731 0H720Q680 3 625 3Q503 3 488 0H478Q472 6 472 9T474 27Q478 40 480 43T491 46H494Q544 46 544 71Q544 75 517 141T485 216L427 354L359 301L291 248L268 155Q245 63 245 58Q245 51 253 49T303 46H334Q340 37 340 35Q340 19 333 5Q328 0 317 0Q314 0 280 1T180 2Q118 2 85 2T49 1Q31 1 31 11Q31 13 34 25Q38 41 42 43T65 46Q92 46 125 49Q139 52 144 61Q147 65 216 339T285 628Z"/></g><g data-mml-node="mo" transform="translate(1166.8,0)"><path data-c="223C" d="M55 166Q55 241 101 304T222 367Q260 367 296 349T362 304T421 252T484 208T554 189Q616 189 655 236T694 338Q694 350 698 358T708 367Q722 367 722 334Q722 260 677 197T562 134H554Q517 134 481 152T414 196T355 248T292 293T223 311Q179 311 145 286Q109 257 96 218T80 156T69 133Q55 133 55 166Z"/></g><g data-mml-node="mn" transform="translate(2222.6,0)"><path data-c="32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z"/></g><g data-mml-node="mi" transform="translate(2722.6,0)"><path data-c="1D43E" d="M285 628Q285 635 228 637Q205 637 198 638T191 647Q191 649 193 661Q199 681 203 682Q205 683 214 683H219Q260 681 355 681Q389 681 418 681T463 682T483 682Q500 682 500 674Q500 669 497 660Q496 658 496 654T495 648T493 644T490 641T486 639T479 638T470 637T456 637Q416 636 405 634T387 623L306 305Q307 305 490 449T678 597Q692 611 692 620Q692 635 667 637Q651 637 651 648Q651 650 654 662T659 677Q662 682 676 682Q680 682 711 681T791 680Q814 680 839 681T869 682Q889 682 889 672Q889 650 881 642Q878 637 862 637Q787 632 726 586Q710 576 656 534T556 455L509 418L518 396Q527 374 546 329T581 244Q656 67 661 61Q663 59 666 57Q680 47 717 46H738Q744 38 744 37T741 19Q737 6 731 0H720Q680 3 625 3Q503 3 488 0H478Q472 6 472 9T474 27Q478 40 480 43T491 46H494Q544 46 544 71Q544 75 517 141T485 216L427 354L359 301L291 248L268 155Q245 63 245 58Q245 51 253 49T303 46H334Q340 37 340 35Q340 19 333 5Q328 0 317 0Q314 0 280 1T180 2Q118 2 85 2T49 1Q31 1 31 11Q31 13 34 25Q38 41 42 43T65 46Q92 46 125 49Q139 52 144 61Q147 65 216 339T285 628Z"/></g><g data-mml-node="mo" transform="translate(3833.8,0)"><path data-c="2212" d="M84 237T84 250T98 270H679Q694 262 694 250T679 230H98Q84 237 84 250Z"/></g><g data-mml-node="mn" transform="translate(4834,0)"><path data-c="31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z"/></g></g></g></svg><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>K</mi><mo>∼</mo><mn>2</mn><mi>K</mi><mo>−</mo><mn>1</mn></math></mjx-assistive-mml></mjx-container>
+    </span>
+  ，以此类推。</p>
+<p>地址分为两个字段，格式为：<code>&lt;bank&gt;&lt;addr&gt;</code>，<strong>高位用于选择Bank，低位用于Bank内寻址</strong>。这种方式支持多设备并行访问，当CPU和I/O设备使用不同Bank存储指令/数据时，可通过不同总线同时访问，互不干扰，提升系统并发性能。例如在流水线处理器中，将指令和操作数分别存放在不同Bank，实现取指令和读操作数的并行执行。</p>
+<img src="/2026/04/14/vlsi-systems-2/图2.png" style="zoom: 80%;">
 <blockquote>
 <p>通俗来讲，我们可以把高位交织看成是把仓库分成多个独立大货架，每个货架放一类货物(指令或数据)，不同工人(CPU和I/O)可同时去不同货架取货。</p>
 </blockquote>
-<h4 id="1-1-1-2-低位交织-Low-Order-Interleave）"><a href="#1-1-1-2-低位交织-Low-Order-Interleave）" class="headerlink" title="1.1.1.2 低位交织(Low Order Interleave）"></a>1.1.1.2 低位交织(Low Order Interleave）</h4><p>与高位交织不同，其地址分配逻辑是连续的地址被交替分配到不同Bank，形成流水线式访存结构。  例如：10个Bank时，Bank1存储<code>0,10,20,30...</code>，Bank2存储<code>1,11,21,31...</code>。 </p>
+<h4 id="1-1-1-2-低位交织-Low-Order-Interleave）">1.1.1.2 低位交织(Low Order Interleave）</h4>
+<p>与高位交织不同，其地址分配逻辑是连续的地址被交替分配到不同Bank，形成流水线式访存结构。  例如：10个Bank时，Bank1存储<code>0,10,20,30...</code>，Bank2存储<code>1,11,21,31...</code>。</p>
 <p>同样的，地址还是分为两个字段，格式为：<code>&lt;addr&gt;&lt;bank&gt;</code>，但变成<strong>低位用于选择Bank，高位用于Bank内寻址</strong>。这样可以实现连续访存流水线化，让内存有效访问速度匹配CPU时钟。CPU可在等待Bank1访存完成的同时，依次访问Bank2、Bank3…，等轮完所有Bank回到Bank1时，前一次访存已完成，可立即发起下一次访问，最终将内存访问速度提升至接近CPU速度。</p>
-<p><img src="/2026/04/14/vlsi-systems-2/图3.png" style="zoom: 80%;"></p>
+<img src="/2026/04/14/vlsi-systems-2/图3.png" style="zoom: 80%;">
 <blockquote>
 <p>将低位交织比作把仓库货物按顺序轮流放到多个货架，工人(CPU)可按顺序依次从不同货架取货，无需等待前一个货架取货完成，实现流水线取货。</p>
 </blockquote>
 <p><span style="font-size:22px"><strong>Example:</strong></span></p>
-<p>CPU时钟为200MHz，内存访问周期为50ns，需要多少个Bank、采用何种交织方式，才能让内存访问速度匹配CPU？第1个Bank的地址是什么？ </p>
-<p><span style="font-size:22px"><strong>Solution: </strong></span></p>
+<p>CPU时钟为200MHz，内存访问周期为50ns，需要多少个Bank、采用何种交织方式，才能让内存访问速度匹配CPU？第1个Bank的地址是什么？</p>
+<p><span style="font-size:22px"><strong>Solution:</strong></span></p>
 <ol>
-<li><p><strong>计算CPU周期</strong> </p>
-<p>CPU周期 = $\frac {1} {200}MHz$ = 5ns；</p>
+<li>
+<p><strong>计算CPU周期</strong></p>
+<p>CPU周期 = 
+    <span id="mjx-14d9d3b">
+      <style>
+      #mjx-14d9d3b{
+        display:contents;
+        mjx-assistive-mml {
+          user-select: text !important;
+          clip: auto !important;
+          color: rgba(0,0,0,0);
+        }
+        
+mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+  min-height: 1px;
+  min-width: 1px;
+}
+
+mjx-container[jax="SVG"] > svg a {
+  fill: blue;
+  stroke: blue;
+}
+
+mjx-assistive-mml {
+  position: absolute !important;
+  top: 0px;
+  left: 0px;
+  clip: rect(1px, 1px, 1px, 1px);
+  padding: 1px 0px 0px 0px !important;
+  border: 0px !important;
+  display: block !important;
+  width: auto !important;
+  overflow: hidden !important;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+mjx-assistive-mml[display="block"] {
+  width: 100% !important;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][display="true"][width="full"] {
+  display: flex;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line], svg[data-table] > g > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame], svg[data-table] > g > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed, svg[data-table] > g > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted, svg[data-table] > g > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > g > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"] path[data-c], mjx-container[jax="SVG"] use[data-c] {
+  stroke-width: 3;
+}
+
+g[data-mml-node="xypic"] path {
+  stroke-width: inherit;
+}
+
+.MathJax g[data-mml-node="xypic"] path {
+  stroke-width: inherit;
+}
+
+      }
+      </style>
+      <mjx-container class="MathJax" jax="SVG" style="position: relative;"><svg style="vertical-align: -0.816ex;" xmlns="http://www.w3.org/2000/svg" width="8.834ex" height="2.773ex" role="img" focusable="false" viewbox="0 -864.9 3904.7 1225.5" aria-hidden="true"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mfrac"><g data-mml-node="mn" transform="translate(573.6,394) scale(0.707)"><path data-c="31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z"/></g><g data-mml-node="mn" transform="translate(220,-345) scale(0.707)"><path data-c="32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z"/><path data-c="30" d="M96 585Q152 666 249 666Q297 666 345 640T423 548Q460 465 460 320Q460 165 417 83Q397 41 362 16T301 -15T250 -22Q224 -22 198 -16T137 16T82 83Q39 165 39 320Q39 494 96 585ZM321 597Q291 629 250 629Q208 629 178 597Q153 571 145 525T137 333Q137 175 145 125T181 46Q209 16 250 16Q290 16 318 46Q347 76 354 130T362 333Q362 478 354 524T321 597Z" transform="translate(500,0)"/><path data-c="30" d="M96 585Q152 666 249 666Q297 666 345 640T423 548Q460 465 460 320Q460 165 417 83Q397 41 362 16T301 -15T250 -22Q224 -22 198 -16T137 16T82 83Q39 165 39 320Q39 494 96 585ZM321 597Q291 629 250 629Q208 629 178 597Q153 571 145 525T137 333Q137 175 145 125T181 46Q209 16 250 16Q290 16 318 46Q347 76 354 130T362 333Q362 478 354 524T321 597Z" transform="translate(1000,0)"/></g><rect width="1260.7" height="60" x="120" y="220"/></g><g data-mml-node="mi" transform="translate(1500.7,0)"><path data-c="1D440" d="M289 629Q289 635 232 637Q208 637 201 638T194 648Q194 649 196 659Q197 662 198 666T199 671T201 676T203 679T207 681T212 683T220 683T232 684Q238 684 262 684T307 683Q386 683 398 683T414 678Q415 674 451 396L487 117L510 154Q534 190 574 254T662 394Q837 673 839 675Q840 676 842 678T846 681L852 683H948Q965 683 988 683T1017 684Q1051 684 1051 673Q1051 668 1048 656T1045 643Q1041 637 1008 637Q968 636 957 634T939 623Q936 618 867 340T797 59Q797 55 798 54T805 50T822 48T855 46H886Q892 37 892 35Q892 19 885 5Q880 0 869 0Q864 0 828 1T736 2Q675 2 644 2T609 1Q592 1 592 11Q592 13 594 25Q598 41 602 43T625 46Q652 46 685 49Q699 52 704 61Q706 65 742 207T813 490T848 631L654 322Q458 10 453 5Q451 4 449 3Q444 0 433 0Q418 0 415 7Q413 11 374 317L335 624L267 354Q200 88 200 79Q206 46 272 46H282Q288 41 289 37T286 19Q282 3 278 1Q274 0 267 0Q265 0 255 0T221 1T157 2Q127 2 95 1T58 0Q43 0 39 2T35 11Q35 13 38 25T43 40Q45 46 65 46Q135 46 154 86Q158 92 223 354T289 629Z"/></g><g data-mml-node="mi" transform="translate(2551.7,0)"><path data-c="1D43B" d="M228 637Q194 637 192 641Q191 643 191 649Q191 673 202 682Q204 683 219 683Q260 681 355 681Q389 681 418 681T463 682T483 682Q499 682 499 672Q499 670 497 658Q492 641 487 638H485Q483 638 480 638T473 638T464 637T455 637Q416 636 405 634T387 623Q384 619 355 500Q348 474 340 442T328 395L324 380Q324 378 469 378H614L615 381Q615 384 646 504Q674 619 674 627T617 637Q594 637 587 639T580 648Q580 650 582 660Q586 677 588 679T604 682Q609 682 646 681T740 680Q802 680 835 681T871 682Q888 682 888 672Q888 645 876 638H874Q872 638 869 638T862 638T853 637T844 637Q805 636 794 634T776 623Q773 618 704 340T634 58Q634 51 638 51Q646 48 692 46H723Q729 38 729 37T726 19Q722 6 716 0H701Q664 2 567 2Q533 2 504 2T458 2T437 1Q420 1 420 10Q420 15 423 24Q428 43 433 45Q437 46 448 46H454Q481 46 514 49Q520 50 522 50T528 55T534 64T540 82T547 110T558 153Q565 181 569 198Q602 330 602 331T457 332H312L279 197Q245 63 245 58Q245 51 253 49T303 46H334Q340 38 340 37T337 19Q333 6 327 0H312Q275 2 178 2Q144 2 115 2T69 2T48 1Q31 1 31 10Q31 12 34 24Q39 43 44 45Q48 46 59 46H65Q92 46 125 49Q139 52 144 61Q147 65 216 339T285 628Q285 635 228 637Z"/></g><g data-mml-node="mi" transform="translate(3439.7,0)"><path data-c="1D467" d="M347 338Q337 338 294 349T231 360Q211 360 197 356T174 346T162 335T155 324L153 320Q150 317 138 317Q117 317 117 325Q117 330 120 339Q133 378 163 406T229 440Q241 442 246 442Q271 442 291 425T329 392T367 375Q389 375 411 408T434 441Q435 442 449 442H462Q468 436 468 434Q468 430 463 420T449 399T432 377T418 358L411 349Q368 298 275 214T160 106L148 94L163 93Q185 93 227 82T290 71Q328 71 360 90T402 140Q406 149 409 151T424 153Q443 153 443 143Q443 138 442 134Q425 72 376 31T278 -11Q252 -11 232 6T193 40T155 57Q111 57 76 -3Q70 -11 59 -11H54H41Q35 -5 35 -2Q35 13 93 84Q132 129 225 214T340 322Q352 338 347 338Z"/></g></g></g></svg><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mfrac><mn>1</mn><mn>200</mn></mfrac><mi>M</mi><mi>H</mi><mi>z</mi></math></mjx-assistive-mml></mjx-container>
+    </span>
+   = 5ns；</p>
 </li>
-<li><p><strong>计算Bank数</strong>    </p>
-<p>采用低位交织，Bank数 = $\frac { 内存周期 }  { CPU周期 } $= $\frac { 50ns } { 5ns }$ = 10个（10路低位交织）</p>
+<li>
+<p><strong>计算Bank数</strong></p>
+<p>采用低位交织，Bank数 = $\frac { 内存周期 }  { CPU周期 } $= 
+    <span id="mjx-45e0f0e">
+      <style>
+      #mjx-45e0f0e{
+        display:contents;
+        mjx-assistive-mml {
+          user-select: text !important;
+          clip: auto !important;
+          color: rgba(0,0,0,0);
+        }
+        
+mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+  min-height: 1px;
+  min-width: 1px;
+}
+
+mjx-container[jax="SVG"] > svg a {
+  fill: blue;
+  stroke: blue;
+}
+
+mjx-assistive-mml {
+  position: absolute !important;
+  top: 0px;
+  left: 0px;
+  clip: rect(1px, 1px, 1px, 1px);
+  padding: 1px 0px 0px 0px !important;
+  border: 0px !important;
+  display: block !important;
+  width: auto !important;
+  overflow: hidden !important;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+mjx-assistive-mml[display="block"] {
+  width: 100% !important;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][display="true"][width="full"] {
+  display: flex;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line], svg[data-table] > g > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame], svg[data-table] > g > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed, svg[data-table] > g > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted, svg[data-table] > g > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > g > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"] path[data-c], mjx-container[jax="SVG"] use[data-c] {
+  stroke-width: 3;
+}
+
+g[data-mml-node="xypic"] path {
+  stroke-width: inherit;
+}
+
+.MathJax g[data-mml-node="xypic"] path {
+  stroke-width: inherit;
+}
+
+      }
+      </style>
+      <mjx-container class="MathJax" jax="SVG" style="position: relative;"><svg style="vertical-align: -0.816ex;" xmlns="http://www.w3.org/2000/svg" width="4.305ex" height="2.773ex" role="img" focusable="false" viewbox="0 -864.9 1903 1225.5" aria-hidden="true"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mfrac"><g data-mml-node="mrow" transform="translate(220,394) scale(0.707)"><g data-mml-node="mn"><path data-c="35" d="M164 157Q164 133 148 117T109 101H102Q148 22 224 22Q294 22 326 82Q345 115 345 210Q345 313 318 349Q292 382 260 382H254Q176 382 136 314Q132 307 129 306T114 304Q97 304 95 310Q93 314 93 485V614Q93 664 98 664Q100 666 102 666Q103 666 123 658T178 642T253 634Q324 634 389 662Q397 666 402 666Q410 666 410 648V635Q328 538 205 538Q174 538 149 544L139 546V374Q158 388 169 396T205 412T256 420Q337 420 393 355T449 201Q449 109 385 44T229 -22Q148 -22 99 32T50 154Q50 178 61 192T84 210T107 214Q132 214 148 197T164 157Z"/><path data-c="30" d="M96 585Q152 666 249 666Q297 666 345 640T423 548Q460 465 460 320Q460 165 417 83Q397 41 362 16T301 -15T250 -22Q224 -22 198 -16T137 16T82 83Q39 165 39 320Q39 494 96 585ZM321 597Q291 629 250 629Q208 629 178 597Q153 571 145 525T137 333Q137 175 145 125T181 46Q209 16 250 16Q290 16 318 46Q347 76 354 130T362 333Q362 478 354 524T321 597Z" transform="translate(500,0)"/></g><g data-mml-node="mi" transform="translate(1000,0)"><path data-c="1D45B" d="M21 287Q22 293 24 303T36 341T56 388T89 425T135 442Q171 442 195 424T225 390T231 369Q231 367 232 367L243 378Q304 442 382 442Q436 442 469 415T503 336T465 179T427 52Q427 26 444 26Q450 26 453 27Q482 32 505 65T540 145Q542 153 560 153Q580 153 580 145Q580 144 576 130Q568 101 554 73T508 17T439 -10Q392 -10 371 17T350 73Q350 92 386 193T423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 180T152 343Q153 348 153 366Q153 405 129 405Q91 405 66 305Q60 285 60 284Q58 278 41 278H27Q21 284 21 287Z"/></g><g data-mml-node="mi" transform="translate(1600,0)"><path data-c="1D460" d="M131 289Q131 321 147 354T203 415T300 442Q362 442 390 415T419 355Q419 323 402 308T364 292Q351 292 340 300T328 326Q328 342 337 354T354 372T367 378Q368 378 368 379Q368 382 361 388T336 399T297 405Q249 405 227 379T204 326Q204 301 223 291T278 274T330 259Q396 230 396 163Q396 135 385 107T352 51T289 7T195 -10Q118 -10 86 19T53 87Q53 126 74 143T118 160Q133 160 146 151T160 120Q160 94 142 76T111 58Q109 57 108 57T107 55Q108 52 115 47T146 34T201 27Q237 27 263 38T301 66T318 97T323 122Q323 150 302 164T254 181T195 196T148 231Q131 256 131 289Z"/></g></g><g data-mml-node="mrow" transform="translate(396.8,-345) scale(0.707)"><g data-mml-node="mn"><path data-c="35" d="M164 157Q164 133 148 117T109 101H102Q148 22 224 22Q294 22 326 82Q345 115 345 210Q345 313 318 349Q292 382 260 382H254Q176 382 136 314Q132 307 129 306T114 304Q97 304 95 310Q93 314 93 485V614Q93 664 98 664Q100 666 102 666Q103 666 123 658T178 642T253 634Q324 634 389 662Q397 666 402 666Q410 666 410 648V635Q328 538 205 538Q174 538 149 544L139 546V374Q158 388 169 396T205 412T256 420Q337 420 393 355T449 201Q449 109 385 44T229 -22Q148 -22 99 32T50 154Q50 178 61 192T84 210T107 214Q132 214 148 197T164 157Z"/></g><g data-mml-node="mi" transform="translate(500,0)"><path data-c="1D45B" d="M21 287Q22 293 24 303T36 341T56 388T89 425T135 442Q171 442 195 424T225 390T231 369Q231 367 232 367L243 378Q304 442 382 442Q436 442 469 415T503 336T465 179T427 52Q427 26 444 26Q450 26 453 27Q482 32 505 65T540 145Q542 153 560 153Q580 153 580 145Q580 144 576 130Q568 101 554 73T508 17T439 -10Q392 -10 371 17T350 73Q350 92 386 193T423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 180T152 343Q153 348 153 366Q153 405 129 405Q91 405 66 305Q60 285 60 284Q58 278 41 278H27Q21 284 21 287Z"/></g><g data-mml-node="mi" transform="translate(1100,0)"><path data-c="1D460" d="M131 289Q131 321 147 354T203 415T300 442Q362 442 390 415T419 355Q419 323 402 308T364 292Q351 292 340 300T328 326Q328 342 337 354T354 372T367 378Q368 378 368 379Q368 382 361 388T336 399T297 405Q249 405 227 379T204 326Q204 301 223 291T278 274T330 259Q396 230 396 163Q396 135 385 107T352 51T289 7T195 -10Q118 -10 86 19T53 87Q53 126 74 143T118 160Q133 160 146 151T160 120Q160 94 142 76T111 58Q109 57 108 57T107 55Q108 52 115 47T146 34T201 27Q237 27 263 38T301 66T318 97T323 122Q323 150 302 164T254 181T195 196T148 231Q131 256 131 289Z"/></g></g><rect width="1663" height="60" x="120" y="220"/></g></g></g></svg><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mfrac><mrow><mn>50</mn><mi>n</mi><mi>s</mi></mrow><mrow><mn>5</mn><mi>n</mi><mi>s</mi></mrow></mfrac></math></mjx-assistive-mml></mjx-container>
+    </span>
+   = 10个（10路低位交织）</p>
 </li>
-<li><p><strong>第1个Bank的地址</strong></p>
+<li>
+<p><strong>第1个Bank的地址</strong></p>
 <p>低位交织中，第1个Bank的地址为<code>0, 10, 20, 30...</code>（步长为Bank数10）</p>
 </li>
 </ol>
-<h3 id="1-1-2-内存管理单元-Memory-Management-Unit-MMU"><a href="#1-1-2-内存管理单元-Memory-Management-Unit-MMU" class="headerlink" title="1.1.2 内存管理单元(Memory Management Unit, MMU)"></a>1.1.2 内存管理单元(Memory Management Unit, MMU)</h3><p>MMU是操作系统的核心组件，负责监管所有存储设备之间的信息流动。其的要求是在满足系统性能要求的前提下，<strong>最小化每比特存储的成本（cost per bit of storage）</strong>。</p>
+<h3 id="1-1-2-内存管理单元-Memory-Management-Unit-MMU">1.1.2 内存管理单元(Memory Management Unit, MMU)</h3>
+<p>MMU是操作系统的核心组件，负责监管所有存储设备之间的信息流动。其的要求是在满足系统性能要求的前提下，<strong>最小化每比特存储的成本（cost per bit of storage）</strong>。</p>
 <p>通过 <strong>分层存储结构(Hierarchical Memory)</strong> 实现，由多级不同速度、不同成本的存储器组成金字塔结构，越靠近 CPU 的层级速度越快、容量越小、成本越高；越远离 CPU 的层级速度越慢、容量越大、成本越低。主要功能如下：</p>
 <ul>
 <li>调整层次中各存储器的访问频率，最大化高速存储的利用率</li>
 <li>提供高效的层级间数据传输机制</li>
 <li>平衡所有计算机组件的速度与成本，实现整体性能最优</li>
 </ul>
-<h3 id="1-1-3-存储层次结构-Memory-Hierarchy"><a href="#1-1-3-存储层次结构-Memory-Hierarchy" class="headerlink" title="1.1.3 存储层次结构(Memory Hierarchy)"></a>1.1.3 存储层次结构(Memory Hierarchy)</h3><p>存储层次遵循<strong>局部性原理(Locality Principle)</strong>，CPU 访问的数据具有时间局部性（近期会重复访问）和空间局部性（近期会访问相邻数据），因此将常用数据放在高速上层，不常用数据放在低速下层，兼顾速度与容量。</p>
-<p><img src="/2026/04/14/vlsi-systems-2/图4.png" style="zoom: 67%;"></p>
-<div class="table-container">
+<h3 id="1-1-3-存储层次结构-Memory-Hierarchy">1.1.3 存储层次结构(Memory Hierarchy)</h3>
+<p>存储层次遵循<strong>局部性原理(Locality Principle)</strong>，CPU 访问的数据具有时间局部性（近期会重复访问）和空间局部性（近期会访问相邻数据），因此将常用数据放在高速上层，不常用数据放在低速下层，兼顾速度与容量。</p>
+<img src="/2026/04/14/vlsi-systems-2/图4.png" style="zoom: 67%;">
 <table>
 <thead>
 <tr>
@@ -692,116 +1350,12 @@ I/O Devices
 </tr>
 </tbody>
 </table>
-</div>
 <blockquote>
 <p>注：DASDS = Direct-Access Storage Devices（直接访问存储设备），可直接寻址，区别于磁带这类顺序访问设备。</p>
 </blockquote>
 <hr>
-<h2 id="三、严格分层存储下的-CPU-访问流程"><a href="#三、严格分层存储下的-CPU-访问流程" class="headerlink" title="三、严格分层存储下的 CPU 访问流程"></a>三、严格分层存储下的 CPU 访问流程</h2><p>CPU 仅从最顶层的 Cache 获取数据，数据缺失时逐级向下查找，并将数据向上迁移，完整流程如下：</p>
-<p>命中未命中命中未命中命中未命中命中未命中CPU需要数据搜索CacheCPU从Cache取数据，流程结束搜索主存1. 将包含目标数据的块复制到Cache 2. CPU从Cache取数据搜索二级存储（硬盘）1. 将包含目标数据的页复制到主存 2. 将块从主存复制到Cache 3. CPU从Cache取数据搜索辅助存储（磁带/DVD等）1. 将包含目标数据的文件复制到二级存储 2. 将页复制到主存 3. 将块复制到Cache 4. CPU从Cache取数据数据未找到</p>
-<p>命中未命中命中未命中命中未命中命中未命中CPU需要数据搜索CacheCPU从Cache取数据，流程结束搜索主存1. 将包含目标数据的块复制到Cache 2. CPU从Cache取数据搜索二级存储（硬盘）1. 将包含目标数据的页复制到主存 2. 将块从主存复制到Cache 3. CPU从Cache取数据搜索辅助存储（磁带/DVD等）1. 将包含目标数据的文件复制到二级存储 2. 将页复制到主存 3. 将块复制到Cache 4. CPU从Cache取数据数据未找到</p>
-<p><img src="chrome://doubao-launcher/chat/38421616046576386" alt="img"></p>
-<p>豆包</p>
-<p>你的 AI 助手，助力每日工作学习</p>
-<h3 id="核心逻辑"><a href="#核心逻辑" class="headerlink" title="核心逻辑"></a>核心逻辑</h3><ul>
-<li><strong>数据逐级向上迁移</strong>：每次缺失时，将包含目标数据的更大块（块→页→文件）从下层加载到上层，利用空间局部性提升后续访问的命中率</li>
-<li><strong>CPU 仅访问顶层 Cache</strong>：保证 CPU 始终以最快速度获取数据，屏蔽下层存储的速度差异</li>
-<li>与「元位」呼应：Cache 的命中判断依赖每个块附带的元位（标记位、有效位等），和之前存储单元的元位知识点完全贯通</li>
-</ul>
-<hr>
-<h2 id="四、两级存储层次的性能公式推导"><a href="#四、两级存储层次的性能公式推导" class="headerlink" title="四、两级存储层次的性能公式推导"></a>四、两级存储层次的性能公式推导</h2><h3 id="核心参数定义"><a href="#核心参数定义" class="headerlink" title="核心参数定义"></a>核心参数定义</h3><ul>
-<li>M1：上层高速存储（如 Cache），tM1为其访问时间</li>
-<li>M2：下层低速存储（如主存），tM2为其访问时间</li>
-<li>H：<strong>命中率（Hit Ratio）</strong>：CPU 访问的数据在M1中命中的概率</li>
-<li>tA：<strong>系统平均访问时间（Average Access Time）</strong></li>
-<li>tB：<strong>块传输时间</strong>：从M2到M1传输一个块的时间，tB=bs×tM2（bs为块大小）</li>
-</ul>
-<h3 id="公式推导"><a href="#公式推导" class="headerlink" title="公式推导"></a>公式推导</h3><ol>
-<li>基础平均访问时间公式</li>
-</ol>
-<p>   命中时仅需访问</p>
-<p>   M1</p>
-<p>   ，未命中时需先从</p>
-<p>   M2</p>
-<p>   传输块到</p>
-<p>   M1</p>
-<p>   ，再访问</p>
-<p>   M1</p>
-<p>   ：</p>
-<p>   tA=H⋅tM1+(1−H)⋅(tB+tM1)=tM1+(1−H)tB=tM1+(1−H)(bs×tM2)</p>
-<ul>
-<li><p>特殊情况：块大小</p>
-<p>bs=1</p>
-<p>（仅传输 1 个字），公式简化为：</p>
-</li>
-</ul>
-<p>  tA=tM1+(1−H)⋅tM2</p>
-<ol>
-<li>访问效率公式</li>
-</ol>
-<p>   访问效率</p>
-<p>   e</p>
-<p>   定义为「上层存储访问时间 / 系统平均访问时间」，越接近 1 说明性能越好：</p>
-<p>   e=tAtM1=H+(1−H)tM1tM21</p>
-<hr>
-<h2 id="五、经典例题详解与性能分析"><a href="#五、经典例题详解与性能分析" class="headerlink" title="五、经典例题详解与性能分析"></a>五、经典例题详解与性能分析</h2><h3 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h3><p>已知主存访问时间为 200 ns，计算以下两种存储配置的平均访问时间，并分析性能：</p>
-<h4 id="a-Cache-主存层次"><a href="#a-Cache-主存层次" class="headerlink" title="(a) Cache - 主存层次"></a>(a) Cache - 主存层次</h4><ul>
-<li>Cache 命中率H=0.7，Cache 访问时间tM1=20 ns</li>
-</ul>
-<h4 id="b-主存-硬盘层次（分页）"><a href="#b-主存-硬盘层次（分页）" class="headerlink" title="(b) 主存 - 硬盘层次（分页）"></a>(b) 主存 - 硬盘层次（分页）</h4><ul>
-<li>主存命中率H=0.99，硬盘平均访问时间 50 ms，页大小 1K 字（1024 字）</li>
-</ul>
-<hr>
-<h3 id="a-Cache-主存层次计算"><a href="#a-Cache-主存层次计算" class="headerlink" title="(a) Cache - 主存层次计算"></a>(a) Cache - 主存层次计算</h3><p><strong>参数</strong>：</p>
-<ul>
-<li>H=0.7，tA1=20 ns（Cache 访问时间）</li>
-<li>tA2=200+20=220 ns（未命中时，主存访问 + Cache 加载时间）</li>
-</ul>
-<p><strong>计算</strong>：</p>
-<p>tA=HtA1+(1−H)tA2=0.7×20+0.3×220=14+66=80 ns</p>
-<p><strong>性能分析</strong>：</p>
-<ul>
-<li>速度提升：200200−80=60%</li>
-<li>结论：即使命中率仅 0.7，也能带来 60% 的速度提升，<strong>Cache 命中率是系统性能的核心，命中率越高，性能越好</strong>。</li>
-</ul>
-<hr>
-<h3 id="b-主存-硬盘层次计算"><a href="#b-主存-硬盘层次计算" class="headerlink" title="(b) 主存 - 硬盘层次计算"></a>(b) 主存 - 硬盘层次计算</h3><p><strong>参数</strong>：</p>
-<ul>
-<li>H=0.99，tA1=200 ns（主存访问时间）</li>
-<li>硬盘访问时间：50 ms=50×106 ns，页大小bs=1024</li>
-<li>tA2=50×106×1024+200≈5.12×1010 ns（页传输 + 主存访问时间）</li>
-</ul>
-<p><strong>计算</strong>：</p>
-<p>tA=0.99×200+0.01×5.12×1010≈198+5.12×108≈512 ms</p>
-<p><strong>性能分析</strong>：</p>
-<ul>
-<li>速度提升为负值（≈−2.56×106%），说明系统性能大幅下降</li>
-<li>结论：硬盘速度极慢，串行传输的特性导致一次缺页就会严重拖慢系统，<strong>存储层次中，下层设备的速度是系统性能的瓶颈，设备越快，性能越好</strong>。</li>
-</ul>
-<hr>
-<h2 id="六、核心结论与博客适配建议"><a href="#六、核心结论与博客适配建议" class="headerlink" title="六、核心结论与博客适配建议"></a>六、核心结论与博客适配建议</h2><h3 id="核心结论"><a href="#核心结论" class="headerlink" title="核心结论"></a>核心结论</h3><ol>
-<li>存储层次的核心是<strong>局部性原理</strong>，通过分层存储平衡速度、容量与成本</li>
-<li><strong>命中率</strong>是高速缓存性能的核心指标，直接决定系统平均访问时间</li>
-<li>低速存储（如机械硬盘）是系统性能的瓶颈，需尽量减少对其的访问</li>
-<li>两级存储平均访问时间公式是分析存储系统性能的核心工具</li>
-</ol>
-<h3 id="博客整合建议"><a href="#博客整合建议" class="headerlink" title="博客整合建议"></a>博客整合建议</h3><p>可将本内容接在之前的「主存组织」「内存体与地址交织」之后，作为「存储系统核心：内存管理与层次结构」章节，结构如下：</p>
-<ol>
-<li>内存管理与 MMU 概念</li>
-<li>存储层次结构与局部性原理</li>
-<li>CPU 访问存储的完整流程（呼应元位知识点）</li>
-<li>两级存储性能公式推导</li>
-<li>经典例题与性能分析</li>
-<li>核心结论与拓展（如现代存储层次的优化：SSD 替代机械硬盘、多级 Cache 等）</li>
-</ol>
-<hr>
-<h2 id="七、拓展知识（博客加分项）"><a href="#七、拓展知识（博客加分项）" class="headerlink" title="七、拓展知识（博客加分项）"></a>七、拓展知识（博客加分项）</h2><ul>
-<li><strong>局部性原理</strong>：分为时间局部性（近期重复访问）和空间局部性（访问相邻数据），是存储层次的理论基础</li>
-<li><strong>现代 MMU</strong>：除了内存管理，还负责<strong>虚拟地址到物理地址的转换</strong>，实现虚拟内存、内存保护等功能</li>
-<li><strong>多级 Cache</strong>：现代 CPU 采用 L1/L2/L3 三级 Cache，进一步提升命中率，降低平均访问时间</li>
-<li><strong>SSD 的影响</strong>：用 SSD 替代机械硬盘，大幅提升二级存储的速度，缓解主存 - 硬盘层次的性能瓶颈</li>
-</ul>
-<p><img src="/2026/04/14/vlsi-systems-2/图.png" style="zoom: 80%;"></p>
+<p>未完待续！</p>
+<img src="/2026/04/14/vlsi-systems-2/图.png" style="zoom: 80%;">
 
                 
             </div>
@@ -938,6 +1492,280 @@ I/O Devices
     
 
     
+
+    
+        <style>
+    .twikoo-card {
+        margin: 1.5rem auto;
+    }
+
+    .twikoo-card .card-content {
+        padding: 20px;
+    }
+
+    #tcomments textarea {
+        box-sizing: border-box;
+        background: url("/") 100% 100% no-repeat;
+    }
+
+    #tcomments p {
+        margin: 2px 2px 10px;
+        font-size: 1.05rem;
+        line-height: 1.78rem;
+    }
+
+    #tcomments blockquote p {
+        text-indent: 0.2rem;
+    }
+
+    #tcomments a {
+        padding: 0 2px;
+        color: #4cbf30;
+        font-weight: 500;
+        text-decoration: none;
+    }
+
+    #tcomments img {
+        max-width: 100%;
+        height: auto;
+        cursor: pointer;
+    }
+
+    #tcomments ol li {
+        list-style-type: decimal;
+    }
+
+    #tcomments ol,
+    ul {
+        display: block;
+        padding-left: 2em;
+        word-spacing: 0.05rem;
+    }
+
+    #tcomments ul li,
+    ol li {
+        display: list-item;
+        line-height: 1.8rem;
+        font-size: 1rem;
+    }
+
+    #tcomments ul li {
+        list-style-type: disc;
+    }
+
+    #tcomments ul ul li {
+        list-style-type: circle;
+    }
+
+    #tcomments table,
+    th,
+    td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    #tcomments table,
+    th,
+    td {
+        border: 0;
+    }
+
+    table tr:nth-child(2n),
+    thead {
+        background-color: #fafafa;
+    }
+
+    #tcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #tcomments table td {
+        min-width: 80px;
+    }
+
+    #tcomments h1 {
+        font-size: 1.85rem;
+        font-weight: bold;
+        line-height: 2.2rem;
+    }
+
+    #tcomments h2 {
+        font-size: 1.65rem;
+        font-weight: bold;
+        line-height: 1.9rem;
+    }
+
+    #tcomments h3 {
+        font-size: 1.45rem;
+        font-weight: bold;
+        line-height: 1.7rem;
+    }
+
+    #tcomments h4 {
+        font-size: 1.25rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    #tcomments h5 {
+        font-size: 1.1rem;
+        font-weight: bold;
+        line-height: 1.4rem;
+    }
+
+    #tcomments h6 {
+        font-size: 1rem;
+        line-height: 1.3rem;
+    }
+
+    #tcomments p {
+        font-size: 1rem;
+        line-height: 1.5rem;
+    }
+
+    #tcomments hr {
+        margin: 12px 0;
+        border: 0;
+        border-top: 1px solid #ccc;
+    }
+
+    #tcomments blockquote {
+        margin: 15px 0;
+        border-left: 5px solid #42b983;
+        padding: 1rem 0.8rem 0.3rem 0.8rem;
+        color: #666;
+        background-color: rgba(66, 185, 131, .1);
+    }
+
+    #tcomments pre {
+        font-family: monospace, monospace;
+        padding: 1.2em;
+        margin: .5em 0;
+        background: #272822;
+        overflow: auto;
+        border-radius: 0.3em;
+        tab-size: 4;
+    }
+
+    #tcomments code {
+        font-family: monospace, monospace;
+        padding: 1px 3px;
+        font-size: 0.92rem;
+        color: #e96900;
+        background-color: #f8f8f8;
+        border-radius: 2px;
+    }
+
+    #tcomments pre code {
+        font-family: monospace, monospace;
+        padding: 0;
+        color: #e8eaf6;
+        background-color: #272822;
+    }
+
+    #tcomments pre[class*="language-"] {
+        padding: 1.2em;
+        margin: .5em 0;
+    }
+
+    #tcomments code[class*="language-"],
+    pre[class*="language-"] {
+        color: #e8eaf6;
+    }
+
+    #tcomments [type="checkbox"]:not(:checked),
+    [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+
+    #tcomments b,
+    strong {
+        font-weight: bold;
+    }
+
+    #tcomments dfn {
+        font-style: italic;
+    }
+
+    #tcomments small {
+        font-size: 85%;
+    }
+
+    #tcomments cite {
+        font-style: normal;
+    }
+
+    #tcomments mark {
+        background-color: #fcf8e3;
+        padding: .2em;
+    }
+
+    #tcomments table,
+    th,
+    td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    table tr:nth-child(2n),
+    thead {
+        background-color: #fafafa;
+    }
+
+    #tcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #tcomments table td {
+        min-width: 80px;
+    }
+
+    #tcomments [type="checkbox"]:not(:checked),
+    [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+</style>
+
+<div class="card twikoo-card" data-aos="fade-up">
+    <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; padding-left: 20px; top: 15px; padding-bottom: 5px;">
+        <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
+        <span>评论</span>
+    </div>
+    <div class="card-content" style="display: grid">
+        <div id="tcomments"></div>
+    </div>
+</div>
+
+<script src="/libs/twikoo/twikoo.all.min.js"></script>
+<script>
+    twikoo.init({
+        envId: 'https://twikoo-fawn-omega.vercel.app',
+        el: '#tcomments',
+        region: '',
+        path: ''
+    }).then(function () {
+        var tkInputs = document.querySelector('#twikoo').getElementsByTagName('input');
+        for (var tkInputsIndex = 0; tkInputsIndex < tkInputs.length; tkInputsIndex++) {
+            if (tkInputs[tkInputsIndex]) {
+                tkInputs[tkInputsIndex].classList.add('browser-default');
+            }
+        }
+    });
+</script>
 
     
 
@@ -1196,13 +2024,6 @@ I/O Devices
 </main>
 
 
-<script src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-<script>
-    MathJax.Hub.Config({
-        tex2jax: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
-    });
-</script>
-
 
 
     <footer class="page-footer bg-color">
@@ -1275,7 +2096,7 @@ I/O Devices
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">123.3k</span>
+                        class="white-color">718.2k</span>
             
             
             
@@ -1546,15 +2367,7 @@ $(function () {
     
 
     <!-- 雪花特效 -->
-     
-        <script type="text/javascript">
-            // 只在桌面版网页启用特效
-            var windowWidth = $(window).width();
-            if (windowWidth > 768) {
-                document.write('<script type="text/javascript" src="/libs/others/snow.js"><\/script>');
-            }
-        </script>
-    
+    **
 
     <!-- 鼠标星星特效 -->
      

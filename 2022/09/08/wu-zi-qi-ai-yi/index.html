@@ -574,30 +574,49 @@
                 <hr>
 <blockquote>
 <p>一时心血来潮对棋类博弈产生了兴趣，就想着通过实现一个五子棋AI顺便了解一下相关算法和知识。</p>
-<p>五子棋在英文中又称Gobang。先简单介绍一下，由于五子棋已经被机器严格证明了是一种“不公平”的游戏，先手黑子是绝对占优的，并且先手有必胜的套路。由于先手必胜，必须对先手进行一定的规则限制，于是就出现了“禁手”一说，即某些位置<a href="[五子棋（两人对弈的策略型棋类游戏）_百度百科 (baidu.com">（比如能形成双活3、活3冲4）</a>](<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/五子棋/130266))黑子不能下，不然就算黑子输。在日本，五子棋的理论得到极大发展，有禁手规则的五子棋被称为“连珠”（renju），而一般无禁手规则的叫做gomoku。由于大部分普通人下五子棋只是图一个乐趣，并不需要深入研究其中的理论规则，所以反而是gomoku在学生之间非常流行（我高中时下课就经常和同学玩五子棋）。">https://baike.baidu.com/item/五子棋/130266))黑子不能下，不然就算黑子输。在日本，五子棋的理论得到极大发展，有禁手规则的五子棋被称为“连珠”（renju），而一般无禁手规则的叫做gomoku。由于大部分普通人下五子棋只是图一个乐趣，并不需要深入研究其中的理论规则，所以反而是gomoku在学生之间非常流行（我高中时下课就经常和同学玩五子棋）。</a></p>
+<p>五子棋在英文中又称Gobang。先简单介绍一下，由于五子棋已经被机器严格证明了是一种“不公平”的游戏，先手黑子是绝对占优的，并且先手有必胜的套路。由于先手必胜，必须对先手进行一定的规则限制，于是就出现了“禁手”一说，即某些位置[（比如能形成双活3、活3冲4）](<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E4%BA%94%E5%AD%90%E6%A3%8B/130266">五子棋（两人对弈的策略型棋类游戏）_百度百科 (baidu.com)</a>)黑子不能下，不然就算黑子输。在日本，五子棋的理论得到极大发展，有禁手规则的五子棋被称为“连珠”（renju），而一般无禁手规则的叫做gomoku。由于大部分普通人下五子棋只是图一个乐趣，并不需要深入研究其中的理论规则，所以反而是gomoku在学生之间非常流行（我高中时下课就经常和同学玩五子棋）。</p>
 <p>这里我实现的五子棋AI是无禁手规则的（因为有禁手的太复杂，另外本人比较懒。。。），标准棋盘大小为15$\times$15，我的目的是想实现一个能打败大部分普通人的AI，因此并没有进行更深入的专业性研究。所以，如果你能战胜我实现的AI，也不用太过惊讶。</p>
 </blockquote>
 <hr>
-<h3 id="1、设计项目主体框架"><a href="#1、设计项目主体框架" class="headerlink" title="1、设计项目主体框架"></a>1、设计项目主体框架</h3><p>首先先进行整体框架的设计，不写过程，直接写需要几个类！<br><img src="/2022/09/08/wu-zi-qi-ai-yi/图1.png" alt><br>这里，我设计了4个类，分别表示棋手，AI, 棋盘，游戏控制。</p>
-<h3 id="2、给类添加主要接口"><a href="#2、给类添加主要接口" class="headerlink" title="2、给类添加主要接口"></a>2、给类添加主要接口</h3><h4 id="2-1-设计棋盘类Chess的主要接口"><a href="#2-1-设计棋盘类Chess的主要接口" class="headerlink" title="2.1　设计棋盘类Chess的主要接口"></a>2.1　设计棋盘类Chess的主要接口</h4><p>Chess.h<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">pragma</span> once</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> LEFT 5			<span class="comment">//棋盘左边界</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> TOP 5			<span class="comment">//棋盘上边界</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> RIGHT 19		<span class="comment">//棋盘右边界</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> DOWN 19			<span class="comment">//棋盘下边界</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> MAX_BORDER 25	<span class="comment">//棋盘存储大小</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> CHESS_SIZE 15	<span class="comment">//棋盘最大网格数</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> GRID_SIZE 30  <span class="comment">//网格尺寸</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> WIDTH GRID_SIZE*(CHESS_SIZE+1)  <span class="comment">//网格宽度</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> HEIGHT GRID_SIZE*(CHESS_SIZE+1)  <span class="comment">//网格高度</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> MOUSE_P1 10</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> MOUSE_P2 20</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> MOUSE_COLOR LIGHTGRAY  <span class="comment">//鼠标颜色</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> BACKGROUND_COLOR DARKGRAY  <span class="comment">//背景颜色</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">//十六进制表示颜色</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> BLACK_CHESS_COLOR 0  <span class="comment">//黑棋颜色</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> WHITE_CHESS_COLOR 0xFFFFFF  <span class="comment">//白棋颜色</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">//定义下棋对象</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">enum</span> </span><br><span class="line">&#123;</span><br><span class="line">    EMPTY = <span class="number">0</span>,</span><br><span class="line">    Black_Chess = <span class="number">1</span>,  <span class="comment">//黑棋</span></span><br><span class="line">    White_Chess = <span class="number">2</span>   <span class="comment">//白棋</span></span><br><span class="line">&#125; Object;</span><br><span class="line"></span><br><span class="line"><span class="comment">//下棋步数定义</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Chess_Position</span> </span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="type">int</span> row;</span><br><span class="line">	<span class="type">int</span> col;</span><br><span class="line">	<span class="built_in">Chess_Position</span>(<span class="type">int</span> r = <span class="number">0</span>, <span class="type">int</span> c = <span class="number">0</span>):<span class="built_in">row</span>(r), <span class="built_in">col</span>(c) &#123;&#125;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Chess</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//画出棋盘网格</span></span><br><span class="line">	<span class="function"><span class="type">void</span> <span class="title">Draw_ChessBoard</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//显示双方各自执棋情况提示</span></span><br><span class="line">	<span class="function"><span class="type">void</span> <span class="title">Show_Side_ChessColor</span><span class="params">(Object  humanSide)</span></span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//初始化棋盘网络</span></span><br><span class="line">	<span class="function"><span class="type">void</span> <span class="title">Init_Chess</span><span class="params">(Object  humanSide)</span></span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//指定位置画出一颗棋子</span></span><br><span class="line">	<span class="function"><span class="type">void</span> <span class="title">Show_A_Chess</span><span class="params">(<span class="type">int</span> x, <span class="type">int</span> y, <span class="type">int</span> color)</span></span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//显示会话</span></span><br><span class="line">	<span class="function"><span class="type">void</span> <span class="title">Show_Dialog</span><span class="params">(<span class="type">char</span>* dialog)</span></span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//显示博弈结果</span></span><br><span class="line">	<span class="function"><span class="type">void</span> <span class="title">Show_Result</span><span class="params">(<span class="type">bool</span> humanWin)</span></span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
-<h4 id="2-2-设计AI类的主要接口"><a href="#2-2-设计AI类的主要接口" class="headerlink" title="2.2　设计AI类的主要接口"></a>2.2　设计AI类的主要接口</h4><p>AI.h<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">pragma</span> once</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&quot;Chess.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">AI</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="comment">//AI初始化</span></span><br><span class="line">	<span class="function"><span class="type">void</span> <span class="title">Init</span><span class="params">(Chess* chess)</span></span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//AI下棋接口</span></span><br><span class="line">	<span class="function"><span class="type">void</span> <span class="title">AISearch</span><span class="params">(Object aiSide, Chess_Position&amp; Position, Chess_Position&amp; nextPosition)</span></span>;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//判断某一方是否取胜</span></span><br><span class="line">	<span class="function"><span class="type">bool</span> <span class="title">Is_Win</span><span class="params">(<span class="type">const</span> Chess_Position Position, Object side)</span></span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<h3 id="1、设计项目主体框架">1、设计项目主体框架</h3>
+<p>首先先进行整体框架的设计，不写过程，直接写需要几个类！<br>
+<img src="/2022/09/08/wu-zi-qi-ai-yi/%E5%9B%BE1.png" alt><br>
+这里，我设计了4个类，分别表示棋手，AI, 棋盘，游戏控制。</p>
+<h3 id="2、给类添加主要接口">2、给类添加主要接口</h3>
+<h4 id="2-1-设计棋盘类Chess的主要接口">2.1　设计棋盘类Chess的主要接口</h4>
+<p>Chess.h</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">pragma</span> once</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> LEFT 5			<span class="comment">//棋盘左边界</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> TOP 5			<span class="comment">//棋盘上边界</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> RIGHT 19		<span class="comment">//棋盘右边界</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> DOWN 19			<span class="comment">//棋盘下边界</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> MAX_BORDER 25	<span class="comment">//棋盘存储大小</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> CHESS_SIZE 15	<span class="comment">//棋盘最大网格数</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> GRID_SIZE 30  <span class="comment">//网格尺寸</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> WIDTH GRID_SIZE*(CHESS_SIZE+1)  <span class="comment">//网格宽度</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> HEIGHT GRID_SIZE*(CHESS_SIZE+1)  <span class="comment">//网格高度</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> MOUSE_P1 10</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> MOUSE_P2 20</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> MOUSE_COLOR LIGHTGRAY  <span class="comment">//鼠标颜色</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> BACKGROUND_COLOR DARKGRAY  <span class="comment">//背景颜色</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">//十六进制表示颜色</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> BLACK_CHESS_COLOR 0  <span class="comment">//黑棋颜色</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> WHITE_CHESS_COLOR 0xFFFFFF  <span class="comment">//白棋颜色</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">//定义下棋对象</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">enum</span> </span><br><span class="line">&#123;</span><br><span class="line">    EMPTY = <span class="number">0</span>,</span><br><span class="line">    Black_Chess = <span class="number">1</span>,  <span class="comment">//黑棋</span></span><br><span class="line">    White_Chess = <span class="number">2</span>   <span class="comment">//白棋</span></span><br><span class="line">&#125; Object;</span><br><span class="line"></span><br><span class="line"><span class="comment">//下棋步数定义</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Chess_Position</span> </span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="type">int</span> row;</span><br><span class="line">	<span class="type">int</span> col;</span><br><span class="line">	<span class="built_in">Chess_Position</span>(<span class="type">int</span> r = <span class="number">0</span>, <span class="type">int</span> c = <span class="number">0</span>):<span class="built_in">row</span>(r), <span class="built_in">col</span>(c) &#123;&#125;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Chess</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//画出棋盘网格</span></span><br><span class="line">	<span class="function"><span class="type">void</span> <span class="title">Draw_ChessBoard</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//显示双方各自执棋情况提示</span></span><br><span class="line">	<span class="function"><span class="type">void</span> <span class="title">Show_Side_ChessColor</span><span class="params">(Object  humanSide)</span></span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//初始化棋盘网络</span></span><br><span class="line">	<span class="function"><span class="type">void</span> <span class="title">Init_Chess</span><span class="params">(Object  humanSide)</span></span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//指定位置画出一颗棋子</span></span><br><span class="line">	<span class="function"><span class="type">void</span> <span class="title">Show_A_Chess</span><span class="params">(<span class="type">int</span> x, <span class="type">int</span> y, <span class="type">int</span> color)</span></span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//显示会话</span></span><br><span class="line">	<span class="function"><span class="type">void</span> <span class="title">Show_Dialog</span><span class="params">(<span class="type">char</span>* dialog)</span></span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//显示博弈结果</span></span><br><span class="line">	<span class="function"><span class="type">void</span> <span class="title">Show_Result</span><span class="params">(<span class="type">bool</span> humanWin)</span></span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h4 id="2-2-设计AI类的主要接口">2.2　设计AI类的主要接口</h4>
+<p>AI.h</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">pragma</span> once</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&quot;Chess.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">AI</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="comment">//AI初始化</span></span><br><span class="line">	<span class="function"><span class="type">void</span> <span class="title">Init</span><span class="params">(Chess* chess)</span></span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//AI下棋接口</span></span><br><span class="line">	<span class="function"><span class="type">void</span> <span class="title">AISearch</span><span class="params">(Object aiSide, Chess_Position&amp; Position, Chess_Position&amp; nextPosition)</span></span>;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//判断某一方是否取胜</span></span><br><span class="line">	<span class="function"><span class="type">bool</span> <span class="title">Is_Win</span><span class="params">(<span class="type">const</span> Chess_Position Position, Object side)</span></span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 <p><font color="Blue">注意</font>：在最初开发时<font color="red">AISearch()</font>和<font color="red">Is_Win()</font>我并未输入参数，因为设计时并不知道要使用多少参数，这里为了方便我就直接复制进来了。</p>
-<h4 id="2-3-设计Man类的主要接口"><a href="#2-3-设计Man类的主要接口" class="headerlink" title="2.3　设计Man类的主要接口"></a>2.3　设计Man类的主要接口</h4><p>Man.h<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">pragma</span> once</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;Chess.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Man</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="comment">//初始化</span></span><br><span class="line">	<span class="function"><span class="type">void</span> <span class="title">Init</span><span class="params">(Chess* chess)</span></span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//显示鼠标位置</span></span><br><span class="line">	<span class="function"><span class="type">void</span> <span class="title">Show_Mouse</span><span class="params">(<span class="type">int</span> x, <span class="type">int</span> y, <span class="type">int</span> color)</span></span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//移动鼠标时更新界面</span></span><br><span class="line">	<span class="function"><span class="type">void</span> <span class="title">Move_Mouse</span><span class="params">(<span class="type">int</span> x, <span class="type">int</span> y, <span class="type">int</span> nx, <span class="type">int</span> ny)</span></span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//棋手下棋接口</span></span><br><span class="line">	<span class="function"><span class="type">void</span> <span class="title">human_go</span><span class="params">(Chess_Position&amp; Position, Object side)</span></span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
-<h4 id="2-4-设计ChessGame的主要接口"><a href="#2-4-设计ChessGame的主要接口" class="headerlink" title="2.4　设计ChessGame的主要接口"></a>2.4　设计ChessGame的主要接口</h4><p>ChessGame.h</p>
+<h4 id="2-3-设计Man类的主要接口">2.3　设计Man类的主要接口</h4>
+<p>Man.h</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">pragma</span> once</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;Chess.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Man</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="comment">//初始化</span></span><br><span class="line">	<span class="function"><span class="type">void</span> <span class="title">Init</span><span class="params">(Chess* chess)</span></span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//显示鼠标位置</span></span><br><span class="line">	<span class="function"><span class="type">void</span> <span class="title">Show_Mouse</span><span class="params">(<span class="type">int</span> x, <span class="type">int</span> y, <span class="type">int</span> color)</span></span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//移动鼠标时更新界面</span></span><br><span class="line">	<span class="function"><span class="type">void</span> <span class="title">Move_Mouse</span><span class="params">(<span class="type">int</span> x, <span class="type">int</span> y, <span class="type">int</span> nx, <span class="type">int</span> ny)</span></span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//棋手下棋接口</span></span><br><span class="line">	<span class="function"><span class="type">void</span> <span class="title">human_go</span><span class="params">(Chess_Position&amp; Position, Object side)</span></span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h4 id="2-4-设计ChessGame的主要接口">2.4　设计ChessGame的主要接口</h4>
+<p>ChessGame.h</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">pragma</span> once</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&quot;Man.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&quot;AI.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&quot;Chess.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">//控制AI执黑棋还是执白棋的按钮</span></span><br><span class="line"><span class="comment">//可以调节</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> compSide 0	<span class="comment">//0：AI为黑	1：AI为白</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">ChessGame</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="comment">//下棋接口</span></span><br><span class="line">	<span class="function"><span class="type">void</span> <span class="title">play</span><span class="params">()</span></span>;  </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<h4 id="2-5-添加各个接口的具体实现"><a href="#2-5-添加各个接口的具体实现" class="headerlink" title="2.5　添加各个接口的具体实现"></a>2.5　添加各个接口的具体实现</h4><p>可以使用如下方式自动生成各接口的具体实现。先不用考虑各个接口的真正实现，直接使用空函数体代替。<br><img src="/2022/09/08/wu-zi-qi-ai-yi/图2.png" alt></p>
-<h3 id="3、绘制界面"><a href="#3、绘制界面" class="headerlink" title="3、绘制界面"></a>3、绘制界面</h3><hr>
+<h4 id="2-5-添加各个接口的具体实现">2.5　添加各个接口的具体实现</h4>
+<p>可以使用如下方式自动生成各接口的具体实现。先不用考虑各个接口的真正实现，直接使用空函数体代替。<br>
+<img src="/2022/09/08/wu-zi-qi-ai-yi/%E5%9B%BE2.png" alt></p>
+<h3 id="3、绘制界面">3、绘制界面</h3>
+<hr>
 <blockquote>
 <p>这里绘制界面用到的是C++的图形库<a target="_blank" rel="noopener" href="https://easyx.cn/">EasyX </a>，需要自行安装才能使用。</p>
 </blockquote>
 <hr>
-<h4 id="3-1-画出棋盘网络并进行初始化"><a href="#3-1-画出棋盘网络并进行初始化" class="headerlink" title="3.1　画出棋盘网络并进行初始化"></a>3.1　画出棋盘网络并进行初始化</h4><p>Chess.cpp</p>
+<h4 id="3-1-画出棋盘网络并进行初始化">3.1　画出棋盘网络并进行初始化</h4>
+<p>Chess.cpp</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//画出棋盘网格</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">Chess::Draw_ChessBoard</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= CHESS_SIZE; ++i)</span><br><span class="line">		<span class="built_in">line</span>(GRID_SIZE, i * GRID_SIZE, CHESS_SIZE * GRID_SIZE, i * GRID_SIZE);</span><br><span class="line">	<span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= CHESS_SIZE; ++i)</span><br><span class="line">		<span class="built_in">line</span>(i * GRID_SIZE, GRID_SIZE, i * GRID_SIZE, CHESS_SIZE * GRID_SIZE);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//初始化棋盘网络</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">Chess::Init_Chess</span><span class="params">(Object humanSide)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">initgraph</span>(WIDTH, HEIGHT);</span><br><span class="line">	<span class="built_in">setbkcolor</span>(BACKGROUND_COLOR);</span><br><span class="line">	<span class="built_in">cleardevice</span>();</span><br><span class="line">	<span class="built_in">FlushMouseMsgBuffer</span>();</span><br><span class="line">	<span class="built_in">Draw_ChessBoard</span>();</span><br><span class="line">	<span class="built_in">Show_Side_ChessColor</span>(humanSide);</span><br><span class="line">	<span class="built_in">Show_Side_ChessColor</span>(humanSide);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>再补充一下头文件</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;Chess.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;graphics.h&gt;</span></span></span><br></pre></td></tr></table></figure>
-<h4 id="3-2-显示用户提示会话以及胜负结果"><a href="#3-2-显示用户提示会话以及胜负结果" class="headerlink" title="3.2　显示用户提示会话以及胜负结果"></a>3.2　显示用户提示会话以及胜负结果</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//显示双方各自执棋情况提示</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">Chess::Show_Side_ChessColor</span><span class="params">(Object humanSide)</span> </span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">settextstyle</span>(<span class="number">18</span>, <span class="number">0</span>, _T(<span class="string">&quot;楷体&quot;</span>));</span><br><span class="line">	<span class="built_in">outtextxy</span>(WIDTH - GRID_SIZE * <span class="number">6</span>, <span class="number">6</span>, _T(humanSide == Black_Chess ? <span class="string">&quot;AI：白    人：黑&quot;</span> : <span class="string">&quot;AI：黑    人：白&quot;</span>));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//显示会话</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">Chess::Show_Dialog</span><span class="params">(<span class="type">char</span>* dialog)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">settextstyle</span>(<span class="number">20</span>, <span class="number">0</span>, _T(<span class="string">&quot;Consolas&quot;</span>));</span><br><span class="line">	<span class="built_in">outtextxy</span>(<span class="number">30</span>, <span class="number">5</span>, _T(dialog));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//显示博弈结果</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">Chess::Show_Result</span><span class="params">(<span class="type">bool</span> humanWin)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">settextstyle</span>(<span class="number">30</span>, <span class="number">0</span>, _T(<span class="string">&quot;楷体&quot;</span>));</span><br><span class="line">	<span class="keyword">if</span> (humanWin) &#123;</span><br><span class="line">		<span class="built_in">setcolor</span>(RED);</span><br><span class="line">		<span class="built_in">outtextxy</span>(WIDTH / <span class="number">2</span> - GRID_SIZE * <span class="number">2</span>, <span class="number">0</span>, _T(<span class="string">&quot;你赢了！&quot;</span>));</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span> &#123;</span><br><span class="line">		<span class="built_in">setcolor</span>(GREEN);</span><br><span class="line">		<span class="built_in">outtextxy</span>(WIDTH / <span class="number">2</span> - GRID_SIZE * <span class="number">2</span>, <span class="number">0</span>, _T(<span class="string">&quot;你输了！&quot;</span>));</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="3-3-绘制棋子"><a href="#3-3-绘制棋子" class="headerlink" title="3.3　绘制棋子"></a>3.3　绘制棋子</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//指定位置画出一颗棋子</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">Chess::Show_A_Chess</span><span class="params">(<span class="type">int</span> x, <span class="type">int</span> y, <span class="type">int</span> color)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	x -= LEFT - <span class="number">1</span>, y -= TOP - <span class="number">1</span>;</span><br><span class="line">	x *= GRID_SIZE, y *= GRID_SIZE;</span><br><span class="line">	<span class="built_in">setcolor</span>(color);</span><br><span class="line">	<span class="built_in">setfillcolor</span>(color);</span><br><span class="line">	<span class="built_in">setfillstyle</span>(BS_SOLID);</span><br><span class="line">	<span class="built_in">fillcircle</span>(x, y, GRID_SIZE / <span class="number">2</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="4、实现棋手走棋"><a href="#4、实现棋手走棋" class="headerlink" title="4、实现棋手走棋"></a>4、实现棋手走棋</h3><h4 id="4-1-棋手的初始化"><a href="#4-1-棋手的初始化" class="headerlink" title="4.1　棋手的初始化"></a>4.1　棋手的初始化</h4><p>为棋手类添加数据成员，表示棋盘</p>
+<h4 id="3-2-显示用户提示会话以及胜负结果">3.2　显示用户提示会话以及胜负结果</h4>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//显示双方各自执棋情况提示</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">Chess::Show_Side_ChessColor</span><span class="params">(Object humanSide)</span> </span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">settextstyle</span>(<span class="number">18</span>, <span class="number">0</span>, _T(<span class="string">&quot;楷体&quot;</span>));</span><br><span class="line">	<span class="built_in">outtextxy</span>(WIDTH - GRID_SIZE * <span class="number">6</span>, <span class="number">6</span>, _T(humanSide == Black_Chess ? <span class="string">&quot;AI：白    人：黑&quot;</span> : <span class="string">&quot;AI：黑    人：白&quot;</span>));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//显示会话</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">Chess::Show_Dialog</span><span class="params">(<span class="type">char</span>* dialog)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">settextstyle</span>(<span class="number">20</span>, <span class="number">0</span>, _T(<span class="string">&quot;Consolas&quot;</span>));</span><br><span class="line">	<span class="built_in">outtextxy</span>(<span class="number">30</span>, <span class="number">5</span>, _T(dialog));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//显示博弈结果</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">Chess::Show_Result</span><span class="params">(<span class="type">bool</span> humanWin)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">settextstyle</span>(<span class="number">30</span>, <span class="number">0</span>, _T(<span class="string">&quot;楷体&quot;</span>));</span><br><span class="line">	<span class="keyword">if</span> (humanWin) &#123;</span><br><span class="line">		<span class="built_in">setcolor</span>(RED);</span><br><span class="line">		<span class="built_in">outtextxy</span>(WIDTH / <span class="number">2</span> - GRID_SIZE * <span class="number">2</span>, <span class="number">0</span>, _T(<span class="string">&quot;你赢了！&quot;</span>));</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span> &#123;</span><br><span class="line">		<span class="built_in">setcolor</span>(GREEN);</span><br><span class="line">		<span class="built_in">outtextxy</span>(WIDTH / <span class="number">2</span> - GRID_SIZE * <span class="number">2</span>, <span class="number">0</span>, _T(<span class="string">&quot;你输了！&quot;</span>));</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="3-3-绘制棋子">3.3　绘制棋子</h4>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//指定位置画出一颗棋子</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">Chess::Show_A_Chess</span><span class="params">(<span class="type">int</span> x, <span class="type">int</span> y, <span class="type">int</span> color)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	x -= LEFT - <span class="number">1</span>, y -= TOP - <span class="number">1</span>;</span><br><span class="line">	x *= GRID_SIZE, y *= GRID_SIZE;</span><br><span class="line">	<span class="built_in">setcolor</span>(color);</span><br><span class="line">	<span class="built_in">setfillcolor</span>(color);</span><br><span class="line">	<span class="built_in">setfillstyle</span>(BS_SOLID);</span><br><span class="line">	<span class="built_in">fillcircle</span>(x, y, GRID_SIZE / <span class="number">2</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="4、实现棋手走棋">4、实现棋手走棋</h3>
+<h4 id="4-1-棋手的初始化">4.1　棋手的初始化</h4>
+<p>为棋手类添加数据成员，表示棋盘</p>
 <p>Man.h</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span>:</span><br><span class="line">	Chess* ch;</span><br></pre></td></tr></table></figure>
 <p>实现棋手对象的初始化</p>
@@ -609,15 +628,20 @@
 <p>然后在ChessGame的构造函数中，实现棋手的初始化。</p>
 <p>ChessGame.cpp</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//构造函数</span></span><br><span class="line">ChessGame::<span class="built_in">ChessGame</span>(Man* man, AI* ai, Chess* chess)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">this</span>-&gt;man = man;</span><br><span class="line">	<span class="keyword">this</span>-&gt;ai = ai;</span><br><span class="line">	<span class="keyword">this</span>-&gt;ch = chess;</span><br><span class="line"></span><br><span class="line">	man-&gt;<span class="built_in">Init</span>(chess);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="4-2-显示鼠标位置"><a href="#4-2-显示鼠标位置" class="headerlink" title="4.2　显示鼠标位置"></a>4.2　显示鼠标位置</h4><p>为了用户能知道此时光标的位置,我们可以用四条斜线对光标位置进行定位,使用户能清晰地看到此时鼠标的位置。</p>
+<h4 id="4-2-显示鼠标位置">4.2　显示鼠标位置</h4>
+<p>为了用户能知道此时光标的位置,我们可以用四条斜线对光标位置进行定位,使用户能清晰地看到此时鼠标的位置。</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//显示鼠标位置</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">Man::Show_Mouse</span><span class="params">(<span class="type">int</span> x, <span class="type">int</span> y, <span class="type">int</span> color)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="type">static</span> <span class="type">const</span> <span class="type">int</span> p1[<span class="number">4</span>][<span class="number">2</span>] = &#123; &#123; MOUSE_P1 ,MOUSE_P1 &#125;,&#123; MOUSE_P1,-MOUSE_P1 &#125;,&#123; -MOUSE_P1,MOUSE_P1 &#125;,&#123; -MOUSE_P1,-MOUSE_P1 &#125; &#125;;</span><br><span class="line">	<span class="type">static</span> <span class="type">const</span> <span class="type">int</span> p2[<span class="number">4</span>][<span class="number">2</span>] = &#123; &#123; MOUSE_P2 ,MOUSE_P2 &#125;,&#123; MOUSE_P2,-MOUSE_P2 &#125;,&#123; -MOUSE_P2,MOUSE_P2 &#125;,&#123; -MOUSE_P2,-MOUSE_P2 &#125; &#125;;</span><br><span class="line">	<span class="built_in">setlinecolor</span>(color);</span><br><span class="line">	x *= GRID_SIZE, y *= GRID_SIZE;</span><br><span class="line">	<span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">4</span>; ++i)</span><br><span class="line">		<span class="built_in">line</span>(x + p1[i][<span class="number">0</span>], y + p1[i][<span class="number">1</span>], x + p2[i][<span class="number">0</span>], y + p2[i][<span class="number">1</span>]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>我们知道用户的鼠标应该要进行实时的更新,因此我们需要在添加一个函数在用户移动鼠标时更新界面。</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//移动鼠标时更新界面</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">Man::Move_Mouse</span><span class="params">(<span class="type">int</span> x, <span class="type">int</span> y, <span class="type">int</span> nx, <span class="type">int</span> ny)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">Show_Mouse</span>(x, y, BACKGROUND_COLOR);</span><br><span class="line">	<span class="built_in">Show_Mouse</span>(nx, ny, MOUSE_COLOR);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="4-3-棋手走棋"><a href="#4-3-棋手走棋" class="headerlink" title="4.3　棋手走棋"></a>4.3　棋手走棋</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//棋手下棋接口</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">Man::human_go</span><span class="params">(Chess_Position&amp; position, Object side)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	MOUSEMSG m;</span><br><span class="line">	<span class="type">int</span> nowx = <span class="number">-1</span>, nowy = <span class="number">-1</span>;</span><br><span class="line">	<span class="keyword">while</span> (<span class="number">1</span>) &#123;</span><br><span class="line">		m = <span class="built_in">GetMouseMsg</span>();</span><br><span class="line">		<span class="type">int</span> windowx = (m.x + (GRID_SIZE &gt;&gt; <span class="number">1</span>)) / GRID_SIZE;</span><br><span class="line">		<span class="type">int</span> windowy = (m.y + (GRID_SIZE &gt;&gt; <span class="number">1</span>)) / GRID_SIZE;</span><br><span class="line">		<span class="type">int</span> chessx = windowx + LEFT - <span class="number">1</span>;</span><br><span class="line">		<span class="type">int</span> chessy = windowy + TOP - <span class="number">1</span>;</span><br><span class="line">		<span class="keyword">if</span> (chessx &gt;= LEFT &amp;&amp; chessx &lt;= RIGHT &amp;&amp; chessy &gt;= TOP &amp;&amp; chessy &lt;= DOWN) </span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">switch</span> (m.uMsg)</span><br><span class="line">			&#123;</span><br><span class="line">			<span class="keyword">case</span> WM_MOUSEMOVE:     <span class="comment">//移动</span></span><br><span class="line">				<span class="keyword">if</span> (nowx != windowx || nowy != windowy)</span><br><span class="line">					<span class="built_in">Move_Mouse</span>(nowx, nowy, windowx, windowy);</span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">			<span class="keyword">case</span> WM_LBUTTONDOWN:  <span class="comment">//按下</span></span><br><span class="line">				<span class="keyword">if</span> (chess[chessy][chessx] != EMPTY)</span><br><span class="line">					<span class="keyword">break</span>;</span><br><span class="line">				ch-&gt;<span class="built_in">Show_A_Chess</span>(chessx, chessy, side == Black_Chess ? BLACK_CHESS_COLOR : WHITE_CHESS_COLOR);</span><br><span class="line">				position = &#123; chessy ,chessx &#125;;</span><br><span class="line">				<span class="keyword">return</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			nowx = windowx, nowy = windowy;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="5、添加数据成员"><a href="#5、添加数据成员" class="headerlink" title="5、添加数据成员"></a>5、添加数据成员</h3><p>为了便于调用各个类的功能，在ChessGame中，添加3个数据成员，并在构造函数中初始化这三个数据成员。</p>
+<h4 id="4-3-棋手走棋">4.3　棋手走棋</h4>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//棋手下棋接口</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">Man::human_go</span><span class="params">(Chess_Position&amp; position, Object side)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	MOUSEMSG m;</span><br><span class="line">	<span class="type">int</span> nowx = <span class="number">-1</span>, nowy = <span class="number">-1</span>;</span><br><span class="line">	<span class="keyword">while</span> (<span class="number">1</span>) &#123;</span><br><span class="line">		m = <span class="built_in">GetMouseMsg</span>();</span><br><span class="line">		<span class="type">int</span> windowx = (m.x + (GRID_SIZE &gt;&gt; <span class="number">1</span>)) / GRID_SIZE;</span><br><span class="line">		<span class="type">int</span> windowy = (m.y + (GRID_SIZE &gt;&gt; <span class="number">1</span>)) / GRID_SIZE;</span><br><span class="line">		<span class="type">int</span> chessx = windowx + LEFT - <span class="number">1</span>;</span><br><span class="line">		<span class="type">int</span> chessy = windowy + TOP - <span class="number">1</span>;</span><br><span class="line">		<span class="keyword">if</span> (chessx &gt;= LEFT &amp;&amp; chessx &lt;= RIGHT &amp;&amp; chessy &gt;= TOP &amp;&amp; chessy &lt;= DOWN) </span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">switch</span> (m.uMsg)</span><br><span class="line">			&#123;</span><br><span class="line">			<span class="keyword">case</span> WM_MOUSEMOVE:     <span class="comment">//移动</span></span><br><span class="line">				<span class="keyword">if</span> (nowx != windowx || nowy != windowy)</span><br><span class="line">					<span class="built_in">Move_Mouse</span>(nowx, nowy, windowx, windowy);</span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">			<span class="keyword">case</span> WM_LBUTTONDOWN:  <span class="comment">//按下</span></span><br><span class="line">				<span class="keyword">if</span> (chess[chessy][chessx] != EMPTY)</span><br><span class="line">					<span class="keyword">break</span>;</span><br><span class="line">				ch-&gt;<span class="built_in">Show_A_Chess</span>(chessx, chessy, side == Black_Chess ? BLACK_CHESS_COLOR : WHITE_CHESS_COLOR);</span><br><span class="line">				position = &#123; chessy ,chessx &#125;;</span><br><span class="line">				<span class="keyword">return</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			nowx = windowx, nowy = windowy;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="5、添加数据成员">5、添加数据成员</h3>
+<p>为了便于调用各个类的功能，在ChessGame中，添加3个数据成员，并在构造函数中初始化这三个数据成员。</p>
 <p>ChessGame.h</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">pragma</span> once</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&quot;Man.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&quot;AI.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&quot;Chess.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">//可以调节</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> compSide 0	<span class="comment">//0：AI为黑	1：AI为白</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">ChessGame</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="comment">//构造函数</span></span><br><span class="line">	<span class="built_in">ChessGame</span>(Man*, AI*, Chess*);</span><br><span class="line"></span><br><span class="line">	<span class="comment">//下棋接口</span></span><br><span class="line">	<span class="function"><span class="type">void</span> <span class="title">play</span><span class="params">()</span></span>;  </span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">	Man* man;</span><br><span class="line">	AI* ai;</span><br><span class="line">	Chess* ch;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<h3 id="6、细节修改"><a href="#6、细节修改" class="headerlink" title="6、细节修改"></a>6、细节修改</h3><p>修改项目的字符集为“多字节字符集”，因为我们要让编译器不增加宏定义——UNICODE。（是否增加了宏定义UNICODE，会影响了一些Windows API的使用。）<br><img src="/2022/09/08/wu-zi-qi-ai-yi/图3.png" alt></p>
+<h3 id="6、细节修改">6、细节修改</h3>
+<p>修改项目的字符集为“多字节字符集”，因为我们要让编译器不增加宏定义——UNICODE。（是否增加了宏定义UNICODE，会影响了一些Windows API的使用。）<br>
+<img src="/2022/09/08/wu-zi-qi-ai-yi/%E5%9B%BE3.png" alt></p>
 <p>至此，我们第一部分整体框架的设计已经结束了，简单实现了界面，但还没实现AI下棋部分，AI部分的算法包含了Min-Max算法和αβ剪枝算法的实现。下一篇将优先实现AI算法中最重要的一环：评估函数的实现。</p>
 <p>下一篇：<a target="_blank" rel="noopener" href="http://ude123456.top/2022/09/13/wu-zi-qi-ai-er/">五子棋AI（二） </a></p>
 
@@ -760,6 +784,280 @@
     
 
     
+
+    
+        <style>
+    .twikoo-card {
+        margin: 1.5rem auto;
+    }
+
+    .twikoo-card .card-content {
+        padding: 20px;
+    }
+
+    #tcomments textarea {
+        box-sizing: border-box;
+        background: url("/") 100% 100% no-repeat;
+    }
+
+    #tcomments p {
+        margin: 2px 2px 10px;
+        font-size: 1.05rem;
+        line-height: 1.78rem;
+    }
+
+    #tcomments blockquote p {
+        text-indent: 0.2rem;
+    }
+
+    #tcomments a {
+        padding: 0 2px;
+        color: #4cbf30;
+        font-weight: 500;
+        text-decoration: none;
+    }
+
+    #tcomments img {
+        max-width: 100%;
+        height: auto;
+        cursor: pointer;
+    }
+
+    #tcomments ol li {
+        list-style-type: decimal;
+    }
+
+    #tcomments ol,
+    ul {
+        display: block;
+        padding-left: 2em;
+        word-spacing: 0.05rem;
+    }
+
+    #tcomments ul li,
+    ol li {
+        display: list-item;
+        line-height: 1.8rem;
+        font-size: 1rem;
+    }
+
+    #tcomments ul li {
+        list-style-type: disc;
+    }
+
+    #tcomments ul ul li {
+        list-style-type: circle;
+    }
+
+    #tcomments table,
+    th,
+    td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    #tcomments table,
+    th,
+    td {
+        border: 0;
+    }
+
+    table tr:nth-child(2n),
+    thead {
+        background-color: #fafafa;
+    }
+
+    #tcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #tcomments table td {
+        min-width: 80px;
+    }
+
+    #tcomments h1 {
+        font-size: 1.85rem;
+        font-weight: bold;
+        line-height: 2.2rem;
+    }
+
+    #tcomments h2 {
+        font-size: 1.65rem;
+        font-weight: bold;
+        line-height: 1.9rem;
+    }
+
+    #tcomments h3 {
+        font-size: 1.45rem;
+        font-weight: bold;
+        line-height: 1.7rem;
+    }
+
+    #tcomments h4 {
+        font-size: 1.25rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    #tcomments h5 {
+        font-size: 1.1rem;
+        font-weight: bold;
+        line-height: 1.4rem;
+    }
+
+    #tcomments h6 {
+        font-size: 1rem;
+        line-height: 1.3rem;
+    }
+
+    #tcomments p {
+        font-size: 1rem;
+        line-height: 1.5rem;
+    }
+
+    #tcomments hr {
+        margin: 12px 0;
+        border: 0;
+        border-top: 1px solid #ccc;
+    }
+
+    #tcomments blockquote {
+        margin: 15px 0;
+        border-left: 5px solid #42b983;
+        padding: 1rem 0.8rem 0.3rem 0.8rem;
+        color: #666;
+        background-color: rgba(66, 185, 131, .1);
+    }
+
+    #tcomments pre {
+        font-family: monospace, monospace;
+        padding: 1.2em;
+        margin: .5em 0;
+        background: #272822;
+        overflow: auto;
+        border-radius: 0.3em;
+        tab-size: 4;
+    }
+
+    #tcomments code {
+        font-family: monospace, monospace;
+        padding: 1px 3px;
+        font-size: 0.92rem;
+        color: #e96900;
+        background-color: #f8f8f8;
+        border-radius: 2px;
+    }
+
+    #tcomments pre code {
+        font-family: monospace, monospace;
+        padding: 0;
+        color: #e8eaf6;
+        background-color: #272822;
+    }
+
+    #tcomments pre[class*="language-"] {
+        padding: 1.2em;
+        margin: .5em 0;
+    }
+
+    #tcomments code[class*="language-"],
+    pre[class*="language-"] {
+        color: #e8eaf6;
+    }
+
+    #tcomments [type="checkbox"]:not(:checked),
+    [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+
+    #tcomments b,
+    strong {
+        font-weight: bold;
+    }
+
+    #tcomments dfn {
+        font-style: italic;
+    }
+
+    #tcomments small {
+        font-size: 85%;
+    }
+
+    #tcomments cite {
+        font-style: normal;
+    }
+
+    #tcomments mark {
+        background-color: #fcf8e3;
+        padding: .2em;
+    }
+
+    #tcomments table,
+    th,
+    td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    table tr:nth-child(2n),
+    thead {
+        background-color: #fafafa;
+    }
+
+    #tcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #tcomments table td {
+        min-width: 80px;
+    }
+
+    #tcomments [type="checkbox"]:not(:checked),
+    [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+</style>
+
+<div class="card twikoo-card" data-aos="fade-up">
+    <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; padding-left: 20px; top: 15px; padding-bottom: 5px;">
+        <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
+        <span>评论</span>
+    </div>
+    <div class="card-content" style="display: grid">
+        <div id="tcomments"></div>
+    </div>
+</div>
+
+<script src="/libs/twikoo/twikoo.all.min.js"></script>
+<script>
+    twikoo.init({
+        envId: 'https://twikoo-fawn-omega.vercel.app',
+        el: '#tcomments',
+        region: '',
+        path: ''
+    }).then(function () {
+        var tkInputs = document.querySelector('#twikoo').getElementsByTagName('input');
+        for (var tkInputsIndex = 0; tkInputsIndex < tkInputs.length; tkInputsIndex++) {
+            if (tkInputs[tkInputsIndex]) {
+                tkInputs[tkInputsIndex].classList.add('browser-default');
+            }
+        }
+    });
+</script>
 
     
 
@@ -1098,7 +1396,7 @@
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">123.3k</span>
+                        class="white-color">718.2k</span>
             
             
             
@@ -1369,15 +1667,7 @@ $(function () {
     
 
     <!-- 雪花特效 -->
-     
-        <script type="text/javascript">
-            // 只在桌面版网页启用特效
-            var windowWidth = $(window).width();
-            if (windowWidth > 768) {
-                document.write('<script type="text/javascript" src="/libs/others/snow.js"><\/script>');
-            }
-        </script>
-    
+    **
 
     <!-- 鼠标星星特效 -->
      

@@ -1200,8 +1200,7 @@ Dijkstra算法刚接触时确实有点难以理解，尤其是代码的实现，
             contentSelector: '#articleContent',
             headingsOffset: -($(window).height() * 0.4 - 45),
             collapseDepth: Number('0'),
-            // 👇 这行是核心修改：强制提取 h1-h6 所有标题，一级标题# 就能显示了
-            headingSelector: 'h1, h2, h3, h4, h5, h6' 
+            headingSelector: 'h2, h3, h4'
         });
 
         // Set scroll toc fixed.

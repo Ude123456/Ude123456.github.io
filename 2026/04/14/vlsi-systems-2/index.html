@@ -572,7 +572,7 @@ I/O Devices
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1>1 内存管理(Memory Management)</h1>
+                <h2 id="1-内存管理-Memory-Management">1 内存管理(Memory Management)</h2>
 <p>在冯诺依曼架构中，一个简单的计算机包含了以下四个组成部分：</p>
 <ul>
 <li>CPU</li>
@@ -592,7 +592,7 @@ I/O Devices
 <li><strong>I/O Devices (Terminals)</strong></li>
 </ul>
 <img src="/2026/04/14/vlsi-systems-2/图1.png" style="zoom:80%;">
-<h2 id="1-1-主存组织-Main-Memory-Organization">1.1 主存组织(Main Memory Organization)</h2>
+<h3 id="1-1-主存组织-Main-Memory-Organization">1.1 主存组织(Main Memory Organization)</h3>
 <p>主存是存储程序和数据的，并将其传输给 CPU 执行的区域。它是由多个<strong>存储单元(Cells/Locations)<strong>组成，每个单元拥有唯一的</strong>地址(Address</strong>)，程序通过地址精准访问数据。</p>
 <p>每个存储单元的结构分为两个部分：</p>
 <ol>
@@ -625,14 +625,14 @@ I/O Devices
 <li>经过一个<strong>存储周期(Memory Cycle)</strong> 后，内存将对应数据放入<strong>MBR</strong>。</li>
 <li>CPU从 MBR 中取出数据进行处理。</li>
 </ol>
-<h3 id="1-1-1-内存体-Memory-Bank">1.1.1 内存体(Memory Bank)</h3>
+<h4 id="1-1-1-内存体-Memory-Bank">1.1.1 内存体(Memory Bank)</h4>
 <p>单内存模块的访问速度远低于CPU时钟速度，形成了经典的内存墙问题。</p>
 <p>内存体技术将主存划分为<strong>多个独立可并行访问的存储模块（Bank）</strong>，每个 Bank 拥有独立的地址译码、读写电路，可同时响应 CPU/I/O 的访存请求，从而大幅提升内存带宽与系统整体效率。</p>
-<h4 id="1-1-1-1-高位交织-High-Order-Interleave">1.1.1.1 高位交织(High Order Interleave)</h4>
+<h5 id="1-1-1-1-高位交织-High-Order-Interleave">1.1.1.1 高位交织(High Order Interleave)</h5>
 <p>将连续的大块地址被分配到同一个Bank，相当于把内存分成多个独立的分区。  例如：Bank1存储地址
-    <span id="mjx-f7a572b8">
+    <span id="mjx-5a66ee58">
       <style>
-      #mjx-f7a572b8{
+      #mjx-5a66ee58{
         display:contents;
         mjx-assistive-mml {
           user-select: text !important;
@@ -791,9 +791,9 @@ g[data-mml-node="xypic"] path {
       <mjx-container class="MathJax" jax="SVG" style="position: relative;"><svg style="vertical-align: -0.186ex;" xmlns="http://www.w3.org/2000/svg" width="10.057ex" height="1.731ex" role="img" focusable="false" viewbox="0 -683 4445 765" aria-hidden="true"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mn"><path data-c="30" d="M96 585Q152 666 249 666Q297 666 345 640T423 548Q460 465 460 320Q460 165 417 83Q397 41 362 16T301 -15T250 -22Q224 -22 198 -16T137 16T82 83Q39 165 39 320Q39 494 96 585ZM321 597Q291 629 250 629Q208 629 178 597Q153 571 145 525T137 333Q137 175 145 125T181 46Q209 16 250 16Q290 16 318 46Q347 76 354 130T362 333Q362 478 354 524T321 597Z"/></g><g data-mml-node="mo" transform="translate(777.8,0)"><path data-c="223C" d="M55 166Q55 241 101 304T222 367Q260 367 296 349T362 304T421 252T484 208T554 189Q616 189 655 236T694 338Q694 350 698 358T708 367Q722 367 722 334Q722 260 677 197T562 134H554Q517 134 481 152T414 196T355 248T292 293T223 311Q179 311 145 286Q109 257 96 218T80 156T69 133Q55 133 55 166Z"/></g><g data-mml-node="mi" transform="translate(1833.6,0)"><path data-c="1D43E" d="M285 628Q285 635 228 637Q205 637 198 638T191 647Q191 649 193 661Q199 681 203 682Q205 683 214 683H219Q260 681 355 681Q389 681 418 681T463 682T483 682Q500 682 500 674Q500 669 497 660Q496 658 496 654T495 648T493 644T490 641T486 639T479 638T470 637T456 637Q416 636 405 634T387 623L306 305Q307 305 490 449T678 597Q692 611 692 620Q692 635 667 637Q651 637 651 648Q651 650 654 662T659 677Q662 682 676 682Q680 682 711 681T791 680Q814 680 839 681T869 682Q889 682 889 672Q889 650 881 642Q878 637 862 637Q787 632 726 586Q710 576 656 534T556 455L509 418L518 396Q527 374 546 329T581 244Q656 67 661 61Q663 59 666 57Q680 47 717 46H738Q744 38 744 37T741 19Q737 6 731 0H720Q680 3 625 3Q503 3 488 0H478Q472 6 472 9T474 27Q478 40 480 43T491 46H494Q544 46 544 71Q544 75 517 141T485 216L427 354L359 301L291 248L268 155Q245 63 245 58Q245 51 253 49T303 46H334Q340 37 340 35Q340 19 333 5Q328 0 317 0Q314 0 280 1T180 2Q118 2 85 2T49 1Q31 1 31 11Q31 13 34 25Q38 41 42 43T65 46Q92 46 125 49Q139 52 144 61Q147 65 216 339T285 628Z"/></g><g data-mml-node="mo" transform="translate(2944.8,0)"><path data-c="2212" d="M84 237T84 250T98 270H679Q694 262 694 250T679 230H98Q84 237 84 250Z"/></g><g data-mml-node="mn" transform="translate(3945,0)"><path data-c="31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z"/></g></g></g></svg><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mn>0</mn><mo>∼</mo><mi>K</mi><mo>−</mo><mn>1</mn></math></mjx-assistive-mml></mjx-container>
     </span>
   ，Bank2存储
-    <span id="mjx-6caf1e28">
+    <span id="mjx-7d92e038">
       <style>
-      #mjx-6caf1e28{
+      #mjx-7d92e038{
         display:contents;
         mjx-assistive-mml {
           user-select: text !important;
@@ -957,7 +957,7 @@ g[data-mml-node="xypic"] path {
 <blockquote>
 <p>通俗来讲，我们可以把高位交织看成是把仓库分成多个独立大货架，每个货架放一类货物(指令或数据)，不同工人(CPU和I/O)可同时去不同货架取货。</p>
 </blockquote>
-<h4 id="1-1-1-2-低位交织-Low-Order-Interleave）">1.1.1.2 低位交织(Low Order Interleave）</h4>
+<h5 id="1-1-1-2-低位交织-Low-Order-Interleave）">1.1.1.2 低位交织(Low Order Interleave）</h5>
 <p>与高位交织不同，其地址分配逻辑是连续的地址被交替分配到不同Bank，形成流水线式访存结构。  例如：10个Bank时，Bank1存储<code>0,10,20,30...</code>，Bank2存储<code>1,11,21,31...</code>。</p>
 <p>同样的，地址还是分为两个字段，格式为：<code>&lt;addr&gt;&lt;bank&gt;</code>，但变成<strong>低位用于选择Bank，高位用于Bank内寻址</strong>。这样可以实现连续访存流水线化，让内存有效访问速度匹配CPU时钟。CPU可在等待Bank1访存完成的同时，依次访问Bank2、Bank3…，等轮完所有Bank回到Bank1时，前一次访存已完成，可立即发起下一次访问，最终将内存访问速度提升至接近CPU速度。</p>
 <img src="/2026/04/14/vlsi-systems-2/图3.png" style="zoom: 80%;">
@@ -971,9 +971,9 @@ g[data-mml-node="xypic"] path {
 <li>
 <p><strong>计算CPU周期</strong></p>
 <p>CPU周期 = 
-    <span id="mjx-d0a07338">
+    <span id="mjx-443c41d8">
       <style>
-      #mjx-d0a07338{
+      #mjx-443c41d8{
         display:contents;
         mjx-assistive-mml {
           user-select: text !important;
@@ -1136,9 +1136,9 @@ g[data-mml-node="xypic"] path {
 <li>
 <p><strong>计算Bank数</strong></p>
 <p>采用低位交织，Bank数 = $\frac { 内存周期 }  { CPU周期 } $= 
-    <span id="mjx-3fc144b8">
+    <span id="mjx-e38cf4d8">
       <style>
-      #mjx-3fc144b8{
+      #mjx-e38cf4d8{
         display:contents;
         mjx-assistive-mml {
           user-select: text !important;
@@ -1303,7 +1303,7 @@ g[data-mml-node="xypic"] path {
 <p>低位交织中，第1个Bank的地址为<code>0, 10, 20, 30...</code>（步长为Bank数10）</p>
 </li>
 </ol>
-<h3 id="1-1-2-内存管理单元-Memory-Management-Unit-MMU">1.1.2 内存管理单元(Memory Management Unit, MMU)</h3>
+<h4 id="1-1-2-内存管理单元-Memory-Management-Unit-MMU">1.1.2 内存管理单元(Memory Management Unit, MMU)</h4>
 <p>MMU是操作系统的核心组件，负责监管所有存储设备之间的信息流动。其的要求是在满足系统性能要求的前提下，<strong>最小化每比特存储的成本（cost per bit of storage）</strong>。</p>
 <p>通过 <strong>分层存储结构(Hierarchical Memory)</strong> 实现，由多级不同速度、不同成本的存储器组成金字塔结构，越靠近 CPU 的层级速度越快、容量越小、成本越高；越远离 CPU 的层级速度越慢、容量越大、成本越低。主要功能如下：</p>
 <ul>
@@ -1311,7 +1311,7 @@ g[data-mml-node="xypic"] path {
 <li>提供高效的层级间数据传输机制</li>
 <li>平衡所有计算机组件的速度与成本，实现整体性能最优</li>
 </ul>
-<h3 id="1-1-3-存储层次结构-Memory-Hierarchy">1.1.3 存储层次结构(Memory Hierarchy)</h3>
+<h4 id="1-1-3-存储层次结构-Memory-Hierarchy">1.1.3 存储层次结构(Memory Hierarchy)</h4>
 <p>存储层次遵循<strong>局部性原理(Locality Principle)</strong>，CPU 访问的数据具有时间局部性（近期会重复访问）和空间局部性（近期会访问相邻数据），因此将常用数据放在高速上层，不常用数据放在低速下层，兼顾速度与容量。</p>
 <img src="/2026/04/14/vlsi-systems-2/图4.png" style="zoom: 67%;">
 <table>
@@ -1964,8 +1964,7 @@ g[data-mml-node="xypic"] path {
             contentSelector: '#articleContent',
             headingsOffset: -($(window).height() * 0.4 - 45),
             collapseDepth: Number('0'),
-            // 👇 这行是核心修改：强制提取 h1-h6 所有标题，一级标题# 就能显示了
-            headingSelector: 'h1, h2, h3, h4, h5, h6' 
+            headingSelector: 'h2, h3, h4'
         });
 
         // Set scroll toc fixed.

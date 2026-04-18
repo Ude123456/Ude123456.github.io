@@ -44,44 +44,44 @@ body {
 }
 
 h1 {
+    margin: 38px 0 27px -6px;
+    font-size: 2.4rem;
+    font-weight: bold;
+    line-height: 2.4rem;
+}
+
+h2 {
     margin: 32px 0 23px -5px;
     font-size: 2.2rem;
     font-weight: bold;
     line-height: 2.2rem;
 }
 
-h2 {
+h3 {
     margin: 26px 0 19px -5px;
     font-size: 2.0rem;
     font-weight: bold;
     line-height: 2.0rem;
 }
 
-h3 {
+h4 {
     margin: 22px 0 16px -4px;
     font-size: 1.8rem;
     font-weight: bold;
     line-height: 1.9rem;
 }
 
-h4 {
+h5 {
     margin: 16px 0 13px -4px;
     font-size: 1.65rem;
     font-weight: bold;
     line-height: 1.65rem;
 }
 
-h5 {
+h6 {
     margin: 12px 0 9px -4px;
     font-size: 1.4rem;
-    font-weight: bold;
     line-height: 1.4rem;
-}
-
-h6 {
-    margin: 8px 0 5px -4px;
-    font-size: 1.3rem;
-    line-height: 1.3rem;
 }
 
 p {

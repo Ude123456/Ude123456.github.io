@@ -692,9 +692,9 @@ r &gt; p2\<br>
 <h3 id="4、红黑树基本操作">4、红黑树基本操作</h3>
 <blockquote>
 <p>
-    <span id="mjx-1f7c3968">
+    <span id="mjx-76bd82d">
       <style>
-      #mjx-1f7c3968{
+      #mjx-76bd82d{
         display:contents;
         mjx-assistive-mml {
           user-select: text !important;
@@ -1428,6 +1428,10 @@ map的实现，底层一般会采用红黑树，在节点多的时候效率高�
                         <span class="chip bg-color">五子棋AI</span>
                     </a>
                     
+                    <a href="/tags/%E5%8D%9A%E5%BC%88%E6%A0%91/">
+                        <span class="chip bg-color">博弈树</span>
+                    </a>
+                    
                     <a href="/tags/%E7%AE%97%E6%B3%95/">
                         <span class="chip bg-color">算法</span>
                     </a>
@@ -1438,10 +1442,6 @@ map的实现，底层一般会采用红黑树，在节点多的时候效率高�
                     
                     <a href="/tags/%CE%B1%CE%B2%E5%89%AA%E6%9E%9D%E7%AE%97%E6%B3%95/">
                         <span class="chip bg-color">αβ剪枝算法</span>
-                    </a>
-                    
-                    <a href="/tags/%E5%8D%9A%E5%BC%88%E6%A0%91/">
-                        <span class="chip bg-color">博弈树</span>
                     </a>
                     
                 </div>
@@ -1543,8 +1543,7 @@ map的实现，底层一般会采用红黑树，在节点多的时候效率高�
             contentSelector: '#articleContent',
             headingsOffset: -($(window).height() * 0.4 - 45),
             collapseDepth: Number('0'),
-            // 👇 这行是核心修改：强制提取 h1-h6 所有标题，一级标题# 就能显示了
-            headingSelector: 'h1, h2, h3, h4, h5, h6' 
+            headingSelector: 'h2, h3, h4'
         });
 
         // Set scroll toc fixed.

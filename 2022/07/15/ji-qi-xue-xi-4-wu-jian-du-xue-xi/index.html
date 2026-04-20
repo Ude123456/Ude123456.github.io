@@ -643,9 +643,9 @@
 <li>
 <p>高维向量:<br>
 　　－A={
-    <span id="mjx-8b176">
+    <span id="mjx-52e24e2">
       <style>
-      #mjx-8b176{
+      #mjx-52e24e2{
         display:contents;
         mjx-assistive-mml {
           user-select: text !important;
@@ -805,9 +805,9 @@ g[data-mml-node="xypic"] path {
     </span>
   }<br>
 　　　　　　　　　　　　　　　　－B={
-    <span id="mjx-0c684a1">
+    <span id="mjx-fd5f5e9">
       <style>
-      #mjx-0c684a1{
+      #mjx-fd5f5e9{
         display:contents;
         mjx-assistive-mml {
           user-select: text !important;
@@ -967,9 +967,9 @@ g[data-mml-node="xypic"] path {
     </span>
   }<br>
 　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　
-    <span id="mjx-30ca2f2">
+    <span id="mjx-4d2b2e88">
       <style>
-      #mjx-30ca2f2{
+      #mjx-4d2b2e88{
         display:contents;
         mjx-assistive-mml {
           user-select: text !important;
@@ -1132,9 +1132,9 @@ g[data-mml-node="xypic"] path {
 <li>
 <p>每个数据分配给距离最近的类<br>
 　　－
-    <span id="mjx-be4aec98">
+    <span id="mjx-7c52112">
       <style>
-      #mjx-be4aec98{
+      #mjx-7c52112{
         display:contents;
         mjx-assistive-mml {
           user-select: text !important;
@@ -1294,9 +1294,9 @@ g[data-mml-node="xypic"] path {
     </span>
   <br>
 　　　　　　　　　　　　　　　　－其中，
-    <span id="mjx-f64ed608">
+    <span id="mjx-88659a2">
       <style>
-      #mjx-f64ed608{
+      #mjx-88659a2{
         display:contents;
         mjx-assistive-mml {
           user-select: text !important;
@@ -2099,15 +2099,19 @@ g[data-mml-node="xypic"] path {
 
 
     </div>
-    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+    
+    <!-- 目录侧边栏 -->
+    <div id="toc-aside" class="col l3 hide-on-med-and-down">
         <div class="toc-widget card" style="background-color: white;">
-            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div class="toc-title">
+                <i class="far fa-list-alt"></i>&nbsp;&nbsp;目录
+            </div>
             <div id="toc-content"></div>
         </div>
     </div>
 </div>
 
-<!-- TOC 悬浮按钮. -->
+<!-- TOC 悬浮按钮 -->
 
 <div id="floating-toc-btn" class="hide-on-med-and-down">
     <a class="btn-floating btn-large bg-color">
@@ -2116,9 +2120,11 @@ g[data-mml-node="xypic"] path {
 </div>
 
 
+<!-- 脚本部分 -->
 <script src="/libs/tocbot/tocbot.min.js"></script>
 <script>
     $(function () {
+        // 1. 初始化 Tocbot
         tocbot.init({
             tocSelector: '#toc-content',
             contentSelector: '#articleContent',
@@ -2127,45 +2133,47 @@ g[data-mml-node="xypic"] path {
             headingSelector: 'h2, h3, h4'
         });
 
-        // Set scroll toc fixed.
-        let tocHeight = parseInt($(window).height() * 0.4 - 64);
-        let $tocWidget = $('.toc-widget');
-        $(window).scroll(function () {
-            let scroll = $(window).scrollTop();
-            /* add post toc fixed. */
-            if (scroll > tocHeight) {
+        // 2. 缓存元素
+        const $window = $(window);
+        const $tocWidget = $('.toc-widget');
+        
+        // 3. 【核心逻辑】计算滚动阈值
+        // 当滚动超过封面图高度时，添加 fixed 类
+        function getScrollTrigger() {
+            return parseInt($window.height() * 0.4 - 64);
+        }
+
+        // 4. 【极简滚动监听】
+        // 什么都别干，就加/删类，宽度全靠上面的 CSS 锁死
+        $window.on('scroll', function () {
+            const st = $(this).scrollTop();
+            if (st > getScrollTrigger()) {
                 $tocWidget.addClass('toc-fixed');
             } else {
                 $tocWidget.removeClass('toc-fixed');
             }
         });
 
+        // 5. 保留悬浮按钮功能（如果开启）
         
-        /* 修复文章卡片 div 的宽度. */
-        let fixPostCardWidth = function (srcId, targetId) {
-            let srcDiv = $('#' + srcId);
-            if (srcDiv.length === 0) {
-                return;
-            }
-
-            let w = srcDiv.width();
-            if (w >= 450) {
-                w = w + 21;
-            } else if (w >= 350 && w < 450) {
-                w = w + 18;
-            } else if (w >= 300 && w < 350) {
-                w = w + 16;
-            } else {
-                w = w + 14;
-            }
-            $('#' + targetId).width(w);
-        };
-
-        // 切换TOC目录展开收缩的相关操作.
+        const $tocAside = $('#toc-aside');
+        const $mainContent = $('#main-content');
+        const $floatingBtn = $('#floating-toc-btn .btn-floating');
         const expandedClass = 'expanded';
-        let $tocAside = $('#toc-aside');
-        let $mainContent = $('#main-content');
-        $('#floating-toc-btn .btn-floating').click(function () {
+
+        // 这是一个辅助函数，尽量不动它
+        function fixPostCardWidth(srcId, targetId) {
+            const srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) return;
+            let w = srcDiv.width();
+            if (w >= 450) w += 21;
+            else if (w >= 350) w += 18;
+            else if (w >= 300) w += 16;
+            else w += 14;
+            $('#' + targetId).width(w);
+        }
+
+        $floatingBtn.click(function () {
             if ($tocAside.hasClass(expandedClass)) {
                 $tocAside.removeClass(expandedClass).hide();
                 $mainContent.removeClass('l9');

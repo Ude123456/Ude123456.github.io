@@ -2322,3 +2322,127 @@ body.DarkMode .theme-btn:hover {
 }
 
 
+
+
+
+/* ========== 目录终极修复 - 强制高度适配内容，无任何空白 ========== */
+/* 1. 先把父容器彻底从Flex拉伸中解放出来 */
+#toc-aside {
+    /* 强制父容器高度由子元素决定，绝不被文章列拉伸 */
+    height: fit-content !important;
+    min-height: 0 !important;
+    align-self: flex-start !important;
+    margin-top: 10px !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    padding: 0 15px !important;
+    background: transparent !important;
+}
+
+/* 2. 初始状态目录卡片：彻底锁死高度，绝不被拉伸 */
+.toc-widget {
+    /* 核心：强制高度由内容决定，覆盖.card类的所有默认样式 */
+    display: block !important;
+    height: fit-content !important;
+    min-height: 0 !important;
+    max-height: calc(100vh - 200px) !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+
+    padding: 0 !important;
+    margin: 0 !important;
+    transition: none !important;
+    width: 100% !important;
+    background: #fff !important;
+    border-radius: 10px !important;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05) !important;
+    transform: translateX(35px) !important;
+}
+
+/* 3. 滚动后固定状态：和初始状态完全一致的高度逻辑 */
+.toc-fixed {
+    position: fixed !important;
+    top: 80px !important;
+    right: calc((100% - 1250px) / 2) !important;
+    width: 25% !important;
+    max-width: 312.5px !important;
+
+    /* 和初始状态完全一致的高度锁死 */
+    display: block !important;
+    height: fit-content !important;
+    min-height: 0 !important;
+    max-height: calc(100vh - 200px) !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+
+    z-index: 99 !important;
+    padding: 0 15px !important;
+    margin: 0 !important;
+    background: #fff !important;
+    border-radius: 10px !important;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05) !important;
+    transform: translateX(35px) !important;
+}
+
+/* 4. 目录标题：清除可能撑高的内边距 */
+.toc-widget .toc-title {
+    padding: 12px 18px 10px 18px !important;
+    margin: 0 !important;
+    font-size: 1.1rem;
+    font-weight: bold;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+/* 5. 目录内容容器：彻底清除所有底部留白 */
+#toc-content {
+    padding: 10px 15px 0 15px !important;
+    margin: 0 !important;
+    height: fit-content !important;
+    min-height: 0 !important;
+}
+
+/* 6. 目录列表：清除所有内外边距，最后一项无任何间距 */
+#toc-content ol,
+#toc-content ul {
+    margin: 0 !important;
+    padding: 0 !important;
+    padding-left: 1.2em !important;
+    height: fit-content !important;
+    min-height: 0 !important;
+}
+#toc-content li {
+    margin: 0 0 5px 0 !important;
+    padding: 0 !important;
+}
+#toc-content li:last-child {
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
+}
+
+/* 7. 滚动条优化 */
+.toc-widget::-webkit-scrollbar,
+.toc-fixed::-webkit-scrollbar {
+    width: 5px;
+}
+.toc-widget::-webkit-scrollbar-thumb,
+.toc-fixed::-webkit-scrollbar-thumb {
+    background: #e0e0e0;
+    border-radius: 3px;
+}
+.toc-widget::-webkit-scrollbar-track,
+.toc-fixed::-webkit-scrollbar-track {
+    background: #fafafa;
+    border-radius: 3px;
+}
+
+/* 小屏幕适配 */
+@media only screen and (max-width: 992px) {
+    #toc-aside {
+        display: none !important;
+    }
+}
+@media only screen and (min-width: 1400px) {
+    .toc-fixed {
+        right: calc((100% - 1250px) / 2) !important;
+    }
+}

@@ -1240,6 +1240,10 @@ AI.h
                         <span class="chip bg-color">五子棋AI</span>
                     </a>
                     
+                    <a href="/tags/%E5%8D%9A%E5%BC%88%E6%A0%91/">
+                        <span class="chip bg-color">博弈树</span>
+                    </a>
+                    
                     <a href="/tags/%E7%AE%97%E6%B3%95/">
                         <span class="chip bg-color">算法</span>
                     </a>
@@ -1250,10 +1254,6 @@ AI.h
                     
                     <a href="/tags/%CE%B1%CE%B2%E5%89%AA%E6%9E%9D%E7%AE%97%E6%B3%95/">
                         <span class="chip bg-color">αβ剪枝算法</span>
-                    </a>
-                    
-                    <a href="/tags/%E5%8D%9A%E5%BC%88%E6%A0%91/">
-                        <span class="chip bg-color">博弈树</span>
                     </a>
                     
                 </div>
@@ -1383,19 +1383,15 @@ AI.h
 
 
     </div>
-    
-    <!-- 目录侧边栏 -->
-    <div id="toc-aside" class="col l3 hide-on-med-and-down">
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
         <div class="toc-widget card" style="background-color: white;">
-            <div class="toc-title">
-                <i class="far fa-list-alt"></i>&nbsp;&nbsp;目录
-            </div>
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
             <div id="toc-content"></div>
         </div>
     </div>
 </div>
 
-<!-- TOC 悬浮按钮 -->
+<!-- TOC 悬浮按钮. -->
 
 <div id="floating-toc-btn" class="hide-on-med-and-down">
     <a class="btn-floating btn-large bg-color">
@@ -1404,11 +1400,10 @@ AI.h
 </div>
 
 
-<!-- 脚本部分 -->
 <script src="/libs/tocbot/tocbot.min.js"></script>
 <script>
     $(function () {
-        // 1. 初始化 Tocbot
+        // 1. 初始化tocbot目录生成
         tocbot.init({
             tocSelector: '#toc-content',
             contentSelector: '#articleContent',
@@ -1417,35 +1412,31 @@ AI.h
             headingSelector: 'h2, h3, h4'
         });
 
-        // 2. 缓存元素
+        // 2. 缓存DOM元素
         const $window = $(window);
         const $tocWidget = $('.toc-widget');
-        
-        // 3. 【核心逻辑】计算滚动阈值
-        // 当滚动超过封面图高度时，添加 fixed 类
-        function getScrollTrigger() {
-            return parseInt($window.height() * 0.4 - 64);
-        }
-
-        // 4. 【极简滚动监听】
-        // 什么都别干，就加/删类，宽度全靠上面的 CSS 锁死
-        $window.on('scroll', function () {
-            const st = $(this).scrollTop();
-            if (st > getScrollTrigger()) {
-                $tocWidget.addClass('toc-fixed');
-            } else {
-                $tocWidget.removeClass('toc-fixed');
-            }
-        });
-
-        // 5. 保留悬浮按钮功能（如果开启）
-        
         const $tocAside = $('#toc-aside');
         const $mainContent = $('#main-content');
         const $floatingBtn = $('#floating-toc-btn .btn-floating');
-        const expandedClass = 'expanded';
 
-        // 这是一个辅助函数，尽量不动它
+        // 3. 核心配置：必须和上面CSS里的top值保持一致！
+        // 如果你在CSS里改了10px，这里也要改
+        const CSS_TOP_OFFSET = 10; 
+        
+        // 计算触发fixed的滚动阈值
+        function getTriggerOffset() {
+            return parseInt($window.height() * 0.4 - 64);
+        }
+
+        // 4. 页面滚动监听：极简逻辑，只切class，宽度全由CSS控制
+        $window.scroll(function () {
+            const scrollTop = $window.scrollTop();
+            const triggerTop = getTriggerOffset();
+            $tocWidget.toggleClass('toc-fixed', scrollTop > triggerTop);
+        });
+
+        // 5. 目录展开/收缩切换逻辑 (保留原有功能)
+        
         function fixPostCardWidth(srcId, targetId) {
             const srcDiv = $('#' + srcId);
             if (srcDiv.length === 0) return;
@@ -1457,6 +1448,7 @@ AI.h
             $('#' + targetId).width(w);
         }
 
+        const expandedClass = 'expanded';
         $floatingBtn.click(function () {
             if ($tocAside.hasClass(expandedClass)) {
                 $tocAside.removeClass(expandedClass).hide();
@@ -1547,7 +1539,7 @@ AI.h
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">785.5k</span>
+                        class="white-color">807.5k</span>
             
             
             

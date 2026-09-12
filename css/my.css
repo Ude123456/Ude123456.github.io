@@ -1,0 +1,17 @@
+/* Hexo Matery 主题 正文强制黑色（精准匹配主题class） */
+.article-content,
+.article-content p,
+.article-content h1,
+.article-content h2,
+.article-content h3,
+.article-content h4,
+.article-content li,
+.article-content div,
+.article-content span {
+    color: #000 !important;
+}
+
+/* 文章标题也改成黑色（可选，需要就留着） */
+.article-title {
+    color: #000 !important;
+}
